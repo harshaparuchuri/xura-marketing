@@ -30,7 +30,7 @@ function xfallback(el){el.onerror=null;el.src=XURA_FALLBACK;}
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-body{font-family:var(--font-sans);color:var(--text);background:var(--forest-night);line-height:1.5;overflow-x:hidden}
+body{font-family:var(--font-sans);color:var(--text);background:var(--forest-night);line-height:1.5;overflow-x:hidden;overflow-y:scroll}
 a{color:inherit;text-decoration:none}
 img,svg{display:block}
 ::selection{background:var(--lime);color:var(--ink)}
@@ -305,8 +305,8 @@ footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:0}
 /* ── intelligence section ── */
 .intel-sec{padding-bottom:0}
 .intel-stage{
-  width:100vw;
-  margin-left:calc(-50vw + 50%);
+  width:100%;
+  margin-left:0;
   background:linear-gradient(180deg,rgba(2,6,3,.0) 0%,rgba(2,6,3,.55) 100%);
   margin-top:32px;position:relative;overflow:hidden}
 .intel-term{
@@ -835,12 +835,32 @@ var SCENARIOS=[
   });
 })();
 
+/* ---- pause animations when out of viewport ---- */
+(function(){
+  var intelStage=document.querySelector('.intel-stage');
+  var intelSvg=document.querySelector('.intel-svg');
+  var kgType=document.getElementById('kgType');
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(intelSvg){
+        var anims=intelSvg.querySelectorAll('animate,animateMotion');
+        anims.forEach(function(a){e.isIntersecting?a.beginElement():a.pauseAnimation();});
+      }
+      if(kgType)kgType.style.animationPlayState=e.isIntersecting?'running':'paused';
+    });
+  },{threshold:0});
+  if(intelStage)observer.observe(intelStage);
+})();
+
 /* ---- subtle hero parallax on aurora ---- */
 (function(){
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
   var a=document.querySelector('.aurora');if(!a)return;
+  var intelStage=document.querySelector('.intel-stage');
+  var scrolling=false;
+  new IntersectionObserver(function(entries){scrolling=entries[0].isIntersecting;})(intelStage);
   window.addEventListener('scroll',function(){
-    var y=window.scrollY;a.style.transform='translateY('+(y*0.12)+'px)';
+    if(scrolling){var y=window.scrollY;a.style.transform='translateY('+(y*0.12)+'px)';}
   },{passive:true});
 })();
 
