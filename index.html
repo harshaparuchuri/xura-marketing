@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Xura: Ask. Xura does the work.</title>
+<title>Xura AI — The intelligence layer your GTM team actually uses.</title>
 <meta name="description" content="Xura turns a question or a priority into workflows it runs for you, then hands back the data and the exact actions to take. The AI native execution layer for GTM teams." />
 <link rel="icon" type="image/png" href="xura-mark.png" />
 <script>
@@ -79,16 +79,21 @@ nav{display:flex;align-items:center;justify-content:space-between;height:68px}
 .btn-ghost:hover{background:var(--card-hi);border-color:var(--text-faint)}
 .btn-lg{padding:14px 24px;font-size:15.5px;border-radius:12px}
 
-.hero{padding:88px 0 30px;text-align:center;position:relative}
-.pill{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 8px;border:1px solid var(--hair-strong);
-  border-radius:100px;background:rgba(255,255,255,.04);font-size:13px;color:var(--text-muted);margin-bottom:30px;
-  position:relative;overflow:hidden;box-shadow:0 0 30px rgba(200,241,53,.08)}
+.hero{padding:100px 0 40px;text-align:center;position:relative}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:8px 16px 8px 10px;border:1px solid rgba(255,255,255,.08);
+  border-radius:100px;background:rgba(255,255,255,.03);font-size:13px;color:var(--text-muted);margin-bottom:28px;
+  position:relative;overflow:hidden;box-shadow:0 0 24px rgba(200,241,53,.06)}
 .pill::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
   background:linear-gradient(100deg,transparent,rgba(200,241,53,.18),transparent);animation:sweep 4.5s ease-in-out infinite}
 @keyframes sweep{0%{left:-60%}55%,100%{left:140%}}
 .pill b{background:var(--lime);color:var(--ink);font-family:var(--font-mono);font-size:11px;font-weight:600;padding:3px 8px;border-radius:100px;position:relative;z-index:1}
 h1{font-size:clamp(38px,5.8vw,70px);line-height:1.06;letter-spacing:-.032em;font-weight:600;max-width:16ch;margin:0 auto;
-  background:linear-gradient(150deg,#ffffff 0%,#e8f0e2 55%,#cce0c8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  background:
+    linear-gradient(90deg,transparent 0%,rgba(255,255,255,.18) 48%,transparent 52%) no-repeat -200% 0 / 45% 100%,
+    linear-gradient(150deg,#ffffff 0%,#e8f0e2 55%,#cce0c8 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:heroGlare 5s ease-in-out infinite}
+@keyframes heroGlare{0%,100%{background-position:-200% 0,0 0}40%,60%{background-position:350% 0,0 0}}
 h1 em{font-style:normal;background:linear-gradient(135deg,#d4eda0,#b8d878);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p.lede{font-size:clamp(17px,2vw,20px);color:var(--text-muted);max-width:62ch;margin:26px auto 0;line-height:1.55}
 .hero-cta{display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap}
@@ -99,7 +104,7 @@ h1 em{font-style:normal;background:linear-gradient(135deg,#d4eda0,#b8d878);-webk
   background:rgba(182,224,46,.07);
   box-shadow:0 0 0 1px rgba(182,224,46,.22),inset 0 1px 0 rgba(255,255,255,.04);
   text-shadow:0 0 20px rgba(182,224,46,.4)}
-.no-list span::before{content:"✕";color:rgba(182,224,46,.5);font-size:9px;margin-right:8px;vertical-align:1px}
+.no-list span::before{content:"✓";color:rgba(182,224,46,.7);font-size:10px;margin-right:8px;vertical-align:0}
 
 /* waitlist inline */
 .wait{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:34px}
@@ -109,7 +114,7 @@ h1 em{font-style:normal;background:linear-gradient(135deg,#d4eda0,#b8d878);-webk
 .wait input::placeholder{color:var(--text-faint)}
 
 /* ===== product preview (agentic arc) ===== */
-.preview{margin:60px auto 0;max-width:1020px;perspective:1600px}
+.preview{margin:48px auto 0;max-width:1020px;perspective:1600px}
 .preview-card{border:1px solid var(--hair-strong);border-radius:18px;overflow:hidden;
   background:linear-gradient(180deg, rgba(12,59,46,.55), rgba(4,19,14,.7));
   box-shadow:0 40px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(200,241,53,.05);
@@ -176,7 +181,7 @@ h1 em{font-style:normal;background:linear-gradient(135deg,#d4eda0,#b8d878);-webk
 .act .run{font-family:var(--font-mono);font-size:11px;font-weight:600;padding:5px 11px;border-radius:7px;background:var(--lime);color:var(--ink);white-space:nowrap;cursor:pointer}
 .act .run.ghost{background:transparent;color:var(--lime-soft);border:1px solid rgba(200,241,53,.3)}
 
-.cloud{padding:54px 0 6px;text-align:center}
+.cloud{padding:40px 0;text-align:center}
 .cloud p{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:24px}
 .marquee{position:relative;overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
@@ -188,18 +193,28 @@ h1 em{font-style:normal;background:linear-gradient(135deg,#d4eda0,#b8d878);-webk
 .marquee-track .logo:hover{color:var(--lime)}
 @media(prefers-reduced-motion:reduce){.marquee-track{animation:none;flex-wrap:wrap;justify-content:center}}
 
-.sec{padding:108px 0}
-.sec-head{max-width:700px;margin-bottom:54px}
+.sec{padding:80px 0}
+.sec-head{max-width:700px;margin-bottom:56px}
 .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
-.sec-head h2{font-size:clamp(28px,3.8vw,44px);line-height:1.1;letter-spacing:-.028em;font-weight:600;margin-top:16px;
+.sec-head h2{font-size:clamp(32px,4vw,48px);line-height:1.15;letter-spacing:-.025em;font-weight:600;margin-top:14px;
   background:linear-gradient(150deg,#ffffff 0%,#ddecd8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sec-head p{font-size:17.5px;color:var(--text-muted);margin-top:18px;line-height:1.6}
 
 .statement{font-size:clamp(26px,3.6vw,42px);line-height:1.28;letter-spacing:-.02em;font-weight:600;max-width:22ch}
 .statement .dim{color:var(--text-faint)}.statement .hl{color:var(--lime)}
+.statement-row{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:center}
+.statement-cta{display:flex;flex-direction:column;gap:16px;
+  border-left:1px solid var(--hair);padding-left:48px}
+.statement-cta .wait{margin-top:0;justify-content:flex-start;flex-wrap:wrap}
+.statement-cta .wait input{width:100%;flex:1 1 220px}
+.statement-cta .hero-note{margin-top:0}
+@media(max-width:900px){
+  .statement-row{grid-template-columns:1fr;gap:32px}
+  .statement-cta{border-left:none;padding-left:0;border-top:1px solid var(--hair);padding-top:28px}
+}
 
 /* loop (how it works, 4 stage) */
-.loop{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--hair);border-radius:18px;overflow:hidden;background:var(--card)}
+.loop{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(255,255,255,.06);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.02)}
 .lstep{padding:30px 24px;border-right:1px solid var(--hair);position:relative}
 .lstep:last-child{border-right:none}
 .lstep .num{font-family:var(--font-mono);font-size:12px;color:var(--lime);margin-bottom:16px}
@@ -212,7 +227,7 @@ h1 em{font-style:normal;background:linear-gradient(135deg,#d4eda0,#b8d878);-webk
   background:var(--card);color:var(--text-muted);cursor:pointer;transition:all .2s}
 .dtab:hover{color:var(--text)}
 .dtab.active{background:var(--lime);color:var(--ink);border-color:var(--lime);font-weight:600}
-.dom-panel{border:1px solid var(--hair-strong);border-radius:16px;padding:28px;background:linear-gradient(180deg,var(--card-hi),var(--card))}
+.dom-panel{border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:32px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
 .dom-q{font-size:clamp(18px,2.4vw,24px);font-weight:600;letter-spacing:-.02em;display:flex;gap:12px;align-items:flex-start}
 .dom-q .qi{color:var(--lime);font-family:var(--font-mono)}
 .dom-arrow{font-family:var(--font-mono);font-size:12px;color:var(--text-faint);margin:18px 0 14px;letter-spacing:.1em}
@@ -223,8 +238,8 @@ h1 em{font-style:normal;background:linear-gradient(135deg,#d4eda0,#b8d878);-webk
 .dom-out .o li{font-size:13.5px;color:var(--text-muted);display:flex;gap:9px;line-height:1.4}
 .dom-out .o li::before{content:"▸";color:var(--mint);flex-shrink:0}
 
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.feat{border:1px solid var(--hair);border-radius:16px;padding:28px;background:var(--card);transition:transform .3s var(--ease),border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feat{border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:32px;background:rgba(255,255,255,.02);transition:transform .3s var(--ease),border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
 .feat::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;pointer-events:none;
   background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(200,241,53,.10),transparent 60%)}
 .feat:hover::before{opacity:1}
@@ -242,7 +257,7 @@ h1 em{font-style:normal;background:linear-gradient(135deg,#d4eda0,#b8d878);-webk
 .share-tx p{font-size:14.5px;color:var(--text-muted);line-height:1.6;max-width:72ch}
 
 .band{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:linear-gradient(180deg,rgba(12,59,46,.4),transparent)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;padding:62px 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:56px 0}
 .stat .big{font-size:clamp(36px,5vw,56px);font-weight:800;letter-spacing:-.04em;background:linear-gradient(120deg,var(--lime),var(--mint));-webkit-background-clip:text;background-clip:text;color:transparent}
 .stat .lbl{font-size:14px;color:var(--text-muted);margin-top:8px}
 
@@ -254,19 +269,19 @@ h1 em{font-style:normal;background:linear-gradient(135deg,#d4eda0,#b8d878);-webk
 .ent-badges{display:flex;flex-wrap:wrap;gap:12px}
 .badge{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);border:1px solid var(--hair-strong);border-radius:9px;padding:10px 14px;background:var(--card)}
 
-.cta-block{border-radius:24px;padding:72px 48px;text-align:center;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,var(--forest) 0%, var(--forest-deep) 100%);border:1px solid rgba(200,241,53,.18)}
+.cta-block{border-radius:24px;padding:80px 56px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--forest) 0%, var(--forest-deep) 100%);border:1px solid rgba(200,241,53,.15)}
 .cta-block::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 50% -20%,rgba(200,241,53,.18),transparent 70%)}
 .cta-block > *{position:relative}
 .cta-block h2{font-size:clamp(32px,4.5vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.06}
 .cta-block p{color:var(--text-muted);font-size:18px;margin:18px auto 0;max-width:50ch}
 
-footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:30px}
+footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:0}
 .foot-simple{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .foot-copy{font-family:var(--font-mono);font-size:13px;color:var(--text-faint)}
 
 /* connect strip */
-.connect-strip{border:1px solid var(--hair);border-radius:18px;background:var(--card);padding:30px 26px;display:flex;flex-direction:column;gap:22px}
+.connect-strip{border:1px solid rgba(255,255,255,.06);border-radius:18px;background:rgba(255,255,255,.02);padding:36px 28px;display:flex;flex-direction:column;gap:24px}
 .src-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .src{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:13px;color:var(--text-muted);border:1px solid var(--hair-strong);border-radius:10px;padding:10px 14px;background:var(--forest-deep);transition:all .2s}
 .src:hover{color:var(--text);border-color:var(--text-faint)}
@@ -276,7 +291,7 @@ footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:30px}
 .nocode span::before{content:"✕";color:var(--text-faint);font-size:11px}
 /* intelligence (two graphs) */
 .intel{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.gcard{border:1px solid var(--hair);border-radius:18px;background:linear-gradient(180deg,var(--card-hi),var(--card));padding:26px;overflow:hidden;position:relative;transition:border-color .3s,box-shadow .3s,transform .3s var(--ease)}
+.gcard{border:1px solid rgba(255,255,255,.06);border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));padding:28px;overflow:hidden;position:relative;transition:border-color .3s,box-shadow .3s,transform .3s var(--ease)}
 .gcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;pointer-events:none;
   background:radial-gradient(500px circle at var(--mx,50%) var(--my,0%),rgba(200,241,53,.10),transparent 55%)}
 .gcard:hover::before{opacity:1}
@@ -287,16 +302,77 @@ footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:30px}
 .gcard .gviz{border-top:1px solid var(--hair);padding-top:18px}
 .kg-node{font-family:var(--font-mono);font-size:9px;fill:var(--text-faint)}
 
+/* ── intelligence section ── */
+.intel-sec{padding-bottom:0}
+.intel-stage{
+  width:100vw;
+  margin-left:calc(-50vw + 50%);
+  background:linear-gradient(180deg,rgba(2,6,3,.0) 0%,rgba(2,6,3,.55) 100%);
+  margin-top:32px;position:relative;overflow:hidden}
+.intel-term{
+  position:absolute;top:18px;left:24px;z-index:2;
+  font-family:var(--font-mono);font-size:12px;color:rgba(182,224,46,.55);
+  display:flex;gap:7px;align-items:center;letter-spacing:.04em;pointer-events:none}
+.intel-svg{width:100%;height:auto;display:block}
+.kg-caret{color:rgba(182,224,46,.4)}
+.kg-cur{display:inline-block;width:7px;height:13px;background:rgba(182,224,46,.65);margin-left:2px;
+  vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@media(prefers-reduced-motion:reduce){.intel-svg circle[r]{animation:none!important}}
+
+/* mobile stacked intelligence */
+.intel-m{display:none}
+@media(max-width:680px){
+  .intel-svg{display:none}
+  .intel-term{position:static;padding:22px 22px 0;font-size:11px}
+  .intel-m{display:flex;flex-direction:column;align-items:center;gap:0;padding:18px 22px 40px}
+  .im-group{width:100%;max-width:360px;border:1px solid rgba(255,255,255,.08);border-radius:16px;
+    background:rgba(255,255,255,.02);padding:18px}
+  .im-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--text-faint);text-align:center;margin-bottom:14px}
+  .im-logos{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+  .im-logos img{width:34px;height:34px;border-radius:9px;padding:6px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);filter:grayscale(1);opacity:.8}
+  .im-conn{height:30px;display:flex;justify-content:center}
+  .im-conn span{width:1px;height:100%;background:linear-gradient(180deg,rgba(182,224,46,.5),rgba(182,224,46,.1))}
+  .im-core{display:grid;place-items:center;width:84px;height:84px;border-radius:20px;
+    background:linear-gradient(180deg,rgba(182,224,46,.08),rgba(255,255,255,.015));
+    border:1px solid rgba(182,224,46,.25);box-shadow:0 0 40px rgba(182,224,46,.1)}
+  .im-core img{width:46px;height:46px;border-radius:12px}
+  .im-core-cap{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;
+    color:var(--text-faint);text-align:center;margin-top:11px;white-space:nowrap}
+  .im-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+  .im-tile{aspect-ratio:1;border-radius:10px;border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.03);display:grid;place-items:center;padding:8px}
+  .imt-bars{display:flex;align-items:flex-end;gap:3px;height:60%}
+  .imt-bars i{width:5px;border-radius:2px 2px 0 0;background:rgba(255,255,255,.28)}
+  .imt-kpi{font-family:var(--font-mono);font-size:14px;font-weight:700;color:rgba(255,255,255,.45)}
+  .im-tile svg{width:100%;height:auto}
+}
+
+/* ── governance section ── */
+.gov-block{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:start;
+  border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:48px 44px;
+  background:linear-gradient(145deg,rgba(182,224,46,.015),rgba(255,255,255,.02))}
+.gov-right{display:flex;flex-direction:column;gap:0}
+.gov-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--hair);align-items:flex-start}
+.gov-item:last-child{border-bottom:none}
+.gov-dot{width:8px;height:8px;border-radius:50%;background:rgba(182,224,46,.45);flex-shrink:0;margin-top:6px;
+  box-shadow:0 0 8px rgba(182,224,46,.2)}
+.gov-tx{display:flex;flex-direction:column;gap:3px}
+.gov-tx strong{font-size:14px;font-weight:600;color:var(--text)}
+.gov-tx span{font-size:13px;color:var(--text-faint);line-height:1.5}
+@media(max-width:900px){.gov-block{grid-template-columns:1fr;gap:32px;padding:28px 22px}}
+
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 
 @media(max-width:900px){
   .nav-links{display:none}
   .res{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}
-  .feat-grid,.loop,.intel{grid-template-columns:1fr}
+  .feat-grid,.loop,.intel{grid-template-columns:1fr;gap:24px}
   .lstep{border-right:none;border-bottom:1px solid var(--hair)}
   .dom-out{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,1fr);gap:36px}
+  .stats{grid-template-columns:repeat(2,1fr);gap:32px}
   .ent-grid{grid-template-columns:1fr;gap:32px}
   .foot-grid{grid-template-columns:1fr 1fr}
   .preview-card{transform:none}.pv-stage{min-height:0}.stage{position:relative;opacity:1;display:none}.stage.on{display:block}
@@ -318,18 +394,13 @@ footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:30px}
 <!-- HERO -->
 <section class="hero"><div class="wrap">
   <span class="pill"><b>EARLY ACCESS</b> The AI native execution layer for GTM teams</span>
-  <h1>The intelligence layer your team <em>actually uses.</em></h1>
+  <h1>The intelligence layer your GTM team <em>actually uses.</em></h1>
   <p class="lede">From a simple spreadsheet to your most complex integrations, Xura connects to any data source and gives your teams live shareable dashboards, actionable insights, and workflows that execute automatically.</p>
   <div class="no-list">
-    <span>No code</span>
-    <span>No configuration</span>
+    <span>Simple prompting</span>
     <span>No waiting</span>
+    <span>24x7 support</span>
   </div>
-  <form class="wait" id="waitlistForm" novalidate>
-    <input type="email" id="waitlistEmail" placeholder="you@company.com" aria-label="Work email" required autocomplete="email" />
-    <button type="submit" class="btn btn-primary btn-lg" id="waitlistBtn">Join the waitlist →</button>
-  </form>
-  <p class="hero-note" id="waitlistNote">Private beta · rolling invites · no credit card</p>
 
   <!-- agentic product preview -->
   <div class="preview reveal" id="product"><div class="preview-card">
@@ -373,13 +444,23 @@ footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:30px}
   </div></div>
 </div></section>
 
-<!-- STATEMENT -->
-<section class="sec"><div class="wrap reveal">
-  <p class="statement"><span class="dim">Dashboards tell you what happened.</span> Xura <span class="hl">does something about it.</span> It runs the work and hands you the next move.</p>
+<!-- STATEMENT + WAITLIST -->
+<section class="sec" id="waitlist" style="scroll-margin-top:90px"><div class="wrap reveal">
+  <div class="statement-row">
+    <p class="statement"><span class="dim">Dashboards tell you what happened.</span> Xura <span class="hl">does something about it.</span> It runs the work and hands you the next move.</p>
+    <div class="statement-cta">
+      <span class="eyebrow">Get early access</span>
+      <form class="wait" id="waitlistForm" novalidate>
+        <input type="email" id="waitlistEmail" placeholder="you@company.com" aria-label="Work email" required autocomplete="email" />
+        <button type="submit" class="btn btn-primary btn-lg" id="waitlistBtn">Join the waitlist →</button>
+      </form>
+      <p class="hero-note" id="waitlistNote">Private beta · rolling invites · no credit card</p>
+    </div>
+  </div>
 </div></section>
 
 <!-- CONNECT -->
-<section class="sec" id="connect" style="padding-top:0"><div class="wrap">
+<section class="sec" id="connect"><div class="wrap">
   <div class="sec-head center reveal"><span class="eyebrow">Connect anything</span><h2>Point Xura at your data. Any data.</h2><p>A spreadsheet, a database, or your entire stack. Xura fetches it, compiles it, and works out how everything fits together. No pipelines to build. No schemas to map.</p></div>
   <div class="connect-strip reveal">
     <div class="src-grid">
@@ -399,53 +480,136 @@ footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:30px}
 </div></section>
 
 <!-- INTELLIGENCE -->
-<section class="sec" id="intel" style="padding-top:0"><div class="wrap">
-  <div class="sec-head reveal"><span class="eyebrow">The intelligence</span><h2>Two graphs that make Xura smart.</h2><p>Xura does not just store your data. It builds a living understanding of what your data means and of how your team actually works.</p></div>
-  <div class="intel">
-    <div class="gcard reveal">
-      <div class="gt">Knowledge graph</div>
-      <h3>Understands your data</h3>
-      <p>Every source is unified into one graph of entities and relationships, so Xura knows what a customer, an account, or a revenue line means across your whole business.</p>
-      <div class="gviz">
-        <svg width="100%" height="200" viewBox="0 0 380 220" preserveAspectRatio="xMidYMid meet">
-          <g stroke="rgba(200,241,53,.22)" stroke-width="1">
-            <line x1="190" y1="115" x2="70" y2="48"/><line x1="190" y1="115" x2="300" y2="48"/><line x1="190" y1="115" x2="340" y2="130"/>
-            <line x1="190" y1="115" x2="235" y2="192"/><line x1="190" y1="115" x2="90" y2="192"/><line x1="190" y1="115" x2="44" y2="130"/>
-            <line x1="70" y1="48" x2="44" y2="130"/><line x1="300" y1="48" x2="340" y2="130"/><line x1="235" y1="192" x2="90" y2="192"/>
-          </g>
-          <circle cx="190" cy="115" r="13" fill="rgba(200,241,53,.15)"/><circle cx="190" cy="115" r="5.5" fill="#C8F135"/>
-          <circle cx="70" cy="48" r="4" fill="#6FCF97"/><text class="kg-node" x="70" y="37" text-anchor="middle">Customers</text>
-          <circle cx="300" cy="48" r="4" fill="#6FCF97"/><text class="kg-node" x="300" y="37" text-anchor="middle">Orders</text>
-          <circle cx="340" cy="130" r="4" fill="#6FCF97"/><text class="kg-node" x="340" y="148" text-anchor="middle">Products</text>
-          <circle cx="235" cy="192" r="4" fill="#6FCF97"/><text class="kg-node" x="235" y="208" text-anchor="middle">Revenue</text>
-          <circle cx="90" cy="192" r="4" fill="#6FCF97"/><text class="kg-node" x="90" y="208" text-anchor="middle">Campaigns</text>
-          <circle cx="44" cy="130" r="4" fill="#6FCF97"/><text class="kg-node" x="44" y="148" text-anchor="middle">Support</text>
-        </svg>
-      </div>
+<section class="sec intel-sec" id="intel" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">The intelligence</span>
+      <h2>Connect anything. Xura does the thinking.</h2>
+      <p>Every data source and integration feeds the knowledge graph. Every dashboard, action, and decision feeds the context graph. The more your teams use Xura, the smarter it gets.</p>
     </div>
-    <div class="gcard reveal">
-      <div class="gt">Context graph</div>
-      <h3>Learns how your teams act</h3>
-      <p>Xura watches how decisions get made and acted on over time, building context that makes every answer and every recommended action sharper than the last.</p>
-      <div class="gviz">
-        <svg width="100%" height="200" viewBox="0 0 380 220" preserveAspectRatio="xMidYMid meet">
-          <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C8F135" stop-opacity=".28"/><stop offset="1" stop-color="#C8F135" stop-opacity="0"/></linearGradient></defs>
-          <path d="M30 150 L110 132 L190 138 L270 102 L350 78 L350 188 L30 188 Z" fill="url(#cg)"/>
-          <path d="M30 150 L110 132 L190 138 L270 102 L350 78" fill="none" stroke="#C8F135" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#C8F135"><circle cx="30" cy="150" r="4"/><circle cx="110" cy="132" r="4"/><circle cx="190" cy="138" r="4"/><circle cx="270" cy="102" r="4"/><circle cx="350" cy="78" r="4"/></g>
-          <path d="M350 68 C 350 22, 30 22, 30 140" fill="none" stroke="rgba(159,176,164,.45)" stroke-width="1.3" stroke-dasharray="4 5"/>
-          <text class="kg-node" x="190" y="30" text-anchor="middle" fill="#9FB0A4">learns patterns over time</text>
-          <text class="kg-node" x="30" y="206" text-anchor="middle">decision</text>
-          <text class="kg-node" x="190" y="206" text-anchor="middle">action</text>
-          <text class="kg-node" x="350" y="206" text-anchor="end">outcome →</text>
-        </svg>
+  </div>
+  <div class="intel-stage reveal">
+    <div class="intel-term">
+      <span class="kg-caret">▶</span><span id="kgType"></span><span class="kg-cur"></span>
+    </div>
+    <!-- ── MAIN SVG ── -->
+    <svg class="intel-svg" viewBox="0 0 1200 470" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <filter id="glL" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="34"/></filter>
+        <filter id="glR" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="34"/></filter>
+        <filter id="mono" color-interpolation-filters="sRGB"><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer></filter>
+        <path id="lnL" d="M450,235 L540,235" fill="none"/>
+        <path id="lnLr" d="M540,235 L450,235" fill="none"/>
+        <path id="lnR" d="M660,235 L750,235" fill="none"/>
+        <path id="lnRr" d="M750,235 L660,235" fill="none"/>
+      </defs>
+
+      <!-- framing border (Retool-style) -->
+      <rect x="24" y="24" width="1152" height="422" rx="14" fill="none" stroke="rgba(255,255,255,.06)" stroke-width=".8"/>
+
+      <!-- soft glows -->
+      <ellipse cx="260" cy="235" rx="180" ry="150" fill="rgba(182,224,46,.045)" filter="url(#glL)"/>
+      <ellipse cx="940" cy="235" rx="180" ry="150" fill="rgba(95,184,138,.045)" filter="url(#glR)"/>
+
+      <!-- LEFT STADIUM -->
+      <rect x="70" y="110" width="380" height="250" rx="125" fill="rgba(182,224,46,.01)" stroke="rgba(255,255,255,.1)" stroke-width=".7"/>
+      <rect x="70" y="110" width="380" height="250" rx="125" fill="none" stroke="rgba(255,255,255,.05)" stroke-width=".6"><animate attributeName="stroke-opacity" values=".04;.12;.04" dur="4s" repeatCount="indefinite"/></rect>
+
+      <circle cx="218" cy="155" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/salesforce.png" x="203" y="140" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="260" cy="155" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/hubspot.png" x="245" y="140" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="302" cy="155" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/stripe.png" x="287" y="140" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="176" cy="195" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/snowflake.png" x="161" y="180" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="218" cy="195" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/postgresql.png" x="203" y="180" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="260" cy="195" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/zendesk.png" x="245" y="180" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="302" cy="195" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/slack.png" x="287" y="180" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="344" cy="195" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/mongodb.png" x="329" y="180" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="155" cy="235" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/airtable.png" x="140" y="220" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="197" cy="235" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/notion.png" x="182" y="220" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="239" cy="235" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/microsoft.png" x="224" y="220" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="281" cy="235" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/mixpanel.png" x="266" y="220" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="323" cy="235" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/amplitude.png" x="308" y="220" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="365" cy="235" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/databricks.png" x="350" y="220" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="176" cy="275" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/github.png" x="161" y="260" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="218" cy="275" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/atlassian.png" x="203" y="260" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="260" cy="275" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/zapier.png" x="245" y="260" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="302" cy="275" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/segment.png" x="287" y="260" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="344" cy="275" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/looker.png" x="329" y="260" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="218" cy="315" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/workday.png" x="203" y="300" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="260" cy="315" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/okta.png" x="245" y="300" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+      <circle cx="302" cy="315" r="15" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width=".5"/><image href="logos/intercom.png" x="287" y="300" width="30" height="30" style="clip-path:circle(15px at 15px 15px)" filter="url(#mono)"/>
+
+      <!-- single connector line: left → diamond -->
+      <line x1="450" y1="235" x2="540" y2="235" stroke="rgba(255,255,255,.13)" stroke-width=".8"/>
+      <!-- single connector line: diamond → right -->
+      <line x1="660" y1="235" x2="750" y2="235" stroke="rgba(255,255,255,.13)" stroke-width=".8"/>
+
+      <!-- DIAMOND + XURA -->
+      <polygon points="600,175 660,235 600,295 540,235" fill="rgba(3,8,5,.92)" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>
+      <circle cx="600" cy="235" r="24" fill="rgba(182,224,46,.05)" stroke="rgba(182,224,46,.22)" stroke-width=".7">
+        <animate attributeName="r" values="22;30;22" dur="3.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;.25;1" dur="3.2s" repeatCount="indefinite"/>
+      </circle>
+      <image href="xura-mark.png" x="576" y="211" width="48" height="48" preserveAspectRatio="xMidYMid meet"/>
+
+      <!-- particles -->
+      <circle r="2.1" fill="#B6E02E" opacity=".85"><animateMotion dur="1.7s" repeatCount="indefinite" begin="0s"><mpath href="#lnL"/></animateMotion></circle>
+      <circle r="2.1" fill="#B6E02E" opacity=".4"><animateMotion dur="1.7s" repeatCount="indefinite" begin=".85s"><mpath href="#lnL"/></animateMotion></circle>
+      <circle r="1.5" fill="#B6E02E" opacity=".18"><animateMotion dur="2.6s" repeatCount="indefinite" begin=".4s"><mpath href="#lnLr"/></animateMotion></circle>
+      <circle r="2.1" fill="#5FB88A" opacity=".85"><animateMotion dur="1.7s" repeatCount="indefinite" begin=".3s"><mpath href="#lnR"/></animateMotion></circle>
+      <circle r="2.1" fill="#5FB88A" opacity=".4"><animateMotion dur="1.7s" repeatCount="indefinite" begin="1.15s"><mpath href="#lnR"/></animateMotion></circle>
+      <circle r="1.5" fill="#5FB88A" opacity=".18"><animateMotion dur="2.6s" repeatCount="indefinite" begin=".7s"><mpath href="#lnRr"/></animateMotion></circle>
+
+      <!-- RIGHT STADIUM -->
+      <rect x="750" y="110" width="380" height="250" rx="125" fill="rgba(95,184,138,.01)" stroke="rgba(255,255,255,.1)" stroke-width=".7"/>
+      <rect x="750" y="110" width="380" height="250" rx="125" fill="none" stroke="rgba(255,255,255,.05)" stroke-width=".6"><animate attributeName="stroke-opacity" values=".04;.12;.04" dur="4s" repeatCount="indefinite" begin="2s"/></rect>
+
+      <g transform="translate(881,137)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><polyline points="6,30 14,21 24,25 34,13 48,17" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g transform="translate(945,137)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><rect x="7" y="25" width="5" height="10" rx="1" fill="rgba(255,255,255,.16)"/><rect x="15" y="18" width="5" height="17" rx="1" fill="rgba(255,255,255,.16)"/><rect x="23" y="22" width="5" height="13" rx="1" fill="rgba(255,255,255,.16)"/><rect x="31" y="13" width="5" height="22" rx="1" fill="rgba(255,255,255,.16)"/><rect x="39" y="16" width="5" height="19" rx="1" fill="rgba(255,255,255,.16)"/></g>
+      <g transform="translate(849,189)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><circle cx="27" cy="20" r="11" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="5"/><circle cx="27" cy="20" r="11" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="5" stroke-dasharray="34 35" stroke-dashoffset="-6" stroke-linecap="round"/></g>
+      <g transform="translate(913,189)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><rect x="6" y="7" width="20" height="3" rx="1.5" fill="rgba(255,255,255,.14)"/><rect x="6" y="15" width="42" height="2.5" rx="1" fill="rgba(255,255,255,.08)"/><rect x="6" y="22" width="34" height="2.5" rx="1" fill="rgba(255,255,255,.08)"/><rect x="6" y="29" width="38" height="2.5" rx="1" fill="rgba(255,255,255,.08)"/></g>
+      <g transform="translate(977,189)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><rect x="6" y="8" width="18" height="3" rx="1.5" fill="rgba(255,255,255,.13)"/><text x="6" y="32" font-family="monospace" font-size="14" font-weight="700" fill="rgba(255,255,255,.4)">87%</text></g>
+      <g transform="translate(849,241)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><rect x="7" y="25" width="5" height="10" rx="1" fill="rgba(255,255,255,.16)"/><rect x="15" y="18" width="5" height="17" rx="1" fill="rgba(255,255,255,.16)"/><rect x="23" y="22" width="5" height="13" rx="1" fill="rgba(255,255,255,.16)"/><rect x="31" y="13" width="5" height="22" rx="1" fill="rgba(255,255,255,.16)"/><rect x="39" y="16" width="5" height="19" rx="1" fill="rgba(255,255,255,.16)"/></g>
+      <g transform="translate(913,241)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><path d="M6,33 L14,23 L24,27 L34,14 L48,18 L48,35 L6,35 Z" fill="rgba(255,255,255,.06)"/><path d="M6,33 L14,23 L24,27 L34,14 L48,18" fill="none" stroke="rgba(255,255,255,.26)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/></g>
+      <g transform="translate(977,241)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><rect x="6" y="8" width="18" height="3" rx="1.5" fill="rgba(255,255,255,.13)"/><text x="6" y="32" font-family="monospace" font-size="14" font-weight="700" fill="rgba(255,255,255,.4)">$2M</text></g>
+      <g transform="translate(881,293)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><circle cx="27" cy="20" r="11" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="5"/><circle cx="27" cy="20" r="11" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="5" stroke-dasharray="34 35" stroke-dashoffset="-6" stroke-linecap="round"/></g>
+      <g transform="translate(945,293)"><rect width="54" height="40" rx="4" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.12)" stroke-width=".6"/><polyline points="6,30 14,21 24,25 34,13 48,17" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></g>
+
+      <!-- labels -->
+      <text x="260" y="398" text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(255,255,255,.22)" letter-spacing="2.5">DATA SOURCES</text>
+      <text x="600" y="398" text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(182,224,46,.42)" letter-spacing="2.5">XURA</text>
+      <text x="940" y="398" text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(255,255,255,.22)" letter-spacing="2.5">DASHBOARDS &amp; ACTIONS</text>
+
+    </svg>
+
+    <!-- mobile-friendly stacked version -->
+    <div class="intel-m">
+      <div class="im-group">
+        <div class="im-label">Data sources</div>
+        <div class="im-logos">
+          <img src="logos/salesforce.png" alt="" /><img src="logos/hubspot.png" alt="" /><img src="logos/snowflake.png" alt="" /><img src="logos/slack.png" alt="" /><img src="logos/postgresql.png" alt="" /><img src="logos/notion.png" alt="" /><img src="logos/github.png" alt="" /><img src="logos/stripe.png" alt="" /><img src="logos/zendesk.png" alt="" /><img src="logos/segment.png" alt="" />
+        </div>
+      </div>
+      <div class="im-conn"><span></span></div>
+      <div class="im-core">
+        <img src="xura-mark.png" onerror="xfallback(this)" alt="Xura" />
+      </div>
+      <div class="im-core-cap">connects · reasons · acts</div>
+      <div class="im-conn"><span></span></div>
+      <div class="im-group">
+        <div class="im-label">Dashboards &amp; actions</div>
+        <div class="im-tiles">
+          <div class="im-tile"><span class="imt-bars"><i style="height:40%"></i><i style="height:75%"></i><i style="height:55%"></i><i style="height:90%"></i></span></div>
+          <div class="im-tile"><span class="imt-kpi">87%</span></div>
+          <div class="im-tile"><span class="imt-kpi">$2M</span></div>
+          <div class="im-tile"><svg viewBox="0 0 48 28" fill="none"><polyline points="3,22 13,13 24,17 34,7 45,11" stroke="rgba(255,255,255,.32)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
       </div>
     </div>
   </div>
-</div></section>
+</section>
 
 <!-- LOOP / HOW -->
-<section class="sec" id="how" style="padding-top:0"><div class="wrap">
+<section class="sec" id="how"><div class="wrap">
   <div class="sec-head center reveal"><span class="eyebrow">How it works</span><h2>From a question to done, in one loop.</h2></div>
   <div class="loop reveal">
     <div class="lstep"><div class="num">01 / CONNECT</div><h3>Point it at your data</h3><p>From a single spreadsheet to your entire stack. Xura fetches and compiles everything into one knowledge graph.</p></div>
@@ -456,7 +620,7 @@ footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:30px}
 </div></section>
 
 <!-- DOMAINS -->
-<section class="sec" id="domains" style="padding-top:0"><div class="wrap">
+<section class="sec" id="domains"><div class="wrap">
   <div class="sec-head reveal"><span class="eyebrow">For every team</span><h2>The same loop, fluent in your domain.</h2><p>Whatever you onboard, whether sales, marketing, product, finance, ops, or people, Xura speaks it natively.</p></div>
   <div class="reveal">
     <div class="dom-tabs" id="domTabs"></div>
@@ -472,10 +636,10 @@ footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:30px}
 </div></section>
 
 <!-- FEATURES -->
-<section class="sec" id="product" style="padding-top:0"><div class="wrap">
+<section class="sec" id="product"><div class="wrap">
   <div class="sec-head reveal"><span class="eyebrow">What's inside</span><h2>An agent, a workspace, and the right view, every time.</h2></div>
   <div class="feat-grid">
-    <div class="feat reveal"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M21 3l-9 9"/><circle cx="12" cy="12" r="1"/></svg></div><h3>Ask Leo</h3><p>A conversational agent that holds the thread. Ask, follow up, or redirect and it re-runs the workflow live with no code at any step.</p><span class="tag">// reasons over your data</span></div>
+    <div class="feat reveal"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M21 3l-9 9"/><circle cx="12" cy="12" r="1"/></svg></div><h3>Ask Xura AI</h3><p>A conversational agent that holds the thread. Ask, follow up, or redirect and it re-runs the workflow live with no code at any step.</p><span class="tag">// reasons over your data</span></div>
     <div class="feat reveal"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10"/><path d="M4 12h16"/><path d="M4 18h7"/><circle cx="18" cy="6" r="2"/><circle cx="14" cy="18" r="2"/></svg></div><h3>Workflows that run</h3><p>Xura defines the steps and executes them: pulling, joining, analysing, and acting across your tools without a developer touching it.</p><span class="tag">// define · run · monitor</span></div>
     <div class="feat reveal"><div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div><h3>An action queue</h3><p>Every answer ends in a ranked to-do list. Approve to run, or let Xura execute automatically on your behalf.</p><span class="tag">// the next move, decided</span></div>
   </div>
@@ -515,8 +679,26 @@ footer{border-top:1px solid var(--hair);padding:32px 0;margin-top:30px}
   </div>
 </div></div></section>
 
+<!-- DATA GOVERNANCE -->
+<section class="sec" id="governance"><div class="wrap">
+  <div class="gov-block reveal">
+    <div class="gov-left">
+      <span class="eyebrow">Your data layer</span>
+      <h2 style="font-size:clamp(26px,3.6vw,40px);font-weight:600;letter-spacing:-.028em;line-height:1.1;margin:16px 0 18px;background:linear-gradient(150deg,#ffffff 0%,#ddecd8 100%);-webkit-background-clip:text;background-clip:text;color:transparent">Your data never leaves your infrastructure. Xura only stores what it learns.</h2>
+      <p class="muted" style="font-size:15.5px;line-height:1.65;max-width:48ch">Xura runs queries directly on your databases and integrations. The raw data stays exactly where it is. What Xura retains is purely structural: the relationships it discovers (the knowledge graph) and the patterns it observes in how your teams work (the context graph). No customer records. No PII. No shadow copies. Just intelligence that makes every answer better than the last.</p>
+    </div>
+    <div class="gov-right">
+      <div class="gov-item"><div class="gov-dot"></div><div class="gov-tx"><strong>Queries run at source</strong><span>Xura connects, asks, and disconnects. Your warehouse handles the compute.</span></div></div>
+      <div class="gov-item"><div class="gov-dot"></div><div class="gov-tx"><strong>Zero raw data stored</strong><span>No tables, no rows, no exports. Only graph structures and learned patterns persist.</span></div></div>
+      <div class="gov-item"><div class="gov-dot"></div><div class="gov-tx"><strong>Context, not content</strong><span>The context graph remembers that your team reviews churn weekly, not what the churn numbers are.</span></div></div>
+      <div class="gov-item"><div class="gov-dot"></div><div class="gov-tx"><strong>Revocable at any time</strong><span>Disconnect a source and its graph nodes disappear. No residual data, no cleanup needed.</span></div></div>
+      <div class="gov-item"><div class="gov-dot"></div><div class="gov-tx"><strong>Your models stay yours</strong><span>Nothing you connect is ever used to train a model. Your data improves your Xura, nobody else's.</span></div></div>
+    </div>
+  </div>
+</div></section>
+
 <!-- CTA -->
-<section class="sec" style="padding-top:0"><div class="wrap reveal">
+<section class="sec"><div class="wrap reveal">
   <div class="cta-block">
     <img src="xura-mark.png" onerror="xfallback(this)" class="logo-img" width="56" height="56" alt="Xura" style="margin:0 auto 24px;border-radius:13px" />
     <h2>Stop running the work.<br/>Start directing it.</h2>
@@ -691,6 +873,21 @@ document.addEventListener('DOMContentLoaded', function() {
   var hf = document.getElementById('waitlistForm');
   if (hf) hf.addEventListener('submit', function(e) { handleWaitlist(e, hf); });
 });
+
+/* ---- knowledge graph terminal typewriter ---- */
+(function(){
+  var el=document.getElementById('kgType'); if(!el)return;
+  var cmds=['CONNECTING DATA SOURCES','BUILDING KNOWLEDGE GRAPH','MAPPING ENTITY RELATIONSHIPS','LEARNING TEAM PATTERNS','CONTEXT GRAPH READY'];
+  var ci=0,ch=0,del=false;
+  function tick(){
+    var cmd=cmds[ci];
+    el.textContent=cmd.slice(0,ch);
+    if(!del){ch++;if(ch>cmd.length){del=true;return setTimeout(tick,2000)}}
+    else{ch--;if(ch<0){del=false;ch=0;ci=(ci+1)%cmds.length;return setTimeout(tick,350)}}
+    setTimeout(tick,del?22:52);
+  }
+  tick();
+})();
 
 /* ---- 3D tilt on the hero product preview ---- */
 (function(){
