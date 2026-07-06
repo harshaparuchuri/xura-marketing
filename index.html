@@ -655,7 +655,9 @@ footer{border-top:none;padding:32px 0;margin-top:0}
         <animate attributeName="r" values="22;30;22" dur="3.2s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="1;.25;1" dur="3.2s" repeatCount="indefinite"/>
       </circle>
-      <image href="xura-mark.png" x="576" y="211" width="48" height="48" preserveAspectRatio="xMidYMid meet"/>
+      <defs><clipPath id="orbClip"><circle cx="600" cy="235" r="20"/></clipPath></defs>
+      <circle cx="600" cy="235" r="20" fill="#0C3B2E"/>
+      <image href="xura-mark.png" x="580" y="215" width="40" height="40" preserveAspectRatio="xMidYMid meet" clip-path="url(#orbClip)"/>
 
       <!-- particles -->
       <circle r="2.1" fill="#B6E02E" opacity=".85"><animateMotion dur="1.7s" repeatCount="indefinite" begin="0s"><mpath href="#lnL"/></animateMotion></circle>
