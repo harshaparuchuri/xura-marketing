@@ -1,0 +1,15 @@
+Pexels License (free, commercial use, no attribution required):
+hero-scientist-microscope.jpg  https://www.pexels.com/photo/5726794/
+lab-analyst.jpg                https://www.pexels.com/photo/4033148/
+qc-vials.jpg                   https://www.pexels.com/photo/3735747/
+research.jpg                   https://www.pexels.com/photo/3825527/
+
+-- Sector pages (Pexels license, free commercial use, no attribution required) --
+saas-hero.jpg        https://www.pexels.com/photo/3184292/
+saas-band.jpg        https://www.pexels.com/photo/3184465/
+fintech-hero.jpg     https://www.pexels.com/photo/7567434/
+fintech-band.jpg     https://www.pexels.com/photo/6801648/
+healthcare-hero.jpg  https://www.pexels.com/photo/7108344/
+healthcare-band.jpg  https://www.pexels.com/photo/4173239/
+mfg-hero.jpg         https://www.pexels.com/photo/3862627/
+mfg-band.jpg         https://www.pexels.com/photo/4481259/
