@@ -418,7 +418,7 @@ footer{border-top:none;padding:32px 0;margin-top:0}
   <div class="nav-links">
     <a href="#how">Product</a><a href="#industries">Industries</a><a href="#compare">Why Xura</a><a href="https://blog.xuralabs.com" target="_blank">Blog</a>
   </div>
-  <div class="nav-cta"><a href="https://app.xuralabs.com" class="btn btn-ghost">Sign in</a><a href="#join" class="btn btn-primary">Join waitlist</a></div>
+  <div class="nav-cta"><a href="https://app.xuralabs.com" class="btn btn-ghost">Sign in</a><button class="btn btn-primary" onclick="openTrialModal()">Start Free Trial</button></div>
 </nav></div></header>
 
 <!-- HERO -->
@@ -840,11 +840,11 @@ footer{border-top:none;padding:32px 0;margin-top:0}
       </span>
     </span>
     <h2>Stop running the work.<br/>Start directing it.</h2>
-    <p>Join the waitlist and be first to put Xura to work on your team's priorities.</p>
-    <form class="wait" style="margin-top:32px" onsubmit="handleWaitlist(event,this)">
-      <input type="email" placeholder="you@company.com" aria-label="Work email" required autocomplete="email"/>
-      <button type="submit" class="btn btn-primary btn-lg">Join the waitlist →</button>
-    </form>
+    <p>Start your free trial and put Xura to work on your team's priorities today.</p>
+    <div style="margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:12px">
+      <button class="btn btn-primary btn-lg" onclick="openTrialModal()">Start Free Trial →</button>
+      <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--text-faint)">No credit card required</span>
+    </div>
   </div>
 </div></section>
 
@@ -857,7 +857,7 @@ footer{border-top:none;padding:32px 0;margin-top:0}
     </div>
     <div class="foot-col"><h5>Product</h5><a href="#intel">Intelligence</a><a href="#how">How it works</a><a href="#product">Features</a><a href="#enterprise">Enterprise</a></div>
     <div class="foot-col"><h5>Industries</h5><a href="industries/pharma.html">Pharma</a><a href="industries/saas.html">SaaS</a><a href="industries/fintech.html">Fintech</a><a href="industries/healthcare.html">Healthcare</a><a href="industries/manufacturing.html">Manufacturing</a></div>
-    <div class="foot-col"><h5>Company</h5><a href="mailto:hello@xuralabs.com">Contact</a><a href="#join">Join waitlist</a></div>
+    <div class="foot-col"><h5>Company</h5><a href="mailto:hello@xuralabs.com">Contact</a><a href="#" onclick="openTrialModal();return false;">Free Trial</a></div>
   </div>
   <div class="foot-bottom">
     <span class="foot-copy">© 2026 XuraLabs, Inc.</span>
@@ -984,34 +984,103 @@ var SCENARIOS=[
   },{passive:true});
 })();
 
-/* ---- waitlist form submission ---- */
+/* ---- free trial form submission ---- */
 var SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx8KkFR3QUmLwg7MSKvn-AjJ97PwD1QlurNdiIvyT4QtXop9Cb7Xn0nboaYMm7i58WC/exec';
-function handleWaitlist(e, form) {
-  e.preventDefault();
-  var input = form.querySelector('input[type=email]');
-  var email = (input && input.value.trim()) || '';
-  if (!email || email.indexOf('@') < 1) {
-    if (input) { input.style.borderColor='rgba(255,80,80,.5)'; input.focus(); }
-    return;
-  }
-  var ts = new Date().toISOString();
-  /* Show success immediately — we can't read the no-cors response anyway */
-  form.innerHTML = '<p style="font-family:var(--font-mono);font-size:13px;color:var(--lime);padding:14px 0">You\'re on the list. We\'ll be in touch.</p>';
-  if (form.id === 'waitlistForm') {
-    var note = document.getElementById('waitlistNote');
-    if (note) note.style.opacity = '0';
-  }
-  /* GET pixel ping — zero CORS issues, works with doGet in Apps Script */
-  var img = new Image();
-  img.src = SHEETS_URL + '?email=' + encodeURIComponent(email) + '&source=landing&ts=' + encodeURIComponent(ts);
-  /* POST belt-and-suspenders — no Content-Type header so body reaches doPost */
-  try {
-    fetch(SHEETS_URL, { method:'POST', mode:'no-cors', body: JSON.stringify({email:email,source:'landing',ts:ts}) });
-  } catch(_){}
+
+var CONSUMER_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com'];
+
+function openTrialModal() {
+  document.getElementById('trialModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
+function closeTrialModal() {
+  document.getElementById('trialModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function tfSetError(id, msg) {
+  var el = document.getElementById('err-' + id);
+  var inp = document.querySelector('[name=' + id + ']');
+  if (el) el.textContent = msg;
+  if (inp) inp.classList.toggle('tf-invalid', !!msg);
+  return !!msg;
+}
+
+function tfValidateField(name, value) {
+  if (name === 'firstName' || name === 'lastName') {
+    if (!value) return 'Required';
+  }
+  if (name === 'email') {
+    if (!value) return 'Required';
+    if (value.indexOf('@') < 1 || value.lastIndexOf('.') < value.indexOf('@') + 2) return 'Enter a valid email';
+    var domain = value.split('@')[1].toLowerCase();
+    if (CONSUMER_DOMAINS.indexOf(domain) > -1) return 'Please use your business email';
+  }
+  if (name === 'jobTitle' || name === 'company') {
+    if (!value) return 'Required';
+  }
+  if (name === 'teamSize') {
+    if (!value) return 'Please select a team size';
+  }
+  return '';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  var hf = document.getElementById('waitlistForm');
-  if (hf) hf.addEventListener('submit', function(e) { handleWaitlist(e, hf); });
+  var modal = document.getElementById('trialModal');
+  modal.addEventListener('click', function(e) { if (e.target === modal) closeTrialModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeTrialModal(); });
+
+  var form = document.getElementById('trialForm');
+  var validated = ['firstName','lastName','email','jobTitle','company','teamSize'];
+
+  /* blur validation */
+  validated.forEach(function(name) {
+    var el = form.querySelector('[name=' + name + ']');
+    if (!el) return;
+    el.addEventListener('blur', function() {
+      tfSetError(name, tfValidateField(name, this.value.trim()));
+    });
+    el.addEventListener('input', function() {
+      if (this.classList.contains('tf-invalid')) {
+        tfSetError(name, tfValidateField(name, this.value.trim()));
+      }
+    });
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var f = this;
+    var hasError = false;
+    validated.forEach(function(name) {
+      var el = f.querySelector('[name=' + name + ']');
+      var msg = tfValidateField(name, el ? el.value.trim() : '');
+      if (tfSetError(name, msg)) hasError = true;
+    });
+    if (hasError) {
+      var first = f.querySelector('.tf-invalid');
+      if (first) first.focus();
+      return;
+    }
+
+    var data = {
+      firstName: f.querySelector('[name=firstName]').value.trim(),
+      lastName:  f.querySelector('[name=lastName]').value.trim(),
+      email:     f.querySelector('[name=email]').value.trim(),
+      jobTitle:  f.querySelector('[name=jobTitle]').value.trim(),
+      company:   f.querySelector('[name=company]').value.trim(),
+      teamSize:  f.querySelector('[name=teamSize]').value,
+      useCase:   f.querySelector('[name=useCase]').value.trim(),
+      dataStack: f.querySelector('[name=dataStack]').value.trim(),
+      source:    'trial-modal',
+      ts:        new Date().toISOString()
+    };
+
+    var params = Object.keys(data).map(function(k){ return k+'='+encodeURIComponent(data[k]); }).join('&');
+    new Image().src = SHEETS_URL + '?' + params;
+    try { fetch(SHEETS_URL, { method:'POST', mode:'no-cors', body: JSON.stringify(data) }); } catch(_){}
+
+    f.innerHTML = '<div style="text-align:center;padding:48px 0 40px"><p style="font-size:32px;margin-bottom:12px">🎉</p><p style="font-family:var(--font-mono);font-size:16px;color:var(--lime);margin-bottom:8px;font-weight:600">You\'re In!</p><p style="color:var(--text-faint);font-size:14px;margin-bottom:28px;line-height:1.5">We\'ll reach out within 1 business day.<br/>Ready to get started now?</p><a href="https://app.xuralabs.com/" class="btn btn-primary btn-lg" style="display:inline-flex;justify-content:center;text-decoration:none">Setup Now →</a></div>';
+  });
 });
 
 /* ---- knowledge graph terminal typewriter ---- */
@@ -1091,5 +1160,78 @@ document.addEventListener('DOMContentLoaded', function() {
   },3500);
 })();
 </script>
+
+<!-- FREE TRIAL MODAL -->
+<div id="trialModal" class="trial-overlay" role="dialog" aria-modal="true" aria-labelledby="trialModalTitle">
+  <div class="trial-sheet">
+    <button class="trial-close" onclick="closeTrialModal()" aria-label="Close">×</button>
+    <h2 id="trialModalTitle" class="trial-heading">Start your free trial</h2>
+    <p class="trial-sub">Tell us a bit about yourself and we'll get you set up within 1 business day.</p>
+    <form id="trialForm" class="trial-form" novalidate>
+      <div class="tf-row">
+        <div class="tf-field">
+          <input type="text" name="firstName" placeholder="First name *" autocomplete="given-name"/>
+          <span class="tf-err" id="err-firstName"></span>
+        </div>
+        <div class="tf-field">
+          <input type="text" name="lastName" placeholder="Last name *" autocomplete="family-name"/>
+          <span class="tf-err" id="err-lastName"></span>
+        </div>
+      </div>
+      <div class="tf-field">
+        <input type="email" name="email" placeholder="Business email *" autocomplete="email"/>
+        <span class="tf-err" id="err-email"></span>
+      </div>
+      <div class="tf-field">
+        <input type="text" name="jobTitle" placeholder="Job title *" autocomplete="organization-title"/>
+        <span class="tf-err" id="err-jobTitle"></span>
+      </div>
+      <div class="tf-field">
+        <input type="text" name="company" placeholder="Company name *" autocomplete="organization"/>
+        <span class="tf-err" id="err-company"></span>
+      </div>
+      <div class="tf-field">
+        <select name="teamSize" id="trialTeamSize">
+          <option value="" disabled selected>Team size *</option>
+          <option value="1-10">1–10</option>
+          <option value="11-50">11–50</option>
+          <option value="51-200">51–200</option>
+          <option value="201+">201+</option>
+        </select>
+        <span class="tf-err" id="err-teamSize"></span>
+      </div>
+      <div class="tf-field">
+        <input type="text" name="useCase" placeholder="Primary use case (e.g. Pipeline intelligence, Account research)"/>
+      </div>
+      <div class="tf-field">
+        <input type="text" name="dataStack" placeholder="Current data stack (e.g. Salesforce, HubSpot, Snowflake)"/>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%;margin-top:8px;display:flex;justify-content:center">Get started →</button>
+      <p style="text-align:center;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--text-faint);margin-top:10px">No credit card required</p>
+    </form>
+  </div>
+</div>
+
+<style>
+.trial-overlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.trial-overlay.open{opacity:1;pointer-events:all}
+.trial-sheet{background:#0d1a10;border:1px solid rgba(200,241,53,.18);border-radius:20px;padding:44px 40px 40px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.6)}
+.trial-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--text-faint);font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px;transition:color .15s}
+.trial-close:hover{color:var(--text)}
+.trial-heading{font-size:clamp(22px,3vw,28px);font-weight:700;color:var(--text);margin-bottom:8px}
+.trial-sub{font-size:14px;color:var(--text-faint);margin-bottom:28px;line-height:1.5}
+.trial-form{display:flex;flex-direction:column;gap:12px}
+.tf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tf-field{display:flex;flex-direction:column}
+.tf-field input,.tf-field select{font-family:var(--font-sans);font-size:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--text);border-radius:10px;padding:12px 14px;outline:none;transition:border-color .2s;width:100%}
+.tf-field input::placeholder{color:var(--text-faint)}
+.tf-field select{color:var(--text-faint);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.tf-field select option{background:#0d1a10;color:var(--text)}
+.tf-field select.has-value{color:var(--text)}
+.tf-field input:focus,.tf-field select:focus{border-color:var(--lime)}
+.tf-field input.tf-invalid,.tf-field select.tf-invalid{border-color:rgba(255,80,80,.6)!important}
+.tf-err{font-family:var(--font-mono);font-size:11px;color:rgba(255,100,100,.9);letter-spacing:.04em;min-height:16px;margin-top:4px;display:block}
+@media(max-width:480px){.tf-row{grid-template-columns:1fr}.trial-sheet{padding:32px 22px 28px}}
+</style>
 </body>
 </html>
