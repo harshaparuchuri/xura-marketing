@@ -1,0 +1,267 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   TIER 1 — PRIMITIVES  (`--raw-*`)
+   Raw literal values. The only tier allowed to contain a hex/px/ms literal.
+   Never referenced in markup, never bound into @theme. Rename freely.
+   Grammar: --raw-<category>-<name>[-<shade>]
+   See obsidian/frontend/design-system.md → "Token naming convention".
+   --------------------------------------------------------------------------- */
+:root {
+  --raw-color-white: #ffffff;
+  --raw-color-ink-950: #101112;
+  --raw-color-ink-700: #3d4043;
+  --raw-color-ink-500: #6b6f73;
+  --raw-color-ink-300: #a7abaf;
+
+  /* Hairlines and quiet fills */
+  --raw-color-line-200: #e6e6e3;
+  --raw-color-line-100: #f1f1ee;
+
+  /* Accent — the chartreuse-yellow used for the KPI tile, chart peak,
+     forecast badge and the footer band. */
+  --raw-color-yellow-400: #f2f213;
+  --raw-color-yellow-500: #e2e200;
+
+  --raw-color-green-950: #00281b;
+
+  /* Duotone blues used to treat photography */
+  --raw-color-blue-600: #2f6be8;
+  --raw-color-blue-400: #6ea3f2;
+  --raw-color-blue-200: #b9d3f7;
+  --raw-color-blue-50: #eff4fc;
+
+  /* Warm neutrals — hero fade and the "Built for clarity" texture band */
+  --raw-color-sand-200: #ece5d6;
+  --raw-color-sand-100: #f5efe3;
+
+  /* Cool band behind the closing CTA */
+  --raw-color-mist-100: #eeeef3;
+
+  --raw-duration-fast: 150ms;
+  --raw-duration-normal: 250ms;
+}
+
+/* ---------------------------------------------------------------------------
+   TIER 2 — SEMANTIC  (role names, no namespace prefix)
+   Purpose, not appearance. Always `var(--raw-*)` — never a literal.
+   This is the themeable layer: dark mode overrides happen HERE, which is why
+   these are separate from the @theme bindings below (see the note there).
+   Grammar: --<role>[-<variant>][-<state>]
+   --------------------------------------------------------------------------- */
+:root {
+  --background: var(--raw-color-white);
+  --foreground: var(--raw-color-ink-950);
+  --muted: var(--raw-color-ink-500);
+  --subtle: var(--raw-color-ink-300);
+  --line: var(--raw-color-line-200);
+  --line-soft: var(--raw-color-line-100);
+
+  --accent: var(--raw-color-yellow-400);
+  --accent-strong: var(--raw-color-yellow-500);
+
+  --brand-ink: var(--raw-color-green-950);
+
+  --duo: var(--raw-color-blue-600);
+  --duo-mid: var(--raw-color-blue-400);
+  --duo-soft: var(--raw-color-blue-200);
+  --duo-wash: var(--raw-color-blue-50);
+
+  --band-sand: var(--raw-color-sand-200);
+  --band-sand-soft: var(--raw-color-sand-100);
+  --band-mist: var(--raw-color-mist-100);
+
+  /* Typeface roles. The `--font-*` vars are injected on <html> by next/font.
+     Raw CSS must reference THESE aliases — the @theme bindings below are
+     inlined into utilities and are not emitted as custom properties. */
+  --font-body: var(--font-figtree);
+  --font-display: var(--font-serif-display);
+
+  --duration-fast: var(--raw-duration-fast);
+  --duration-normal: var(--raw-duration-normal);
+}
+
+/* ---------------------------------------------------------------------------
+   THEME BINDINGS — map semantic tokens into Tailwind namespaces.
+   Every entry is exactly `--<tw-namespace>-<role>: var(--<role>)`.
+   `inline` is required: it inlines the var() into each utility, so the
+   dark-mode overrides on the Tier 2 tokens above cascade. Binding a literal
+   here instead would freeze the value and break theming.
+
+   Only these namespaces generate utilities (verified against tailwindcss
+   v4.3.3): --color-* --spacing-* --radius-* --leading-* --tracking-* --text-*
+   --font-* --ease-* --breakpoint-* --container-* --shadow-* --blur-* --animate-*
+   NOTE: there is NO --duration-* namespace in v4 — `duration-fast` compiles to
+   nothing. Durations stay Tier 2 only and are used as duration-[var(--duration-fast)].
+   --------------------------------------------------------------------------- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+
+  --color-brand-ink: var(--brand-ink);
+
+  --color-duo: var(--duo);
+  --color-duo-mid: var(--duo-mid);
+  --color-duo-soft: var(--duo-soft);
+  --color-duo-wash: var(--duo-wash);
+
+  --color-band-sand: var(--band-sand);
+  --color-band-sand-soft: var(--band-sand-soft);
+  --color-band-mist: var(--band-mist);
+
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
+
+  /* Leading floor for clipped TextEngine reveals — see
+     obsidian/frontend/text-engine.md → "Alignment & line-height". */
+  --leading-display: 1.1;
+
+  --ease-entrance: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* The starter centres a single placeholder in the viewport; a marketing page
+   needs normal document flow. */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  /* Adaptive scaling grid — scales the root font-size with the viewport so a
+     rem-based layout stays proportional. Each breakpoint divides FONT_BASE
+     (16px) by the design base width its range was laid out at:
+       font-size: 16 * 100 / baseWidth  (vw)
+     Above 1920px the AdaptiveGrid component takes over (scale-up).
+     Keep in sync with src/components/common/grid/grid.config.ts. */
+  html {
+    font-size: 16px;
+  }
+
+  @media (max-width: 1920px) {
+    html {
+      font-size: 0.833333vw; /* 16 * 100 / 1920 */
+    }
+  }
+
+  @media (max-width: 1440px) {
+    html {
+      font-size: 1.111111vw; /* 16 * 100 / 1440 */
+    }
+  }
+
+  @media (max-width: 1024px) {
+    html {
+      font-size: 1.5625vw; /* 16 * 100 / 1024 */
+    }
+  }
+
+  @media (max-width: 640px) {
+    html {
+      font-size: 4.444444vw; /* 16 * 100 / 360 */
+    }
+  }
+}
+
+@layer utilities {
+  /* Page gutter — the reference keeps a generous, consistent margin. */
+  .shell {
+    width: 100%;
+    max-width: 75rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 64rem) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* High-contrast serif display. Used for the hero and the serif half of the
+     mixed-typeface headings. */
+  .display-serif {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 4.6vw, 4rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  /* Grotesque display — the sans half of the mixed headings, and section
+     heads like "Everything you need to measure…". */
+  .display-sans {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  /* Tiny uppercase meta — "001", category labels, footer legal. */
+  .meta {
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+
+  /* Crumpled-material texture used on the sand band and the yellow footer.
+     Static SVG turbulence — no keyframes, so the spring-only motion rule is
+     untouched. */
+  .texture::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.03' numOctaves='4' seed='7'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23t)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size: 22rem 22rem;
+  }
+}
+
+@layer components {
+  /* Small black pill button — the reference's only button style. */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: var(--foreground);
+    color: var(--background);
+    padding: 0.625rem 1.125rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition:
+      background-color var(--duration-fast) cubic-bezier(0.2, 0, 0, 1),
+      color var(--duration-fast) cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  .pill:hover {
+    background: var(--raw-color-ink-700);
+  }
+
+  .pill-ghost {
+    background: transparent;
+    color: var(--foreground);
+    border: 1px solid var(--foreground);
+  }
+
+  .pill-ghost:hover {
+    background: var(--foreground);
+    color: var(--background);
+  }
+}

@@ -1,0 +1,274 @@
+/* AI Orb — Xura's animated visual identity, ported from the Xura app's mobile
+   shell. Pure CSS, no canvas. Emotions via .m-emo-* classes; activity via
+   .m-orb--* modifiers; size via --orb-size on .m-orb. */
+
+@keyframes m-orb-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3.5%); }
+}
+@keyframes m-orb-blink {
+  0%, 91%, 100% { height: 0; }
+  95% { height: 122%; }
+}
+@keyframes m-orb-scan {
+  0%, 100% { transform: translateX(-24%); }
+  50% { transform: translateX(24%); }
+}
+@keyframes m-orb-halo-pulse {
+  0%, 100% { opacity: 0.42; transform: scale(1); }
+  50% { opacity: 0.72; transform: scale(1.06); }
+}
+@keyframes m-orb-active-flash {
+  0% { filter: brightness(1); }
+  25% { filter: brightness(1.6); }
+  100% { filter: brightness(1); }
+}
+@keyframes m-orb-ring-out {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+@keyframes m-orb-spin {
+  0%, 64% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+@keyframes m-orb-face-shift {
+  0%, 64% { translate: 0 0 calc(var(--orb-size, 40px) * 0.2); }
+  73% { translate: 13% 0 calc(var(--orb-size, 40px) * 0.2); }
+  82% { translate: 0 0 calc(var(--orb-size, 40px) * 0.2); }
+  91% { translate: -13% 0 calc(var(--orb-size, 40px) * 0.2); }
+  100% { translate: 0 0 calc(var(--orb-size, 40px) * 0.2); }
+}
+@keyframes m-orb-sheen-shift {
+  0%, 64% { translate: 0 0 calc(var(--orb-size, 40px) * 0.2); opacity: 1; }
+  73% { translate: 13% 0 calc(var(--orb-size, 40px) * 0.2); opacity: 0; }
+  91% { translate: -13% 0 calc(var(--orb-size, 40px) * 0.2); opacity: 0; }
+  100% { translate: 0 0 calc(var(--orb-size, 40px) * 0.2); opacity: 1; }
+}
+@keyframes m-orb-body-turn {
+  0%, 64% { filter: brightness(1) saturate(1); }
+  82% { filter: brightness(0.68) saturate(0.7); }
+  100% { filter: brightness(1) saturate(1); }
+}
+
+.m-orb {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--orb-size, 40px);
+  height: var(--orb-size, 40px);
+  flex-shrink: 0;
+  animation: m-orb-float 4.5s ease-in-out infinite;
+  perspective: 340px;
+}
+.m-emo-excited { animation-duration: 2.4s; }
+
+.m-orb__signal {
+  display: none;
+  position: absolute;
+  top: -17%;
+  left: 50%;
+  width: 46%;
+  height: 20%;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 16' fill='none'%3E%3Cpath d='M3 13 Q20 1 37 13' stroke='%2334d399' stroke-width='4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;
+  filter: drop-shadow(0 0 4px rgba(52,211,153,0.55));
+  backface-visibility: hidden;
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s;
+  pointer-events: none;
+}
+.m-orb--arc .m-orb__signal { display: block; }
+
+.m-orb__halo {
+  position: absolute;
+  inset: -9%;
+  border-radius: 36%;
+  background: rgba(52,211,153,0.5);
+  filter: blur(8px);
+  opacity: 0.5;
+  animation: m-orb-halo-pulse 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.m-orb__body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 32%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11%;
+  background:
+    radial-gradient(55% 42% at 30% 16%, rgba(255,255,255,0.22), transparent 62%),
+    radial-gradient(45% 42% at 80% 84%, rgba(52,211,153,0.36), transparent 66%),
+    radial-gradient(120% 110% at 50% 8%, #1a2e25 0%, #0e1b15 46%, #060d0a 100%);
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,0.16),
+    inset 0 -7px 15px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(52,211,153,0.12),
+    0 10px 22px rgba(0,0,0,0.45);
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1),
+              border-radius 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+.m-emo-happy .m-orb__body     { border-radius: 60% 30% 60% 30% / 40% 60% 40% 60%; }
+.m-emo-curious .m-orb__body   { border-radius: 20% 46% 46% 46%; }
+.m-emo-excited .m-orb__body   { border-radius: 55% 25% 55% 25%; }
+.m-emo-surprised .m-orb__body { border-radius: 25% 55% 25% 55%; }
+.m-emo-focused .m-orb__body   { border-radius: 30% 50% 30% 50%; }
+.m-emo-wink .m-orb__body      { border-radius: 46% 46% 46% 20%; }
+.m-emo-alert .m-orb__body     { border-radius: 20% 50% 20% 50%; }
+.m-emo-chill .m-orb__body     { border-radius: 46% 46% 20% 46%; }
+.m-emo-eureka .m-orb__body    { border-radius: 46% 46% 20% 46%; }
+
+.m-orb--spin .m-orb__body {
+  animation: m-orb-spin 4.2s ease-in-out infinite, m-orb-body-turn 4.2s ease-in-out infinite;
+}
+
+.m-orb__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11%;
+  transform-style: preserve-3d;
+  z-index: 2;
+  pointer-events: none;
+}
+.m-orb--spin .m-orb__face { animation: m-orb-spin 4.2s ease-in infinite; }
+.m-orb--spin .m-orb__eye,
+.m-orb--spin .m-orb__signal { animation: m-orb-face-shift 4.2s ease-in infinite; }
+.m-orb--spin .m-orb__sheen { animation: m-orb-sheen-shift 4.2s ease-in infinite; }
+
+.m-orb__sheen {
+  display: none;
+  position: absolute;
+  top: 7%; left: 16%; right: 30%;
+  height: 24%;
+  border-radius: 50%;
+  background: linear-gradient(rgba(255,255,255,0.22), transparent);
+  filter: blur(2px);
+  pointer-events: none;
+  backface-visibility: hidden;
+}
+.m-orb--spin .m-orb__sheen { display: block; }
+
+.m-orb__eye {
+  position: relative;
+  width: 27%;
+  height: 42%;
+  border-radius: 46%;
+  overflow: hidden;
+  background:
+    radial-gradient(130% 120% at 50% 10%, #ffffff 0%, #ecfff6 42%, #c2f2dd 74%, #93e2c0 100%);
+  box-shadow:
+    inset 0 3px 2px rgba(255,255,255,0.75),
+    inset 0 -3px 4px rgba(14,90,66,0.4);
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition:
+    transform 0.5s cubic-bezier(0.34,1.56,0.64,1),
+    width 0.5s cubic-bezier(0.34,1.56,0.64,1),
+    height 0.5s cubic-bezier(0.34,1.56,0.64,1),
+    border-radius 0.5s;
+}
+.m-orb__eye::after {
+  content: '';
+  position: absolute;
+  left: -12%; right: -12%; top: -8%;
+  height: 0;
+  background: #0e1b15;
+  border-radius: 0 0 46% 46%;
+  z-index: 4;
+  animation: m-orb-blink 5.2s ease-in-out infinite;
+}
+
+.m-orb__pupil {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 25%;
+  left: 25%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #1f4335 0%, #0b1912 55%, #04100a 100%);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.18);
+  backface-visibility: hidden;
+  transition:
+    transform 0.5s cubic-bezier(0.34,1.56,0.64,1),
+    width 0.5s, height 0.5s, top 0.5s, opacity 0.3s;
+}
+.m-orb__pupil::after {
+  content: '';
+  position: absolute;
+  width: 32%; height: 32%;
+  top: 12%; left: 18%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 0 4px rgba(255,255,255,0.5);
+}
+
+.m-orb__ring {
+  position: absolute;
+  inset: -9%;
+  border-radius: 36%;
+  border: 1.5px solid rgba(52,211,153,0.5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Emotions */
+.m-emo-happy .m-orb__eye {
+  width: 24%; height: 20%;
+  border-radius: 70% 70% 100% 100% / 55% 55% 100% 100%;
+  transform: translateY(30%);
+}
+.m-emo-happy .m-orb__pupil { opacity: 0; }
+.m-emo-happy .m-orb__signal { transform: translateX(-50%) translateY(-20%); }
+
+.m-emo-curious .m-orb__body { transform: rotate(-7deg); }
+.m-emo-curious .m-orb__eye { height: 46%; }
+.m-emo-curious .m-orb__pupil { top: 14%; }
+.m-emo-curious .m-orb__signal { transform: translateX(-58%) rotate(-17deg); }
+
+.m-emo-excited .m-orb__eye { transform: scale(1.12); }
+.m-emo-excited .m-orb__pupil { width: 44%; height: 44%; top: 28%; left: 28%; }
+.m-emo-excited .m-orb__signal { transform: translateX(-50%) translateY(-26%) scale(1.06); }
+.m-emo-excited .m-orb__halo { opacity: 0.72; }
+
+.m-emo-surprised .m-orb__eye { width: 31%; height: 50%; border-radius: 50%; }
+.m-emo-surprised .m-orb__pupil { width: 42%; height: 42%; top: 30%; left: 29%; }
+.m-emo-surprised .m-orb__signal { transform: translateX(-50%) translateY(-30%); }
+
+.m-emo-focused .m-orb__eye { transform: scaleY(0.5); }
+.m-emo-focused .m-orb__signal { transform: translateX(-50%) translateY(10%) scaleX(1.15); }
+
+.m-emo-wink .m-orb__eye--l { height: 8%; border-radius: 40%; transform: translateY(40%); }
+.m-emo-wink .m-orb__eye--l .m-orb__pupil { opacity: 0; }
+.m-emo-wink .m-orb__signal { transform: translateX(-50%) rotate(11deg) translateY(-6%); }
+
+.m-emo-alert .m-orb__eye { height: 50%; transform: scale(1.08); }
+.m-emo-alert .m-orb__pupil { top: 10%; left: 22%; width: 46%; height: 46%; }
+.m-emo-alert .m-orb__body { transform: rotate(-6deg); }
+.m-emo-alert .m-orb__signal { transform: translateX(-56%) rotate(-12deg) translateY(-24%); }
+.m-emo-alert .m-orb__halo { opacity: 0.7; }
+
+.m-emo-chill .m-orb__eye { width: 22%; height: 8%; border-radius: 100% 100% 0 0 / 100% 100% 0 0; transform: translateY(18%); }
+.m-emo-chill .m-orb__pupil { opacity: 0; }
+.m-emo-chill .m-orb__body { transform: rotate(5deg); }
+.m-emo-chill .m-orb__signal { transform: translateX(-46%) rotate(8deg) translateY(-8%); }
+
+.m-emo-eureka .m-orb__eye { transform: scale(1.22); }
+.m-emo-eureka .m-orb__pupil { width: 40%; height: 40%; top: 18%; left: 18%; }
+.m-emo-eureka .m-orb__halo { opacity: 0.9; animation: m-orb-halo-pulse 1s ease-in-out infinite; }
+.m-emo-eureka .m-orb__signal { transform: translateX(-50%) translateY(-32%) scale(1.15); }
+
+/* Activity states */
+.m-orb--thinking .m-orb__pupil { animation: m-orb-scan 1.4s ease-in-out infinite; }
+.m-orb--thinking .m-orb__halo { animation: m-orb-halo-pulse 1.4s ease-in-out infinite; }
+.m-orb--thinking .m-orb__ring { animation: m-orb-ring-out 1.8s ease-out infinite; }
+.m-orb--active .m-orb__body { animation: m-orb-active-flash 0.45s ease-out forwards; }
+.m-orb--active .m-orb__halo { opacity: 0.8; }
