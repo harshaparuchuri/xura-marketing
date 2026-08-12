@@ -36,6 +36,9 @@ export function generateMetadata({
   author = siteConfig.author,
   siteName = siteConfig.name,
 }: MetadataProps = {}): Metadata {
+  // OG / Twitter title fields don't accept `null` (Metadata["title"] does),
+  // so normalise it away before we hand the same value to those objects.
+  const socialTitle = title ?? undefined;
   return {
     // Resolves every relative URL below to an absolute one.
     metadataBase: new URL(siteConfig.url),
@@ -48,7 +51,7 @@ export function generateMetadata({
       canonical: url,
     },
     openGraph: {
-      title,
+      title: socialTitle,
       description,
       url,
       siteName,
@@ -59,7 +62,7 @@ export function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: socialTitle,
       description,
       site: twitterHandle,
       creator: twitterHandle,
