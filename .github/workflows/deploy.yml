@@ -24,7 +24,10 @@ jobs:
           node-version: 20
           cache: yarn
       - run: yarn install --frozen-lockfile
-      - run: yarn build
+      # Turbopack's static-export path fails to resolve next/font/google's
+      # internal virtual module in a clean CI cache (works locally because
+      # .next/cache is warm). Build with webpack until Next fixes it.
+      - run: yarn next build --webpack
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
