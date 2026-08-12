@@ -8,8 +8,9 @@ import { publicEnv } from "@/env";
 
 export const siteConfig = {
   name: "Xura",
-  description:
-    "Track performance, cut reporting time, and accelerate decisions — with clarity and confidence.",
+  /** Short strapline appended to the site name for the browser tab / SERP title. */
+  tagline: "agentic intelligence platform",
+  description: "WhatsApp-native AI over your business data.",
   /**
    * Public origin, no trailing slash. Drives canonical URLs, OG tags, the
    * sitemap, and JSON-LD. Set `NEXT_PUBLIC_SITE_URL` in production.

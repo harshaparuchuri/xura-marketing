@@ -7,6 +7,7 @@ import {
   generateViewport,
 } from "@/utils/seo/generate-page-metadata";
 import { getSiteStructuredData } from "@/utils/seo/structured-data";
+import { siteConfig } from "@/lib/site";
 
 import { AdaptiveGrid } from "@/components/common/grid";
 import { ReducedMotion } from "@/components/common/reduced-motion";
@@ -34,7 +35,12 @@ const serifDisplay = Bitter({
   display: "swap",
 });
 
-export const metadata: Metadata = generateMetadata();
+export const metadata: Metadata = generateMetadata({
+  title: {
+    default: `${siteConfig.name} ${siteConfig.tagline}`,
+    template: `%s · ${siteConfig.name}`,
+  },
+});
 export const viewport: Viewport = generateViewport();
 
 export default function RootLayout({

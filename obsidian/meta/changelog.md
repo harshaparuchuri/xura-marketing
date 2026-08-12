@@ -9,6 +9,21 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-08-12
+- **SEO: sub-page title template + cleanup** — root layout now sets
+  `title: { default, template: "%s · Xura" }` in `src/app/layout.tsx`.
+  Sub-page titles updated to bare labels (Next appends ` · Xura`):
+  `Industries, Xura` → `Industries`;
+  `Start your Xura free trial` → `Free trial`;
+  `Xura for <label>` → `<label> intelligence`.
+  `generateMetadata`'s `title` prop now accepts `Metadata["title"]`
+  (string or `{default,template,absolute}` object).
+- **SEO: root tab title + site description** — added
+  `siteConfig.tagline = "agentic intelligence platform"` in
+  `src/lib/site.ts`; root layout renders `<title>Xura agentic
+  intelligence platform</title>`. Site description tightened to
+  `"WhatsApp-native AI over your business data."` (drives the meta
+  description, OG, Twitter). Sub-page metadata still overrides
+  per-page; a title-template pass is queued but not applied yet.
 - **Nav "Sign in" restyled** — was a light-border outline pill; now a
   dark-outline pill (`border-foreground` / `text-foreground`) that fills
   to `bg-foreground` / `text-background` on hover. Kept the outline

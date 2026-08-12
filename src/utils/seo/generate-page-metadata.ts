@@ -15,7 +15,8 @@ import { Metadata, Viewport } from "next";
 import { siteConfig } from "@/lib/site";
 
 interface MetadataProps {
-  title?: string;
+  /** Plain string, or a Next `{ default, template, absolute }` object. */
+  title?: Metadata["title"];
   description?: string;
   /** Canonical path (e.g. `/about`) or absolute URL for this page. */
   url?: string;

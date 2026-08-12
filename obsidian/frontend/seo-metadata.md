@@ -8,9 +8,28 @@ updated: 2026-05-21
 ## Site config
 
 `src/lib/site.ts` (`siteConfig`) is the **single source of truth** for SEO —
-name, description, origin URL, OG image, Twitter handle, theme colour. The
-metadata generator, `robots.ts`, `sitemap.ts`, and the JSON-LD helper all read
-from it. **Update the placeholder values per project.** `#todo`
+name, tagline, description, origin URL, OG image, Twitter handle, theme colour.
+The metadata generator, `robots.ts`, `sitemap.ts`, and the JSON-LD helper all
+read from it. **Update the placeholder values per project.** `#todo`
+
+`siteConfig.tagline` is the short strapline appended to `name` for the root
+browser-tab / SERP title (e.g. `Xura agentic intelligence platform`). Root
+layout composes it explicitly:
+```ts
+export const metadata = generateMetadata({
+  title: `${siteConfig.name} ${siteConfig.tagline}`,
+});
+```
+Root layout also wires a **title template** on the same call:
+```ts
+title: {
+  default: `${siteConfig.name} ${siteConfig.tagline}`,
+  template: `%s · ${siteConfig.name}`,
+}
+```
+Sub-page `metadata` objects set `title` as a bare string (e.g. `"Industries"`,
+`"Free trial"`, `` `${industry.label} intelligence` ``) and Next appends
+` · Xura` for them. Do **not** repeat the site name in sub-page titles.
 
 `siteConfig.url` comes from `NEXT_PUBLIC_SITE_URL` (see [[environment-variables]]),
 falling back to `http://localhost:3000`.

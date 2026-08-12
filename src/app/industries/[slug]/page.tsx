@@ -15,7 +15,7 @@ export const generateMetadata = async ({
   const industry = getIndustry(slug);
   if (!industry) return {};
   return {
-    title: `Xura for ${industry.label}`,
+    title: `${industry.label} intelligence`,
     description: industry.subhead,
   };
 };
