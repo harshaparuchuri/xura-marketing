@@ -9,6 +9,24 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-08-12
+- **Fix: mobile mascot misplaced in KnowledgeGraph** —
+  `src/components/graphics/knowledge-graph.tsx` no longer embeds the
+  mobile static `AiOrb` inside `<foreignObject>`. iOS Safari resolves
+  `%` sizes on foreignObject HTML descendants against the outer SVG
+  viewport (not the foreignObject box), which stretched the wrapper
+  and dropped the flex-centered orb at the bottom-right of the graph.
+  Orb is now a sibling absolute-positioned overlay on the wrapping
+  `relative` div, positioned to the HUB's viewBox coordinates via
+  `top: HUB.cy / VB.h`. Same `sm:hidden` gate, same size, correct
+  place on mobile Safari.
+- **Scroll: reset to top on route change** — `ScrollController` in
+  `src/layouts/scroll-layout.tsx` now calls `lenis.scrollTo(0, {
+  immediate: true })` whenever `pathname` changes without a hash.
+  Previously only the initial mount reset scroll, so client-side
+  navigation (e.g. Home → `/industries/manufacturing`) left the reader
+  on the previous page's scroll position — visible on desktop and
+  worse on mobile. First-mount case is skipped to avoid double-work
+  with Lenis init.
 - **SEO: sub-page title template + cleanup** — root layout now sets
   `title: { default, template: "%s · Xura" }` in `src/app/layout.tsx`.
   Sub-page titles updated to bare labels (Next appends ` · Xura`):

@@ -31,6 +31,11 @@ Wraps the whole app (mounted in `app/layout.tsx`). It splits into:
 4. Watches `isEnableScroll` — starts/stops Lenis and locks/unlocks native scroll
    (`html { overflow: hidden }`) accordingly.
 5. Watches `pathname` for `#hash` → smooth-scrolls to the target after 300 ms.
+6. Watches `pathname` for a **path change without a hash** → resets Lenis to
+   the top immediately (`lenis.scrollTo(0, { immediate: true })`). Without
+   this, client-side navigation lands you at the previous page's scroll
+   position because Lenis's internal offset is preserved across route changes.
+   The very first mount is skipped — step 1 already handled it.
 
 `scrollSpeed` is an exported mutable `{ current: 1 }` — adjust to change global speed.
 

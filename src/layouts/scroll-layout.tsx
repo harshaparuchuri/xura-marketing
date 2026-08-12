@@ -77,15 +77,26 @@ function ScrollController() {
 
   useEffect(() => {
     if (savedPathname.current !== pathname) {
+      const previous = savedPathname.current;
       savedPathname.current = pathname;
       if (pathname.includes("#")) {
         const hash = pathname.split("#").pop();
         if (hash) {
           setHash(hash);
         }
+        return;
+      }
+      // Route change without a hash: pin the new page to the top.
+      // Skip the very first mount — Lenis's own init already handles that,
+      // and running lenis.scrollTo before it's ready is a no-op.
+      if (previous === "") return;
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
       }
     }
-  }, [pathname, setHash]);
+  }, [pathname, setHash, lenis]);
 
   return null; // This component doesn't render anything visible
 }

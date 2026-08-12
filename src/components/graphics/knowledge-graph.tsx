@@ -101,10 +101,24 @@ export const KnowledgeGraph = ({ className }: { className?: string }) => {
   const outputXs = spread(OUTPUT.count, OUTPUT.cx, 126);
 
   return (
+    <div className={`relative ${className ?? ""}`}>
+      {/* Mobile-only static hub avatar. Rendered as a sibling overlay
+          (not inside <foreignObject>) because iOS Safari resolves %
+          dimensions on foreignObject descendants against the outer SVG
+          viewport, not the foreignObject box — which pushed the orb to
+          the bottom-right of the graph. Position mirrors the SVG's HUB
+          slot (cx=50%, cy=HUB.cy/VB.h ≈ 48.9%). */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 flex justify-center sm:hidden"
+        style={{ top: `${(HUB.cy / VB.h) * 100}%`, transform: "translateY(-50%)" }}
+      >
+        {mounted ? <AiOrb size={56} expressive /> : null}
+      </div>
     <svg
       ref={svgRef}
       viewBox={`0 0 ${VB.w} ${VB.h}`}
-      className={className}
+      className="h-full w-full"
       role="img"
       aria-label="Xura context graph. Data sources on top connect through the Xura hub to dashboards and actions below."
     >
@@ -175,28 +189,7 @@ export const KnowledgeGraph = ({ className }: { className?: string }) => {
       {/* Hub slot: soft glow + invisible rect that AiHelpAgent docks into.
           The orb itself is NOT rendered here; it flies in from bottom-right. */}
       <circle cx={HUB.cx} cy={HUB.cy} r={HUB.size / 2 + 20} fill="url(#kg-glow)" />
-      {/* Static hub avatar — the animated AiOrb embedded via foreignObject.
-          Only visible on mobile (<sm) where the flying AiOrb dock is
-          unreliable; on desktop the orb springs in on top. */}
-      <foreignObject
-        className="sm:hidden"
-        x={HUB.cx - HUB.size}
-        y={HUB.cy - HUB.size}
-        width={HUB.size * 2}
-        height={HUB.size * 2}
-      >
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {mounted ? <AiOrb size={HUB.size} expressive /> : null}
-        </div>
-      </foreignObject>
+      {/* Mobile static hub avatar lives outside the SVG — see wrapper above. */}
       <rect
         ref={slotRef}
         x={HUB.cx - HUB.size / 2}
@@ -277,6 +270,7 @@ export const KnowledgeGraph = ({ className }: { className?: string }) => {
         );
       })}
     </svg>
+    </div>
   );
 };
 
