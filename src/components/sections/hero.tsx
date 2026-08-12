@@ -67,7 +67,7 @@ export const Hero = () => (
             <span aria-hidden>▪</span> Start free trial
           </Link>
           <p className="text-xs text-muted">
-            1 Million tokens · No credit card required
+            One-time setup · No credit card
           </p>
         </Spring>
       </div>

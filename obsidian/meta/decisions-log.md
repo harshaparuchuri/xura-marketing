@@ -10,6 +10,40 @@ consequences. Use [[templates/adr-note]] for new entries. Newest first.
 
 ---
 
+## ADR-0021 — Adaptive grid scale-up threshold lowered to 1440px
+
+- **Status:** Accepted
+- **Date:** 2026-08-12
+
+**Context.** The adaptive scaling grid (see ADR-0008) shipped with a 1920px
+scale-up threshold: viewports ≤ 1920px used `vw`-based `html { font-size }`
+media queries in `globals.css`, and only viewports > 1920px were scaled up by
+`<AdaptiveGrid>`. The 1441–1920px range therefore ran on `font-size: 0.833vw`,
+resolving to 12–15px on the most common laptop-XL displays (1500, 1600, 1680,
+1728). Users reported the layout felt "too small" on those screens, and 4K
+desktops also felt under-grown because the default `coef=0.6666` damped the
+scale-up.
+
+**Decision.**
+1. Drop the `{ maxWidth: 1920, baseWidth: 1920 }` entry from `GRID_BREAKPOINTS`
+   in `src/components/common/grid/grid.config.ts`, so `GRID_BASE_WIDTH`
+   resolves to 1440.
+2. Remove the matching `@media (max-width: 1920px)` block from
+   `src/app/globals.css` (the 1440 / 1024 / 640 media queries are unchanged).
+3. Mount `<AdaptiveGrid coef={1} />` in `src/app/layout.tsx` for fully
+   proportional scale-up.
+
+**Consequences.**
+- Viewports ≤ 1440px: unaffected — same media queries, same font-sizes.
+- Viewports 1441–1920px: fall back to the base 16px root, then the runtime
+  `AdaptiveGrid` scales up 1:1 from there. Fixes the shrink-valley.
+- Viewports > 1920px: root font-size tracks viewport 1:1 rather than being
+  damped, so 4K/5K displays grow proportionally.
+- No SSR flash-shrink: initial paint at 16px is the desired end state, and
+  `AdaptiveGrid` only ever scales *up*.
+
+---
+
 ## ADR-0020 — Free-trial form submits client-direct to Google Sheets
 
 - **Status:** Accepted

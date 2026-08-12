@@ -9,6 +9,23 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-08-12
+- **Nav "Sign in" restyled** — was a light-border outline pill; now a
+  dark-outline pill (`border-foreground` / `text-foreground`) that fills
+  to `bg-foreground` / `text-background` on hover. Kept the outline
+  affordance so it stays visually secondary to the filled "Start Free
+  Trial" CTA. `src/components/sections/site-nav.tsx`.
+- **Adaptive scaling grid: threshold lowered to 1440px** —
+  `GRID_BREAKPOINTS` (in `src/components/common/grid/grid.config.ts`) drops
+  the `{1920, 1920}` entry; the matching `@media (max-width: 1920px)` block
+  in `src/app/globals.css` is removed; root layout mounts
+  `<AdaptiveGrid coef={1} />` for fully proportional scale-up. Fixes the
+  1441–1920px shrink-valley (font-size was 12–15px on common laptop
+  displays) and grows the layout 1:1 on 4K desktops. Devices ≤ 1440px are
+  unaffected — the 1440/1024/640 vw media queries are unchanged.
+  See ADR-0021 in [[decisions-log]].
+- **Hero microcopy** — replaced `1 Million tokens · No credit card required`
+  with `One-time setup · No credit card` under the "Start free trial" CTA
+  in `src/components/sections/hero.tsx`.
 - **Added GitHub Actions deploy workflow** — `.github/workflows/deploy.yml`
   builds `yarn build` and publishes `out/` to GitHub Pages on push to
   `main`. Custom domain `xuralabs.com` served via `public/CNAME`; no

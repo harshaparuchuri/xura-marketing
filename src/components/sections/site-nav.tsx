@@ -10,7 +10,8 @@ const LINKS: { label: string; href: string }[] = [
 
 /**
  * Top navigation — wordmark left, links centred, dual CTAs on the right
- * ("Sign in" outlined + "Start Free Trial" filled). Matches xuralabs.com.
+ * ("Sign in" dark-outlined → fills on hover; "Start Free Trial"
+ * dark-filled). Matches xuralabs.com.
  * Transparent over the page gradient.
  */
 export const SiteNav = () => (
@@ -36,7 +37,7 @@ export const SiteNav = () => (
       <div className="flex items-center gap-2.5">
         <Link
           href="https://app.xuralabs.com"
-          className="hidden rounded-full border border-line px-4 py-1.5 text-xs font-medium transition-colors duration-[var(--duration-fast)] ease-entrance hover:border-foreground sm:inline-flex"
+          className="hidden rounded-full border border-foreground px-4 py-1.5 text-xs font-medium text-foreground transition-colors duration-[var(--duration-fast)] ease-entrance hover:bg-foreground hover:text-background sm:inline-flex"
         >
           Sign in
         </Link>

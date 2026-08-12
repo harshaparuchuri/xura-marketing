@@ -52,7 +52,7 @@ export default function RootLayout({
           }}
         />
         <ScrollLayout>
-          <AdaptiveGrid />
+          <AdaptiveGrid coef={1} />
           <ReducedMotion />
           {children}
           <AiHelpAgent />

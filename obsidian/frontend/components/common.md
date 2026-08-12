@@ -59,12 +59,14 @@ whole UI scales as one unit. Lives in `src/components/common/grid/`.
 
 **How it works** — two halves cover the whole viewport range:
 
-- **Scale down** (viewport ≤ 1920px) — `vw`-based `html { font-size }` media
+- **Scale down** (viewport ≤ 1440px) — `vw`-based `html { font-size }` media
   queries in `globals.css`. At each breakpoint's design base width the root
   font-size resolves to 16px; between breakpoints it tracks the viewport.
-- **Scale up** (viewport > 1920px) — the `<AdaptiveGrid>` component sets an
+- **Scale up** (viewport > 1440px) — the `<AdaptiveGrid>` component sets an
   inline `html` font-size at runtime via [[hooks|`useAdaptiveGrid`]], so the
-  design keeps growing (damped by `coef`) on large displays.
+  design keeps growing on large displays. Root layout mounts it with `coef={1}`
+  for fully proportional scale-up, so 1440–1920px laptops (previously in a
+  shrink-valley) and 4K desktops both grow from a 16px root.
 
 The `globals.css` media queries and `grid.config.ts` describe the same
 breakpoints — **keep them in sync** (formula: `font-size = 16 * 100 / baseWidth vw`).
@@ -74,7 +76,7 @@ breakpoints — **keep them in sync** (formula: `font-size = 16 * 100 / baseWidt
 import { AdaptiveGrid } from "@/components/common/grid";
 ```
 Mount it once. Props: `baseWidth` (defaults to the largest breakpoint) and
-`coef` (0–1 scale-up damping, default `0.6666`).
+`coef` (0–1 scale-up damping, default `0.6666`; root layout overrides to `1`).
 
 > [!note]
 > This replaced a `styled-components`-based scaling system that was dropped into
