@@ -775,3 +775,28 @@ Pages repo + `xura.co` domain, avoiding introducing Vercel to the stack.
   images at source.
 - Trial form still submits to the Google Apps Script Web App
   client-side (see ADR-0020) — no change.
+
+---
+
+## ADR-0023 — CI builds with webpack (opt out of Turbopack) for static export
+
+- **Status:** Accepted — fork-specific (only in `Xura-Web-v2-static`)
+- **Date:** 2026-08-12
+
+**Context.** Next 16.2 defaults `next build` to Turbopack. Under
+`output: "export"` + `next/font/google`, Turbopack fails in a clean CI
+environment to resolve its virtual `@vercel/turbopack-next/internal/
+font/google/font` module (`Module not found`). Local builds succeed
+because `.next/cache` is warm. Every push to `main` was failing the
+Pages deploy for this reason.
+
+**Decision.** Run `yarn next build --webpack` in
+`.github/workflows/deploy.yml` (only). Local `yarn build` still uses
+Turbopack (fast, incremental). Revisit when Next patches the
+Turbopack+export path for `next/font`.
+
+**Consequences.**
+- CI build is slower than Turbopack, but reliable and cache-free.
+- Local dev/build behaviour unchanged.
+- If we later drop `next/font/google` for `next/font/local`, the
+  Turbopack bug goes away and this override can be removed.

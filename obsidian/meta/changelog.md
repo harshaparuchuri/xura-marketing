@@ -8,7 +8,27 @@ updated: 2026-08-12
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
+## 2026-08-14
+- **Branding: PWA + Apple icons regenerated from Xura logo** —
+  `public/android-icon-{36,48,72,96,144,192}.png` and
+  `public/apple-icon-180x180.png` were still the old statue asset.
+  Regenerated from `public/assets/xura-logo.png` via `sips -Z`.
+  Affects the PWA `manifest.json` icon set, iOS home-screen icon, and
+  the `Organization.logo` JSON-LD in
+  `src/utils/seo/structured-data.ts` (points at the 192px file).
+- **SEO: OG image dimensions corrected to 1200×630** —
+  `src/utils/seo/generate-page-metadata.ts` now declares the standard
+  1.91:1 social-card size (was 900×600). Pair with a matching
+  `public/open-graph.png` asset at 1200×630 to avoid WhatsApp/Twitter
+  cropping or scaling the preview oddly.
+
 ## 2026-08-12
+- **CI: build with webpack, not Turbopack** —
+  `.github/workflows/deploy.yml` now runs `yarn next build --webpack`.
+  Turbopack's static-export path fails to resolve
+  `next/font/google`'s internal virtual module on a clean CI cache
+  (works locally because `.next/cache` is warm), which was breaking
+  every Pages deploy. See ADR-0023. Local `yarn build` unchanged.
 - **Fix: mobile mascot misplaced in KnowledgeGraph** —
   `src/components/graphics/knowledge-graph.tsx` no longer embeds the
   mobile static `AiOrb` inside `<foreignObject>`. iOS Safari resolves
