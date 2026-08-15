@@ -10,6 +10,28 @@ consequences. Use [[templates/adr-note]] for new entries. Newest first.
 
 ---
 
+## ADR-0024 — Cursor-field animations exempt from spring-only rule
+
+- **Status:** Accepted
+- **Date:** 2026-08-15
+- **Context:** `PixelWordmark` (footer) drives per-cell brightness and scale
+  from cursor proximity, updated every frame. The project rule
+  ([[animation-system]]) says all motion is spring-based via
+  `@react-spring/web`. Spring physics don't fit here: the driver is a
+  continuous input field (pointer position), not a discrete `from → to`
+  transition, and each cell needs a cheap scalar ease toward a target
+  derived from that field.
+- **Decision:** Cursor-field animations (input-driven, continuous, per-frame,
+  hundreds of cells on one canvas) are exempt from the spring-only rule and
+  may use an exponential ease inside a rAF loop. The rule still governs
+  reveal, scroll, stagger, and layout-affecting motion.
+- **Consequences:** Adds one canvas-based render path; keeps DOM node count
+  and layout thrash low. Any new cursor-field surfaces should follow the same
+  pattern: `IntersectionObserver`-gated loop, coarse-pointer / reduced-motion
+  short-circuit, exit rAF when idle.
+
+---
+
 ## ADR-0021 — Adaptive grid scale-up threshold lowered to 1440px
 
 - **Status:** Accepted

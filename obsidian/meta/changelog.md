@@ -8,7 +8,34 @@ updated: 2026-08-12
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
+## 2026-08-15
+- **Footer: layout tightened** — nav row (logo + inline links) sits tight
+  above the industries row (`pt-5` + `mt-2` gap). Copyright line moved to
+  the very bottom of the footer, below the pixel wordmark, as a small
+  uppercase caption at 40% opacity. Pixel-wordmark band shortened to
+  `clamp(10rem, 22vw, 22rem)` so the footer no longer eats a full viewport
+  of green space. See [[pixel-wordmark]].
+- **Footer: pixel-wordmark with cursor field** —
+  new `src/components/graphics/pixel-wordmark.tsx` replaces the static
+  giant "Xura AI" text at the bottom of `site-footer.tsx`. Rasterised
+  into a 20 px canvas grid; gaussian cursor field (σ ≈ radius × 0.55,
+  radius 20 px) shrinks cells inward and brightens them under the
+  pointer (8090.ai-style inward pop), with always-on rAF for
+  frame-locked smoothness. Container height clamps to
+  `clamp(12rem, 34vw, 36rem)` and the text is refit to 92% of width.
+  Full-bleed, dark-on-dark, gated by `IntersectionObserver`, disabled
+  for reduced-motion / coarse pointers. See [[pixel-wordmark]] and
+  ADR-0024.
+
 ## 2026-08-14
+- **Copy: hero subtext rewritten to name the data + agents** —
+  `src/components/sections/hero.tsx` sub-paragraph now reads: "Plug in
+  your data and MCP tools. Xura's agents watch for the signals your
+  team would overlook and answer every WhatsApp question with a live
+  dashboard, deck, or workflow, so you're always ready to decide."
+  Prior copy ("Ask any business question on WhatsApp...") read like a
+  generic Q&A tool and did not convey that answers come from the
+  user's own systems or that agents surface patterns proactively.
 - **Branding: PWA + Apple icons regenerated from Xura logo** —
   `public/android-icon-{36,48,72,96,144,192}.png` and
   `public/apple-icon-180x180.png` were still the old statue asset.

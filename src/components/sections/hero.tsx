@@ -51,8 +51,10 @@ export const Hero = () => (
           config={{ tension: 175, friction: 28 }}
           className="mx-auto mt-5 max-w-[54ch] text-base leading-relaxed text-muted md:text-lg"
         >
-          Ask any business question on WhatsApp. Xura returns live answers,
-          dashboards, and workflows you can run on the spot.
+          Plug in your data and MCP tools. Xura&apos;s agents watch for the
+          signals your team would overlook and answer every WhatsApp question
+          with a live dashboard, deck, or workflow, so you&apos;re always ready
+          to decide.
         </Spring>
 
         <Spring
