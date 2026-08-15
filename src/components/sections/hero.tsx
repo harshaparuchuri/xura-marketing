@@ -65,12 +65,20 @@ export const Hero = () => (
           config={{ tension: 175, friction: 28 }}
           className="mt-7 flex flex-col items-center gap-3"
         >
-          <Link href="/trial" className="pill">
-            <span aria-hidden>▪</span> Start free trial
-          </Link>
-          <p className="text-xs text-muted">
-            One-time setup · No credit card
-          </p>
+          <a
+            href="https://www.producthunt.com/products/xura-ai?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-xura-ai"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {/* Third-party badge served by Product Hunt — sized by them. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt="Xura AI - AI executive assistant for leaders & business teams. | Product Hunt"
+              width={213}
+              height={46}
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1206195&theme=neutral&t=1786793161875"
+            />
+          </a>
         </Spring>
       </div>
 

@@ -9,6 +9,21 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-08-15
+- **Nav: Sign in is now the primary CTA** —
+  `src/components/sections/site-nav.tsx` swaps the two header buttons:
+  "Sign in" (→ `app.xuralabs.com`) is now the filled primary on the right;
+  "Start Free Trial" (→ `/trial`) is the outlined secondary on the left.
+  Reflects shift toward existing-user re-entry as the header's primary
+  action.
+
+- **Hero: Product Hunt badge replaces trial CTA** —
+  `src/components/sections/hero.tsx` swaps the "Start free trial" pill and
+  the "One-time setup · No credit card" caption for the Product Hunt
+  featured embed badge (external `<img>` hitting `api.producthunt.com`).
+  Removes the primary hero conversion CTA — trial signup remains reachable
+  via `/trial` and the footer nav.
+
+## 2026-08-15
 - **Footer: layout tightened** — nav row (logo + inline links) sits tight
   above the industries row (`pt-5` + `mt-2` gap). Copyright line moved to
   the very bottom of the footer, below the pixel wordmark, as a small
