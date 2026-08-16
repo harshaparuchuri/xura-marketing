@@ -3,9 +3,10 @@ import Link from "next/link";
 import { XuraLogo } from "@/components/brand/logo";
 
 // Docs live in a separate repo (xuradocs) so the same content can back
-// both the marketing site and in-product help. Points at the hosted
-// Mintlify subdomain — update if the domain changes.
-const DOCS_URL = "https://docs.xuralabs.com";
+// both the marketing site and in-product help. Currently on Mintlify's
+// default subdomain; swap to https://docs.xuralabs.com once the custom
+// domain + CNAME are live.
+const DOCS_URL = "https://xura.mintlify.site/introduction/welcome";
 
 const LINKS: { label: string; href: string; external?: boolean }[] = [
   { label: "Product", href: "/#features" },
