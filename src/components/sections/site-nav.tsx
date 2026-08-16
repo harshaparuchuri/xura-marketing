@@ -2,9 +2,15 @@ import Link from "next/link";
 
 import { XuraLogo } from "@/components/brand/logo";
 
-const LINKS: { label: string; href: string }[] = [
+// Docs live in a separate repo (xuradocs) so the same content can back
+// both the marketing site and in-product help. Points at the hosted
+// Mintlify subdomain — update if the domain changes.
+const DOCS_URL = "https://docs.xuralabs.com";
+
+const LINKS: { label: string; href: string; external?: boolean }[] = [
   { label: "Product", href: "/#features" },
   { label: "Industries", href: "/industries" },
+  { label: "Docs", href: DOCS_URL, external: true },
   { label: "Why Xura", href: "/#why-xura" },
 ];
 
@@ -24,12 +30,23 @@ export const SiteNav = () => (
       <ul className="hidden items-center gap-7 md:flex">
         {LINKS.map((link) => (
           <li key={link.label}>
-            <Link
-              href={link.href}
-              className="text-xs text-muted transition-colors duration-[var(--duration-fast)] ease-entrance hover:text-foreground"
-            >
-              {link.label}
-            </Link>
+            {link.external ? (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-muted transition-colors duration-[var(--duration-fast)] ease-entrance hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                href={link.href}
+                className="text-xs text-muted transition-colors duration-[var(--duration-fast)] ease-entrance hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            )}
           </li>
         ))}
       </ul>
