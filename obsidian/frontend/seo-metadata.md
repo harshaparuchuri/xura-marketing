@@ -88,14 +88,20 @@ PageSpeed, HeadlessChrome, GTmetrix, Pingdom, Bingbot, Yandexbot.
 ## Static assets
 
 The `public/` **root** holds meta/PWA/SEO assets — favicons (multiple sizes),
-Android/Apple icons, `manifest.json`, `browserconfig.xml`, `open-graph.png`.
+Android/Apple icons, `manifest.json`, `browserconfig.xml`, `open-graph-v3.png`.
 Site **content** assets (images, videos) go under `public/assets/<section>/` —
 see [[folder-structure]].
 
-> [!note] `#todo`
-> `open-graph.png` is currently **900×600** (the metadata declares the same, so
-> there is no mismatch). The ideal OG size is **1200×630** — swap in a
-> correctly-sized asset and update the dimensions in `generate-page-metadata.ts`.
+> [!note] Share image (2026-10-04)
+> `siteConfig.ogImage` → `/open-graph-v3.png`, **1200×630** (matches the
+> dimensions declared in `generate-page-metadata.ts`). Dark product-stage
+> design: logo + hero headline + channel chips left; a real deck-slide crop
+> fronted by a coded recommendation card and WhatsApp reply right. Rendered
+> from an HTML template in headless Chrome. **Version the filename** on every
+> redesign (`-v4`, …): LinkedIn, Slack, X and WhatsApp cache by URL. Keep
+> real customer/workspace data out of it — scrapers' caches are hard to purge.
+> `og:image` is absolute via `metadataBase` = `NEXT_PUBLIC_SITE_URL`, which
+> **must be set in production** (it falls back to `http://localhost:3000`).
 
 ## Related
 

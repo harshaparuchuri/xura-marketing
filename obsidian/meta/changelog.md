@@ -1,12 +1,105 @@
 ---
 tags: [meta, changelog]
-updated: 2026-08-12
+updated: 2026-10-08
 ---
 
 # Changelog
 
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
+
+## 2026-10-08
+- **Google Analytics 4** — new `GoogleAnalytics` component
+  (`src/components/common/google-analytics.tsx`) in the root layout's `<head>`,
+  loading gtag.js on every page. Driven by the new optional
+  `NEXT_PUBLIC_GA_ID` env var (`src/env.ts`, `.env.example`); no ID → no tag. Production ID `G-7003QHMXL2` set in
+  `.env.production`.
+  See [[components/common]].
+- **Repo cleanup before first push** — removed build output/caches, stray
+  `package-lock.json` (CI uses `yarn.lock`), `.DS_Store` files, and unused
+  assets `public/whatsapp-mockup-v2.png` (superseded by `ChannelScene`) and
+  `public/apple-icon-180x180.png` (icons come from `src/app/icon.tsx`).
+  Repository initialised with `git init`.
+
+## 2026-10-04
+- **Channels: Slack and Teams alongside WhatsApp** — `whatsapp.tsx` renamed to
+  `channels.tsx` (`Channels`, `#channels`). New "Works where your team already
+  works" band with a WhatsApp / Slack / Teams / Web channel row; marks live in
+  the new `src/components/graphics/channel-marks.tsx`. Hero subline, footer
+  link ("Channels" → `/#channels`), site meta description, trial page benefit
+  and trial metadata updated to name all three channels. Aligns the site with
+  the product's login pillars ("Works in Slack, Teams and WhatsApp").
+- **Quick wins from the product-alignment review** — Features gets a
+  `Grounded in your data` eyebrow; XuraVs gains a *Proactivity* row (monitors,
+  signals, recommendations) and its Output/Actions rows now name briefs,
+  research, decks, infographics and approve-then-run agents; EnterpriseReady
+  leads with an expanded "Agents act with your approval" item (replaces the
+  one-line Human-in-the-loop entry).
+- **Real logos and profile photos in scenes** — `channel-marks.tsx` now
+  renders the official WhatsApp / Slack / Teams SVGs (`public/assets/brands/`)
+  instead of hand-drawn approximations, so the channel row, ChannelScene and
+  HowItWorks sources card all update. New `graphics/avatar.tsx`: Priya's
+  Slack avatar, a Daniel/Wei/Sarah shared-with stack on the Teams brief, a
+  Wei/Sarah "notifies" row on the Recommendation card, and the real Xura logo
+  as Xura's avatar in Slack and WhatsApp. Photos are free Unsplash portraits
+  (`public/assets/people/`, credits in [[folder-structure]]).
+- **Share image v3** — `open-graph-v3.png` re-rendered with the official
+  channel logos and Xura avatar; `siteConfig.ogImage` updated (v2 retired).
+- **Favicon is actually rounded now** — `app/icon.tsx` had `borderRadius` +
+  `overflow: hidden` on the wrapper, which Satori (`next/og`) ignores when
+  clipping an `<img>`, so the tab icon shipped square. The radius (16 of 64)
+  now sits on the `<img>`; corners are transparent.
+- **New share image** — `public/open-graph-v2.png` (1200×630) replaces
+  `open-graph.png`; `siteConfig.ogImage` updated. Dark product-stage design
+  with headline, channel chips, deck crop, recommendation card and WhatsApp
+  reply. Uses no real workspace data.
+- **Screenshots moved to `public/assets/product/`** (asset convention:
+  content assets under `public/assets/<section>/`); unused `files.png`
+  removed. Note: moving folders / `sed -i` edits left the Turbopack dev
+  server serving stale output twice — restart `yarn dev` after bulk moves.
+- **Hero CTA restored** — Product Hunt badge replaced by "Start free trial"
+  (→ `/trial`) + "One-time setup · No credit card"; reverses the 2026-08-15
+  badge swap. No third-party image request on first paint any more.
+- **Lint is clean (`yarn lint` → 0 problems)** — escaped apostrophes in
+  `testimonial.tsx` and `trial-form.tsx`; removed an unused
+  `eslint-disable` in `app/icon.tsx`; `graphics/ai-orb.tsx` no longer reads a
+  ref during render (emotion deck + cursor moved from `useRef` to state; the
+  first interval tick swaps in a shuffled deck, so SSR/hydration still agree).
+- **Polish pass** — closing CTA rewritten channel-neutral with a second
+  "See how it works" ghost pill; trial page intro names all four surfaces;
+  top padding trimmed on Features and Recommendations (three white sections
+  in a row read as double gaps); nav "Product" → `#how-it-works` plus a new
+  "Channels" link. Mobile pass on Agents, Outputs, Channels and CTA: no
+  horizontal overflow; Outputs fan is legible but small on phones.
+- **Features scene** — knowledge graph moved onto a dark stage with coded
+  Entity Manager cards (`graphics/entity-cards.tsx`: merged entity,
+  relationship found). Orb docking into the graph unchanged.
+- **Channels scene** — `graphics/channel-scene.tsx` replaces the WhatsApp
+  phone-mockup PNG: Slack thread with a chart reply, Teams Monday brief and a
+  WhatsApp chat, coded on a dark stage with staggered entry and parallax.
+- **Outputs shows all five outputs** — infographic (`out-infographic.png`) and
+  executive brief (`out-brief.png`) captured and added to the fan and the
+  captions alongside dashboard, deck and research.
+- **New Recommendations section** (`recommendations.tsx`) — "Recommendations,
+  not just reports": monitor → signal → recommendation told on a dark stage
+  with coded cards, placed between Features and Agents. Covers the product's
+  Monitors / Signals / Recommendations surfaces, which were empty in the
+  workspace used for screenshots.
+- **Product stages replace plain screenshots** — HowItWorks, Agents and
+  Outputs now use composed dark-green stages (`.grain` + `ArcField`) with
+  tight `ShotCrop` crops and coded floating cards (sources connecting,
+  workspace ready, an agent run that stops at an approval gate, a prompt
+  fanning into dashboard/deck/research) animated with `Inview` and
+  `SpringTrigger` scrub. `ProductShot` removed; `ShotCrop` and `ArcField` added.
+- **New home sections: HowItWorks, Agents, Outputs** — built on real product
+  screenshots in `public/product/` (2880×1800, 2×: `home`, `workflows`,
+  `dashboard`, `out-deck`, `out-research`, plus unused `files`). New shared
+  `ProductShot` frame (`components/common/product-shot.tsx`) and a
+  `shadow-product` elevation token. Home order now: Hero → Domains →
+  HowItWorks → Features → Agents → Outputs → Channels → XuraVs → …
+  **Before launch:** screenshots still show real workspace data (user name on
+  home, company names, HR/CTC figures on the dashboard) — owner accepted this
+  for now; recapture from a demo workspace before shipping.
 
 ## 2026-08-15
 - **Nav: Sign in is now the primary CTA** —

@@ -9,6 +9,7 @@ import {
 import { getSiteStructuredData } from "@/utils/seo/structured-data";
 import { siteConfig } from "@/lib/site";
 
+import { GoogleAnalytics } from "@/components/common/google-analytics";
 import { AdaptiveGrid } from "@/components/common/grid";
 import { ReducedMotion } from "@/components/common/reduced-motion";
 import { AiHelpAgent } from "@/components/graphics/ai-help-agent";
@@ -50,6 +51,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${figtree.variable} ${serifDisplay.variable}`}>
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body>
         <script
           type="application/ld+json"

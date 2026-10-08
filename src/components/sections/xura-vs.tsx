@@ -26,14 +26,19 @@ const ROWS: Row[] = [
     xura: "Builds a knowledge graph of your business. Learns your team's language and patterns.",
   },
   {
+    axis: "Proactivity",
+    llm: "Waits for you to ask. Only as good as the question you thought of.",
+    xura: "Monitors your metrics, flags signals as they happen, and recommends the next move before you ask.",
+  },
+  {
     axis: "Output",
     llm: "Text responses and static tables. You copy results into slides or sheets.",
-    xura: "Live dashboards, shareable decks, and a ranked action queue, ready to run.",
+    xura: "Briefs, research reports, decks, infographics and live dashboards, ready to share.",
   },
   {
     axis: "Actions",
     llm: "Tells you what to do. You do it manually.",
-    xura: "Queues actions across your tools. One click to execute.",
+    xura: "Agents draft the action across your tools, wait for your approval, then run it.",
   },
   {
     axis: "Memory",

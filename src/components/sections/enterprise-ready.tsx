@@ -15,6 +15,10 @@ type Item = { title: string; body: string };
 // integration breadth lives in [[Features]]. Do NOT restate them here.
 const ITEMS: Item[] = [
   {
+    title: "Agents act with your approval",
+    body: "Every workflow an agent proposes shows its steps, the data it touched, and what it will change. Nothing runs until you approve, and you decide which flows earn the right to run on their own.",
+  },
+  {
     title: "Data privacy, at the source",
     body: "Queries execute inside your VPC / warehouse. Prompts and results are encrypted in transit and at rest, isolated per tenant.",
   },
@@ -25,10 +29,6 @@ const ITEMS: Item[] = [
   {
     title: "RBAC, honoured everywhere",
     body: "Row-level access carries through to every answer, every dashboard, and every action, mirroring the roles you already defined in Snowflake / Salesforce.",
-  },
-  {
-    title: "Human-in-the-loop by default",
-    body: "Actions wait for approval until you trust them to run on their own.",
   },
   {
     title: "Explainable end to end",

@@ -23,17 +23,16 @@ export default function Icon() {
 
   return new ImageResponse(
     (
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          borderRadius: 14,
-          overflow: "hidden",
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} width={64} height={64} alt="" />
+      // Satori ignores `overflow: hidden` when clipping an <img>, so the radius
+      // goes on the image itself; the transparent corners come from that.
+      <div style={{ display: "flex", width: "100%", height: "100%" }}>
+        <img
+          src={src}
+          width={64}
+          height={64}
+          alt=""
+          style={{ borderRadius: 16 }}
+        />
       </div>
     ),
     { ...size },

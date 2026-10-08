@@ -83,6 +83,17 @@ Mount it once. Props: `baseWidth` (defaults to the largest breakpoint) and
 > `common/` — see [[decisions-log]] ADR-0008. `styled-components` is **not** a
 > project dependency; the scale-down CSS lives in `globals.css` per [[design-system]].
 
+## ShotCrop — `shot-crop.tsx`
+
+Server component. Shows one region of a product screenshot: `crop={{x,y,w,h}}`
+in fractions (0–1) of the source image (default 2880×1800, the captures in
+`public/assets/product/`). The wrapper takes the crop's aspect ratio; the `next/image`
+is scaled and offset inside it with inline `%` styles (computed, not tokens).
+No chrome, no motion — callers add rings/shadows and wrap it in `Inview` /
+`SpringTrigger`. Used by the product "stages" in `HowItWorks`, `Agents`,
+`Outputs`. (Replaced the short-lived `ProductShot` browser-frame component,
+removed 2026-10-04 — plain framed screenshots were rejected as too flat.)
+
 ## ReducedMotion — `reduced-motion.tsx`
 
 `<ReducedMotion>` — a client leaf that calls react-spring's `useReducedMotion()`.
@@ -90,6 +101,13 @@ It watches the `prefers-reduced-motion` media query and toggles react-spring's
 global `skipAnimation`, so every spring — and `spring-text-engine` — jumps to its
 end state instead of animating. Renders `null`; mounted once in the root layout.
 See [[animation-system]] and [[seo-metadata]].
+
+## GoogleAnalytics — `google-analytics.tsx`
+
+Server component rendered inside `<head>` in `app/layout.tsx`, so GA4
+(gtag.js) loads on every page via `next/script` (`afterInteractive`). Reads
+`NEXT_PUBLIC_GA_ID` from `publicEnv` (validated as `G-…`); renders nothing when
+unset, so dev/preview builds don't track.
 
 ## Skeleton loaders
 

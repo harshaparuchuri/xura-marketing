@@ -197,3 +197,31 @@ Loaded in `src/app/layout.tsx` and exposed on `<body>` as `--font-onest`.
 ## Related
 
 [[component-conventions]] · [[animation-system]] · [[new-page]]
+
+## Elevation
+
+`--raw-shadow-lift` → `--elevation-product` → `@theme` `--shadow-product`
+(utility `shadow-product`). The lift shadow for framed product screenshots
+(`ProductShot`). Semantic name differs from the binding name on purpose — a
+`@theme inline` entry `--shadow-product: var(--shadow-product)` would be
+self-referential.
+
+## Product stages
+
+Dark product "stages" (HowItWorks, Agents, Outputs) reuse the product's own
+login/onboarding look: `bg-brand-ink` (the forest green-950), the `.grain`
+utility (static SVG film grain, `soft-light`, defined next to `.texture` in
+`globals.css`) and `ArcField` (`graphics/arc-field.tsx`, concentric arcs in
+`currentColor`, used at `text-white/10`). Floating UI on a stage is coded, not
+screenshotted, and uses `bg-background` + `shadow-product`. Position floating
+cards with a wrapper `div` and put `SpringTrigger` inside it — classes on
+`SpringTrigger` itself land on its inner animated node, not a positioned box.
+Brand logos and people in scenes are real assets, not drawings:
+`graphics/channel-marks.tsx` renders the official WhatsApp / Slack / Teams
+SVGs from `public/assets/brands/` (CC0, gilbarbara/logos; trademarks used only
+to name integrations), and `graphics/avatar.tsx` (`Avatar`, `AvatarStack`,
+`XuraAvatar`, `PEOPLE`) renders profile photos from `public/assets/people/`
+and the real Xura logo. Avatars carry no default rounding — pass the shape
+(`rounded-full` / `rounded-lg`) in `className`.
+Stages so far: Features (graph + entity cards), HowItWorks, Recommendations, Agents, Outputs, and the
+Channels `ChannelScene` (`graphics/channel-scene.tsx`).
