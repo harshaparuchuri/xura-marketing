@@ -1,12 +1,12 @@
 // 📖 Docs: obsidian/frontend/components/common.md
-import Script from "next/script";
-
 import { publicEnv } from "@/env";
 
 /**
  * Google Analytics 4 (gtag.js). Rendered inside `<head>` by the root layout so
- * it ships on every page. Renders nothing when `NEXT_PUBLIC_GA_ID` is unset
- * (e.g. local dev), so no tracking happens without an explicit ID.
+ * the standard Google tag ships in the static HTML `<head>` of every page.
+ * Plain `<script>` tags (not `next/script`, which defers injection into the
+ * body) so GA's tag checker and Search Console see it. Renders nothing when
+ * `NEXT_PUBLIC_GA_ID` is unset (e.g. local dev).
  */
 export function GoogleAnalytics() {
   const gaId = publicEnv.NEXT_PUBLIC_GA_ID;
@@ -14,16 +14,19 @@ export function GoogleAnalytics() {
 
   return (
     <>
-      <Script
+      <script
+        async
         src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-        strategy="afterInteractive"
       />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`window.dataLayer = window.dataLayer || [];
+      <script
+        id="google-analytics"
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${gaId}');`}
-      </Script>
+gtag('config', '${gaId}');`,
+        }}
+      />
     </>
   );
 }

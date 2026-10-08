@@ -8,6 +8,11 @@ updated: 2026-10-08
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
+## 2026-10-09
+- **GA tag moved into the static `<head>`** — `GoogleAnalytics` now renders
+  plain `<script>` tags instead of `next/script` (which only left a preload in
+  the head and injected the tag from the body).
+
 ## 2026-10-08
 - **Google Analytics 4** — new `GoogleAnalytics` component
   (`src/components/common/google-analytics.tsx`) in the root layout's `<head>`,

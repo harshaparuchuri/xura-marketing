@@ -105,7 +105,8 @@ See [[animation-system]] and [[seo-metadata]].
 ## GoogleAnalytics — `google-analytics.tsx`
 
 Server component rendered inside `<head>` in `app/layout.tsx`, so GA4
-(gtag.js) loads on every page via `next/script` (`afterInteractive`). Reads
+(gtag.js) ships in the static `<head>` of every page as plain `<script>` tags
+— not `next/script`, which defers injection into the body. Reads
 `NEXT_PUBLIC_GA_ID` from `publicEnv` (validated as `G-…`); renders nothing when
 unset, so dev/preview builds don't track.
 
