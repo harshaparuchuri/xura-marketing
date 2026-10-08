@@ -170,10 +170,10 @@ export const TrialForm = () => {
           🎉
         </p>
         <p className="mt-3 text-base font-semibold tracking-tight text-duo">
-          You're in.
+          You&apos;re in.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-muted">
-          We'll reach out within one business day.
+          We&apos;ll reach out within one business day.
           <br />
           Ready to get started now?
         </p>

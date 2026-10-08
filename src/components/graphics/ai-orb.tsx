@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useState, type CSSProperties } from "react";
 
 import "./ai-orb.css";
 
@@ -66,30 +66,31 @@ export const AiOrb = ({
   className = "",
 }: Props) => {
   const autoCycle = (expressive ?? size >= 56) && !emotion;
-  const [idx, setIdx] = useState(0);
-  // Deck is unshuffled on the server so SSR + first client render agree; we
-  // shuffle on mount via useEffect below to avoid a hydration mismatch.
-  const deck = useRef<Emotion[]>(ALL_EMOTIONS);
+  // Deck + cursor live in state (not a ref) so render never reads a ref.
+  // The deck starts unshuffled so SSR and the first client render agree; the
+  // first tick swaps in a shuffled deck, avoiding a hydration mismatch.
+  const [cycle, setCycle] = useState<{ deck: Emotion[]; idx: number; shuffled: boolean }>({
+    deck: ALL_EMOTIONS,
+    idx: 0,
+    shuffled: false,
+  });
 
   const advance = useCallback(() => {
-    setIdx((i) => {
-      const next = i + 1;
-      if (next >= deck.current.length) {
-        deck.current = shuffled(ALL_EMOTIONS);
-        return 0;
-      }
-      return next;
+    setCycle((c) => {
+      if (!c.shuffled) return { deck: shuffled(ALL_EMOTIONS), idx: 0, shuffled: true };
+      const next = c.idx + 1;
+      if (next >= c.deck.length) return { deck: shuffled(ALL_EMOTIONS), idx: 0, shuffled: true };
+      return { ...c, idx: next };
     });
   }, []);
 
   useEffect(() => {
     if (!autoCycle) return;
-    deck.current = shuffled(ALL_EMOTIONS);
     const id = setInterval(advance, 2600);
     return () => clearInterval(id);
   }, [autoCycle, advance]);
 
-  const emo: Emotion = emotion ?? (autoCycle ? deck.current[idx]! : STATE_EMOTION[state]);
+  const emo: Emotion = emotion ?? (autoCycle ? cycle.deck[cycle.idx]! : STATE_EMOTION[state]);
   const withArc = size >= 30;
   const withSpin = size >= 56;
 

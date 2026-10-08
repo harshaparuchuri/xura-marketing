@@ -7,7 +7,7 @@ import { INDUSTRIES } from "@/data/industries";
 
 const LINKS: { label: string; href: string }[] = [
   { label: "Product", href: "/#features" },
-  { label: "On WhatsApp", href: "/#whatsapp" },
+  { label: "Channels", href: "/#channels" },
   { label: "Industries", href: "/industries" },
   { label: "Start free trial", href: "/trial" },
 ];

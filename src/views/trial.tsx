@@ -61,8 +61,9 @@ export const TrialView = () => (
                 >
                   Tell us where your data lives and how your team already works.
                   We will set up a private workspace, connect a starter sample
-                  of your systems, and share a live Xura on WhatsApp and the
-                  web so you can ask real questions against real numbers.
+                  of your systems, and share a live Xura on WhatsApp, Slack,
+                  Teams and the web so you can ask real questions against real
+                  numbers.
                 </Spring>
               </div>
 
@@ -126,7 +127,7 @@ const TRUST: { title: string; body: string }[] = [
   },
   {
     title: "Ask on the surface you already use",
-    body: "WhatsApp for the field, the web app when you are at a desk. Same graph, same answer.",
+    body: "WhatsApp for the field, Slack and Teams at the desk, the web app for deep work. Same graph, same answer.",
   },
   {
     title: "No credit card, no lock-in",

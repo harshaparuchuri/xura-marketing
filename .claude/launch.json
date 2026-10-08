@@ -7,6 +7,12 @@
       "runtimeArgs": ["run", "dev"],
       "port": 3007,
       "autoPort": true
+    },
+    {
+      "name": "xura-app",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd '/Users/harsha/Documents/Xura-main 2' && npm run dev -- --port 5173 --strictPort"],
+      "port": 5173
     }
   ]
 }

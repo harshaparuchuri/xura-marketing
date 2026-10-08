@@ -34,7 +34,7 @@ export const Testimonial = () => (
         </p>
         <blockquote className="mt-4 text-2xl font-semibold leading-snug tracking-tight">
           Our field team runs the whole business from WhatsApp now. Ask, get
-          an answer, act, before you're out of the car park.
+          an answer, act, before you&apos;re out of the car park.
         </blockquote>
         <figcaption className="mt-6">
           <p className="text-sm font-semibold">Placeholder Name</p>

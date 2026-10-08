@@ -25,6 +25,14 @@ const optionalUrl = () =>
 
 const publicSchema = z.object({
   NEXT_PUBLIC_SITE_URL: optionalUrl(),
+  /** Google Analytics 4 measurement ID (`G-XXXXXXXXXX`). Unset → no GA tag. */
+  NEXT_PUBLIC_GA_ID: z.preprocess(
+    (v) => (v === "" ? undefined : v),
+    z
+      .string()
+      .regex(/^G-[A-Z0-9]+$/)
+      .optional(),
+  ),
 });
 
 const serverSchema = z.object({
@@ -35,6 +43,7 @@ const serverSchema = z.object({
 /** Public env — safe to read anywhere (server or client). */
 export const publicEnv = publicSchema.parse({
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+  NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
 });
 
 let cachedServerEnv: z.infer<typeof serverSchema> | undefined;

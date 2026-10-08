@@ -9,7 +9,8 @@ import { XuraLogo } from "@/components/brand/logo";
 const DOCS_URL = "https://xura.mintlify.site/introduction/welcome";
 
 const LINKS: { label: string; href: string; external?: boolean }[] = [
-  { label: "Product", href: "/#features" },
+  { label: "Product", href: "/#how-it-works" },
+  { label: "Channels", href: "/#channels" },
   { label: "Industries", href: "/industries" },
   { label: "Docs", href: DOCS_URL, external: true },
   { label: "Why Xura", href: "/#why-xura" },

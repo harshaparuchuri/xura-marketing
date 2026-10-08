@@ -10,14 +10,14 @@ export const siteConfig = {
   name: "Xura",
   /** Short strapline appended to the site name for the browser tab / SERP title. */
   tagline: "agentic intelligence platform",
-  description: "WhatsApp-native AI over your business data.",
+  description: "AI that watches your business data, recommends the next move, and acts with your approval, in WhatsApp, Slack and Teams.",
   /**
    * Public origin, no trailing slash. Drives canonical URLs, OG tags, the
    * sitemap, and JSON-LD. Set `NEXT_PUBLIC_SITE_URL` in production.
    */
   url: publicEnv.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   /** Default Open Graph / Twitter share image (path under `public/`). */
-  ogImage: "/open-graph.png",
+  ogImage: "/open-graph-v3.png",
   twitterHandle: "@xuralabs",
   author: "Xura Labs",
   /** Browser theme-color (address bar / PWA). */
