@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { siteConfig } from "@/lib/site";
 
 /**
- * Free-trial form. Mirrors xuralabs.com's current plumbing exactly:
+ * Demo request form (`/trial`, the "Book a demo" destination). Mirrors xuralabs.com's current plumbing exactly:
  *
  * - Fields: firstName, lastName, email, jobTitle, company, teamSize, useCase,
  *   dataStack, plus `source` and `ts` stamped at submit time.
@@ -170,18 +171,18 @@ export const TrialForm = () => {
           🎉
         </p>
         <p className="mt-3 text-base font-semibold tracking-tight text-duo">
-          You&apos;re in.
+          Demo requested.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-muted">
-          We&apos;ll reach out within one business day.
+          We&apos;ll reach out within one business day to book a time.
           <br />
-          Ready to get started now?
+          Want to look around before then?
         </p>
         <Link
-          href="https://app.xuralabs.com/"
+          href={siteConfig.signupUrl}
           className="pill mt-6 inline-flex"
         >
-          <span aria-hidden>▪</span> Setup now
+          Get started for free <span aria-hidden>→</span>
         </Link>
       </div>
     );
@@ -288,7 +289,7 @@ export const TrialForm = () => {
         type="submit"
         className="pill mt-2 justify-center"
       >
-        <span aria-hidden>▪</span> Get started
+        <span aria-hidden>▪</span> Request demo
       </button>
       <p className="meta text-center">No credit card required</p>
     </form>

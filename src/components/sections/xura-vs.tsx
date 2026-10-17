@@ -3,7 +3,7 @@ import { Inview } from "@/components/animation/springs/in-view";
 /**
  * XuraVs — dark comparison band.
  *
- * Positions Xura against generic LLMs (ChatGPT / Claude) with a
+ * Positions Xura against general AI chat assistants with a
  * feature-by-feature grid. Dark surface to break the light-band rhythm of
  * WhatsApp/Values above; two-column table on md+, stacked pairs on mobile.
  */
@@ -14,41 +14,46 @@ type Row = {
   xura: string;
 };
 
+// Every Xura claim here is checked against the app code (2026-10-18): native
+// connectors in server/connectors + integrations/providers, MCP client,
+// governance glossary/classifier, monitors + routines, approvalGates,
+// agentLearning, document ACLs and db/audit. Don't add SSO, "zero data
+// stored" or connector counts until they're true.
 const ROWS: Row[] = [
   {
     axis: "Data access",
-    llm: "Upload a CSV or copy-paste. No live connection to your systems.",
-    xura: "Native connectors to your CRM, warehouse, and 50+ tools. Always live.",
+    llm: "Connectors to common apps, but you wire them up and pull data in each conversation.",
+    xura: "Native connectors to HubSpot, Jira, Notion, Asana, Linear, Gmail, Slack and more, plus any MCP tool or a file upload.",
   },
   {
     axis: "Business context",
-    llm: "Doesn't know your fields, metrics, or terminology. You prompt from scratch every time.",
-    xura: "Builds a knowledge graph of your business. Learns your team's language and patterns.",
+    llm: "Knows what you put in the chat or project. Your metric definitions aren't built in.",
+    xura: "A glossary and semantic layer for your metrics and terms, so 'at-risk account' means the same thing in every answer.",
   },
   {
     axis: "Proactivity",
-    llm: "Waits for you to ask. Only as good as the question you thought of.",
-    xura: "Monitors your metrics, flags signals as they happen, and recommends the next move before you ask.",
+    llm: "Mostly waits for you to ask.",
+    xura: "Monitors and scheduled routines watch your numbers and flag what changed, with a recommended next step.",
   },
   {
     axis: "Output",
-    llm: "Text responses and static tables. You copy results into slides or sheets.",
-    xura: "Briefs, research reports, decks, infographics and live dashboards, ready to share.",
+    llm: "Text, tables and files you then polish into slides or sheets.",
+    xura: "Live dashboards, slide decks, cited research, briefs and infographics, in your brand.",
   },
   {
     axis: "Actions",
-    llm: "Tells you what to do. You do it manually.",
-    xura: "Agents draft the action across your tools, wait for your approval, then run it.",
+    llm: "Can act through some connectors, one request at a time.",
+    xura: "AI employees draft the action across your tools and stop at an approval gate before anything is sent or changed.",
   },
   {
     axis: "Memory",
-    llm: "Context window resets. Insights don't compound across sessions.",
-    xura: "Context graph remembers how your team works. Every answer improves the next.",
+    llm: "Remembers your preferences, not how your team's work gets done.",
+    xura: "Each AI employee keeps a record of its runs, errors and your feedback, and its playbook is refined from it.",
   },
   {
-    axis: "Security",
-    llm: "Data leaves your org. May be used for training. No RBAC.",
-    xura: "Queries run at source. Zero raw data stored. SSO, RBAC, and audit logs built in.",
+    axis: "Control",
+    llm: "Controls are set per account, not per task or per agent.",
+    xura: "Each AI employee only gets the tools you grant, documents keep their access lists, sensitive columns can be classified, and every run is audit-logged.",
   },
 ];
 
@@ -118,7 +123,7 @@ export const XuraVs = () => (
         <div className="grid grid-cols-1 gap-px border-b border-white/10 bg-white/5 md:grid-cols-[1fr_1.4fr_1.4fr]">
           <div className="hidden md:block" />
           <div className="px-5 py-3 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/45">
-            ChatGPT&nbsp;/&nbsp;Claude
+            General AI chat
           </div>
           <div className="px-5 py-3 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-accent">
             Xura AI
@@ -140,7 +145,7 @@ export const XuraVs = () => (
               </div>
               <div className="px-5 pb-3 pt-1 text-[0.8125rem] leading-relaxed text-white/60 md:py-5 md:pt-5">
                 <span className="mr-1 inline-block text-[0.625rem] uppercase tracking-wide text-white/35 md:hidden">
-                  LLM
+                  AI chat
                 </span>
                 {r.llm}
               </div>

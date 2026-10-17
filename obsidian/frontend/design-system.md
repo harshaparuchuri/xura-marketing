@@ -144,6 +144,18 @@ There is deliberately **no brand palette**. Add one per project as
 `--raw-color-brand-*` primitives plus the semantic roles that name their purpose.
 The `@layer base/components/utilities` blocks are empty — fill them per project.
 
+**AI employee colours (2026-10-18).** Each built-in AI employee has a function
+colour, mirroring `DOMAIN_COLOR` in the Xura app. Tier 1
+`--raw-color-violet-500 / orange-600 / amber-500 / teal-600` → Tier 2
+`--employee-chief-of-staff / marketing / recruiting / quality`. They are not
+bound into `@theme`; they're passed as `var(--employee-*)` to `AiOrb`'s
+`accent` prop (which sets `--orb-accent`) and used inline for the role label.
+
+**WhatsApp UI colours (2026-10-18).** `--raw-color-wa-*` → `--whatsapp-wallpaper
+/ bubble-out / action / read / meta`, used only by the coded WhatsApp mockup
+in `graphics/channel-scene.tsx` (as arbitrary-value background and text utilities). They copy
+WhatsApp's own palette so the mock reads as the real app.
+
 ## Motion: springs first, CSS for trivial state
 
 Hard rule #1 stands — **all real motion is spring-based** ([[animation-system]]).
@@ -225,3 +237,9 @@ and the real Xura logo. Avatars carry no default rounding — pass the shape
 (`rounded-full` / `rounded-lg`) in `className`.
 Stages so far: Features (graph + entity cards), HowItWorks, Recommendations, Agents, Outputs, and the
 Channels `ChannelScene` (`graphics/channel-scene.tsx`).
+
+> [!warning] Tailwind scans the vault too (2026-10-18). Tailwind v4's source
+> detection reads `obsidian/*.md`, so a class-shaped placeholder in a note (an
+> arbitrary-value utility whose `var()` name ends in a `*` wildcard) gets
+> compiled and breaks the CSS build. Write placeholders in prose, not as class
+> names.

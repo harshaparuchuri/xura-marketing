@@ -1,9 +1,9 @@
 import { TrialView } from "@/views/trial";
 
 export const metadata = {
-  title: "Free trial",
+  title: "Book a demo",
   description:
-    "Set up a private Xura workspace, connect a sample of your systems, and ask real questions on WhatsApp, Slack, Teams and the web. No credit card required.",
+    "Book a 30-minute walkthrough of Xura's AI employees on your own use case: answers from your data, the reason behind the numbers, and approval-gated actions.",
 };
 
 export default function TrialPage() {

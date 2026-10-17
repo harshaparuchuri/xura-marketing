@@ -4,10 +4,13 @@ import { notFound } from "next/navigation";
 
 import { Inview } from "@/components/animation/springs/in-view";
 import { Spring } from "@/components/animation/springs/spring";
+import { AiOrb } from "@/components/graphics/ai-orb";
 import { HeroBackdrop } from "@/components/graphics/hero-backdrop";
+import { RoutineTimeline } from "@/components/sections/routine-timeline";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteNav } from "@/components/sections/site-nav";
-import { getIndustry } from "@/data/industries";
+import { EMPLOYEE_ACCENT, getIndustry } from "@/data/industries";
+import { siteConfig } from "@/lib/site";
 
 type Props = { slug: string };
 
@@ -78,8 +81,8 @@ export const IndustryView = ({ slug }: Props) => {
                 config={{ tension: 175, friction: 28 }}
                 className="mt-7 flex flex-wrap items-center justify-center gap-2.5"
               >
-                <Link href="/trial" className="pill">
-                  <span aria-hidden>▪</span> Join the waitlist
+                <Link href={siteConfig.signupUrl} className="pill">
+                  <span aria-hidden>▪</span> Get started for free
                 </Link>
                 <Link href="#use-cases" className="pill pill-ghost">
                   <span aria-hidden>▪</span> See the use cases
@@ -169,6 +172,36 @@ export const IndustryView = ({ slug }: Props) => {
               >
                 {industry.solution.body}
               </Inview>
+              <ul className="mt-8 grid max-w-[54ch] gap-3">
+                {industry.employees.map((employee, i) => (
+                  <Inview
+                    key={employee.name}
+                    tag="li"
+                    mode="once"
+                    delayIn={160 + i * 80}
+                    from={{ opacity: 0, y: 16 }}
+                    to={{ opacity: 1, y: 0 }}
+                    config={{ tension: 180, friction: 27 }}
+                    className="flex items-start gap-4 rounded-2xl border border-line bg-background p-5"
+                  >
+                    <AiOrb size={48} accent={EMPLOYEE_ACCENT[employee.name]} spin={false} />
+                    <div>
+                      <p className="text-sm font-semibold">
+                        Meet {employee.name}
+                        <span
+                          className="ml-2 text-[0.6875rem] font-semibold uppercase tracking-widest"
+                          style={{ color: EMPLOYEE_ACCENT[employee.name] }}
+                        >
+                          {employee.role}
+                        </span>
+                      </p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                        {employee.does}
+                      </p>
+                    </div>
+                  </Inview>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
@@ -183,26 +216,13 @@ export const IndustryView = ({ slug }: Props) => {
               config={{ tension: 180, friction: 27 }}
               className="display-sans mx-auto max-w-[24ch] text-center"
             >
-              Six workflows, one conversation
+              What your AI employees run, and when
             </Inview>
-            <ul className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {industry.useCases.map((uc, i) => (
-                <Inview
-                  key={uc.title}
-                  tag="li"
-                  mode="once"
-                  delayIn={i * 60}
-                  from={{ opacity: 0, y: 16 }}
-                  to={{ opacity: 1, y: 0 }}
-                  config={{ tension: 180, friction: 27 }}
-                  className="rounded-sm bg-band-sand-soft p-6"
-                >
-                  <p className="meta">{String(i + 1).padStart(2, "0")}</p>
-                  <h3 className="mt-3 text-sm font-semibold">{uc.title}</h3>
-                  <p className="mt-2 text-xs text-muted">{uc.tag}</p>
-                </Inview>
-              ))}
-            </ul>
+            <p className="mx-auto mt-4 max-w-[56ch] text-center text-sm text-muted">
+              Built-in routines that start on day one. Each one shows who runs
+              it, when, and what waits for your approval.
+            </p>
+            <RoutineTimeline routines={industry.useCases} />
           </div>
         </section>
 
@@ -260,8 +280,8 @@ export const IndustryView = ({ slug }: Props) => {
               config={{ tension: 180, friction: 27 }}
               className="mt-7 flex justify-center"
             >
-              <Link href="/trial" className="pill">
-                <span aria-hidden>▪</span> Start free trial
+              <Link href={siteConfig.signupUrl} className="pill">
+                <span aria-hidden>▪</span> Get started for free
               </Link>
             </Inview>
           </div>

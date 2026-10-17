@@ -1,6 +1,6 @@
 ---
 tags: [frontend, stable]
-updated: 2026-05-21
+updated: 2026-10-18
 ---
 
 # Catalog — Common Components
@@ -121,6 +121,16 @@ async component must mirror its final layout with one of these
 | `<SkeletonImage>` | `skeleton-image.tsx` | image placeholders |
 | `<SkeletonLoader>` | `skeleton-loader.tsx` | generic block placeholders |
 | `<SkeletonVideo>` | `skeleton-video.tsx` | video placeholders |
+
+## VideoTour — `video-tour.tsx`
+
+Click-to-load YouTube embed (client leaf). Shows the video's YouTube thumbnail
+(`next/image`, unoptimised under static export) with a play button; the
+`youtube-nocookie.com` iframe mounts only on click, so the YouTube player never
+loads with the page. Emits its own `VideoObject` JSON-LD. Props: `videoId`,
+`title`, `description`, `uploadDate`, `duration` (ISO 8601), `className`.
+Used in `sections/ai-employees.tsx` as `#tour` ("Meet your AI team", 1:38);
+the hero's "Watch the tour" pill links to `/#tour`.
 
 > [!note]
 > `components/ui/` (design-system primitives) does not exist yet — create it when

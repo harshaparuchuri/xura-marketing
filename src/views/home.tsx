@@ -1,4 +1,4 @@
-import { Agents } from "@/components/sections/agents";
+import { AiEmployees } from "@/components/sections/ai-employees";
 import { CaseStudy } from "@/components/sections/case-study";
 import { ClosingCta } from "@/components/sections/closing-cta";
 import { EnterpriseReady } from "@/components/sections/enterprise-ready";
@@ -8,6 +8,7 @@ import { Hero } from "@/components/sections/hero";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { Industries } from "@/components/sections/industries";
 import { Outputs } from "@/components/sections/outputs";
+import { PilotOffer } from "@/components/sections/pilot-offer";
 import { Recommendations } from "@/components/sections/recommendations";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { Channels } from "@/components/sections/channels";
@@ -16,7 +17,7 @@ import { XuraVs } from "@/components/sections/xura-vs";
 /**
  * Home view — Server Component.
  *
- * Section order: hero → domains → how it works → features → recommendations → agents →
+ * Section order: hero → domains → how it works → features → recommendations → AI employees → pilot offer →
  * outputs → channels → Xura vs → industries → enterprise-ready → case study →
  * CTA → footer.
  */
@@ -29,7 +30,8 @@ export const HomeView = () => {
         <HowItWorks />
         <Features />
         <Recommendations />
-        <Agents />
+        <AiEmployees />
+        <PilotOffer />
         <Outputs />
         <Channels />
         <XuraVs />

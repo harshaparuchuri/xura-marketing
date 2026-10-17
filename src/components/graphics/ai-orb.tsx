@@ -56,6 +56,10 @@ type Props = {
   emotion?: Emotion;
   expressive?: boolean;
   className?: string;
+  /** Antenna arc and glow colour (AI employees: their function colour). Default Xura green. */
+  accent?: string;
+  /** Large orbs spin in 3D by default; false keeps the face forward. */
+  spin?: boolean;
 };
 
 export const AiOrb = ({
@@ -64,6 +68,8 @@ export const AiOrb = ({
   emotion,
   expressive,
   className = "",
+  accent,
+  spin,
 }: Props) => {
   const autoCycle = (expressive ?? size >= 56) && !emotion;
   // Deck + cursor live in state (not a ref) so render never reads a ref.
@@ -92,7 +98,7 @@ export const AiOrb = ({
 
   const emo: Emotion = emotion ?? (autoCycle ? cycle.deck[cycle.idx]! : STATE_EMOTION[state]);
   const withArc = size >= 30;
-  const withSpin = size >= 56;
+  const withSpin = spin ?? size >= 56;
 
   const cls = [
     "m-orb",
@@ -100,6 +106,7 @@ export const AiOrb = ({
     `m-emo-${emo}`,
     withArc ? "m-orb--arc" : "",
     withSpin ? "m-orb--spin" : "",
+    accent ? "m-orb--tinted" : "",
     className,
   ]
     .filter(Boolean)
@@ -108,7 +115,12 @@ export const AiOrb = ({
   return (
     <span
       className={cls}
-      style={{ "--orb-size": `${size}px` } as CSSProperties}
+      style={
+        {
+          "--orb-size": `${size}px`,
+          ...(accent ? { "--orb-accent": accent } : {}),
+        } as CSSProperties
+      }
       aria-hidden
     >
       <span className="m-orb__halo" />

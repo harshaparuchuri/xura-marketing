@@ -272,3 +272,13 @@
 .m-orb--thinking .m-orb__ring { animation: m-orb-ring-out 1.8s ease-out infinite; }
 .m-orb--active .m-orb__body { animation: m-orb-active-flash 0.45s ease-out forwards; }
 .m-orb--active .m-orb__halo { opacity: 0.8; }
+
+/* Tinted orb (AI employees): the antenna arc and glow take the employee's
+   colour via --orb-accent. Ported from the Xura app's mobile.css. */
+.m-orb--tinted .m-orb__signal {
+  background: var(--orb-accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 16' fill='none'%3E%3Cpath d='M3 13 Q20 1 37 13' stroke='black' stroke-width='4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 16' fill='none'%3E%3Cpath d='M3 13 Q20 1 37 13' stroke='black' stroke-width='4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--orb-accent) 55%, transparent));
+}
+.m-orb--tinted .m-orb__halo { background: color-mix(in srgb, var(--orb-accent) 50%, transparent); }

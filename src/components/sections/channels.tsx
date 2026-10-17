@@ -3,6 +3,7 @@ import type { ComponentType } from "react";
 
 import { Inview } from "@/components/animation/springs/in-view";
 import { ChannelScene } from "@/components/graphics/channel-scene";
+import { siteConfig } from "@/lib/site";
 import {
   SlackMark,
   TeamsMark,
@@ -150,7 +151,7 @@ export const Channels = () => (
             config={{ tension: 180, friction: 27 }}
             className="mt-8 flex flex-wrap gap-2.5"
           >
-            <Link href="/trial" className="pill">
+            <Link href={siteConfig.signupUrl} className="pill">
               <span aria-hidden>▪</span> Try it in your workspace
             </Link>
           </Inview>
