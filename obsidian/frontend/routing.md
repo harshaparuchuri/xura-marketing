@@ -37,7 +37,9 @@ here on route `/` (see [[ai-agent-guide]] / [[new-page]]).
 |-------|------|------|
 | `/` | `src/app/page.tsx` | `views/home.tsx` → `HomeView` |
 | `/industries` | `src/app/industries/page.tsx` | `views/industries-index.tsx` → `IndustriesIndexView` |
-| `/industries/[slug]` | `src/app/industries/[slug]/page.tsx` | `views/industry.tsx` → `IndustryView` (SSG via `generateStaticParams`; data in `src/data/industries.ts`) |
+| `/industries/[slug]` | `src/app/industries/[slug]/page.tsx` | `views/industry.tsx` → `IndustryView` (SSG via `generateStaticParams`; data in `src/data/industries.ts`, incl. `employees` (lead first, rendered as "Meet …" cards under the solution copy) and `useCases` written as `Routine`s — employee · schedule · what you get · what you approve — taken from the app's built-in employee seeds. `EMPLOYEE_ACCENT` maps each employee to its colour token. CTAs are "Start free pilot") |
+| `/pricing` | `src/app/pricing/page.tsx` | `views/pricing.tsx` → `PricingView` (hero in Nora's voice, four cards — Pilot tinted `duo-wash` with a "Start here" badge, Growth as a dark `brand-ink` card with an accent "Most popular" badge and accent CTA, credit chips with the number set large, round check icons — free Pilot, Starter $50, Growth $100, Custom — each with its credit allowance; "what credits buy" strip of real output captures (`ShotCrop`) with prompt overlay and credit badge; FAQ with `FAQPage` JSON-LD. Data in `src/data/pricing.ts`, matched to the Oct 2026 sales deck) |
+| `/trial` | `src/app/trial/page.tsx` | `views/trial.tsx` → `TrialView` — the **Book a demo** page (`siteConfig.demoUrl`). The form panel carries an inline "Prefer to try it yourself? Get started for free" link. `TrialForm` posts to the Google Apps Script URL; success state links to `siteConfig.signupUrl` |
 
 ## Special files
 
@@ -48,7 +50,7 @@ here on route `/` (see [[ai-agent-guide]] / [[new-page]]).
 | `layout.tsx` | Root layout — provider tree, font, `metadata` + `viewport`, JSON-LD |
 | `loading.tsx` | Suspense fallback — its presence enables streaming |
 | `error.tsx` | Route-segment error boundary (Client Component) |
-| `not-found.tsx` | 404 page — served with a 404 status |
+| `not-found.tsx` | 404 page — served with a 404 status. Own metadata (`Page not found`, `noindex`), nav + footer, a curious `AiOrb`, and links to Home / Pricing / Industries / Start free pilot |
 | `robots.ts` / `sitemap.ts` | Generate `/robots.txt` and `/sitemap.xml` — see [[seo-metadata]] |
 | `api/<resource>/route.ts` | API endpoints (Route Handlers) — see [[api-architecture]] |
 

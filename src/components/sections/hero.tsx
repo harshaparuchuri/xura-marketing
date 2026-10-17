@@ -4,6 +4,7 @@ import { Spring } from "@/components/animation/springs/spring";
 import { HeroBackdrop } from "@/components/graphics/hero-backdrop";
 import { PromptGenerationCard } from "@/components/graphics/prompt-generation-card";
 import { SiteNav } from "@/components/sections/site-nav";
+import { siteConfig } from "@/lib/site";
 
 export const Hero = () => (
   <section className="relative isolate overflow-hidden">
@@ -24,12 +25,29 @@ export const Hero = () => (
     />
 
     {/* AiOrb intentionally omitted here, it now lives site-wide as a
-        floating "AI help agent" in the root layout. */}
+        floating AI help orb in the root layout. */}
 
     <div className="relative z-10">
       <SiteNav />
 
       <div className="shell pt-14 text-center md:pt-20">
+        <Spring
+          mode="once"
+          from={{ opacity: 0, y: 14 }}
+          to={{ opacity: 1, y: 0 }}
+          config={{ tension: 180, friction: 27 }}
+          className="mb-6 flex justify-center"
+        >
+          <Link
+            href="/#pilot"
+            className="inline-flex items-center gap-2 rounded-full border border-line bg-background/80 py-1 pl-1 pr-3.5 text-xs transition-colors duration-[var(--duration-fast)] ease-entrance hover:border-foreground"
+          >
+            <span className="rounded-full bg-accent px-2.5 py-0.5 font-semibold">Free</span>
+            Hire your first AI employee: 1 week, 100 credits
+            <span aria-hidden>→</span>
+          </Link>
+        </Spring>
+
         <Spring
           tag="h1"
           mode="once"
@@ -38,8 +56,8 @@ export const Hero = () => (
           config={{ tension: 175, friction: 28 }}
           className="display-serif mx-auto max-w-[26ch]"
         >
-          The intelligence layer for leaders,{" "}
-          <span className="font-semibold italic">one chat away.</span>
+          AI employees that{" "}
+          <span className="font-semibold italic">answer, explain and act.</span>
         </Spring>
 
         <Spring
@@ -51,10 +69,10 @@ export const Hero = () => (
           config={{ tension: 175, friction: 28 }}
           className="mx-auto mt-5 max-w-[54ch] text-base leading-relaxed text-muted md:text-lg"
         >
-          Plug in your data and MCP tools. Xura&apos;s agents watch for the
-          signals your team would overlook and answer every question on
-          WhatsApp, Slack or Teams with a live dashboard, deck, or workflow, so you&apos;re always ready
-          to decide.
+          Stop chasing numbers across spreadsheets, CRMs and inboxes.
+          Xura&apos;s AI employees answer from your own data, find the reason
+          behind the number, and draft the next step. Nothing goes out until
+          you approve.
         </Spring>
 
         <Spring
@@ -65,10 +83,24 @@ export const Hero = () => (
           config={{ tension: 175, friction: 28 }}
           className="mt-7 flex flex-col items-center gap-3"
         >
-          <Link href="/trial" className="pill">
-            <span aria-hidden>▪</span> Start free trial
-          </Link>
-          <p className="text-xs text-muted">One-time setup · No credit card</p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link href={siteConfig.signupUrl} className="pill px-7 py-4 text-sm font-semibold shadow-product">
+              Get started for free <span aria-hidden>→</span>
+            </Link>
+            <a href={siteConfig.demoUrl} className="pill pill-ghost px-6 py-4 text-sm font-semibold">
+              Book a demo
+            </a>
+          </div>
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">
+            <span>✓ 100 free credits</span>
+            <span>✓ No credit card</span>
+            <Link
+              href="/#tour"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+            >
+              ▶ Meet your AI team
+            </Link>
+          </p>
         </Spring>
       </div>
 

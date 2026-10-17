@@ -7,7 +7,6 @@ import { Avatar, AvatarStack, XuraAvatar } from "@/components/graphics/avatar";
 import {
   SlackMark,
   TeamsMark,
-  WhatsAppMark,
 } from "@/components/graphics/channel-marks";
 
 /**
@@ -123,46 +122,123 @@ const TeamsCard = () => (
   </div>
 );
 
+/** WhatsApp chrome is coded to match the real app (wallpaper, bubble tails,
+    read ticks, interactive reply buttons); colours come from --whatsapp-*. */
+const ReadTicks = () => (
+  <svg viewBox="0 0 16 11" className="inline-block h-2 w-3" aria-hidden>
+    <path
+      d="M11.07.65 4.7 7.02 2.18 4.5l-.88.88L4.7 8.78l7.25-7.25-.88-.88Zm3.38 0L8.08 7.02l-.53-.53-.88.88 1.41 1.41 7.25-7.25-.88-.88Z"
+      fill="var(--whatsapp-read)"
+    />
+  </svg>
+);
+
+const Meta = ({ time, read }: { time: string; read?: boolean }) => (
+  <span className="ml-2 inline-flex translate-y-1 items-center gap-0.5 whitespace-nowrap text-[0.5rem] text-[var(--whatsapp-meta)]">
+    {time}
+    {read && <ReadTicks />}
+  </span>
+);
+
+const OutBubble = ({ children, time }: { children: ReactNode; time: string }) => (
+  <div className="ml-auto w-fit max-w-[82%] rounded-lg rounded-tr-none bg-[var(--whatsapp-bubble-out)] px-2 py-1 text-[0.6875rem] shadow-sm">
+    {children}
+    <Meta time={time} read />
+  </div>
+);
+
+const Icon = ({ d }: { d: string }) => (
+  <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d={d} />
+  </svg>
+);
+
 const WhatsAppPhone = () => (
-  <div className="rounded-[2rem] bg-foreground p-1.5 shadow-product">
-    <div className="overflow-hidden rounded-[1.6rem] bg-band-sand-soft">
-      <div className="flex items-center gap-2 bg-background px-3 py-2.5">
-        <XuraAvatar className="size-6 rounded-full" />
-        <div>
-          <p className="text-[0.6875rem] font-semibold leading-tight">Xura</p>
-          <p className="text-[0.5625rem] text-muted">online</p>
+  <div className="rounded-[2.2rem] bg-foreground p-1.5 shadow-product">
+    <div className="overflow-hidden rounded-[1.8rem] bg-[var(--whatsapp-wallpaper)]">
+      {/* Status bar + chat header */}
+      <div className="bg-background">
+        <div className="flex items-center justify-between px-5 pt-2 text-[0.5625rem] font-semibold">
+          <span>9:41</span>
+          <span className="h-3 w-12 rounded-full bg-foreground" />
+          <span className="flex items-center gap-1">
+            <span className="flex items-end gap-px">
+              {[1, 2, 3, 4].map((h) => (
+                <span key={h} className="w-0.5 rounded-sm bg-foreground" style={{ height: `${h * 2 + 1}px` }} />
+              ))}
+            </span>
+            <span className="h-2 w-3.5 rounded-sm border border-foreground p-px">
+              <span className="block h-full w-3/4 rounded-[1px] bg-foreground" />
+            </span>
+          </span>
         </div>
-        <WhatsAppMark className="ml-auto size-4" />
+        <div className="flex items-center gap-2 px-2.5 py-2">
+          <Icon d="M15 18l-6-6 6-6" />
+          <XuraAvatar className="size-6 rounded-full" />
+          <div className="min-w-0 flex-1">
+            <p className="flex items-center gap-1 text-[0.6875rem] font-semibold leading-tight">
+              Xura
+              <svg viewBox="0 0 24 24" className="size-2.5" aria-hidden>
+                <circle cx="12" cy="12" r="11" fill="var(--whatsapp-action)" />
+                <path d="M7 12.5l3 3 7-7" stroke="white" strokeWidth="2.6" fill="none" strokeLinecap="round" />
+              </svg>
+            </p>
+            <p className="text-[0.5rem] text-[var(--whatsapp-meta)]">Business account</p>
+          </div>
+          <span className="flex gap-3 text-[var(--whatsapp-action)]">
+            <Icon d="M15 10l5-3v10l-5-3M3 7h12v10H3z" />
+            <Icon d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z" />
+          </span>
+        </div>
       </div>
-      <div className="space-y-2 p-3">
-        <p className="ml-auto max-w-[85%] rounded-xl rounded-tr-sm bg-duo-wash px-2.5 py-1.5 text-[0.6875rem]">
-          Which plants are behind on OEE today?
+
+      <div className="space-y-1.5 px-2.5 py-3">
+        <p className="mx-auto w-fit rounded-md bg-background/90 px-2 py-0.5 text-[0.5rem] font-medium uppercase text-[var(--whatsapp-meta)] shadow-sm">
+          Today
         </p>
-        <div className="max-w-[92%] rounded-xl rounded-tl-sm bg-background px-2.5 py-2 text-[0.6875rem]">
-          <p className="font-semibold">2 of 6 plants below target</p>
-          <ul className="mt-1.5 space-y-1">
-            {[
-              ["Pune", "68%", 68],
-              ["Leeds", "72%", 72],
-              ["Austin", "86%", 86],
-            ].map(([plant, label, pct]) => (
-              <li key={plant} className="flex items-center gap-2">
-                <span className="w-10 text-muted">{plant}</span>
-                <span className="h-1.5 flex-1 rounded-full bg-line">
-                  <span
-                    className="block h-full rounded-full bg-brand-ink"
-                    style={{ width: `${pct}%` }}
-                  />
-                </span>
-                <span className="w-7 text-right font-medium">{label}</span>
-              </li>
+        <OutBubble time="8:02">Which plants are behind on OEE today?</OutBubble>
+
+        <div className="w-[88%]">
+          <div className="rounded-lg rounded-tl-none bg-background px-2 py-1.5 text-[0.6875rem] shadow-sm">
+            <p>
+              <strong>2 of 6 plants</strong> are below the 75% target:
+            </p>
+            <p className="mt-1">
+              🔴 Pune · 68%
+              <br />
+              🔴 Leeds · 72%
+              <br />
+              🟢 Austin · 86%
+            </p>
+            <p className="mt-1">
+              Pune line 3 has been down 2h (filler jam). Want me to notify the shift lead?
+              <Meta time="8:02" />
+            </p>
+          </div>
+          {/* Interactive reply buttons, as WhatsApp Business renders them */}
+          <div className="mt-0.5 grid grid-cols-2 gap-0.5">
+            {["Notify lead", "Dashboard"].map((label) => (
+              <span
+                key={label}
+                className="rounded-lg bg-background py-1.5 text-center text-[0.625rem] font-medium text-[var(--whatsapp-action)] shadow-sm"
+              >
+                {label}
+              </span>
             ))}
-          </ul>
-          <p className="mt-2 text-muted">Pune: line 3 down 2h. Notify shift lead?</p>
+          </div>
         </div>
-        <p className="ml-auto w-fit rounded-xl rounded-tr-sm bg-duo-wash px-2.5 py-1.5 text-[0.6875rem]">
-          Yes, notify
-        </p>
+
+        <OutBubble time="8:03">Notify lead</OutBubble>
+      </div>
+
+      {/* Composer */}
+      <div className="flex items-center gap-1.5 px-2 pb-3">
+        <span className="flex-1 rounded-full bg-background px-3 py-1.5 text-[0.625rem] text-[var(--whatsapp-meta)]">
+          Message
+        </span>
+        <span className="flex size-6 items-center justify-center rounded-full bg-[var(--whatsapp-action)] text-white">
+          <Icon d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3ZM19 10v2a7 7 0 0 1-14 0v-2M12 19v3" />
+        </span>
       </div>
     </div>
   </div>
@@ -186,7 +262,7 @@ const SURFACES = [
   {
     key: "whatsapp",
     Surface: WhatsAppPhone,
-    place: "mx-auto w-[78%] sm:absolute sm:right-[5%] sm:top-[24%] sm:w-[32%] sm:z-30",
+    place: "mx-auto w-[78%] sm:absolute sm:right-[4%] sm:top-[10%] sm:w-[38%] sm:z-30",
     drift: 54,
     delay: 520,
   },

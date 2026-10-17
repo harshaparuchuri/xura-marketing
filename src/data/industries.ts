@@ -18,12 +18,36 @@ export type Industry = {
     heading: string;
     body: string;
   };
-  useCases: { title: string; tag: string }[];
+  /** Real scheduled routines of the built-in AI employees (from the app's seeds). */
+  useCases: Routine[];
   scenario: {
     heading: string;
     stats: { value: string; label: string }[];
   };
   cta: string;
+  /** Built-in AI employees featured on this page, lead first. */
+  employees: Employee[];
+};
+
+export type EmployeeName = "Nora" | "Ezra" | "Kira" | "Meera";
+
+export type Employee = { name: EmployeeName; role: string; does: string };
+
+/** A use case written as a routine: who runs it, when, what you get, what you approve. */
+export type Routine = {
+  title: string;
+  employee: EmployeeName;
+  schedule: string;
+  body: string;
+  approval: string;
+};
+
+/** Function colour per employee (tokens from globals.css). */
+export const EMPLOYEE_ACCENT: Record<EmployeeName, string> = {
+  Nora: "var(--employee-chief-of-staff)",
+  Ezra: "var(--employee-marketing)",
+  Kira: "var(--employee-recruiting)",
+  Meera: "var(--employee-quality)",
 };
 
 export const INDUSTRIES: Industry[] = [
@@ -31,7 +55,7 @@ export const INDUSTRIES: Industry[] = [
     slug: "pharma",
     label: "Pharma & Life Sciences",
     eyebrow: "Pharma & Life Sciences",
-    headline: "Xura for pharma. Your data team for",
+    headline: "Xura for pharma. Your AI employees for",
     headlineAccent: "batch, quality, and compliance.",
     subhead:
       "Your batch records, lab results, deviations, and inventory live in systems that don't talk to each other. On WhatsApp or the web, Xura joins them and answers back.",
@@ -64,12 +88,48 @@ export const INDUSTRIES: Industry[] = [
       body: "No pipelines to build, no schema to map. Xura queries MES, LIMS, QMS and ERP in place, and answers on WhatsApp so the shift lead sees it before the next hand-over.",
     },
     useCases: [
-      { title: "Batch yield & deviation analysis", tag: "correlate · root-cause · resolve" },
-      { title: "QC release status", tag: "live view · bottlenecks · ETA" },
-      { title: "Regulatory & audit readiness", tag: "assemble · draft · export" },
-      { title: "Supply & procurement planning", tag: "forecast · flag · order" },
-      { title: "Order & shipment risk", tag: "detect · escalate · notify" },
-      { title: "Quality trending", tag: "monitor · drift · alert" },
+      {
+        title: "Monthly brand and market review",
+        employee: "Nora",
+        schedule: "1st working day of the month",
+        body: "Share, pricing and launch comparisons from PharmaTrac or AWACS exports, SAP extracts and competitor news, laid out as your leadership pack with every number sourced.",
+        approval: "You approve the pack before it goes to the BU review.",
+      },
+      {
+        title: "Competitor and regulatory digest",
+        employee: "Ezra",
+        schedule: "Weekdays, 9:30",
+        body: "What competitors launched or repriced and what regulators changed since yesterday, and what each story means for your brands.",
+        approval: "Read-only. Nothing is sent on your behalf.",
+      },
+      {
+        title: "Deviation and OOS intake",
+        employee: "Meera",
+        schedule: "Hourly, Mon–Sat",
+        body: "Picks up new deviation, incident and OOS notifications and posts a draft intake with precedents to the QA channel.",
+        approval: "QA reviews every intake before it is logged.",
+      },
+      {
+        title: "CAPA and deviation ageing digest",
+        employee: "Meera",
+        schedule: "Daily, 9:00",
+        body: "Overdue and due-this-week deviations, CAPAs and change controls, grouped by owner.",
+        approval: "Draft nudges to owners wait for your OK.",
+      },
+      {
+        title: "Deviation trend report",
+        employee: "Meera",
+        schedule: "Mondays, 9:30",
+        body: "Trends by product, equipment, area and root cause; flags repeats and CAPAs that may not be working.",
+        approval: "QA signs off before it is shared.",
+      },
+      {
+        title: "Quality metrics pack",
+        employee: "Meera",
+        schedule: "1st of the month",
+        body: "Management-review metrics required under revised Schedule M, drafted for the QA head.",
+        approval: "The QA head approves the final pack.",
+      },
     ],
     scenario: {
       heading:
@@ -80,13 +140,25 @@ export const INDUSTRIES: Industry[] = [
         { value: "100%", label: "answers delivered on WhatsApp or the web" },
       ],
     },
-    cta: "Join the waitlist and be first to connect Xura to your batch, quality, and supply-chain systems.",
+    cta: "Start a free one-week pilot and connect Xura to your batch, quality, and supply-chain systems.",
+    employees: [
+      {
+        name: "Nora",
+        role: "Chief of Staff",
+        does: "Assembles your monthly brand and market review from secondary sales, SAP extracts and competitor news, with every number traced to its source. You approve before it ships.",
+      },
+      {
+        name: "Meera",
+        role: "QA Investigation",
+        does: "Picks up deviations and OOS results, finds precedents and root causes, and drafts investigations and CAPAs. QA signs off.",
+      },
+    ],
   },
   {
     slug: "saas",
     label: "SaaS & Technology",
     eyebrow: "SaaS & Technology",
-    headline: "Xura for SaaS. Your data team for",
+    headline: "Xura for SaaS. Your AI employees for",
     headlineAccent: "growth, retention, and revenue.",
     subhead:
       "Your funnel lives in product analytics, revenue in billing, and accounts in the CRM, none of them joined. Ask on WhatsApp, get the answer in the same chat.",
@@ -119,12 +191,48 @@ export const INDUSTRIES: Industry[] = [
       body: "Xura connects CRM, product, billing and finance in place. Ask on WhatsApp, get the visual, the summary, and the next action, ready to run.",
     },
     useCases: [
-      { title: "Churn & renewal risk", tag: "score · flag · save" },
-      { title: "Pipeline & revenue analysis", tag: "forecast · slice · brief" },
-      { title: "Activation & onboarding", tag: "cohort · block · nudge" },
-      { title: "Marketing efficiency", tag: "attribute · rank · cut" },
-      { title: "Board & investor reporting", tag: "assemble · narrate · export" },
-      { title: "Support-to-product loop", tag: "cluster · quantify · file" },
+      {
+        title: "Morning brief",
+        employee: "Nora",
+        schedule: "Weekdays, 8:30",
+        body: "What needs you today: deals and renewals at risk in HubSpot, what changed overnight and your meetings.",
+        approval: "Read-only. Nothing is sent on your behalf.",
+      },
+      {
+        title: "Follow-up check",
+        employee: "Nora",
+        schedule: "Weekdays, 16:00",
+        body: "Stalled deals and overdue actions by owner, each with a drafted nudge.",
+        approval: "Every nudge waits for your OK before it is sent.",
+      },
+      {
+        title: "Campaign pulse",
+        employee: "Ezra",
+        schedule: "Weekdays, 15:00",
+        body: "Unusual moves in traffic, leads or spend today, before they become a problem.",
+        approval: "Alerts only; budget changes need your approval.",
+      },
+      {
+        title: "Weekly marketing report",
+        employee: "Ezra",
+        schedule: "Mondays, 10:00",
+        body: "Last week’s pipeline contribution, spend and what to double down on.",
+        approval: "You review before it is shared.",
+      },
+      {
+        title: "Week in review",
+        employee: "Nora",
+        schedule: "Fridays, 17:00",
+        body: "Done, slipped, the numbers week on week and what matters next week, as a brief or a board-ready deck.",
+        approval: "You approve before it goes to the board.",
+      },
+      {
+        title: "Weekly hiring pipeline",
+        employee: "Kira",
+        schedule: "Fridays, 16:00",
+        body: "Every open role by stage, movement this week, bottlenecks and roles at risk.",
+        approval: "Feedback nudges to interviewers wait for your OK.",
+      },
     ],
     scenario: {
       heading: "A vertical SaaS goes from weekly board slides to a live board chat.",
@@ -134,13 +242,25 @@ export const INDUSTRIES: Industry[] = [
         { value: "24/7", label: "board answers on WhatsApp" },
       ],
     },
-    cta: "Join the waitlist and be first to connect Xura to your CRM, product, and billing stack.",
+    cta: "Start a free one-week pilot and connect Xura to your CRM, product, and billing stack.",
+    employees: [
+      {
+        name: "Nora",
+        role: "Chief of Staff",
+        does: "Sends your morning brief from HubSpot, flags renewals and deals at risk, and drafts the follow-ups for your approval.",
+      },
+      {
+        name: "Ezra",
+        role: "Marketing Associate",
+        does: "Watches campaigns and competitors daily and turns what is working into next week’s content.",
+      },
+    ],
   },
   {
     slug: "fintech",
     label: "Fintech & Financial Services",
     eyebrow: "Fintech & Financial Services",
-    headline: "Xura for fintech. Your data team for",
+    headline: "Xura for fintech. Your AI employees for",
     headlineAccent: "risk, operations, and growth.",
     subhead:
       "Your transactions live in the ledger, exposure in the risk engine, and customers in the CRM, reconciled by hand, after the fact. Xura reconciles live and answers on WhatsApp.",
@@ -173,12 +293,41 @@ export const INDUSTRIES: Industry[] = [
       body: "Xura connects your ledger, payment processors, risk engine, and CRM and works out how a transaction, a customer, an exposure, and an exception all relate, from a message on your phone.",
     },
     useCases: [
-      { title: "Reconciliation & settlement", tag: "match · flag · fix" },
-      { title: "Risk & fraud monitoring", tag: "correlate · outlier · queue" },
-      { title: "Compliance & reporting", tag: "assemble · audit · draft" },
-      { title: "Portfolio & growth analysis", tag: "net · rank · recommend" },
-      { title: "Payments operations", tag: "segment · root-cause · change" },
-      { title: "Onboarding & conversion", tag: "funnel · quantify · file" },
+      {
+        title: "Morning brief",
+        employee: "Nora",
+        schedule: "Weekdays, 8:30",
+        body: "Exposure, volumes and reconciliation breaks from your connected or uploaded data, plus what changed overnight.",
+        approval: "Read-only. Nothing is sent on your behalf.",
+      },
+      {
+        title: "Meeting pre-read",
+        employee: "Nora",
+        schedule: "Before each meeting",
+        body: "A short pre-read for every meeting with other attendees: the account, the open issues and the numbers.",
+        approval: "Read-only.",
+      },
+      {
+        title: "Competitor and regulatory digest",
+        employee: "Ezra",
+        schedule: "Weekdays, 9:30",
+        body: "New circulars, rule changes and competitor moves since yesterday, and what each means for you.",
+        approval: "Read-only.",
+      },
+      {
+        title: "Follow-up check",
+        employee: "Nora",
+        schedule: "Weekdays, 16:00",
+        body: "Overdue fixes and stuck items by owner, with drafted nudges.",
+        approval: "Every nudge waits for your OK.",
+      },
+      {
+        title: "Week in review",
+        employee: "Nora",
+        schedule: "Fridays, 17:00",
+        body: "What closed, what slipped, the numbers week on week and what matters next week.",
+        approval: "You approve before it is shared.",
+      },
     ],
     scenario: {
       heading:
@@ -189,13 +338,20 @@ export const INDUSTRIES: Industry[] = [
         { value: "→ WhatsApp", label: "every answer ends in the next action" },
       ],
     },
-    cta: "Join the waitlist and be first to connect Xura to your ledger, payments, and risk systems.",
+    cta: "Start a free one-week pilot and connect Xura to your ledger, payments, and risk systems.",
+    employees: [
+      {
+        name: "Nora",
+        role: "Chief of Staff",
+        does: "Sends a morning brief on the numbers you care about, preps you for every meeting, and drafts follow-ups for your approval.",
+      },
+    ],
   },
   {
     slug: "healthcare",
     label: "Healthcare & Providers",
     eyebrow: "Healthcare & Providers",
-    headline: "Xura for healthcare. Your data team for",
+    headline: "Xura for healthcare. Your AI employees for",
     headlineAccent: "operations, quality, and care.",
     subhead:
       "Your clinical data lives in the EHR, capacity in scheduling, and revenue in billing, none of them joined. Xura joins them, and answers arrive on WhatsApp so care teams stay with patients.",
@@ -228,12 +384,41 @@ export const INDUSTRIES: Industry[] = [
       body: "No pipeline to build, no schema to map, and your data never leaves your secure environment. Ask on WhatsApp; act at the bedside.",
     },
     useCases: [
-      { title: "Capacity & throughput", tag: "forecast · flex · flag" },
-      { title: "Revenue-cycle & denials", tag: "root-cause · appeal · prevent" },
-      { title: "Quality & compliance reporting", tag: "assemble · validate · submit" },
-      { title: "Access & scheduling", tag: "slot · route · notify" },
-      { title: "Operations & supply", tag: "monitor · reorder · flag" },
-      { title: "Outcomes & population insight", tag: "cohort · trend · act" },
+      {
+        title: "Morning brief",
+        employee: "Nora",
+        schedule: "Weekdays, 8:30",
+        body: "Capacity, throughput and denials from your connected or uploaded data, plus what changed overnight.",
+        approval: "Read-only. Nothing is sent on your behalf.",
+      },
+      {
+        title: "Meeting pre-read",
+        employee: "Nora",
+        schedule: "Before each meeting",
+        body: "A short pre-read for every meeting with other attendees, with the numbers that matter for it.",
+        approval: "Read-only.",
+      },
+      {
+        title: "Follow-up check",
+        employee: "Nora",
+        schedule: "Weekdays, 16:00",
+        body: "Overdue actions and stuck items by owner, with drafted nudges.",
+        approval: "Every nudge waits for your OK.",
+      },
+      {
+        title: "Daily hiring brief",
+        employee: "Kira",
+        schedule: "Weekdays, 9:00",
+        body: "Today’s interviews, open clinical and staff roles, and where candidates are stuck.",
+        approval: "Messages to candidates wait for your OK.",
+      },
+      {
+        title: "Week in review",
+        employee: "Nora",
+        schedule: "Fridays, 17:00",
+        body: "What was done, what slipped, the numbers week on week and what matters next week.",
+        approval: "You approve before it is shared.",
+      },
     ],
     scenario: {
       heading:
@@ -244,13 +429,20 @@ export const INDUSTRIES: Industry[] = [
         { value: "on WhatsApp", label: "for every huddle and hand-over" },
       ],
     },
-    cta: "Join the waitlist and be first to connect Xura to your EHR, scheduling, and billing systems.",
+    cta: "Start a free one-week pilot and connect Xura to your EHR, scheduling, and billing systems.",
+    employees: [
+      {
+        name: "Nora",
+        role: "Chief of Staff",
+        does: "Sends a daily brief on capacity and quality, preps you for every meeting, and drafts follow-ups for your approval.",
+      },
+    ],
   },
   {
     slug: "manufacturing",
     label: "Manufacturing & Logistics",
     eyebrow: "Manufacturing & Logistics",
-    headline: "Xura for manufacturing. Your data team for",
+    headline: "Xura for manufacturing. Your AI employees for",
     headlineAccent: "production, quality, and supply.",
     subhead:
       "Your production data lives in the MES, inventory in the WMS, and orders in the ERP, reconciled by hand, after the shift. On WhatsApp, Xura answers before the next one starts.",
@@ -283,12 +475,41 @@ export const INDUSTRIES: Industry[] = [
       body: "No pipeline to build, no schema to map. Point Xura at MES, WMS, and ERP, supervisors ask on WhatsApp from the line.",
     },
     useCases: [
-      { title: "OEE & downtime analysis", tag: "detect · attribute · act" },
-      { title: "Inventory & supply planning", tag: "forecast · balance · order" },
-      { title: "Order & delivery risk", tag: "flag · reroute · notify" },
-      { title: "Quality & yield", tag: "trend · alert · contain" },
-      { title: "Supplier performance", tag: "score · rank · switch" },
-      { title: "Production reporting", tag: "assemble · narrate · export" },
+      {
+        title: "Morning brief",
+        employee: "Nora",
+        schedule: "Weekdays, 8:30",
+        body: "Output, OEE and downtime by line and orders at risk, from your MES and ERP over MCP or uploaded exports.",
+        approval: "Read-only. Nothing is sent on your behalf.",
+      },
+      {
+        title: "Deviation intake",
+        employee: "Meera",
+        schedule: "Hourly, Mon–Sat",
+        body: "New deviations and incidents from the floor, each posted to the quality channel as a draft intake with precedents.",
+        approval: "Quality reviews every intake before it is logged.",
+      },
+      {
+        title: "CAPA ageing digest",
+        employee: "Meera",
+        schedule: "Daily, 9:00",
+        body: "Overdue and due-this-week CAPAs and change controls, grouped by owner.",
+        approval: "Draft nudges to owners wait for your OK.",
+      },
+      {
+        title: "Deviation trend report",
+        employee: "Meera",
+        schedule: "Mondays, 9:30",
+        body: "Trends by line, equipment and root cause; flags repeats and CAPAs that may not be working.",
+        approval: "Quality signs off before it is shared.",
+      },
+      {
+        title: "Follow-up check",
+        employee: "Nora",
+        schedule: "Weekdays, 16:00",
+        body: "Overdue maintenance and supplier actions by owner, with drafted nudges.",
+        approval: "Every nudge waits for your OK.",
+      },
     ],
     scenario: {
       heading:
@@ -299,7 +520,19 @@ export const INDUSTRIES: Industry[] = [
         { value: "line-side", label: "answers on the operator's phone" },
       ],
     },
-    cta: "Join the waitlist and be first to connect Xura to your ERP, MES, and warehouse systems.",
+    cta: "Start a free one-week pilot and connect Xura to your ERP, MES, and warehouse systems.",
+    employees: [
+      {
+        name: "Meera",
+        role: "QA Investigation",
+        does: "Picks up deviations from the line, finds root causes and repeats, and drafts investigations and CAPAs. Quality signs off.",
+      },
+      {
+        name: "Nora",
+        role: "Chief of Staff",
+        does: "Sends a morning brief on output, downtime and late orders from your MES and ERP exports.",
+      },
+    ],
   },
 ];
 

@@ -3,12 +3,13 @@ import { Spring } from "@/components/animation/springs/spring";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteNav } from "@/components/sections/site-nav";
 import { TrialForm } from "@/components/sections/trial-form";
+import { siteConfig } from "@/lib/site";
 
 /**
  * Free-trial view. Server Component wrapper around the client `TrialForm`.
  * Two-column band on desktop: pitch + trust markers on the left, form on the
- * right. Submissions post to `/api/trial`, which forwards to the configured
- * Google Apps Script Web App.
+ * right. `TrialForm` posts submissions straight to a Google Apps Script Web
+ * App (`SHEETS_URL`); there is no `/api` route under static export.
  */
 export const TrialView = () => (
   <>
@@ -36,7 +37,7 @@ export const TrialView = () => (
                   config={{ tension: 180, friction: 27 }}
                   className="meta"
                 >
-                  Start free trial
+                  Book a demo
                 </Spring>
                 <Spring
                   tag="h1"
@@ -47,8 +48,8 @@ export const TrialView = () => (
                   config={{ tension: 175, friction: 28 }}
                   className="display-serif mt-3 max-w-[18ch] text-3xl sm:text-4xl md:text-5xl"
                 >
-                  Try Xura on your data,{" "}
-                  <span className="font-semibold italic">in minutes.</span>
+                  See your AI employees{" "}
+                  <span className="font-semibold italic">at work.</span>
                 </Spring>
                 <Spring
                   tag="p"
@@ -59,11 +60,10 @@ export const TrialView = () => (
                   config={{ tension: 175, friction: 28 }}
                   className="mt-5 max-w-[52ch] text-sm leading-relaxed text-muted"
                 >
-                  Tell us where your data lives and how your team already works.
-                  We will set up a private workspace, connect a starter sample
-                  of your systems, and share a live Xura on WhatsApp, Slack,
-                  Teams and the web so you can ask real questions against real
-                  numbers.
+                  Tell us where your data lives and the flow you most want off
+                  your plate. We&apos;ll come back within one business day to
+                  book a 30-minute walkthrough, built around your use case,
+                  on WhatsApp, Slack, Teams or the web.
                 </Spring>
               </div>
 
@@ -77,10 +77,15 @@ export const TrialView = () => (
                 className="rounded-sm border border-line bg-background p-6 shadow-[0_18px_36px_rgba(15,23,42,0.06)] md:p-8 lg:col-start-2 lg:row-span-2 lg:row-start-1"
               >
                 <h2 className="text-base font-semibold tracking-tight">
-                  Get your workspace
+                  Request your demo
                 </h2>
                 <p className="mt-1.5 text-xs text-muted">
-                  We will only use these details to set up your trial.
+                  We will only use these details to arrange your demo. Prefer
+                  to try it yourself?{" "}
+                  <a href={siteConfig.signupUrl} className="font-medium text-foreground underline underline-offset-4">
+                    Get started for free
+                  </a>
+                  .
                 </p>
                 <div className="mt-5">
                   <TrialForm />
@@ -122,15 +127,15 @@ const TRUST: { title: string; body: string }[] = [
     body: "Row-level permissions and an audit trail on every message. Nothing trains a public model.",
   },
   {
-    title: "Live in your stack in a day",
-    body: "MCP and 50+ native connectors. No ETL to build, no schema to map by hand.",
+    title: "Connected in minutes",
+    body: "Native connectors plus any MCP tool, or just upload a file. No ETL to build, no schema to map by hand.",
   },
   {
     title: "Ask on the surface you already use",
     body: "WhatsApp for the field, Slack and Teams at the desk, the web app for deep work. Same graph, same answer.",
   },
   {
-    title: "No credit card, no lock-in",
-    body: "Walk away any time. Export your workspace or bring it back later.",
+    title: "Or start on your own",
+    body: "100 free credits, no credit card. Sign up and put Nora to work in minutes.",
   },
 ];

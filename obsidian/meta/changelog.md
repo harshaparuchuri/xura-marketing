@@ -1,12 +1,122 @@
 ---
 tags: [meta, changelog]
-updated: 2026-10-08
+updated: 2026-10-18
 ---
 
 # Changelog
 
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
+
+## 2026-10-18
+- **Comparison table made accurate** (`xura-vs.tsx`) — every Xura claim now
+  matches the app: ~10 native connectors + MCP + uploads (not "50+"),
+  glossary/semantic layer, monitors/routines, approval gates, per-employee
+  learning, document ACLs, audit log. Dropped SSO, "zero raw data stored" and
+  "queries run at source" (the app indexes document chunks and stores
+  uploads). Competitor column no longer understates ChatGPT/Claude.
+- **"Board deck(s)" → "Slide deck(s)"** in the pricing credit examples and the homepage pilot card — decks aren't only for boards. The deck example prompt is now a team review deck.
+- **Nav links truly centred** — `site-nav.tsx` uses a `1fr · auto · 1fr` grid (`md+`) so the link group sits on the page centre regardless of logo vs CTA widths (it was centred between them before).
+- **"Sign in" removed** from the nav (desktop + mobile menu) and footer; "Get started for free" opens the app's auth page, which has a Sign in tab.
+- **CTA destinations** — "Book a demo" → `/trial` (`siteConfig.demoUrl`);
+  "Get started for free" → `https://app.xuralabs.com/?tab=signup`
+  (`siteConfig.signupUrl`). The app does not read `?tab=signup` yet (it opens
+  on Sign in); the param is kept so it works once the app supports it — the
+  app is out of scope for this repo. `/trial` is now the demo request page:
+  title "Book a demo", H1 "See your AI employees *at work.*", form "Request
+  your demo" → "Request demo", success state "Demo requested" with a link to
+  sign up.
+- **CTA pair "Get started for free" + "Book a demo"** (Viktor-style) across
+  nav (demo outlined at `lg+`, also in the mobile menu), hero (video moved to a
+  "▶ Meet your AI team" text link in the microcopy), PilotOffer, closing CTA,
+  pricing cards (Custom → Book a demo), industry pages, 404 and footer.
+  `siteConfig.demoUrl` drives every demo link.
+- **Header and footer reworked** — nav adds "AI employees", a Docs ↗ marker,
+  a filled "Start free pilot" primary, a text "Sign in", and a mobile
+  `<details>` menu (links were hidden on mobile before). Footer becomes link
+  columns with Contact, Product Hunt and YouTube (G2 → g2.com/products/xura-ai/reviews). `siteConfig` gains `email`, `legalName`, `profiles`.
+- **Dev tip:** Turbopack `next dev` repeatedly missed file edits in this checkout (stale pages until restart). Run `npx next dev --webpack --port 3007` locally — same bundler as CI (ADR-0023).
+- **Growth plan price $75 → $100** per user / month (credits unchanged at 1,000).
+- **Hero video button** reworded "Watch the tour · 1:38" → "Meet your AI team" (no running time), matching the video's title.
+- **Pricing "what credits buy" cards show real output snaps** — each card is
+  now a cropped product capture (infographic, dashboard, deck, research from
+  `public/assets/product/`) with the prompt overlaid, an accent "~N credits"
+  badge, and Nora's result line. `CreditExample.credits` is now a number and
+  gains `shot` (src, alt, crop); prompts reworded to match the captures.
+- **Free pilot made prominent** — new homepage `PilotOffer` band after the AI
+  employees; hero gets an offer chip and bigger CTAs ("Start free · 100
+  credits on us"); pricing cards restyled (Pilot "Start here", dark Growth
+  card, large credit numbers). `PricingPlan` gains `badge` and `entry`.
+- **Industry routines shown as a timeline** — new
+  `sections/routine-timeline.tsx` replaces the 3-up card grid on industry
+  pages: grouped Every month → week → day → hour, time on the rail, employee-
+  coloured nodes, approval pill per card. See [[sections]].
+- **Industry use cases rewritten as real routines** — the 30 generic
+  "score · flag · save" cards became 27 routines from the app's employee seeds
+  (Nora, Ezra, Kira, Meera), each showing who runs it, when, what you get and
+  what waits for approval. Section heading: "What your AI employees run, and
+  when". Pharma leads with Nora's monthly brand and market review (the
+  research report's wedge), then Meera's QA routines. Fintech and healthcare
+  stay live, built on Nora's general routines plus Ezra/Kira. `Industry.employee`
+  → `employees[]`; new `Routine`, `Employee`, `EMPLOYEE_ACCENT` in
+  `data/industries.ts`.
+- **Pricing page rebuilt** (inspired by viktor.com/pricing) — headline "Hire
+  your first AI employee. *Free for a week.*" with a Nora quote; four cards
+  (Pilot free · Starter $50 / 500 credits · Growth $75 / 1,000 credits ·
+  Custom); "what credits buy" strip (social post ~6, dashboard ~20, deck ~40,
+  research ~60); seven-question FAQ with `FAQPage` JSON-LD. **Credit policy:**
+  per seat, no rollover, top-ups any time. `PricingPlan` gains `credits` and
+  `featuresLead`; `data/pricing.ts` exports `CREDIT_EXAMPLES`, `CREDITS_NOTE`.
+- **"Free trial" → "free pilot" site-wide** (nav, hero, footer, closing CTA,
+  industry pages, trial page, pricing metadata) to match the 1-week / 1-user /
+  100-credit pilot.
+- **404 redesigned** — metadata + `noindex`, nav/footer, curious `AiOrb`, links
+  to key pages.
+- **Industry pages** — "Your data team for…" → "Your AI employees for…";
+  "Join the waitlist" CTAs → "Start free pilot"; each page features an AI
+  employee (Meera for pharma/manufacturing, Nora for SaaS/fintech/healthcare).
+- **Trial page** — pilot framing in eyebrow/H1/subline; "Live in a day / 50+
+  connectors" → "Connected in minutes / native connectors plus any MCP tool";
+  stale `/api/trial` comment corrected (form posts to the Apps Script URL).
+- **Product tour video** — new `common/video-tour.tsx` (click-to-load
+  YouTube, `VideoObject` JSON-LD). "Meet your AI team" (1:38) embedded in the
+  AI employees section as `#tour`; hero gets a "Watch the tour" pill.
+- **Hero card (`PromptGenerationCard`) reworked** — no empty canvas, AI
+  employee status pill with sources, send button, brand-ink Save, app-accurate
+  rail. See [[sections]].
+- **Homepage repositioned around AI employees** (follows the Oct 2026 sales
+  deck). Hero: "AI employees that *answer, explain and act.*"; closing CTA:
+  "Your newest hire. *Ready on day one.*"; `siteConfig.tagline` and
+  `description` updated to match.
+- **`sections/agents.tsx` → `sections/ai-employees.tsx`** — named roster
+  (Nora, Ezra, Kira, Meera) plus Nora's approval-gated run card. See
+  [[sections]].
+- **"Agents" retired from customer-facing copy** — now "AI employees" in
+  hero, EnterpriseReady, XuraVs, the hero `PromptGenerationCard` flow node and
+  `data/pricing.ts`. "Flows" stays the name for automations.
+- **`AiOrb` gains `accent` and `spin` props** (ported from the app's
+  `AiOrb`): `accent` sets `--orb-accent` and adds `.m-orb--tinted`, which
+  recolours the antenna arc and halo (`ai-orb.css`).
+- **New tokens:** `--raw-color-violet-500 / orange-600 / amber-500 / teal-600`
+  → `--employee-chief-of-staff / marketing / recruiting / quality` (mirrors the
+  app's `DOMAIN_COLOR`). See [[design-system]].
+- **WhatsApp mockup made realistic** (`graphics/channel-scene.tsx`) — real
+  WhatsApp Business chrome (status bar, verified header, wallpaper, green
+  outgoing bubbles with read ticks, reply buttons, composer). New tokens
+  `--raw-color-wa-*` → `--whatsapp-wallpaper / bubble-out / action / read /
+  meta`.
+- **Gotcha:** Tailwind scans `obsidian/` notes; a wildcard class-shaped
+  placeholder in `design-system.md` broke the CSS build. Reworded, and a
+  warning added to [[design-system]].
+
+## 2026-10-10
+- **Pricing page (`/pricing`)** — new `PricingView` with hero, three plan cards
+  (Starter / Growth / Enterprise, Growth featured) and a native `<details>`
+  FAQ. Content in `src/data/pricing.ts` is **placeholder** — replace with real
+  plans before launch. Added "Pricing" to nav, footer and `sitemap.ts`.
+  See [[routing]].
+- **Nav: removed the "Channels", "Product" and "Why Xura" anchors** from `site-nav.tsx`
+  (footer links kept).
 
 ## 2026-10-09
 - **GA tag moved into the static `<head>`** — `GoogleAnalytics` now renders

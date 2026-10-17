@@ -3,6 +3,7 @@
 import { animated, useSpring, useTransition } from "@react-spring/web";
 import { useEffect, useState } from "react";
 import { XuraLogo } from "@/components/brand/logo";
+import { AiOrb } from "@/components/graphics/ai-orb";
 
 /**
  * PromptGenerationCard — desktop-app-styled hero device.
@@ -14,6 +15,10 @@ import { XuraLogo } from "@/components/brand/logo";
  *
  * Motion is spring-based (react-spring `useTransition` cross-fade;
  * useSpring for the output reveal; typing is a state-driven interval).
+ *
+ * The canvas is never empty: while the next prompt types, the previous output
+ * stays visible (dimmed) and a status pill shows which AI employee is working
+ * and which sources it is reading; once shown, the pill cites the sources.
  */
 
 type Kind = "dashboard" | "slides" | "research" | "workflow";
@@ -23,30 +28,40 @@ const SCENES: {
   kind: Kind;
   label: string;
   actions: string[];
+  employee: { name: string; accent: string; task: string };
+  sources: string[];
 }[] = [
   {
     prompt: "Show pipeline coverage by segment for Q4",
     kind: "dashboard",
     label: "Dashboard",
     actions: ["Share", "Export .csv", "Save"],
+    employee: { name: "Nora", accent: "var(--employee-chief-of-staff)", task: "building your pipeline dashboard" },
+    sources: ["HubSpot", "Salesforce", "finance.xlsx"],
   },
   {
     prompt: "Board deck: Q4 outcomes and next-year bets",
     kind: "slides",
     label: "Slides",
     actions: ["Present", "Export .pptx", "Save"],
+    employee: { name: "Nora", accent: "var(--employee-chief-of-staff)", task: "writing your board deck" },
+    sources: ["HubSpot", "finance.xlsx", "Notion"],
   },
   {
     prompt: "Research: what's driving enterprise churn?",
     kind: "research",
     label: "Research",
     actions: ["Cite", "Export .pdf", "Save"],
+    employee: { name: "Ezra", accent: "var(--employee-marketing)", task: "researching churn drivers" },
+    sources: ["Zendesk", "HubSpot", "14 web sources"],
   },
   {
     prompt: "Reallocate spend from missed CAC campaigns",
     kind: "workflow",
     label: "Workflow",
     actions: ["Approve", "Log", "Run"],
+    employee: { name: "Nora", accent: "var(--employee-chief-of-staff)", task: "drafting the spend reallocation" },
+    sources: ["Google Ads", "HubSpot", "Sheets"],
   },
 ];
 
@@ -61,6 +76,11 @@ export const PromptGenerationCard = () => {
     "typing",
   );
   const scene = SCENES[sceneIdx]!;
+  // What the canvas shows: the current scene once revealed, otherwise the
+  // previous one (dimmed). Starts on the last scene so the first frame is full.
+  const shownIdx =
+    phase === "showing" ? sceneIdx : (sceneIdx + SCENES.length - 1) % SCENES.length;
+  const shown = SCENES[shownIdx]!;
 
   useEffect(() => {
     setTyped("");
@@ -97,8 +117,8 @@ export const PromptGenerationCard = () => {
     config: { tension: 220, friction: 26 },
   });
 
-  const transitions = useTransition(phase === "showing" ? scene.kind : null, {
-    keys: (k) => k ?? "empty",
+  const transitions = useTransition(shown.kind, {
+    keys: (k) => k,
     from: { opacity: 0, y: 8 },
     enter: { opacity: 1, y: 0 },
     leave: { opacity: 0, y: -6 },
@@ -126,14 +146,19 @@ export const PromptGenerationCard = () => {
               style={{ opacity: phase === "typing" ? 1 : 0.35 }}
             />
           </p>
-          <span className="hidden shrink-0 rounded-full bg-accent px-2 py-0.5 text-[0.625rem] font-semibold md:inline-flex">
-            {phase === "showing" ? scene.label : phase === "generating" ? "…" : "Prompt"}
+          <span
+            aria-hidden
+            className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-ink text-background"
+          >
+            <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 19V5M6 11l6-6 6 6" />
+            </svg>
           </span>
         </div>
 
         {/* Actions row (like Present · Export · Save) */}
         <div className="hidden shrink-0 items-center gap-1.5 md:flex">
-          {scene.actions.slice(0, 2).map((a) => (
+          {shown.actions.slice(0, 2).map((a) => (
             <span
               key={a}
               className="rounded-md px-2 py-1 text-[0.6875rem] font-medium text-muted"
@@ -141,42 +166,52 @@ export const PromptGenerationCard = () => {
               {a}
             </span>
           ))}
-          <span className="rounded-md bg-duo px-2.5 py-1 text-[0.6875rem] font-semibold text-background">
-            {scene.actions[scene.actions.length - 1]}
+          <span className="rounded-md bg-brand-ink px-2.5 py-1 text-[0.6875rem] font-semibold text-background">
+            {shown.actions[shown.actions.length - 1]}
           </span>
         </div>
       </div>
 
       {/* Canvas — 16:9 ratio (fixed h on mobile so it never grows/shrinks) */}
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-band-mist/40">
-        {/* Empty / generating state */}
-        <animated.div
-          style={{
-            opacity: reveal.opacity.to((o) => 1 - o),
-            transform: "translateY(0px)",
-          }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <p className="flex items-center gap-2 text-xs text-muted">
-            <span
-              aria-hidden
-              className="inline-block h-1.5 w-1.5 animate-none rounded-full bg-duo"
-            />
-            {phase === "typing" ? "Waiting for your prompt…" : "Generating…"}
-          </p>
-        </animated.div>
-
         {/* Output */}
-        {transitions((style, kind) =>
-          kind ? (
+        <animated.div
+          className="absolute inset-0"
+          style={{ opacity: reveal.opacity.to((o) => 0.35 + o * 0.65) }}
+        >
+          {transitions((style, kind) => (
             <animated.div style={style} className="absolute inset-0">
               {kind === "dashboard" && <DashboardScene />}
               {kind === "slides" && <SlidesScene />}
               {kind === "research" && <ResearchScene />}
               {kind === "workflow" && <WorkflowScene />}
             </animated.div>
-          ) : null,
-        )}
+          ))}
+        </animated.div>
+
+        {/* Status pill — who is working and on what; cites sources once done */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-3 z-10 flex justify-center px-3">
+          <div className="flex max-w-full items-center gap-2 rounded-full border border-line bg-background/95 py-1 pl-1 pr-3 text-[0.6875rem] shadow-product">
+            <AiOrb
+              size={22}
+              accent={scene.employee.accent}
+              state={phase === "showing" ? "active" : "thinking"}
+              spin={false}
+            />
+            {phase === "showing" ? (
+              <span className="truncate">
+                <span className="font-semibold">{scene.employee.name}</span>
+                <span className="text-muted"> · built from {scene.sources.join(" · ")}</span>
+              </span>
+            ) : (
+              <span className="truncate">
+                <span className="font-semibold">{scene.employee.name}</span>
+                <span className="text-muted"> is {scene.employee.task}…</span>
+                <span className="hidden text-muted sm:inline"> reading {scene.sources.join(", ")}</span>
+              </span>
+            )}
+          </div>
+        </div>
       </div>
       </div>
     </div>
@@ -193,20 +228,20 @@ const AppRail = () => (
       <RailIcon active label="Home">
         <path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z" />
       </RailIcon>
-      <RailIcon label="Projects">
-        <path d="M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zM8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" fill="none" stroke="currentColor" strokeWidth="1.6" />
+      <RailIcon label="Chat">
+        <path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
       </RailIcon>
-      <RailIcon label="Team">
-        <path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM3 19a6 6 0 0 1 12 0v1H3zm13-1a5 5 0 0 1 .5-2h4a3.5 3.5 0 0 1 3.5 3.5V20h-8z" />
-      </RailIcon>
-      <RailIcon label="Risks">
-        <path d="M12 3l10 17H2zM12 10v5m0 2v.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-      </RailIcon>
-      <RailIcon label="Analytics">
+      <RailIcon label="Dashboards">
         <path d="M4 20V10m6 10V4m6 16v-8" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
       </RailIcon>
-      <RailIcon label="Docs">
-        <path d="M6 3h9l5 5v13H6zM14 3v6h6" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <RailIcon label="Slides">
+        <path d="M3 5h18v11H3zM12 16v4M8 20h8" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      </RailIcon>
+      <RailIcon label="Flows">
+        <path d="M6 4v6a4 4 0 0 0 4 4h4a4 4 0 0 1 4 4v2M6 4a2 2 0 1 0 0 .01M18 20a2 2 0 1 0 0 .01" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      </RailIcon>
+      <RailIcon label="AI employees">
+        <path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM3 19a6 6 0 0 1 12 0v1H3zm13-1a5 5 0 0 1 .5-2h4a3.5 3.5 0 0 1 3.5 3.5V20h-8z" />
       </RailIcon>
     </div>
     <div className="flex flex-col items-center gap-1.5">
@@ -870,10 +905,10 @@ const WorkflowScene = () => {
           </span>
           <div>
             <p className="text-[0.55rem] font-semibold text-foreground">
-              Sales Digest Agent
+              Nora · Sales digest
             </p>
             <p className="text-[0.4375rem] text-muted">
-              Xura Tools Agent · gpt-5
+              AI employee · Chief of Staff
             </p>
           </div>
         </div>

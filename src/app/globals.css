@@ -25,6 +25,20 @@
 
   --raw-color-green-950: #00281b;
 
+  /* AI employee function colours — the antenna arc and glow on each
+     employee's AiOrb. Mirrors DOMAIN_COLOR in the Xura app. */
+  --raw-color-violet-500: #7f77dd;
+  --raw-color-orange-600: #d85a30;
+  --raw-color-amber-500: #ef9f27;
+  --raw-color-teal-600: #1d9e75;
+
+  /* WhatsApp UI — used only by the coded WhatsApp chat mockups. */
+  --raw-color-wa-wallpaper: #efeae2;
+  --raw-color-wa-outgoing: #d9fdd3;
+  --raw-color-wa-green: #00a884;
+  --raw-color-wa-tick: #53bdeb;
+  --raw-color-wa-meta: #667781;
+
   /* Duotone blues used to treat photography */
   --raw-color-blue-600: #2f6be8;
   --raw-color-blue-400: #6ea3f2;
@@ -63,6 +77,17 @@
   --accent-strong: var(--raw-color-yellow-500);
 
   --brand-ink: var(--raw-color-green-950);
+
+  --employee-chief-of-staff: var(--raw-color-violet-500);
+  --employee-marketing: var(--raw-color-orange-600);
+  --employee-recruiting: var(--raw-color-amber-500);
+  --employee-quality: var(--raw-color-teal-600);
+
+  --whatsapp-wallpaper: var(--raw-color-wa-wallpaper);
+  --whatsapp-bubble-out: var(--raw-color-wa-outgoing);
+  --whatsapp-action: var(--raw-color-wa-green);
+  --whatsapp-read: var(--raw-color-wa-tick);
+  --whatsapp-meta: var(--raw-color-wa-meta);
 
   --duo: var(--raw-color-blue-600);
   --duo-mid: var(--raw-color-blue-400);

@@ -822,3 +822,22 @@ Turbopack+export path for `next/font`.
 - Local dev/build behaviour unchanged.
 - If we later drop `next/font/google` for `next/font/local`, the
   Turbopack bug goes away and this override can be removed.
+
+## ADR-0024 — Third-party video embeds load on click only
+
+**Date.** 2026-10-18
+
+**Context.** The homepage now features the "Meet your AI team" product tour
+hosted on YouTube. A standard YouTube iframe pulls roughly 500 KB of player
+scripts and sets tracking cookies on page load. That hurts load speed and
+Core Web Vitals, and it conflicts with ADR-0021, which ships no consent banner.
+
+**Decision.** Embed video only through `common/video-tour.tsx`. It shows the
+thumbnail plus a play button, and mounts a `youtube-nocookie.com` iframe only
+after the visitor clicks. The component emits its own `VideoObject` JSON-LD,
+so search still sees the video.
+
+**Consequences.** There's no YouTube cost until someone presses play, and no
+cookies before then. Autoplay-on-load isn't possible. The thumbnail is
+hot-linked from `i.ytimg.com`; self-host it if that domain ever becomes a
+problem.

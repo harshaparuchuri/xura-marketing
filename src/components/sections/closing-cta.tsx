@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Inview } from "@/components/animation/springs/in-view";
+import { siteConfig } from "@/lib/site";
 
 /**
  * Closing CTA — a cool mist band with one centred question, a channel-neutral
@@ -16,9 +17,10 @@ export const ClosingCta = () => (
         from={{ opacity: 0, y: 18 }}
         to={{ opacity: 1, y: 0 }}
         config={{ tension: 180, friction: 27 }}
-        className="display-sans mx-auto max-w-[28ch]"
+        className="display-serif mx-auto max-w-[28ch]"
       >
-        Ready to hear what your business is telling you?
+        Your newest hire.{" "}
+        <span className="font-semibold italic">Ready on day one.</span>
       </Inview>
       <Inview
         tag="p"
@@ -29,8 +31,8 @@ export const ClosingCta = () => (
         config={{ tension: 180, friction: 27 }}
         className="mx-auto mt-4 max-w-[52ch] text-sm leading-relaxed text-muted"
       >
-        Connect a sample of your data and ask Xura on WhatsApp, Slack, Teams
-        or the web. Your first answer takes minutes, not a project.
+        Connect a sample of your data, put an AI employee to work, and get
+        your first answer on WhatsApp, Slack, Teams or the web in minutes.
       </Inview>
 
       <Inview
@@ -41,12 +43,12 @@ export const ClosingCta = () => (
         config={{ tension: 180, friction: 27 }}
         className="mt-7 flex flex-wrap justify-center gap-2.5"
       >
-        <Link href="/trial" className="pill">
-          <span aria-hidden>▪</span> Start free trial
+        <Link href={siteConfig.signupUrl} className="pill">
+          Get started for free <span aria-hidden>→</span>
         </Link>
-        <Link href="/#how-it-works" className="pill pill-ghost">
-          See how it works
-        </Link>
+        <a href={siteConfig.demoUrl} className="pill pill-ghost">
+          Book a demo
+        </a>
       </Inview>
     </div>
   </section>

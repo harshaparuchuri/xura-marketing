@@ -4,56 +4,86 @@ import { XuraLogo } from "@/components/brand/logo";
 import { PixelWordmark } from "@/components/graphics/pixel-wordmark";
 
 import { INDUSTRIES } from "@/data/industries";
+import { siteConfig } from "@/lib/site";
 
-const LINKS: { label: string; href: string }[] = [
-  { label: "Product", href: "/#features" },
-  { label: "Channels", href: "/#channels" },
-  { label: "Industries", href: "/industries" },
-  { label: "Start free trial", href: "/trial" },
+const DOCS_URL = "https://xura.mintlify.site/introduction/welcome";
+
+type FooterLink = { label: string; href: string; external?: boolean };
+
+const PRODUCT: FooterLink[] = [
+  { label: "AI employees", href: "/#ai-employees" },
+  { label: "Product tour", href: "/#tour" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Docs", href: DOCS_URL, external: true },
+  { label: "Get started for free", href: siteConfig.signupUrl, external: true },
 ];
 
+const COMPANY: FooterLink[] = [
+  { label: "Book a demo", href: siteConfig.demoUrl },
+  { label: "Contact us", href: `mailto:${siteConfig.email}` },
+];
+
+/** Review and launch profiles; entries with no URL yet are skipped. */
+const FIND_US: FooterLink[] = [
+  { label: "G2 reviews", href: siteConfig.profiles.g2 ?? "", external: true },
+  { label: "Product Hunt", href: siteConfig.profiles.productHunt, external: true },
+  { label: "YouTube", href: siteConfig.profiles.youtube, external: true },
+].filter((l) => l.href);
+
+const linkClass =
+  "transition-opacity duration-[var(--duration-fast)] ease-entrance hover:opacity-60";
+
+const FooterAnchor = ({ label, href, external }: FooterLink) =>
+  external ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+      {label} <span aria-hidden className="opacity-60">↗</span>
+    </a>
+  ) : (
+    <Link href={href} className={linkClass}>
+      {label}
+    </Link>
+  );
+
+const Column = ({ title, links }: { title: string; links: FooterLink[] }) => (
+  <nav aria-label={title}>
+    <h2 className="text-[0.6875rem] font-semibold uppercase tracking-widest opacity-60">{title}</h2>
+    <ul className="mt-3 space-y-2 text-sm">
+      {links.map((link) => (
+        <li key={link.label}>
+          <FooterAnchor {...link} />
+        </li>
+      ))}
+    </ul>
+  </nav>
+);
+
 /**
- * Footer — the loudest surface on the page: a full-bleed accent band carrying a
- * link row, the legal line, and an oversized wordmark clipped by the bottom
- * edge. Textured to match the values band.
+ * Footer — dark band with a brand blurb and four link columns (Product,
+ * Industries, Company, Find us — G2 / Product Hunt / YouTube from
+ * `siteConfig.profiles`), then the oversized pixel wordmark and the legal
+ * line.
  */
 export const SiteFooter = () => (
   <footer className="texture relative isolate overflow-hidden bg-brand-ink text-white">
+    <div className="shell relative grid gap-10 pt-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+      <div className="max-w-xs sm:col-span-2 lg:col-span-1">
+        <Link href="/" aria-label="Xura home">
+          <XuraLogo markOnly />
+        </Link>
+        <p className="mt-4 text-sm leading-relaxed opacity-70">
+          AI employees that answer, explain and act, with you approving every
+          step.
+        </p>
+      </div>
+      <Column title="Product" links={PRODUCT} />
+      <Column
+        title="Industries"
+        links={INDUSTRIES.map((i) => ({ label: i.label, href: `/industries/${i.slug}` }))}
+      />
+      <Column title="Company" links={COMPANY} />
+      <Column title="Find us" links={FIND_US} />
+    </div>
     <div className="shell relative">
-      <ul className="flex flex-wrap items-center gap-5 pt-5 text-xs">
-        <li className="mr-1">
-          <Link href="/" aria-label="Xura home">
-            <XuraLogo markOnly />
-          </Link>
-        </li>
-        {LINKS.map((link) => (
-          <li key={link.label}>
-            <Link
-              href={link.href}
-              className="transition-opacity duration-[var(--duration-fast)] ease-entrance hover:opacity-60"
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-xs opacity-80">
-        <li className="mr-1 font-semibold uppercase tracking-wide opacity-70">
-          Industries
-        </li>
-        {INDUSTRIES.map((i) => (
-          <li key={i.slug}>
-            <Link
-              href={`/industries/${i.slug}`}
-              className="transition-opacity duration-[var(--duration-fast)] ease-entrance hover:opacity-60"
-            >
-              {i.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-
       {/* Mobile: keep the flat oversized wordmark, cropped by the page edge. */}
       <p
         aria-hidden
@@ -73,7 +103,7 @@ export const SiteFooter = () => (
     </div>
 
     <p className="shell py-3 text-center text-[10px] uppercase tracking-widest opacity-40">
-      © {new Date().getFullYear()} · All rights reserved
+      © {new Date().getFullYear()} {siteConfig.legalName} · All rights reserved
     </p>
   </footer>
 );
