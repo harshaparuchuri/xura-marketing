@@ -32,7 +32,7 @@ export const Breadcrumbs = ({
               <>
                 <Link
                   href={crumb.path || "/"}
-                  className="transition-colors duration-[var(--duration-fast)] ease-entrance hover:text-foreground"
+                  className="-my-2 inline-flex min-h-10 items-center px-1 transition-colors duration-[var(--duration-fast)] ease-entrance hover:text-foreground"
                 >
                   {crumb.name}
                 </Link>

@@ -127,7 +127,8 @@ async component must mirror its final layout with one of these
 Server component. `<Breadcrumbs crumbs={[{ name, path }]} />` renders a
 visible `nav[aria-label="Breadcrumb"]` trail (the last crumb has
 `aria-current="page"`) and the matching `BreadcrumbList` JSON-LD. Used on
-pricing, the industries index and the industry pages. See [[seo-checklist]].
+pricing, the industries index and the industry pages. Links have a ≥40px
+tap area (`min-h-10`, negative `-my-2` to keep the row compact). See [[seo-checklist]].
 
 ## VideoTour — `video-tour.tsx`
 
