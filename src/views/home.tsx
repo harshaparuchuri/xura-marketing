@@ -17,7 +17,7 @@ import { XuraVs } from "@/components/sections/xura-vs";
 /**
  * Home view — Server Component.
  *
- * Section order: hero → domains → how it works → features → recommendations → AI employees → pilot offer →
+ * Section order: hero → domains → how it works → features → recommendations → AI employees → pilot offer (incl. compact pricing) →
  * outputs → channels → Xura vs → industries → enterprise-ready → case study →
  * CTA → footer.
  */

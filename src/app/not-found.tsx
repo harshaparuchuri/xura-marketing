@@ -5,6 +5,7 @@ import { AiOrb } from "@/components/graphics/ai-orb";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteNav } from "@/components/sections/site-nav";
 import { siteConfig } from "@/lib/site";
+import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 
 /**
  * 404 page. Rendered for unmatched routes and `notFound()` calls; Next serves
@@ -22,7 +23,7 @@ export default function NotFound() {
       <main className="bg-band-sand-soft">
         <SiteNav />
         <section className="shell flex flex-col items-center py-24 text-center md:py-32">
-          <AiOrb size={88} emotion="curious" spin={false} />
+          <OrbDockSlot id="not-found" size={88} />
           <p className="meta mt-8">404</p>
           <h1 className="display-serif mt-3 max-w-[20ch]">
             I looked everywhere.{" "}

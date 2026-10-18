@@ -12,6 +12,7 @@ import { SiteNav } from "@/components/sections/site-nav";
 import { EMPLOYEE_ACCENT, getIndustry } from "@/data/industries";
 import { siteConfig } from "@/lib/site";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
+import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 
 type Props = { slug: string };
 
@@ -22,7 +23,7 @@ export const IndustryView = ({ slug }: Props) => {
   return (
     <>
       <main>
-        <section className="relative isolate overflow-hidden">
+        <section className="relative isolate overflow-hidden z-20">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-[38rem]"
@@ -190,7 +191,11 @@ export const IndustryView = ({ slug }: Props) => {
                     config={{ tension: 180, friction: 27 }}
                     className="flex items-start gap-4 rounded-2xl border border-line bg-background p-5"
                   >
-                    <AiOrb size={48} accent={EMPLOYEE_ACCENT[employee.name]} spin={false} />
+                    {i === 0 ? (
+                      <OrbDockSlot id="industry-lead" size={48} accent={EMPLOYEE_ACCENT[employee.name]} />
+                    ) : (
+                      <AiOrb size={48} accent={EMPLOYEE_ACCENT[employee.name]} spin={false} />
+                    )}
                     <div>
                       <p className="text-sm font-semibold">
                         Meet {employee.name}

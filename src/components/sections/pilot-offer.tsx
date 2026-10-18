@@ -3,12 +3,16 @@ import Link from "next/link";
 import { Inview } from "@/components/animation/springs/in-view";
 import { AiOrb } from "@/components/graphics/ai-orb";
 import { ArcField } from "@/components/graphics/arc-field";
+import { PRICING_PLANS } from "@/data/pricing";
 import { siteConfig } from "@/lib/site";
+import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 
 /**
  * PilotOffer — homepage band selling the free pilot right after the AI
- * employees roster: "your first AI employee is on us". Left: offer, three
- * facts and CTAs. Right: what the 100 pilot credits buy, as bars. Rates match
+ * employees roster: "your first AI employee is on us". Left: offer, four
+ * facts (incl. 24x7 support), CTAs, and a compact line with the paid plans
+ * from `data/pricing.ts` + "See all plans" (this replaced the separate
+ * homepage pricing teaser). Right: what the 100 pilot credits buy, as bars. Rates match
  * `CREDIT_EXAMPLES` in data/pricing.ts (dashboard ~20, deck ~40, report ~60,
  * post ~6 credits).
  */
@@ -16,7 +20,11 @@ const FACTS: { value: string; label: string }[] = [
   { value: "1 week", label: "on your own data" },
   { value: "100", label: "free credits" },
   { value: "$0", label: "no credit card" },
+  { value: "24x7", label: "support" },
 ];
+
+/** Paid plans for the compact pricing line (everything but the free Pilot). */
+const PAID = PRICING_PLANS.filter((plan) => !plan.entry);
 
 const SPEND: { output: string; count: number; max: number }[] = [
   { output: "Social posts", count: 16, max: 16 },
@@ -79,9 +87,9 @@ export const PilotOffer = () => (
           from={{ opacity: 0, y: 16 }}
           to={{ opacity: 1, y: 0 }}
           config={{ tension: 180, friction: 27 }}
-          className="mt-8 max-w-md"
+          className="mt-8 max-w-xl"
         >
-          <dl className="grid grid-cols-3 gap-3">
+          <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {FACTS.map((fact) => (
             <div key={fact.label} className="rounded-xl bg-white/[0.06] p-3.5 ring-1 ring-white/10">
               <dt className="sr-only">{fact.label}</dt>
@@ -112,11 +120,34 @@ export const PilotOffer = () => (
           >
             Book a demo
           </a>
+        </Inview>
+
+        {/* Paid plans, compact — from data/pricing.ts */}
+        <Inview
+          mode="once"
+          delayIn={320}
+          from={{ opacity: 0, y: 12 }}
+          to={{ opacity: 1, y: 0 }}
+          config={{ tension: 180, friction: 27 }}
+          className="mt-8 border-t border-white/10 pt-5 text-sm text-white/70"
+        >
+          <p>
+            Then{" "}
+            {PAID.map((plan, i) => (
+              <span key={plan.name}>
+                {i > 0 && <span aria-hidden className="mx-1.5 text-white/30">·</span>}
+                <span className="font-semibold text-white">{plan.name}</span>{" "}
+                {plan.price}
+                {plan.unit ? <span className="text-white/50"> /user/mo</span> : null}
+              </span>
+            ))}
+            . Every plan includes 24x7 support.
+          </p>
           <Link
             href="/pricing"
-            className="px-2 py-3.5 text-sm font-semibold text-white/70 underline-offset-4 transition-colors duration-[var(--duration-fast)] ease-entrance hover:text-white hover:underline"
+            className="mt-2 inline-flex items-center gap-1.5 font-semibold text-white underline-offset-4 transition-colors duration-[var(--duration-fast)] ease-entrance hover:underline"
           >
-            See plans
+            See all plans <span aria-hidden>→</span>
           </Link>
         </Inview>
       </div>
@@ -131,7 +162,7 @@ export const PilotOffer = () => (
         className="rounded-3xl bg-background p-6 text-foreground shadow-product md:p-8"
       >
         <div className="flex items-center gap-3">
-          <AiOrb size={40} accent="var(--employee-chief-of-staff)" spin={false} />
+          <OrbDockSlot id="pilot-offer" size={40} accent="var(--employee-chief-of-staff)" />
           <div>
             <p className="text-sm font-semibold">What 100 free credits get you</p>
             <p className="text-xs text-muted">Credits work across everything. Pick any mix.</p>

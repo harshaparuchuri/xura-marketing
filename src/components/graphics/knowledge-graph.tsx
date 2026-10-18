@@ -51,6 +51,7 @@ function spread(count: number, cx: number, stride: number) {
 
 export const KnowledgeGraph = ({ className }: { className?: string }) => {
   const setTarget = useOrbDock((s) => s.setTarget);
+  const clearTarget = useOrbDock((s) => s.clearTarget);
   const svgRef = useRef<SVGSVGElement>(null);
   const slotRef = useRef<SVGRectElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -66,28 +67,35 @@ export const KnowledgeGraph = ({ className }: { className?: string }) => {
     let visible = false;
     const publish = () => {
       if (!visible) return;
+      const owner = useOrbDock.getState().owner;
+      if (owner && owner !== "knowledge-graph") return; // another slot holds the orb
       const r = slot.getBoundingClientRect();
-      setTarget({ cx: r.left + r.width / 2, cy: r.top + r.height / 2, size: r.width });
+      setTarget({ cx: r.left + r.width / 2, cy: r.top + r.height / 2, size: r.width }, "knowledge-graph");
     };
     const io = new IntersectionObserver(
       ([entry]) => {
         visible = (entry?.isIntersecting ?? false) && (entry?.intersectionRatio ?? 0) > 0.35;
         if (visible) publish();
-        else setTarget(null);
+        else clearTarget("knowledge-graph");
       },
       { threshold: [0, 0.35, 0.7, 1] },
     );
     io.observe(svg);
+    // When another slot releases the orb, claim it if the graph is on screen.
+    const unsubscribe = useOrbDock.subscribe((state, prev) => {
+      if (prev.owner && !state.owner) publish();
+    });
     const onScroll = () => publish();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
       io.disconnect();
+      unsubscribe();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-      setTarget(null);
+      clearTarget("knowledge-graph");
     };
-  }, [setTarget]);
+  }, [setTarget, clearTarget]);
 
   // Flowing dashes on the connector stems.
   const flow = useSpring({

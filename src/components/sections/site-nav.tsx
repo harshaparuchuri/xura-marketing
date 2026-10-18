@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { XuraLogo } from "@/components/brand/logo";
+import { StickyHeader } from "@/components/sections/sticky-header";
 import { siteConfig } from "@/lib/site";
 
 // Docs live in a separate repo (xuradocs) so the same content can back
@@ -17,7 +18,7 @@ const LINKS: { label: string; href: string; external?: boolean }[] = [
 ];
 
 const linkClass =
-  "text-sm text-muted transition-colors duration-[var(--duration-fast)] ease-entrance hover:text-foreground";
+  "text-[0.9375rem] font-medium text-foreground/80 transition-colors duration-[var(--duration-fast)] ease-entrance hover:text-foreground";
 
 const NavLink = ({ label, href, external }: (typeof LINKS)[number]) =>
   external ? (
@@ -33,26 +34,26 @@ const NavLink = ({ label, href, external }: (typeof LINKS)[number]) =>
   );
 
 /**
- * Top navigation — wordmark left, links centred, CTAs right: "Book a demo"
+ * Top navigation — wordmark and links left, CTAs right: "Book a demo"
  * filled primary (always shown) and "Get started for free" outlined (lg+;
  * in the mobile menu below that). No separate
  * Sign in — the app's auth page (Get started) has both tabs.
- * A 1fr · auto · 1fr grid keeps the links on the true page centre
- * regardless of the logo and CTA widths.
+ * Links sit left, right after the logo (auto · 1fr · auto grid at md+).
  * Below `md` the links collapse into a native `<details>` menu (no JS).
- * Transparent over the page gradient.
+ * Pinned to the top via StickyHeader: transparent over the hero, frosted
+ * once the page scrolls.
  */
 export const SiteNav = () => (
-  <header className="relative z-20">
+  <StickyHeader>
     <nav
       aria-label="Main"
-      className="shell grid grid-cols-[1fr_auto] items-center gap-6 py-5 md:grid-cols-[1fr_auto_1fr]"
+      className="shell grid h-[4.5rem] grid-cols-[1fr_auto] items-center gap-6 md:grid-cols-[auto_1fr_auto] md:gap-10"
     >
-      <Link href="/" aria-label="Xura AI home" className="justify-self-start">
+      <Link href="/" aria-label="Xura AI home" className="flex items-center justify-self-start">
         <XuraLogo />
       </Link>
 
-      <ul className="hidden items-center gap-7 md:flex">
+      <ul className="hidden items-center gap-8 justify-self-start md:flex">
         {LINKS.map((link) => (
           <li key={link.label}>
             <NavLink {...link} />
@@ -100,5 +101,5 @@ export const SiteNav = () => (
         </details>
       </div>
     </nav>
-  </header>
+  </StickyHeader>
 );

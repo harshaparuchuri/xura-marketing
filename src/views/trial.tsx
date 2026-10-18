@@ -7,6 +7,7 @@ import { AiOrb } from "@/components/graphics/ai-orb";
 import { ArcField } from "@/components/graphics/arc-field";
 import { TrialForm } from "@/components/sections/trial-form";
 import { siteConfig } from "@/lib/site";
+import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 
 /**
  * Book-a-demo view (`/trial`). A focused, two-panel page modelled on
@@ -49,7 +50,7 @@ export const TrialView = () => (
           config={{ tension: 180, friction: 27 }}
           className="flex items-center gap-4"
         >
-          <AiOrb size={56} accent="var(--employee-chief-of-staff)" expressive spin={false} />
+          <OrbDockSlot id="demo-page" size={56} accent="var(--employee-chief-of-staff)" />
           <p className="text-sm text-white/70">
             30 minutes with our team,
             <br />

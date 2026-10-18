@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { AiOrb } from "@/components/graphics/ai-orb";
 import { useOrbDock } from "@/hooks/use-orb-dock";
+import { siteConfig } from "@/lib/site";
 
 /**
  * AiHelpAgent — floating orb in the viewport's bottom-right on desktop.
@@ -12,6 +13,9 @@ import { useOrbDock } from "@/hooks/use-orb-dock";
  * a dock target via `useOrbDock`, the orb springs from its default
  * bottom-right rest into that slot and scales up. When the target clears,
  * it springs back home.
+ *
+ * Also hosted by Meera's slot in the AI employees roster (OrbDockSlot), where
+ * it takes her accent colour. Clicking it opens the demo page.
  *
  * Hidden on mobile so it doesn't compete with the WhatsApp CTA.
  */
@@ -41,7 +45,8 @@ export const AiHelpAgent = () => {
   const docked = target && anchor;
   const dx = docked ? target.cx - anchor.cx : 0;
   const dy = docked ? target.cy - anchor.cy : 0;
-  const scale = docked ? Math.max(1, target.size / REST_SIZE) : 1;
+  // Scales up or down to the slot (e.g. 36px run card, 88px 404 page).
+  const scale = docked ? target.size / REST_SIZE : 1;
 
   const spring = useSpring({
     x: dx,
@@ -51,15 +56,16 @@ export const AiHelpAgent = () => {
   });
 
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed bottom-6 right-6 z-40 hidden md:block"
-    >
+    <div className="pointer-events-none fixed bottom-6 right-6 z-40 hidden md:block">
       {/* Anchor stays put; it's a size-preserving box that the animated
           child transforms out of. Measuring this ref gives us the rest
           centre in viewport coordinates. */}
       <div ref={anchorRef} style={{ width: REST_SIZE, height: REST_SIZE }}>
-        <animated.div
+        <animated.a
+          href={siteConfig.demoUrl}
+          aria-label="Book a demo with Xura's AI employees"
+          title="Book a demo"
+          className="pointer-events-auto block cursor-pointer"
           style={{
             width: REST_SIZE,
             height: REST_SIZE,
@@ -70,8 +76,9 @@ export const AiHelpAgent = () => {
             willChange: "transform",
           }}
         >
-          <AiOrb size={REST_SIZE} expressive />
-        </animated.div>
+          {/* Docked: face forward like the roster orbs; free-floating: the usual 3D spin. */}
+          <AiOrb size={REST_SIZE} expressive accent={target?.accent} spin={target ? false : undefined} />
+        </animated.a>
       </div>
     </div>
   );

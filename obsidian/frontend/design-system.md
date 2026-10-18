@@ -243,3 +243,12 @@ Channels `ChannelScene` (`graphics/channel-scene.tsx`).
 > arbitrary-value utility whose `var()` name ends in a `*` wildcard) gets
 > compiled and breaks the CSS build. Write placeholders in prose, not as class
 > names.
+
+## Floating orb docking (2026-10-18)
+
+The site-wide floating AiOrb (`AiHelpAgent`, `md+` only, links to `/trial`)
+docks into any `OrbDockSlot({ id, size, accent? })` that's on screen. It flies
+there, scales to `size`, takes `accent` and stops spinning. Use a slot wherever
+a section shows **one** mascot, so the page never shows two copies of the same
+character. Below `md` the slot renders a normal AiOrb. Only one slot holds the
+orb at a time (owner ids in `useOrbDock`).
