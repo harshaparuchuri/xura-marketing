@@ -5,6 +5,8 @@ import { HeroBackdrop } from "@/components/graphics/hero-backdrop";
 import { PromptGenerationCard } from "@/components/graphics/prompt-generation-card";
 import { SiteNav } from "@/components/sections/site-nav";
 import { siteConfig } from "@/lib/site";
+import { ShotCrop } from "@/components/common/shot-crop";
+import { AiOrb } from "@/components/graphics/ai-orb";
 
 export const Hero = () => (
   <section className="relative isolate overflow-hidden z-20">
@@ -115,11 +117,38 @@ export const Hero = () => (
         {/* SCREENSHOT SLOT: hero-device, mobile mockup of WhatsApp chat with Xura reply.
             Drop into <ProductCard /> or replace with an <Image /> when asset arrives. */}
         <div className="mx-auto max-w-[57rem]" data-slot="hero-device">
-          {/* On mobile the card's internal absolute-positioned layers
-              overflow the narrow viewport, so we CSS-`zoom` it down as one
-              piece. Layout scales, proportions stay intact, and the
-              typewriter + scene cycling keep working. */}
-          <div className="[zoom:0.42] sm:[zoom:1]">
+          {/* Phones: the animated desktop card would have to shrink to ~40%
+              (unreadable 7–9px text), so show a simpler card instead — one
+              prompt, a real dashboard capture large enough to read, and the
+              working AI employee. sm+ gets the full animated card. */}
+          <div className="overflow-hidden rounded-2xl border border-line bg-background shadow-product sm:hidden">
+            <div className="flex items-center gap-2 border-b border-line bg-band-mist px-3 py-2.5">
+              <span aria-hidden className="text-xs text-muted">✳</span>
+              <p className="flex-1 truncate text-sm">Show headcount by department</p>
+              <span
+                aria-hidden
+                className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-ink text-background"
+              >
+                <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 19V5M6 11l6-6 6 6" />
+                </svg>
+              </span>
+            </div>
+            <ShotCrop
+              src="/assets/product/dashboard.webp"
+              alt="A Xura dashboard with headcount, compensation and training KPIs above a headcount-by-department chart"
+              crop={{ x: 0.07, y: 0.41, w: 0.6, h: 0.59 }}
+              sizes="100vw"
+            />
+            <div className="flex items-center gap-2 border-t border-line px-3 py-2.5 text-xs">
+              <AiOrb size={22} accent="var(--employee-chief-of-staff)" spin={false} />
+              <span>
+                <span className="font-semibold">Nora</span>
+                <span className="text-muted"> · built from HRIS · Sheets</span>
+              </span>
+            </div>
+          </div>
+          <div className="hidden sm:block">
             <PromptGenerationCard />
           </div>
         </div>

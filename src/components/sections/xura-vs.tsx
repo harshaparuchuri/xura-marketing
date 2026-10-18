@@ -120,7 +120,9 @@ export const XuraVs = () => (
         className="mx-auto mt-14 max-w-5xl overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]"
       >
         {/* Header row */}
-        <div className="grid grid-cols-1 gap-px border-b border-white/10 bg-white/5 md:grid-cols-[1fr_1.4fr_1.4fr]">
+        {/* Header row is desktop-only; on phones each cell carries its own
+            "AI chat" / "Xura AI" label instead. */}
+        <div className="hidden gap-px border-b border-white/10 bg-white/5 md:grid md:grid-cols-[1fr_1.4fr_1.4fr]">
           <div className="hidden md:block" />
           <div className="px-5 py-3 text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/45">
             General AI chat

@@ -9,6 +9,13 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-10-18
+- **Mobile polish** (full-site review at 375px: no horizontal overflow on any
+  page) — hero shows a phone-only card (prompt, readable dashboard capture,
+  Nora) instead of the desktop card zoomed to 42% (7–9px text); comparison
+  table header row hidden below `md` (cells carry their own labels); footer
+  is two columns on phones, the mobile wordmark no longer overlaps the
+  copyright (now 12px, was 10px); footer logo and breadcrumb links get ≥40px
+  tap areas.
 - **Sticky header** — the nav is pinned to the top (new
   `sections/sticky-header.tsx`): `fixed` + a 4.5rem spacer (the hero clips
   overflow, so `sticky` can't work), transparent over the hero and frosted

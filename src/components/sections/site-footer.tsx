@@ -65,9 +65,9 @@ const Column = ({ title, links }: { title: string; links: FooterLink[] }) => (
  */
 export const SiteFooter = () => (
   <footer className="texture relative isolate overflow-hidden bg-brand-ink text-white">
-    <div className="shell relative grid gap-10 pt-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
-      <div className="max-w-xs sm:col-span-2 lg:col-span-1">
-        <Link href="/" aria-label="Xura home">
+    <div className="shell relative grid grid-cols-2 gap-x-6 gap-y-10 pt-14 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+      <div className="col-span-2 max-w-xs lg:col-span-1">
+        <Link href="/" aria-label="Xura home" className="inline-flex min-h-11 min-w-11 items-center">
           <XuraLogo markOnly />
         </Link>
         <p className="mt-4 text-sm leading-relaxed opacity-70">
@@ -87,7 +87,7 @@ export const SiteFooter = () => (
       {/* Mobile: keep the flat oversized wordmark, cropped by the page edge. */}
       <p
         aria-hidden
-        className="-mb-[0.12em] mt-6 select-none text-center font-bold leading-[0.8] tracking-[-0.04em] md:hidden"
+        className="mt-8 select-none text-center font-bold leading-[0.8] tracking-[-0.04em] md:hidden"
         style={{ fontSize: "clamp(4rem, 19vw, 17rem)" }}
       >
         Xura AI
@@ -102,7 +102,7 @@ export const SiteFooter = () => (
       <PixelWordmark text="Xura AI" cellSize={22} radius={55} />
     </div>
 
-    <p className="shell py-3 text-center text-[10px] uppercase tracking-widest opacity-40">
+    <p className="shell py-4 text-center text-xs uppercase tracking-widest opacity-50">
       © {new Date().getFullYear()} {siteConfig.legalName} · All rights reserved
     </p>
   </footer>
