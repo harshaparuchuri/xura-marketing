@@ -1,11 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+
+import { CalendlyStep } from "@/components/sections/calendly-step";
 import { siteConfig } from "@/lib/site";
 
 /**
- * Demo request form (`/trial`, the "Book a demo" destination). Mirrors xuralabs.com's current plumbing exactly:
+ * Demo request form (`/trial`, the "Book a demo" destination), in two steps
+ * like viktor.com/contact-sales:
+ *
+ * 1. Work email only → "Continue". A partial lead (email, `stage: "email"`)
+ *    is sent to the sheet straight away, so drop-offs are still captured.
+ * 2. The rest of the details → "Book my demo" sends the full lead
+ *    (`stage: "details"`). The email shows at the top with a "Change" link.
+ * 3. Only when `siteConfig.calendlyUrl` is set: "Pick a time" — Calendly's
+ *    inline scheduler, prefilled with name and email. A booking sends
+ *    `stage: "booked"` (with the Calendly event URI).
+ *
+ * Plumbing mirrors xuralabs.com's:
  *
  * - Fields: firstName, lastName, email, jobTitle, company, teamSize, useCase,
  *   dataStack, plus `source` and `ts` stamped at submit time.
@@ -18,8 +31,7 @@ import { siteConfig } from "@/lib/site";
  *   (deployed as *Execute as: Me · Who has access: Anyone*). To point at a
  *   different sheet, deploy your own Apps Script and edit `SHEETS_URL`.
  *   No env vars, no server route (see decisions-log ADR-0020).
- * - Success state renders in-place with a "Setup Now →" CTA to
- *   app.xuralabs.com.
+ * - Success state renders in-place with a "Get started for free" CTA.
  */
 const SHEETS_URL =
   "https://script.google.com/macros/s/AKfycbx8KkFR3QUmLwg7MSKvn-AjJ97PwD1QlurNdiIvyT4QtXop9Cb7Xn0nboaYMm7i58WC/exec";
@@ -93,10 +105,64 @@ function validateAll(values: Values): Errors {
   return errors;
 }
 
+/** Fire-and-forget send to the Apps Script: GET beacon + no-cors POST. */
+function sendToSheet(payload: Record<string, string>) {
+  const params = Object.entries(payload)
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+    .join("&");
+  try {
+    new Image().src = `${SHEETS_URL}?${params}`;
+  } catch {
+    // Image beacon is best-effort; the fetch below is the primary channel.
+  }
+  try {
+    void fetch(SHEETS_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(payload),
+    });
+  } catch {
+    // no-cors fetch does not surface errors; the GET beacon is the fallback.
+  }
+}
+
+type Step = 1 | 2 | 3;
+
+/** Segmented progress bar; segments up to the current step are filled. */
+const Progress = ({ step, total }: { step: Step; total: number }) => (
+  <div className="mb-6 flex gap-2" aria-label={`Step ${step} of ${total}`} role="img">
+    {Array.from({ length: total }, (_, i) => (
+      <span
+        key={i}
+        className={`h-1 flex-1 rounded-full transition-colors duration-[var(--duration-normal)] ease-entrance ${
+          i < step ? "bg-foreground" : "bg-line"
+        }`}
+      />
+    ))}
+  </div>
+);
+
 export const TrialForm = () => {
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
-  const [done, setDone] = useState(false);
+  const [step, setStep] = useState<Step>(1);
+  const [done, setDone] = useState<false | "requested" | "booked">(false);
+  const calendlyUrl = siteConfig.calendlyUrl;
+  const totalSteps = calendlyUrl ? 3 : 2;
+
+  const onBooked = useCallback(
+    (eventUri: string) => {
+      sendToSheet({
+        email: values.email.trim(),
+        stage: "booked",
+        calendlyEvent: eventUri,
+        source: "demo-page",
+        ts: new Date().toISOString(),
+      });
+      setDone("booked");
+    },
+    [values.email],
+  );
 
   const set = <K extends keyof Values>(key: K, value: Values[K]) => {
     setValues((v) => ({ ...v, [key]: value }));
@@ -114,6 +180,24 @@ export const TrialForm = () => {
     setErrors((e) => ({ ...e, [key]: msg || undefined }));
   };
 
+  const onContinue = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const email = values.email.trim();
+    const msg = validateField("email", email);
+    if (msg) {
+      setErrors((e) => ({ ...e, email: msg }));
+      document.querySelector<HTMLElement>('[data-field="email"]')?.focus();
+      return;
+    }
+    sendToSheet({
+      email,
+      stage: "email",
+      source: "demo-page",
+      ts: new Date().toISOString(),
+    });
+    setStep(2);
+  };
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const errs = validateAll(values);
@@ -127,7 +211,7 @@ export const TrialForm = () => {
       return;
     }
 
-    const payload = {
+    sendToSheet({
       firstName: values.firstName.trim(),
       lastName: values.lastName.trim(),
       email: values.email.trim(),
@@ -136,32 +220,13 @@ export const TrialForm = () => {
       teamSize: values.teamSize,
       useCase: values.useCase.trim(),
       dataStack: values.dataStack.trim(),
-      source: "trial-page",
+      stage: "details",
+      source: "demo-page",
       ts: new Date().toISOString(),
-    };
+    });
 
-    const params = Object.entries(payload)
-      .map(
-        ([k, v]) =>
-          `${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`,
-      )
-      .join("&");
-    try {
-      new Image().src = `${SHEETS_URL}?${params}`;
-    } catch {
-      // Image beacon is best-effort; the fetch below is the primary channel.
-    }
-    try {
-      void fetch(SHEETS_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify(payload),
-      });
-    } catch {
-      // no-cors fetch does not surface errors; the GET beacon is the fallback.
-    }
-
-    setDone(true);
+    if (calendlyUrl) setStep(3);
+    else setDone("requested");
   };
 
   if (done) {
@@ -171,10 +236,12 @@ export const TrialForm = () => {
           🎉
         </p>
         <p className="mt-3 text-base font-semibold tracking-tight text-duo">
-          Demo requested.
+          {done === "booked" ? "You're booked." : "Demo requested."}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-muted">
-          We&apos;ll reach out within one business day to book a time.
+          {done === "booked"
+            ? "The invite is on its way to your inbox."
+            : "We'll reach out within one business day to book a time."}
           <br />
           Want to look around before then?
         </p>
@@ -188,8 +255,65 @@ export const TrialForm = () => {
     );
   }
 
+  if (step === 3 && calendlyUrl) {
+    return (
+      <div>
+        <Progress step={3} total={totalSteps} />
+        <p className="mb-4 text-sm font-medium">Pick a time that suits you</p>
+        <CalendlyStep
+          url={calendlyUrl}
+          name={`${values.firstName} ${values.lastName}`.trim()}
+          email={values.email.trim()}
+          onBooked={onBooked}
+        />
+      </div>
+    );
+  }
+
+  if (step === 1) {
+    return (
+      <form onSubmit={onContinue} noValidate>
+        <Progress step={1} total={totalSteps} />
+        <label className="block">
+          <span className="mb-1.5 block text-sm font-medium">Work email</span>
+          <input
+            data-field="email"
+            type="email"
+            value={values.email}
+            onChange={(e) => set("email", e.target.value)}
+            placeholder="you@company.com"
+            autoComplete="email"
+            aria-invalid={errors.email ? true : undefined}
+            required
+            className="w-full rounded-xl border border-line bg-background px-4 py-3.5 text-sm text-foreground outline-none transition-colors duration-[var(--duration-fast)] ease-entrance placeholder:text-muted focus:border-duo focus:ring-2 focus:ring-duo/25 aria-[invalid=true]:border-red-500"
+          />
+          {errors.email ? (
+            <span className="mt-1 block text-xs text-red-600">{errors.email}</span>
+          ) : null}
+        </label>
+        <button type="submit" className="pill mt-4 w-full justify-center py-3.5 text-sm font-semibold">
+          Continue <span aria-hidden>→</span>
+        </button>
+        <p className="mt-4 text-center text-xs text-muted">
+          Takes under a minute. We&apos;ll never share your email.
+        </p>
+      </form>
+    );
+  }
+
   return (
     <form onSubmit={onSubmit} noValidate className="grid gap-4">
+      <Progress step={2} total={totalSteps} />
+      <p className="-mt-2 flex items-center justify-between gap-3 rounded-xl bg-band-mist px-4 py-2.5 text-sm">
+        <span className="truncate">{values.email}</span>
+        <button
+          type="button"
+          onClick={() => setStep(1)}
+          className="shrink-0 text-xs font-semibold underline underline-offset-4"
+        >
+          Change
+        </button>
+      </p>
       <div className="grid gap-4 md:grid-cols-2">
         <Field
           name="firstName"
@@ -212,17 +336,6 @@ export const TrialForm = () => {
           required
         />
       </div>
-      <Field
-        name="email"
-        type="email"
-        label="Business email"
-        value={values.email}
-        onChange={(v) => set("email", v)}
-        onBlur={() => blur("email")}
-        error={errors.email}
-        autoComplete="email"
-        required
-      />
       <Field
         name="jobTitle"
         label="Job title"
@@ -252,7 +365,7 @@ export const TrialForm = () => {
           onChange={(e) => set("teamSize", e.target.value as Values["teamSize"])}
           onBlur={() => blur("teamSize")}
           aria-invalid={errors.teamSize ? true : undefined}
-          className="w-full appearance-none rounded-sm border border-line bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors duration-[var(--duration-fast)] ease-entrance focus:border-duo focus:ring-2 focus:ring-duo/25 aria-[invalid=true]:border-red-500"
+          className="w-full appearance-none rounded-xl border border-line bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors duration-[var(--duration-fast)] ease-entrance focus:border-duo focus:ring-2 focus:ring-duo/25 aria-[invalid=true]:border-red-500"
           required
         >
           <option value="" disabled>
@@ -287,11 +400,10 @@ export const TrialForm = () => {
 
       <button
         type="submit"
-        className="pill mt-2 justify-center"
+        className="pill mt-2 justify-center py-3.5 text-sm font-semibold"
       >
-        <span aria-hidden>▪</span> Request demo
+        {calendlyUrl ? "Pick a time" : "Book my demo"} <span aria-hidden>→</span>
       </button>
-      <p className="meta text-center">No credit card required</p>
     </form>
   );
 };
@@ -333,7 +445,7 @@ const Field = ({
       autoComplete={autoComplete}
       aria-invalid={error ? true : undefined}
       required={required}
-      className="w-full rounded-sm border border-line bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors duration-[var(--duration-fast)] ease-entrance placeholder:text-muted focus:border-duo focus:ring-2 focus:ring-duo/25 aria-[invalid=true]:border-red-500"
+      className="w-full rounded-xl border border-line bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors duration-[var(--duration-fast)] ease-entrance placeholder:text-muted focus:border-duo focus:ring-2 focus:ring-duo/25 aria-[invalid=true]:border-red-500"
     />
     {error ? (
       <span className="mt-1 block text-xs text-red-600">{error}</span>

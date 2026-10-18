@@ -5,6 +5,8 @@ export type Industry = {
   headline: string;
   headlineAccent: string;
   subhead: string;
+  /** Search-result description (70–160 chars). */
+  seoDescription: string;
   intro: string;
   /** Path under /public — duotone-treated at render time. Sector-specific Pexels photography (matched to xuralabs.com CREDITS.txt). */
   heroImage: string;
@@ -59,8 +61,10 @@ export const INDUSTRIES: Industry[] = [
     headlineAccent: "batch, quality, and compliance.",
     subhead:
       "Your batch records, lab results, deviations, and inventory live in systems that don't talk to each other. On WhatsApp or the web, Xura joins them and answers back.",
+    seoDescription:
+      "AI employees for pharma: a monthly brand and market review from PharmaTrac and SAP, plus deviation, OOS and CAPA routines that QA signs off.",
     intro: "The answer exists. It's just trapped across five systems.",
-    heroImage: "/industries/pharma-v3.jpg",
+    heroImage: "/industries/pharma-v3.webp",
     heroImageAlt: "Scientist working at a microscope in a life-sciences lab",
     problem: {
       heading: "The answer exists, trapped across five systems.",
@@ -162,8 +166,10 @@ export const INDUSTRIES: Industry[] = [
     headlineAccent: "growth, retention, and revenue.",
     subhead:
       "Your funnel lives in product analytics, revenue in billing, and accounts in the CRM, none of them joined. Ask on WhatsApp, get the answer in the same chat.",
+    seoDescription:
+      "AI employees for SaaS: a morning pipeline brief from HubSpot, renewal risk flags, campaign alerts and board-ready reviews, each approved by you.",
     intro: "The metric you need is one join away, across four tools.",
-    heroImage: "/industries/saas-v3.jpg",
+    heroImage: "/industries/saas-v3.webp",
     heroImageAlt: "Growth team reviewing a dashboard on a laptop",
     problem: {
       heading: "The metric you need is one join away, across four tools.",
@@ -264,8 +270,10 @@ export const INDUSTRIES: Industry[] = [
     headlineAccent: "risk, operations, and growth.",
     subhead:
       "Your transactions live in the ledger, exposure in the risk engine, and customers in the CRM, reconciled by hand, after the fact. Xura reconciles live and answers on WhatsApp.",
+    seoDescription:
+      "AI employees for fintech: morning exposure briefs, reconciliation breaks flagged early, regulatory digests and follow-ups drafted for your OK.",
     intro: "The numbers have to reconcile, but they live in five places.",
-    heroImage: "/industries/fintech-v3.jpg",
+    heroImage: "/industries/fintech-v3.webp",
     heroImageAlt: "Analyst monitoring trading and reconciliation screens",
     problem: {
       heading: "The numbers have to reconcile, but they live in five places.",
@@ -355,8 +363,10 @@ export const INDUSTRIES: Industry[] = [
     headlineAccent: "operations, quality, and care.",
     subhead:
       "Your clinical data lives in the EHR, capacity in scheduling, and revenue in billing, none of them joined. Xura joins them, and answers arrive on WhatsApp so care teams stay with patients.",
+    seoDescription:
+      "AI employees for healthcare: daily capacity and quality briefs, meeting pre-reads, hiring updates and follow-ups, with every action approved.",
     intro: "Care teams shouldn't wait on a data pull.",
-    heroImage: "/industries/healthcare-v3.jpg",
+    heroImage: "/industries/healthcare-v3.webp",
     heroImageAlt: "Clinician reviewing patient information at the point of care",
     problem: {
       heading: "Care teams shouldn't wait on a data pull.",
@@ -446,8 +456,10 @@ export const INDUSTRIES: Industry[] = [
     headlineAccent: "production, quality, and supply.",
     subhead:
       "Your production data lives in the MES, inventory in the WMS, and orders in the ERP, reconciled by hand, after the shift. On WhatsApp, Xura answers before the next one starts.",
+    seoDescription:
+      "AI employees for manufacturing: morning OEE and downtime briefs, deviation intake, CAPA ageing and trend reports that quality signs off.",
     intro: "The answer spans the plant floor, the warehouse, and the ERP.",
-    heroImage: "/industries/manufacturing-v3.jpg",
+    heroImage: "/industries/manufacturing-v3.webp",
     heroImageAlt: "Operator on the plant floor with a tablet dashboard",
     problem: {
       heading: "The answer spans the plant floor, the warehouse, and the ERP.",

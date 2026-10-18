@@ -1,10 +1,12 @@
+import { pageMetadata } from "@/utils/seo/generate-page-metadata";
 import { PricingView } from "@/views/pricing";
 
-export const metadata = {
-  title: "Pricing",
+export const metadata = pageMetadata({
+  title: "Pricing: AI employees from $50 per user",
   description:
-    "Simple plans for teams of every size. Start with a free one-week pilot on your own data, then scale to Slack, Teams, WhatsApp and the web.",
-};
+    "Start free with a one-week pilot and 100 credits. Starter $50 and Growth $100 per user a month; credits work across dashboards, decks and research.",
+  path: "/pricing",
+});
 
 export default function PricingPage() {
   return <PricingView />;

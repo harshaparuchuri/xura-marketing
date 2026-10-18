@@ -19,9 +19,12 @@ export function getSiteStructuredData() {
       {
         "@type": "Organization",
         "@id": `${siteConfig.url}/#organization`,
-        name: siteConfig.name,
+        name: `${siteConfig.name} AI`,
+        legalName: siteConfig.legalName,
         url: siteConfig.url,
         logo: `${siteConfig.url}/android-icon-192x192.png`,
+        email: siteConfig.email,
+        sameAs: Object.values(siteConfig.profiles).filter(Boolean),
       },
       {
         "@type": "WebSite",
@@ -32,5 +35,48 @@ export function getSiteStructuredData() {
         publisher: { "@id": `${siteConfig.url}/#organization` },
       },
     ],
+  };
+}
+
+export type Crumb = { name: string; path: string };
+
+/** BreadcrumbList for a page's trail, e.g. Home › Industries › Pharma. */
+export function getBreadcrumbStructuredData(crumbs: Crumb[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((crumb, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: crumb.name,
+      item: `${siteConfig.url}${crumb.path}`,
+    })),
+  };
+}
+
+/**
+ * SoftwareApplication with one Offer per priced plan, for the pricing page.
+ * `price` is the per-user monthly price as a number string ("0", "50").
+ */
+export function getProductStructuredData(
+  offers: { name: string; price: string; description: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: `${siteConfig.name} AI`,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web, Slack, Microsoft Teams, WhatsApp",
+    description: siteConfig.description,
+    url: siteConfig.url,
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    offers: offers.map((o) => ({
+      "@type": "Offer",
+      name: o.name,
+      price: o.price,
+      priceCurrency: "USD",
+      description: o.description,
+      url: `${siteConfig.url}/pricing`,
+    })),
   };
 }

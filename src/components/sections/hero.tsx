@@ -51,8 +51,8 @@ export const Hero = () => (
         <Spring
           tag="h1"
           mode="once"
-          from={{ opacity: 0, y: 22 }}
-          to={{ opacity: 1, y: 0 }}
+          from={{ y: 22 }}
+          to={{ y: 0 }}
           config={{ tension: 175, friction: 28 }}
           className="display-serif mx-auto max-w-[26ch]"
         >
@@ -64,8 +64,8 @@ export const Hero = () => (
           tag="p"
           mode="once"
           delayIn={90}
-          from={{ opacity: 0, y: 18 }}
-          to={{ opacity: 1, y: 0 }}
+          from={{ y: 18 }}
+          to={{ y: 0 }}
           config={{ tension: 175, friction: 28 }}
           className="mx-auto mt-5 max-w-[54ch] text-base leading-relaxed text-muted md:text-lg"
         >

@@ -28,6 +28,10 @@ jobs:
       # internal virtual module in a clean CI cache (works locally because
       # .next/cache is warm). Build with webpack until Next fixes it.
       - run: yarn next build --webpack
+      # SEO checklist (one H1, self canonical, sitemap coverage, JSON-LD,
+      # alt text, internal links…). Errors fail the deploy; see
+      # obsidian/workflows/seo-checklist.md.
+      - run: node scripts/seo-check.mjs
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:

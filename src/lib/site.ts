@@ -24,6 +24,12 @@ export const siteConfig = {
   email: "hello@xuralabs.com",
   /** "Get started for free" — the app's auth page, opened on the Sign up tab. */
   signupUrl: "https://app.xuralabs.com/?tab=signup",
+  /**
+   * Calendly event for step 3 of the demo form ("Pick a time"), e.g.
+   * "https://calendly.com/xura/demo". `null` turns step 3 off and the form
+   * ends after the details step.
+   */
+  calendlyUrl: "https://calendly.com/admin-xuralabs/30min" as string | null,
   /** "Book a demo" — the on-site request form (`/trial`). */
   demoUrl: "/trial",
   /** Legal entity for the copyright line. */

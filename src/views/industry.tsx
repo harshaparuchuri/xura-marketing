@@ -11,6 +11,7 @@ import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteNav } from "@/components/sections/site-nav";
 import { EMPLOYEE_ACCENT, getIndustry } from "@/data/industries";
 import { siteConfig } from "@/lib/site";
+import { Breadcrumbs } from "@/components/common/breadcrumbs";
 
 type Props = { slug: string };
 
@@ -38,6 +39,11 @@ export const IndustryView = ({ slug }: Props) => {
           <div className="relative z-10">
             <SiteNav />
             <div className="shell pt-14 pb-16 text-center md:pt-20">
+            <Breadcrumbs crumbs={[
+              { name: "Home", path: "" },
+              { name: "Industries", path: "/industries" },
+              { name: industry.label, path: `/industries/${industry.slug}` },
+            ]} className="mb-6 flex justify-center" />
               <Spring
                 tag="p"
                 mode="once"
@@ -52,8 +58,8 @@ export const IndustryView = ({ slug }: Props) => {
                 tag="h1"
                 mode="once"
                 delayIn={80}
-                from={{ opacity: 0, y: 22 }}
-                to={{ opacity: 1, y: 0 }}
+                from={{ y: 22 }}
+                to={{ y: 0 }}
                 config={{ tension: 175, friction: 28 }}
                 className="display-serif mx-auto mt-3 max-w-[22ch]"
               >
@@ -66,8 +72,8 @@ export const IndustryView = ({ slug }: Props) => {
                 tag="p"
                 mode="once"
                 delayIn={160}
-                from={{ opacity: 0, y: 18 }}
-                to={{ opacity: 1, y: 0 }}
+                from={{ y: 18 }}
+                to={{ y: 0 }}
                 config={{ tension: 175, friction: 28 }}
                 className="mx-auto mt-5 max-w-[60ch] text-sm leading-relaxed text-muted"
               >

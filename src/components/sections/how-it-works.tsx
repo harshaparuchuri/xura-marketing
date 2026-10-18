@@ -154,7 +154,7 @@ export const HowItWorks = () => (
           className="relative mx-auto max-w-4xl"
         >
           <ShotCrop
-            src="/assets/product/home.png"
+            src="/assets/product/home.webp"
             alt="Xura home: a prompt box to describe any chart, report or view, quick questions like project health and blocked tasks, and one-click shortcuts to build dashboards, slides, deep research, infographics and briefs"
             crop={{ x: 0.13, y: 0.23, w: 0.79, h: 0.48 }}
             sizes="(min-width: 1024px) 56rem, 100vw"

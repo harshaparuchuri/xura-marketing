@@ -122,6 +122,13 @@ async component must mirror its final layout with one of these
 | `<SkeletonLoader>` | `skeleton-loader.tsx` | generic block placeholders |
 | `<SkeletonVideo>` | `skeleton-video.tsx` | video placeholders |
 
+## Breadcrumbs — `breadcrumbs.tsx`
+
+Server component. `<Breadcrumbs crumbs={[{ name, path }]} />` renders a
+visible `nav[aria-label="Breadcrumb"]` trail (the last crumb has
+`aria-current="page"`) and the matching `BreadcrumbList` JSON-LD. Used on
+pricing, the industries index and the industry pages. See [[seo-checklist]].
+
 ## VideoTour — `video-tour.tsx`
 
 Click-to-load YouTube embed (client leaf). Shows the video's YouTube thumbnail

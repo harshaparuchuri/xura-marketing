@@ -149,8 +149,24 @@ export const HeroBackdrop = ({
       };
     };
 
+    // Perf: the loop starts only after the page has loaded and the browser is
+    // idle (so it never delays first paint / LCP), runs at ~30fps, and pauses
+    // while the canvas is off screen or the tab is hidden.
+    const FRAME_MS = 1000 / 30;
     let last = performance.now();
+    let lastFrame = 0;
+    let visible = true;
+    let started = false;
     const draw = (now: number) => {
+      if (!visible || document.hidden) {
+        raf = 0;
+        return;
+      }
+      if (now - lastFrame < FRAME_MS) {
+        raf = requestAnimationFrame(draw);
+        return;
+      }
+      lastFrame = now;
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
       const t = targetRef.current;
@@ -255,10 +271,41 @@ export const HeroBackdrop = ({
 
       raf = requestAnimationFrame(draw);
     };
-    raf = requestAnimationFrame(draw);
+
+    const resume = () => {
+      if (started && visible && !document.hidden && !raf) {
+        last = performance.now();
+        raf = requestAnimationFrame(draw);
+      }
+    };
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      resume();
+    });
+    io.observe(canvas);
+    document.addEventListener("visibilitychange", resume);
+
+    let idleHandle = 0;
+    const begin = () => {
+      const start = () => {
+        started = true;
+        resume();
+      };
+      idleHandle =
+        typeof window.requestIdleCallback === "function"
+          ? window.requestIdleCallback(start, { timeout: 2500 })
+          : window.setTimeout(start, 1200);
+    };
+    if (document.readyState === "complete") begin();
+    else window.addEventListener("load", begin, { once: true });
 
     return () => {
       cancelAnimationFrame(raf);
+      if (typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idleHandle);
+      window.clearTimeout(idleHandle);
+      window.removeEventListener("load", begin);
+      document.removeEventListener("visibilitychange", resume);
+      io.disconnect();
       ro.disconnect();
       window.removeEventListener("pointermove", onPointer);
     };

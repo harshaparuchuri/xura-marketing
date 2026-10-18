@@ -110,7 +110,7 @@ export const CREDIT_EXAMPLES: CreditExample[] = [
     prompt: "Turn Q4 plant performance into a shareable infographic",
     result: "Ready in your brand, as PNG or PDF.",
     shot: {
-      src: "/assets/product/out-infographic.png",
+      src: "/assets/product/out-infographic.webp",
       alt: "A Xura infographic headed Q4 Plant Performance Leaders with a headline number and a capacity chart",
       crop: { x: 0.21, y: 0.17, w: 0.58, h: 0.56 },
     },
@@ -121,7 +121,7 @@ export const CREDIT_EXAMPLES: CreditExample[] = [
     prompt: "Show headcount by department",
     result: "Live dashboard, refreshing daily.",
     shot: {
-      src: "/assets/product/dashboard.png",
+      src: "/assets/product/dashboard.webp",
       alt: "A Xura dashboard with headcount, compensation and training KPIs above a headcount-by-department chart",
       crop: { x: 0.07, y: 0.41, w: 0.6, h: 0.59 },
     },
@@ -132,7 +132,7 @@ export const CREDIT_EXAMPLES: CreditExample[] = [
     prompt: "Make a team review deck on task completion by team",
     result: "Numbers sourced, exported to .pptx.",
     shot: {
-      src: "/assets/product/out-deck.png",
+      src: "/assets/product/out-deck.webp",
       alt: "A Xura-generated slide titled Task Completion Rate by Team",
       crop: { x: 0.157, y: 0.218, w: 0.64, h: 0.58 },
     },
@@ -143,7 +143,7 @@ export const CREDIT_EXAMPLES: CreditExample[] = [
     prompt: "Research the market for our next launch",
     result: "87 citations from 30 sources.",
     shot: {
-      src: "/assets/product/out-research.png",
+      src: "/assets/product/out-research.webp",
       alt: "A Xura deep-research report title page with 87 citations from 30 sources",
       crop: { x: 0.22, y: 0.08, w: 0.56, h: 0.6 },
     },
