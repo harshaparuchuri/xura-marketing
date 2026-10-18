@@ -41,6 +41,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Connect your tools or upload a file",
       "Goal: automate one crucial business flow",
       "No credit card",
+      "24x7 support",
     ],
     cta: { label: "Get started for free", href: siteConfig.signupUrl },
     badge: "Start here",
@@ -57,6 +58,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Custom integrations and connectors",
       "Xura on WhatsApp, Slack and Teams",
       "Top up credits any time",
+      "24x7 support",
     ],
     cta: { label: "Get started for free", href: siteConfig.signupUrl },
   },
@@ -71,6 +73,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "AI employees and Flows",
       "Custom brand kit",
       "Company ontology and context graph",
+      "24x7 support",
     ],
     cta: { label: "Get started for free", href: siteConfig.signupUrl },
     featured: true,
@@ -87,6 +90,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Custom Flows for your business",
       "Agent evals, governance and updates",
       "Invoicing and custom billing terms",
+      "24x7 support",
     ],
     cta: { label: "Book a demo", href: siteConfig.demoUrl },
   },
@@ -178,6 +182,11 @@ export const PRICING_FAQ: { question: string; answer: string }[] = [
     question: "What if I run out mid-month?",
     answer:
       "Top up any time. Extra credits are added straight away, so a big project never has to wait for next month.",
+  },
+  {
+    question: "What support do I get?",
+    answer:
+      "24x7 support on every plan, including the free pilot.",
   },
   {
     question: "Can I change plans later?",

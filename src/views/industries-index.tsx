@@ -11,7 +11,7 @@ import { Breadcrumbs } from "@/components/common/breadcrumbs";
 export const IndustriesIndexView = () => (
   <>
     <main>
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate overflow-hidden z-20">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-[26rem]"

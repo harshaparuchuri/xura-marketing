@@ -169,6 +169,12 @@ body {
 }
 
 @layer base {
+  /* The site nav is fixed (StickyHeader, 4.5rem tall): keep in-page anchor
+     targets (/#tour, /#pilot…) from landing underneath it. */
+  html {
+    scroll-padding-top: 5rem;
+  }
+
   /* Adaptive scaling grid — scales the root font-size with the viewport so a
      rem-based layout stays proportional. Each breakpoint divides FONT_BASE
      (16px) by the design base width its range was laid out at:

@@ -9,6 +9,30 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-10-18
+- **Sticky header** — the nav is pinned to the top (new
+  `sections/sticky-header.tsx`): `fixed` + a 4.5rem spacer (the hero clips
+  overflow, so `sticky` can't work), transparent over the hero and frosted
+  (`bg-background/80 backdrop-blur-md` + hairline border) once scrolled.
+  Nav-hosting hero sections get `z-20` so the header stays above later
+  sections; `html { scroll-padding-top: 5rem }` keeps `/#…` anchors clear of
+  it. Logo link is now `flex items-center` (it sat 2.5px high).
+- **Nav links left-aligned** next to the logo (`auto · 1fr · auto` grid at `md+`); replaces the earlier page-centred layout.
+- **Nav links more prominent** — 15px medium weight in near-black (`text-foreground/80`, was small muted grey), wider gap.
+- **24x7 support on every plan** — added to each plan's features in
+  `data/pricing.ts` (pricing cards), a new FAQ entry, and a fourth PilotOffer
+  fact tile.
+- **Homepage pricing merged into PilotOffer** — instead of a separate pricing
+  section, the free-pilot band ends with one line of the paid plans (from
+  `PRICING_PLANS`), "Every plan includes 24x7 support" and "See all plans".
+- **Floating orb hosts single-mascot spots** — the bottom-right AiOrb
+  (AiHelpAgent) now docks into, recolours to and becomes the mascot in:
+  Meera's roster slot, Nora's run card, the PilotOffer card, the pricing-page hero,
+  the demo page, each industry page's lead "Meet …" card and the 404, as well
+  as the KnowledgeGraph (new `graphics/orb-dock-slot.tsx`). It scales up or down
+  to the slot, faces forward (no spin) while docked, and links to `/trial`
+  ("Book a demo"). `useOrbDock` gained owners (`setTarget(t, owner)`,
+  `clearTarget(owner)`) and an `accent`; a slot only claims a free orb and
+  re-claims when another releases it.
 - **"Book a demo" is now the primary CTA** — filled and first, with "Get
   started for free" outlined and second, in the nav (demo always shown;
   free sign-up at `lg+` and in the mobile menu), hero, closing CTA, channels

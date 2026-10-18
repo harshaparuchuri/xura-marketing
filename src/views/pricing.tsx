@@ -8,6 +8,7 @@ import { ShotCrop } from "@/components/common/shot-crop";
 import { AiOrb } from "@/components/graphics/ai-orb";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { getProductStructuredData } from "@/utils/seo/structured-data";
+import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 import {
   CREDIT_EXAMPLES,
   CREDITS_NOTE,
@@ -71,7 +72,7 @@ export const PricingView = () => (
       dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
     />
     <main>
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate overflow-hidden z-20">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-[26rem]"
@@ -94,7 +95,7 @@ export const PricingView = () => (
               config={{ tension: 180, friction: 27 }}
               className="mb-5 flex justify-center"
             >
-              <AiOrb size={64} accent="var(--employee-chief-of-staff)" expressive spin={false} />
+              <OrbDockSlot id="pricing-hero" size={64} accent="var(--employee-chief-of-staff)" />
             </Spring>
             <Spring
               tag="p"

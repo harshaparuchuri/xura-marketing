@@ -7,7 +7,7 @@ import { SiteNav } from "@/components/sections/site-nav";
 import { siteConfig } from "@/lib/site";
 
 export const Hero = () => (
-  <section className="relative isolate overflow-hidden">
+  <section className="relative isolate overflow-hidden z-20">
     <div
       aria-hidden
       className="pointer-events-none absolute inset-0"

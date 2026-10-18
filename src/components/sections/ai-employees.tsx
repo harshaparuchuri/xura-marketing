@@ -2,6 +2,7 @@ import { Inview } from "@/components/animation/springs/in-view";
 import { VideoTour } from "@/components/common/video-tour";
 import { AiOrb } from "@/components/graphics/ai-orb";
 import { ArcField } from "@/components/graphics/arc-field";
+import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 
 /**
  * AI employees — "hire a ready-made role, or build your own". A roster of the
@@ -62,7 +63,7 @@ const Check = () => (
 const RunCard = () => (
   <div className="w-full max-w-sm rounded-2xl bg-background p-5 shadow-product">
     <div className="flex items-center gap-3">
-      <AiOrb size={36} accent="var(--employee-chief-of-staff)" spin={false} />
+      <OrbDockSlot id="run-card" size={36} accent="var(--employee-chief-of-staff)" />
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold">Why the West is losing deals</p>
         <p className="mt-0.5 text-xs text-muted">Nora · Chief of Staff</p>
@@ -160,7 +161,13 @@ export const AiEmployees = () => (
             to={{ opacity: 1, y: 0 }}
             config={{ tension: 180, friction: 27 }}
           >
-            <AiOrb size={72} accent={employee.accent} expressive spin={false} />
+            {/* Meera's spot hosts the site's floating orb (AiHelpAgent): it flies
+                in, turns her green and becomes her while the roster is on screen. */}
+            {employee.name === "Meera" ? (
+              <OrbDockSlot id="meera" size={72} accent={employee.accent} />
+            ) : (
+              <AiOrb size={72} accent={employee.accent} expressive spin={false} />
+            )}
             <h3 className="mt-6 font-serif text-3xl leading-display">{employee.name}</h3>
             <p
               className="mt-1 text-xs font-semibold uppercase tracking-widest"
