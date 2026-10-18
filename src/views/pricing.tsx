@@ -6,6 +6,8 @@ import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteNav } from "@/components/sections/site-nav";
 import { ShotCrop } from "@/components/common/shot-crop";
 import { AiOrb } from "@/components/graphics/ai-orb";
+import { Breadcrumbs } from "@/components/common/breadcrumbs";
+import { getProductStructuredData } from "@/utils/seo/structured-data";
 import {
   CREDIT_EXAMPLES,
   CREDITS_NOTE,
@@ -50,11 +52,23 @@ const faqJsonLd = {
   })),
 };
 
+const productJsonLd = getProductStructuredData(
+  PRICING_PLANS.filter((plan) => /^(Free|\$\d+)$/.test(plan.price)).map((plan) => ({
+    name: plan.name,
+    price: plan.price === "Free" ? "0" : plan.price.replace("$", ""),
+    description: `${plan.summary} ${plan.credits}.`,
+  })),
+);
+
 export const PricingView = () => (
   <>
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+    />
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
     />
     <main>
       <section className="relative isolate overflow-hidden">
@@ -69,6 +83,10 @@ export const PricingView = () => (
         <div className="relative z-10">
           <SiteNav />
           <div className="shell pt-14 text-center md:pt-20">
+            <Breadcrumbs crumbs={[
+              { name: "Home", path: "" },
+              { name: "Pricing", path: "/pricing" },
+            ]} className="mb-6 flex justify-center" />
             <Spring
               mode="once"
               from={{ opacity: 0, y: 14 }}
@@ -92,8 +110,8 @@ export const PricingView = () => (
               tag="h1"
               mode="once"
               delayIn={80}
-              from={{ opacity: 0, y: 22 }}
-              to={{ opacity: 1, y: 0 }}
+              from={{ y: 22 }}
+              to={{ y: 0 }}
               config={{ tension: 175, friction: 28 }}
               className="display-serif mx-auto mt-3 max-w-[20ch]"
             >
@@ -104,8 +122,8 @@ export const PricingView = () => (
               tag="p"
               mode="once"
               delayIn={160}
-              from={{ opacity: 0, y: 18 }}
-              to={{ opacity: 1, y: 0 }}
+              from={{ y: 18 }}
+              to={{ y: 0 }}
               config={{ tension: 175, friction: 28 }}
               className="mx-auto mt-5 max-w-[56ch] text-sm leading-relaxed text-muted"
             >

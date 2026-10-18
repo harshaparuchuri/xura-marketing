@@ -49,7 +49,7 @@ humans and AI agents (Claude Code, Cursor).
 - [[api-architecture]] — `app/api` route-handler convention & secret handling
 
 ### 04 — Workflows
-- [[new-page]] — playbook for implementing a new page/section
+- [[new-page]] · [[seo-checklist]] — playbook for implementing a new page/section
 - [[generic-layout-prompt]] — fill-in prompt template for a new page/section
 - [[optimize-3d-scene]] — the `optimize-3d-scene` skill: performance work on a three.js/WebGL scene
 - [[ai-agent-guide]] — rules of engagement for AI agents working in this repo

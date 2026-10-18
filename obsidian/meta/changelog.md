@@ -9,6 +9,34 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-10-18
+- **SEO and speed fixes** (ADR-0027) — self-referencing canonical on every page
+  (`pageMetadata` helper); sitemap now covers all 9 pages; keyword titles and
+  70–160-char descriptions (`Industry.seoDescription`); visible breadcrumbs
+  plus `BreadcrumbList` (`components/common/breadcrumbs.tsx`); pricing
+  `SoftwareApplication` offers; Organization `sameAs` (G2, Product Hunt,
+  YouTube). LCP: hero/H1 text no longer fades in, root `loading.tsx`
+  removed, hero canvas deferred and throttled, screenshots and industry photos
+  converted to WebP (product shots 5.8 MB → 0.5 MB). New
+  `scripts/seo-check.mjs` (`yarn seo`) runs in CI. Checklist:
+  [[seo-checklist]].
+- **Lead sheet dates readable** — Apps Script v4 stores real dates shown as "18 Oct 2026, 4:52 PM IST"; existing rows converted (script v5).
+- **Lead sheet script v3** — the Apps Script now keeps one row per email and updates it through the demo steps (Stage email → details → booked); step-1 drop-offs land in the sheet. Same deployment URL; see ADR-0025 update.
+- **"Skip, just email me" removed** from the Calendly step — step 3 is the calendar only; the lead is already in the sheet from step 2.
+- **Calendly embed header hidden** — `hide_event_type_details=1` (replaces the ineffective `hide_landing_page_details`); the embed opens straight on "Select a Day". The "Powered by Calendly" ribbon needs a paid Calendly plan to remove.
+- **Calendly step switched on** — `siteConfig.calendlyUrl` = `https://calendly.com/admin-xuralabs/30min`; the demo form is now three steps (email → details → pick a time).
+- **Demo form step 3: Calendly scheduler** (`sections/calendly-step.tsx`) —
+  inline Calendly widget, script loaded only when step 3 mounts, prefilled
+  with name + email (URL params and `prefill`). Off until
+  `siteConfig.calendlyUrl` is set; when on, the progress bar has 3 segments,
+  the details button reads "Pick a time", a `calendly.event_scheduled`
+  message sends `stage: "booked"` (+ `calendlyEvent` URI) to the sheet.
+- **Two-step demo flow** (Viktor-style) — `/trial` is now a focused split
+  page (no nav/footer) with a dark proof panel and a two-step `TrialForm`:
+  work email + Continue (progress bar), then details + "Book my demo", with a
+  "Change" link back. Step 1 sends a partial lead so drop-offs are captured
+  (sheet rows now carry `stage` = `email` | `details` and `source` =
+  `demo-page`). Unverified trust tiles ("row-level permissions", "nothing
+  trains a public model") removed from this page.
 - **Comparison table made accurate** (`xura-vs.tsx`) — every Xura claim now
   matches the app: ~10 native connectors + MCP + uploads (not "50+"),
   glossary/semantic layer, monitors/routines, approval gates, per-employee

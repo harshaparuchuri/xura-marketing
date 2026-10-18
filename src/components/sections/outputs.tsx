@@ -23,7 +23,7 @@ type Card = {
 const CARDS: Card[] = [
   {
     key: "infographic",
-    src: "/assets/product/out-infographic.png",
+    src: "/assets/product/out-infographic.webp",
     alt: "A Xura infographic headed Q4 Plant Performance Leaders with a headline number and a capacity chart",
     crop: { x: 0.21, y: 0.17, w: 0.58, h: 0.56 },
     position: "left-[3%] top-[26%] w-[24%] z-0",
@@ -32,7 +32,7 @@ const CARDS: Card[] = [
   },
   {
     key: "brief",
-    src: "/assets/product/out-brief.png",
+    src: "/assets/product/out-brief.webp",
     alt: "A Xura executive brief with a bottom-line summary, key figures and findings",
     crop: { x: 0.18, y: 0.1, w: 0.64, h: 0.64 },
     position: "right-[3%] top-[24%] w-[24%] z-0",
@@ -41,7 +41,7 @@ const CARDS: Card[] = [
   },
   {
     key: "dashboard",
-    src: "/assets/product/dashboard.png",
+    src: "/assets/product/dashboard.webp",
     alt: "A Xura dashboard chart of headcount by department",
     crop: { x: 0.07, y: 0.69, w: 0.91, h: 0.31 },
     position: "left-[12%] top-[62%] w-[34%] z-10",
@@ -50,7 +50,7 @@ const CARDS: Card[] = [
   },
   {
     key: "research",
-    src: "/assets/product/out-research.png",
+    src: "/assets/product/out-research.webp",
     alt: "A Xura deep-research report title page with 87 citations from 30 sources",
     crop: { x: 0.21, y: 0.09, w: 0.58, h: 0.38 },
     position: "right-[12%] top-[58%] w-[30%] z-10",
@@ -59,7 +59,7 @@ const CARDS: Card[] = [
   },
   {
     key: "deck",
-    src: "/assets/product/out-deck.png",
+    src: "/assets/product/out-deck.webp",
     alt: "A Xura-generated slide titled Task Completion Rate by Team",
     crop: { x: 0.157, y: 0.218, w: 0.64, h: 0.58 },
     position: "left-1/2 top-[24%] w-[46%] -translate-x-1/2 z-20",

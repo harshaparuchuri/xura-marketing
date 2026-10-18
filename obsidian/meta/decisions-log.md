@@ -841,3 +841,83 @@ so search still sees the video.
 cookies before then. Autoplay-on-load isn't possible. The thumbnail is
 hot-linked from `i.ytimg.com`; self-host it if that domain ever becomes a
 problem.
+
+## ADR-0025 — Two-step demo form captures the email before completion
+
+**Date.** 2026-10-18
+
+**Context.** "Book a demo" (`/trial`) asked for eight fields at once.
+viktor.com/contact-sales asks for a work email first and the details on a
+second step, which lowers the effort to start and lets sales follow up with
+people who drop off.
+
+**Decision.** `TrialForm` is two steps. On **Continue** (step 1) it sends the
+validated business email to the same Google Apps Script endpoint as a partial
+lead (`stage: "email"`, `source: "demo-page"`). On **Book my demo** (step 2)
+it sends the full lead (`stage: "details"`). The plumbing is unchanged from
+ADR-0020: GET beacon plus no-cors POST, with no server route.
+
+**Consequences.** The sheet gets one row per started request and another per
+completed one. Dedupe on `email` and keep the latest `stage`. Going back with
+"Change" and continuing again sends another partial row. The visitor is told
+"We'll never share your email". Anyone reading the sheet must treat
+`stage: email` rows as incomplete leads.
+
+## ADR-0026 — Calendly embed for demo booking, loaded on demand
+
+**Date.** 2026-10-18
+
+**Context.** Demo requests ended with "we'll reach out within a day". A
+scheduler turns them into booked meetings. Calendly was chosen over Cal.com
+and Google booking pages because the team already knows it.
+
+**Decision.** Step 3 of `TrialForm` embeds Calendly's inline widget
+(`calendly-step.tsx`). Its script (`assets.calendly.com/.../widget.js`) is
+injected only when step 3 mounts, the same on-demand rule as ADR-0024, so
+the page carries no Calendly cost until someone reaches it. The step is
+gated on `siteConfig.calendlyUrl`, with `null` meaning off. A booking is
+detected with Calendly's `postMessage` (`calendly.event_scheduled`, origin
+checked) and logged to the sheet as `stage: "booked"`.
+
+**Consequences.** Event details beyond the URI (for example the chosen time)
+need Calendly's API or its email notifications. The site only records that a
+booking happened. Calendly sets its own cookies inside the iframe once step 3
+loads.
+
+**Update 2026-10-18 (ADR-0025).** The Apps Script behind the form
+("Xura Waitlist Script", bound to the **Xura Waitlist** sheet, `doGet` only)
+was redeployed as **Version 3** on the same deployment ID, so the site URL is
+unchanged. It now **upserts one row per email** instead of appending a row
+per call. Existing columns are kept and **Stage**, **Calendly Event** and
+**First Seen** are added at the end. Stage only moves forward (email →
+details → booked). Earlier partial rows from the append-only version remain
+as they were. To roll back, use Manage deployments → edit → Version 2.
+
+**Update 2026-10-18 (ADR-0025, v4).** The script now writes real Date values,
+not ISO text, to **Timestamp** and **First Seen**, and formats both columns as
+`dd mmm yyyy, h:mm am/pm "IST"` (v5 added the IST label, e.g. "18 Oct 2026, 4:52 PM IST"). The sheet time zone is set to **Asia/Kolkata**.
+Existing rows were converted once with `fixExistingTimestamps()`, which is
+safe to re-run. Deployed as Version 5 on the same deployment ID.
+
+## ADR-0027 — Per-page canonicals, no root loading.tsx, SEO check in CI
+
+**Date.** 2026-10-18
+
+**Context.** An audit of the live site found that every page's canonical
+pointed to the homepage, because pages set only `title`/`description` and
+inherited the layout's `/`. The sitemap listed 2 of 9 pages. Mobile LCP was
+8.7 s: the hero text faded in from `opacity: 0`, a canvas loop ran from first
+paint, and the empty `app/loading.tsx` put the whole page inside a hidden
+Suspense div that is revealed only by a script at the end of the HTML.
+
+**Decision.** Every route exports `pageMetadata({ title, description, path })`
+for a self canonical, `og:url` and social titles. `sitemap.ts` lists every
+public route, with industries derived from data. `app/loading.tsx` is
+removed. LCP text slides but doesn't fade. Canvas loops start on idle, run at
+30fps and pause off screen. Images ship as WebP. `scripts/seo-check.mjs` runs
+in `deploy.yml` after the build and fails the deploy on errors.
+
+**Consequences.** New pages must use `pageMetadata`, appear in the sitemap and
+have one H1, or the deploy fails. A route-level loading UI, if ever needed,
+must be scoped to that route and not the root. The checklist is in
+[[seo-checklist]].

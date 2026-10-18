@@ -106,3 +106,12 @@ see [[folder-structure]].
 ## Related
 
 [[routing]] · [[utils]] · [[animation-system]] · [[environment-variables]] · [[decisions-log]]
+
+## Per-page metadata (2026-10-18)
+
+Use `pageMetadata({ title, description, path })` in every route. It gives the
+page its own canonical, `og:url` and `"<title> | Xura AI"` social titles. The
+layout's title template is `%s | Xura AI`. Structured-data helpers:
+`getSiteStructuredData` (Organization + WebSite, with `sameAs`),
+`getBreadcrumbStructuredData`, `getProductStructuredData`. The full checklist
+and the CI check are in [[seo-checklist]].

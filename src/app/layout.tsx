@@ -38,8 +38,8 @@ const serifDisplay = Bitter({
 
 export const metadata: Metadata = generateMetadata({
   title: {
-    default: `${siteConfig.name} ${siteConfig.tagline}`,
-    template: `%s · ${siteConfig.name}`,
+    default: `${siteConfig.name} AI: ${siteConfig.tagline}`,
+    template: `%s | ${siteConfig.name} AI`,
   },
 });
 export const viewport: Viewport = generateViewport();

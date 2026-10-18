@@ -1,141 +1,138 @@
+import Link from "next/link";
+
 import { Inview } from "@/components/animation/springs/in-view";
 import { Spring } from "@/components/animation/springs/spring";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteNav } from "@/components/sections/site-nav";
+import { XuraLogo } from "@/components/brand/logo";
+import { AiOrb } from "@/components/graphics/ai-orb";
+import { ArcField } from "@/components/graphics/arc-field";
 import { TrialForm } from "@/components/sections/trial-form";
 import { siteConfig } from "@/lib/site";
 
 /**
- * Free-trial view. Server Component wrapper around the client `TrialForm`.
- * Two-column band on desktop: pitch + trust markers on the left, form on the
- * right. `TrialForm` posts submissions straight to a Google Apps Script Web
- * App (`SHEETS_URL`); there is no `/api` route under static export.
+ * Book-a-demo view (`/trial`). A focused, two-panel page modelled on
+ * viktor.com/contact-sales: no nav or footer, just the logo home link.
+ * Left: dark proof panel (what the demo covers, Nora, what's true about
+ * Xura). Right: the two-step `TrialForm` (work email → details). Stacks on
+ * mobile with a compact proof panel first. `TrialForm` posts straight to a
+ * Google Apps Script Web App; there is no `/api` route under static export.
  */
-export const TrialView = () => (
-  <>
-    <main>
-      <section className="relative isolate overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-[38rem]"
-          style={{
-            background:
-              "linear-gradient(180deg, var(--duo-soft) 0%, var(--duo-wash) 30%, var(--background) 70%)",
-          }}
-        />
-        <div className="relative z-10">
-          <SiteNav />
-          <div className="shell py-14 md:py-20">
-            <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:grid-rows-[auto_1fr] lg:items-start lg:gap-12">
-              {/* Headline block — left col row 1 on desktop, first on mobile. */}
-              <div className="lg:col-start-1 lg:row-start-1">
-                <Spring
-                  tag="p"
-                  mode="once"
-                  from={{ opacity: 0, y: 14 }}
-                  to={{ opacity: 1, y: 0 }}
-                  config={{ tension: 180, friction: 27 }}
-                  className="meta"
-                >
-                  Book a demo
-                </Spring>
-                <Spring
-                  tag="h1"
-                  mode="once"
-                  delayIn={80}
-                  from={{ opacity: 0, y: 22 }}
-                  to={{ opacity: 1, y: 0 }}
-                  config={{ tension: 175, friction: 28 }}
-                  className="display-serif mt-3 max-w-[18ch] text-3xl sm:text-4xl md:text-5xl"
-                >
-                  See your AI employees{" "}
-                  <span className="font-semibold italic">at work.</span>
-                </Spring>
-                <Spring
-                  tag="p"
-                  mode="once"
-                  delayIn={160}
-                  from={{ opacity: 0, y: 18 }}
-                  to={{ opacity: 1, y: 0 }}
-                  config={{ tension: 175, friction: 28 }}
-                  className="mt-5 max-w-[52ch] text-sm leading-relaxed text-muted"
-                >
-                  Tell us where your data lives and the flow you most want off
-                  your plate. We&apos;ll come back within one business day to
-                  book a 30-minute walkthrough, built around your use case,
-                  on WhatsApp, Slack, Teams or the web.
-                </Spring>
-              </div>
-
-              {/* Form panel — right col spanning both rows on desktop; sits
-                  second on mobile so users see it before the trust cards. */}
-              <Inview
-                mode="once"
-                from={{ opacity: 0, y: 22 }}
-                to={{ opacity: 1, y: 0 }}
-                config={{ tension: 170, friction: 28 }}
-                className="rounded-sm border border-line bg-background p-6 shadow-[0_18px_36px_rgba(15,23,42,0.06)] md:p-8 lg:col-start-2 lg:row-span-2 lg:row-start-1"
-              >
-                <h2 className="text-base font-semibold tracking-tight">
-                  Request your demo
-                </h2>
-                <p className="mt-1.5 text-xs text-muted">
-                  We will only use these details to arrange your demo. Prefer
-                  to try it yourself?{" "}
-                  <a href={siteConfig.signupUrl} className="font-medium text-foreground underline underline-offset-4">
-                    Get started for free
-                  </a>
-                  .
-                </p>
-                <div className="mt-5">
-                  <TrialForm />
-                </div>
-              </Inview>
-
-              {/* Trust markers — left col row 2 on desktop, last on mobile. */}
-              <ul className="grid gap-4 sm:grid-cols-2 lg:col-start-1 lg:row-start-2 lg:mt-0">
-                {TRUST.map((point, i) => (
-                  <Inview
-                    key={point.title}
-                    tag="li"
-                    mode="once"
-                    delayIn={i * 70}
-                    from={{ opacity: 0, y: 14 }}
-                    to={{ opacity: 1, y: 0 }}
-                    config={{ tension: 180, friction: 27 }}
-                    className="rounded-sm border border-line bg-background/60 p-4"
-                  >
-                    <p className="text-sm font-semibold">{point.title}</p>
-                    <p className="mt-1.5 text-xs leading-relaxed text-muted">
-                      {point.body}
-                    </p>
-                  </Inview>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-    <SiteFooter />
-  </>
-);
-
-const TRUST: { title: string; body: string }[] = [
-  {
-    title: "Your data stays yours",
-    body: "Row-level permissions and an audit trail on every message. Nothing trains a public model.",
-  },
-  {
-    title: "Connected in minutes",
-    body: "Native connectors plus any MCP tool, or just upload a file. No ETL to build, no schema to map by hand.",
-  },
-  {
-    title: "Ask on the surface you already use",
-    body: "WhatsApp for the field, Slack and Teams at the desk, the web app for deep work. Same graph, same answer.",
-  },
-  {
-    title: "Or start on your own",
-    body: "100 free credits, no credit card. Sign up and put Nora to work in minutes.",
-  },
+const POINTS: string[] = [
+  "Answers from your own data, with the sources shown",
+  "Works in Slack, Teams, WhatsApp and the web",
+  "Nothing is sent or changed until you approve it",
 ];
+
+const AGENDA: { title: string; body: string }[] = [
+  { title: "Your use case", body: "The flow you most want off your plate." },
+  { title: "Live on your stack", body: "Nora answering from tools like yours." },
+  { title: "Your first Flow", body: "Set up together, approval gate included." },
+];
+
+export const TrialView = () => (
+  <main className="grid min-h-dvh lg:grid-cols-[1fr_1.05fr]">
+    {/* Proof panel */}
+    <section
+      aria-label="What a Xura demo covers"
+      className="grain relative isolate overflow-hidden bg-brand-ink px-6 py-8 text-white sm:px-10 lg:px-14 lg:py-12"
+    >
+      <ArcField className="pointer-events-none absolute inset-0 -z-10 size-full text-white/10" />
+
+      <Link href="/" aria-label="Xura AI home" className="inline-block">
+        <XuraLogo markOnly />
+      </Link>
+
+      <div className="mt-10 max-w-lg lg:mt-20">
+        <Spring
+          mode="once"
+          from={{ opacity: 0, y: 14 }}
+          to={{ opacity: 1, y: 0 }}
+          config={{ tension: 180, friction: 27 }}
+          className="flex items-center gap-4"
+        >
+          <AiOrb size={56} accent="var(--employee-chief-of-staff)" expressive spin={false} />
+          <p className="text-sm text-white/70">
+            30 minutes with our team,
+            <br />
+            built around your use case.
+          </p>
+        </Spring>
+
+        <Spring
+          tag="h1"
+          mode="once"
+          delayIn={80}
+          from={{ y: 22 }}
+          to={{ y: 0 }}
+          config={{ tension: 175, friction: 28 }}
+          className="display-serif mt-6 text-white lg:mt-8"
+        >
+          See your AI employees{" "}
+          <span className="font-semibold italic text-accent">at work.</span>
+        </Spring>
+
+        <ol className="mt-10 hidden gap-3 sm:grid sm:grid-cols-3">
+          {AGENDA.map((item, i) => (
+            <Inview
+              key={item.title}
+              tag="li"
+              mode="once"
+              delayIn={160 + i * 80}
+              from={{ opacity: 0, y: 14 }}
+              to={{ opacity: 1, y: 0 }}
+              config={{ tension: 180, friction: 27 }}
+              className="rounded-2xl bg-white/[0.06] p-4 ring-1 ring-white/10"
+            >
+              <span className="font-mono text-xs text-accent">0{i + 1}</span>
+              <p className="mt-2 text-sm font-semibold">{item.title}</p>
+              <p className="mt-1 text-xs leading-relaxed text-white/60">{item.body}</p>
+            </Inview>
+          ))}
+        </ol>
+
+        <ul className="mt-10 hidden space-y-3 text-sm text-white/80 sm:block">
+          {POINTS.map((point) => (
+            <li key={point} className="flex items-start gap-3">
+              <span
+                aria-hidden
+                className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-accent text-foreground"
+              >
+                <svg viewBox="0 0 24 24" className="size-3" fill="none">
+                  <path d="M6 12.5l4 4 8-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              {point}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    {/* Form panel */}
+    <section
+      aria-labelledby="demo-form-heading"
+      className="flex items-center justify-center bg-background px-6 py-12 sm:px-10"
+    >
+      <div className="w-full max-w-md">
+        <h2 id="demo-form-heading" className="font-serif text-3xl leading-display">
+          Book a personalised demo
+        </h2>
+        <p className="mt-2 text-sm text-muted">
+          So the right person on our team can get back to you, within one
+          business day.
+        </p>
+        <div className="mt-8">
+          <TrialForm />
+        </div>
+        <p className="mt-10 border-t border-line pt-5 text-center text-sm text-muted">
+          Rather try it yourself?{" "}
+          <a
+            href={siteConfig.signupUrl}
+            className="font-semibold text-foreground underline underline-offset-4"
+          >
+            Get started for free
+          </a>
+        </p>
+      </div>
+    </section>
+  </main>
+);

@@ -6,6 +6,7 @@ import { HeroBackdrop } from "@/components/graphics/hero-backdrop";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteNav } from "@/components/sections/site-nav";
 import { INDUSTRIES } from "@/data/industries";
+import { Breadcrumbs } from "@/components/common/breadcrumbs";
 
 export const IndustriesIndexView = () => (
   <>
@@ -27,11 +28,15 @@ export const IndustriesIndexView = () => (
         <div className="relative z-10">
           <SiteNav />
           <div className="shell pt-14 text-center md:pt-20">
+            <Breadcrumbs crumbs={[
+              { name: "Home", path: "" },
+              { name: "Industries", path: "/industries" },
+            ]} className="mb-6 flex justify-center" />
             <Spring
               tag="h1"
               mode="once"
-              from={{ opacity: 0, y: 22 }}
-              to={{ opacity: 1, y: 0 }}
+              from={{ y: 22 }}
+              to={{ y: 0 }}
               config={{ tension: 175, friction: 28 }}
               className="display-serif mx-auto max-w-[20ch]"
             >

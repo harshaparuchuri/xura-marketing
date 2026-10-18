@@ -86,3 +86,28 @@ export function generateViewport(): Viewport {
     initialScale: 1,
   };
 }
+
+/**
+ * Per-page metadata: its own title, description, canonical URL and matching
+ * Open Graph / Twitter tags. Every route except the root layout must use this
+ * (or set `alternates.canonical` itself) — otherwise it inherits the layout's
+ * canonical "/" and Google treats the page as a duplicate of the homepage.
+ */
+export function pageMetadata({
+  title,
+  description,
+  path,
+}: {
+  title: string;
+  description: string;
+  /** Route path, e.g. "/pricing". */
+  path: string;
+}): Metadata {
+  const base = generateMetadata({ title, description, url: path });
+  const fullTitle = `${title} | ${siteConfig.name} AI`;
+  return {
+    ...base,
+    openGraph: { ...base.openGraph, title: fullTitle },
+    twitter: { ...base.twitter, title: fullTitle },
+  };
+}
