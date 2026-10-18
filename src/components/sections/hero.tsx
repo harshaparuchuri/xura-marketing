@@ -84,11 +84,11 @@ export const Hero = () => (
           className="mt-7 flex flex-col items-center gap-3"
         >
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link href={siteConfig.signupUrl} className="pill px-7 py-4 text-sm font-semibold shadow-product">
-              Get started for free <span aria-hidden>→</span>
-            </Link>
-            <a href={siteConfig.demoUrl} className="pill pill-ghost px-6 py-4 text-sm font-semibold">
-              Book a demo
+            <a href={siteConfig.demoUrl} className="pill px-7 py-4 text-sm font-semibold shadow-product">
+              Book a demo <span aria-hidden>→</span>
+            </a>
+            <a href={siteConfig.signupUrl} className="pill pill-ghost px-6 py-4 text-sm font-semibold">
+              Get started for free
             </a>
           </div>
           <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">

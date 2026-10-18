@@ -9,6 +9,12 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-10-18
+- **"Book a demo" is now the primary CTA** — filled and first, with "Get
+  started for free" outlined and second, in the nav (demo always shown;
+  free sign-up at `lg+` and in the mobile menu), hero, closing CTA, channels
+  section, industry pages (hero + bottom; "See the use cases" dropped) and the
+  footer Product column. The homepage PilotOffer band keeps "Get started for
+  free" primary, since that band is the free offer.
 - **SEO and speed fixes** (ADR-0027) — self-referencing canonical on every page
   (`pageMetadata` helper); sitemap now covers all 9 pages; keyword titles and
   70–160-char descriptions (`Industry.seoDescription`); visible breadcrumbs
