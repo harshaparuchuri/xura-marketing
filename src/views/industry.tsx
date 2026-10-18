@@ -87,12 +87,12 @@ export const IndustryView = ({ slug }: Props) => {
                 config={{ tension: 175, friction: 28 }}
                 className="mt-7 flex flex-wrap items-center justify-center gap-2.5"
               >
-                <Link href={siteConfig.signupUrl} className="pill">
-                  <span aria-hidden>▪</span> Get started for free
-                </Link>
-                <Link href="#use-cases" className="pill pill-ghost">
-                  <span aria-hidden>▪</span> See the use cases
-                </Link>
+                <a href={siteConfig.demoUrl} className="pill">
+                  Book a demo <span aria-hidden>→</span>
+                </a>
+                <a href={siteConfig.signupUrl} className="pill pill-ghost">
+                  Get started for free
+                </a>
               </Spring>
             </div>
           </div>
@@ -284,11 +284,14 @@ export const IndustryView = ({ slug }: Props) => {
               from={{ opacity: 0, y: 14 }}
               to={{ opacity: 1, y: 0 }}
               config={{ tension: 180, friction: 27 }}
-              className="mt-7 flex justify-center"
+              className="mt-7 flex flex-wrap justify-center gap-2.5"
             >
-              <Link href={siteConfig.signupUrl} className="pill">
-                <span aria-hidden>▪</span> Get started for free
-              </Link>
+              <a href={siteConfig.demoUrl} className="pill">
+                Book a demo <span aria-hidden>→</span>
+              </a>
+              <a href={siteConfig.signupUrl} className="pill pill-ghost">
+                Get started for free
+              </a>
             </Inview>
           </div>
         </section>

@@ -43,11 +43,11 @@ export const ClosingCta = () => (
         config={{ tension: 180, friction: 27 }}
         className="mt-7 flex flex-wrap justify-center gap-2.5"
       >
-        <Link href={siteConfig.signupUrl} className="pill">
-          Get started for free <span aria-hidden>→</span>
-        </Link>
-        <a href={siteConfig.demoUrl} className="pill pill-ghost">
-          Book a demo
+        <a href={siteConfig.demoUrl} className="pill">
+          Book a demo <span aria-hidden>→</span>
+        </a>
+        <a href={siteConfig.signupUrl} className="pill pill-ghost">
+          Get started for free
         </a>
       </Inview>
     </div>

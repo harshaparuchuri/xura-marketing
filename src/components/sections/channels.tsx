@@ -151,9 +151,12 @@ export const Channels = () => (
             config={{ tension: 180, friction: 27 }}
             className="mt-8 flex flex-wrap gap-2.5"
           >
-            <Link href={siteConfig.signupUrl} className="pill">
-              <span aria-hidden>▪</span> Try it in your workspace
-            </Link>
+            <a href={siteConfig.demoUrl} className="pill">
+              Book a demo <span aria-hidden>→</span>
+            </a>
+            <a href={siteConfig.signupUrl} className="pill pill-ghost">
+              Try it in your workspace
+            </a>
           </Inview>
         </div>
       </div>

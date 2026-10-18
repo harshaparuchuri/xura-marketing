@@ -34,7 +34,8 @@ const NavLink = ({ label, href, external }: (typeof LINKS)[number]) =>
 
 /**
  * Top navigation — wordmark left, links centred, CTAs right: "Book a demo"
- * outlined (lg+) and "Get started for free" filled primary. No separate
+ * filled primary (always shown) and "Get started for free" outlined (lg+;
+ * in the mobile menu below that). No separate
  * Sign in — the app's auth page (Get started) has both tabs.
  * A 1fr · auto · 1fr grid keeps the links on the true page centre
  * regardless of the logo and CTA widths.
@@ -62,16 +63,16 @@ export const SiteNav = () => (
       <div className="flex items-center gap-4 justify-self-end">
         <a
           href={siteConfig.demoUrl}
-          className="hidden rounded-full border border-foreground px-4 py-2 text-sm font-semibold text-foreground transition-colors duration-[var(--duration-fast)] ease-entrance hover:bg-foreground hover:text-background lg:inline-flex"
+          className="rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background transition-opacity duration-[var(--duration-fast)] ease-entrance hover:opacity-85"
         >
           Book a demo
         </a>
-        <Link
+        <a
           href={siteConfig.signupUrl}
-          className="rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background transition-opacity duration-[var(--duration-fast)] ease-entrance hover:opacity-85"
+          className="hidden rounded-full border border-foreground px-4 py-2 text-sm font-semibold text-foreground transition-colors duration-[var(--duration-fast)] ease-entrance hover:bg-foreground hover:text-background lg:inline-flex"
         >
           Get started for free
-        </Link>
+        </a>
 
         {/* Mobile menu */}
         <details className="group relative md:hidden">
@@ -91,8 +92,8 @@ export const SiteNav = () => (
               </li>
             ))}
             <li className="border-t border-line px-2 pt-2.5">
-              <a href={siteConfig.demoUrl} className={linkClass}>
-                Book a demo
+              <a href={siteConfig.signupUrl} className={linkClass}>
+                Get started for free
               </a>
             </li>
           </ul>
