@@ -1,12 +1,24 @@
 ---
 tags: [meta, changelog]
-updated: 2026-10-18
+updated: 2026-10-22
 ---
 
 # Changelog
 
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
+
+## 2026-10-22
+- **Shorter demo form** — `TrialForm` step 2 merges first/last name into one
+  Full name field, drops Team size and Current data stack, and adds an
+  optional mobile number with a country-code picker (`src/lib/dial-codes.ts`).
+  Sheet payload keys are now `name`, `email`, `jobTitle`, `company`, `phone`,
+  `useCase` — the Google Apps Script must be updated to write them.
+- **Form: no unhandled rejection** — the no-cors POST in `TrialForm` now
+  catches its own failure (offline, ad blocker), which showed as a Next dev
+  overlay issue; the GET beacon still tries.
+- **Form: shorter use-case placeholder** — "Primary use case (optional)"
+  (the example list was cut off on phones).
 
 ## 2026-10-18
 - **Mobile polish** (full-site review at 375px: no horizontal overflow on any

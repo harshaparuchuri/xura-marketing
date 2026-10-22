@@ -899,6 +899,14 @@ not ISO text, to **Timestamp** and **First Seen**, and formats both columns as
 Existing rows were converted once with `fixExistingTimestamps()`, which is
 safe to re-run. Deployed as Version 5 on the same deployment ID.
 
+**Update 2026-10-22 (shorter form).** The form now sends `name` and `phone`
+and no longer sends `firstName`, `lastName`, `teamSize` or `dataStack`. A
+replacement script was drafted that finds columns by header name (adding
+**Name** and **Phone** if missing), still upserts by email with forward-only
+Stage, adds `doPost`, and joins `firstName`/`lastName` into Name for old
+payloads. It must be pasted into the Apps Script editor and deployed as a new
+version of the same deployment ID so the site URL stays the same.
+
 ## ADR-0027 — Per-page canonicals, no root loading.tsx, SEO check in CI
 
 **Date.** 2026-10-18

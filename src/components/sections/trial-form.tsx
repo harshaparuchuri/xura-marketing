@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useState } from "react";
 
 import { CalendlyStep } from "@/components/sections/calendly-step";
+import { DIAL_CODES } from "@/lib/dial-codes";
 import { siteConfig } from "@/lib/site";
 
 /**
@@ -20,8 +21,9 @@ import { siteConfig } from "@/lib/site";
  *
  * Plumbing mirrors xuralabs.com's:
  *
- * - Fields: firstName, lastName, email, jobTitle, company, teamSize, useCase,
- *   dataStack, plus `source` and `ts` stamped at submit time.
+ * - Fields: name, email, jobTitle, company, phone (optional, sent as
+ *   "<dial code> <number>" from the country picker + input), useCase, plus
+ *   `source` and `ts` stamped at submit time.
  * - Blocks consumer email domains inline (asks for a business address).
  * - Submits twice for durability: an `Image().src` GET beacon (URL-encoded, no
  *   CORS worries) AND a `fetch(..., { mode: "no-cors" })` JSON POST. Either
@@ -37,25 +39,24 @@ const SHEETS_URL =
   "https://script.google.com/macros/s/AKfycbx8KkFR3QUmLwg7MSKvn-AjJ97PwD1QlurNdiIvyT4QtXop9Cb7Xn0nboaYMm7i58WC/exec";
 
 type Values = {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   jobTitle: string;
   company: string;
-  teamSize: "" | "1-10" | "11-50" | "51-200" | "201+";
+  /** ISO code of the picked country; resolves to a dial code via DIAL_CODES. */
+  country: string;
+  phone: string;
   useCase: string;
-  dataStack: string;
 };
 
 const EMPTY: Values = {
-  firstName: "",
-  lastName: "",
+  name: "",
   email: "",
   jobTitle: "",
   company: "",
-  teamSize: "",
+  country: "US",
+  phone: "",
   useCase: "",
-  dataStack: "",
 };
 
 const CONSUMER_DOMAINS = new Set([
@@ -73,12 +74,10 @@ const CONSUMER_DOMAINS = new Set([
 ]);
 
 const REQUIRED: (keyof Values)[] = [
-  "firstName",
-  "lastName",
+  "name",
   "email",
   "jobTitle",
   "company",
-  "teamSize",
 ];
 
 type Errors = Partial<Record<keyof Values, string>>;
@@ -93,16 +92,29 @@ function validateField(name: keyof Values, value: string): string {
     const domain = value.split("@")[1]?.toLowerCase() ?? "";
     if (CONSUMER_DOMAINS.has(domain)) return "Please use your business email";
   }
+  if (name === "phone" && value) {
+    const digits = value.replace(/\D/g, "");
+    if (!/^[\d\s()+.-]+$/.test(value) || digits.length < 6 || digits.length > 15)
+      return "Enter a valid phone number";
+  }
   return "";
 }
 
 function validateAll(values: Values): Errors {
   const errors: Errors = {};
-  for (const name of REQUIRED) {
+  for (const name of [...REQUIRED, "phone" as const]) {
     const msg = validateField(name, String(values[name] ?? "").trim());
     if (msg) errors[name] = msg;
   }
   return errors;
+}
+
+/** "+44 7700 900123", or "" when no number was entered. */
+function formatPhone(values: Values): string {
+  const number = values.phone.trim();
+  if (!number) return "";
+  const dial = DIAL_CODES.find((c) => c.iso === values.country)?.code ?? "";
+  return `${dial} ${number}`.trim();
 }
 
 /** Fire-and-forget send to the Apps Script: GET beacon + no-cors POST. */
@@ -120,6 +132,8 @@ function sendToSheet(payload: Record<string, string>) {
       method: "POST",
       mode: "no-cors",
       body: JSON.stringify(payload),
+    }).catch(() => {
+      // Offline or blocked (e.g. an ad blocker); the GET beacon still tries.
     });
   } catch {
     // no-cors fetch does not surface errors; the GET beacon is the fallback.
@@ -212,14 +226,12 @@ export const TrialForm = () => {
     }
 
     sendToSheet({
-      firstName: values.firstName.trim(),
-      lastName: values.lastName.trim(),
+      name: values.name.trim(),
       email: values.email.trim(),
       jobTitle: values.jobTitle.trim(),
       company: values.company.trim(),
-      teamSize: values.teamSize,
+      phone: formatPhone(values),
       useCase: values.useCase.trim(),
-      dataStack: values.dataStack.trim(),
       stage: "details",
       source: "demo-page",
       ts: new Date().toISOString(),
@@ -262,7 +274,7 @@ export const TrialForm = () => {
         <p className="mb-4 text-sm font-medium">Pick a time that suits you</p>
         <CalendlyStep
           url={calendlyUrl}
-          name={`${values.firstName} ${values.lastName}`.trim()}
+          name={values.name.trim()}
           email={values.email.trim()}
           onBooked={onBooked}
         />
@@ -314,28 +326,16 @@ export const TrialForm = () => {
           Change
         </button>
       </p>
-      <div className="grid gap-4 md:grid-cols-2">
-        <Field
-          name="firstName"
-          label="First name"
-          value={values.firstName}
-          onChange={(v) => set("firstName", v)}
-          onBlur={() => blur("firstName")}
-          error={errors.firstName}
-          autoComplete="given-name"
-          required
-        />
-        <Field
-          name="lastName"
-          label="Last name"
-          value={values.lastName}
-          onChange={(v) => set("lastName", v)}
-          onBlur={() => blur("lastName")}
-          error={errors.lastName}
-          autoComplete="family-name"
-          required
-        />
-      </div>
+      <Field
+        name="name"
+        label="Full name"
+        value={values.name}
+        onChange={(v) => set("name", v)}
+        onBlur={() => blur("name")}
+        error={errors.name}
+        autoComplete="name"
+        required
+      />
       <Field
         name="jobTitle"
         label="Job title"
@@ -357,45 +357,51 @@ export const TrialForm = () => {
         required
       />
 
-      <label className="block">
-        <span className="sr-only">Team size</span>
-        <select
-          data-field="teamSize"
-          value={values.teamSize}
-          onChange={(e) => set("teamSize", e.target.value as Values["teamSize"])}
-          onBlur={() => blur("teamSize")}
-          aria-invalid={errors.teamSize ? true : undefined}
-          className="w-full appearance-none rounded-xl border border-line bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors duration-[var(--duration-fast)] ease-entrance focus:border-duo focus:ring-2 focus:ring-duo/25 aria-[invalid=true]:border-red-500"
-          required
-        >
-          <option value="" disabled>
-            Team size *
-          </option>
-          <option value="1-10">1 to 10</option>
-          <option value="11-50">11 to 50</option>
-          <option value="51-200">51 to 200</option>
-          <option value="201+">201+</option>
-        </select>
-        {errors.teamSize ? (
-          <span className="mt-1 block text-xs text-red-600">
-            {errors.teamSize}
-          </span>
+      <div>
+        <div className="flex gap-2">
+          <label className="shrink-0">
+            <span className="sr-only">Country code</span>
+            <select
+              data-field="country"
+              value={values.country}
+              onChange={(e) => set("country", e.target.value)}
+              autoComplete="tel-country-code"
+              className="h-full w-28 rounded-xl border border-line bg-background px-3 py-3 text-sm text-foreground outline-none transition-colors duration-[var(--duration-fast)] ease-entrance focus:border-duo focus:ring-2 focus:ring-duo/25"
+            >
+              {DIAL_CODES.map((c) => (
+                <option key={c.iso} value={c.iso}>
+                  {c.iso} {c.code}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="min-w-0 flex-1">
+            <span className="sr-only">Mobile number (optional)</span>
+            <input
+              data-field="phone"
+              type="tel"
+              inputMode="tel"
+              value={values.phone}
+              onChange={(e) => set("phone", e.target.value)}
+              onBlur={() => blur("phone")}
+              placeholder="Mobile number (optional)"
+              autoComplete="tel-national"
+              aria-invalid={errors.phone ? true : undefined}
+              className="w-full rounded-xl border border-line bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors duration-[var(--duration-fast)] ease-entrance placeholder:text-muted focus:border-duo focus:ring-2 focus:ring-duo/25 aria-[invalid=true]:border-red-500"
+            />
+          </label>
+        </div>
+        {errors.phone ? (
+          <span className="mt-1 block text-xs text-red-600">{errors.phone}</span>
         ) : null}
-      </label>
+      </div>
 
       <Field
         name="useCase"
         label="Primary use case"
         value={values.useCase}
         onChange={(v) => set("useCase", v)}
-        placeholder="Primary use case (e.g. Pipeline intelligence, Account research)"
-      />
-      <Field
-        name="dataStack"
-        label="Current data stack"
-        value={values.dataStack}
-        onChange={(v) => set("dataStack", v)}
-        placeholder="Current data stack (e.g. Salesforce, HubSpot, Snowflake)"
+        placeholder="Primary use case (optional)"
       />
 
       <button
