@@ -17,6 +17,8 @@ This is a human-curated log — not a mirror of `git log`.
 - **Form: no unhandled rejection** — the no-cors POST in `TrialForm` now
   catches its own failure (offline, ad blocker), which showed as a Next dev
   overlay issue; the GET beacon still tries.
+- **Form: shorter use-case placeholder** — "Primary use case (optional)"
+  (the example list was cut off on phones).
 
 ## 2026-10-18
 - **Mobile polish** (full-site review at 375px: no horizontal overflow on any

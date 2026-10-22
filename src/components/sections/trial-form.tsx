@@ -401,7 +401,7 @@ export const TrialForm = () => {
         label="Primary use case"
         value={values.useCase}
         onChange={(v) => set("useCase", v)}
-        placeholder="Primary use case (e.g. Pipeline intelligence, Account research)"
+        placeholder="Primary use case (optional)"
       />
 
       <button
