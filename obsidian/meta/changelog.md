@@ -9,6 +9,13 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-10-22
+- **Animated hero on phones** — new `MobilePromptCard` cycles the four use
+  cases (dashboard, deck, research, flow) with readable crops of real
+  captures, instead of one static dashboard. Fixed-height stage, so no layout
+  shift while it cycles; no text cut at the edges.
+- **Outputs section on phones** — the overlapping fan (cards clipped at the
+  stage edge, truncated prompt) is replaced below `sm` by a clean grid with
+  the full prompt. Desktop is unchanged.
 - **Shorter demo form** — `TrialForm` step 2 merges first/last name into one
   Full name field, drops Team size and Current data stack, and adds an
   optional mobile number with a country-code picker (`src/lib/dial-codes.ts`).
