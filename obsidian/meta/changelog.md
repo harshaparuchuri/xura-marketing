@@ -14,6 +14,9 @@ This is a human-curated log — not a mirror of `git log`.
   optional mobile number with a country-code picker (`src/lib/dial-codes.ts`).
   Sheet payload keys are now `name`, `email`, `jobTitle`, `company`, `phone`,
   `useCase` — the Google Apps Script must be updated to write them.
+- **Form: no unhandled rejection** — the no-cors POST in `TrialForm` now
+  catches its own failure (offline, ad blocker), which showed as a Next dev
+  overlay issue; the GET beacon still tries.
 
 ## 2026-10-18
 - **Mobile polish** (full-site review at 375px: no horizontal overflow on any

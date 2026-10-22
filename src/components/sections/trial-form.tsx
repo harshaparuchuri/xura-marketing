@@ -132,6 +132,8 @@ function sendToSheet(payload: Record<string, string>) {
       method: "POST",
       mode: "no-cors",
       body: JSON.stringify(payload),
+    }).catch(() => {
+      // Offline or blocked (e.g. an ad blocker); the GET beacon still tries.
     });
   } catch {
     // no-cors fetch does not surface errors; the GET beacon is the fallback.
