@@ -68,6 +68,9 @@ const CARDS: Card[] = [
   },
 ];
 
+/** Phone grid order: the deck leads full width. */
+const MOBILE_ORDER = ["deck", "dashboard", "research", "infographic", "brief"];
+
 const CAPTIONS: { title: string; body: string }[] = [
   {
     title: "Live dashboards",
@@ -132,6 +135,57 @@ export const Outputs = () => (
         </Inview>
       </div>
 
+      {/* Phones: the fan would overlap and clip at this width, so the same
+          outputs stack in a grid — the deck full width, the rest two-up —
+          each rising in as it scrolls into view. Nothing is cut at an edge. */}
+      <div className="grain relative isolate mt-10 overflow-hidden rounded-3xl bg-brand-ink p-4 sm:hidden">
+        <ArcField className="pointer-events-none absolute inset-0 -z-10 size-full text-white/10" />
+        <div className="flex items-center gap-3 rounded-2xl bg-background py-2 pl-4 pr-2 shadow-product">
+          <span className="flex-1 text-sm leading-snug text-foreground">
+            Prepare the Q3 delivery review for the board
+          </span>
+          <span
+            aria-hidden
+            className="flex size-7 shrink-0 items-center justify-center rounded-full bg-foreground text-background"
+          >
+            <svg viewBox="0 0 24 24" className="size-3.5" fill="none">
+              <path
+                d="M12 19V5M5 12l7-7 7 7"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        </div>
+        <ul className="mt-4 grid grid-cols-2 items-start gap-3">
+          {MOBILE_ORDER.map((key, i) => {
+            const card = CARDS.find((c) => c.key === key)!;
+            return (
+              <Inview
+                key={card.key}
+                tag="li"
+                mode="once"
+                delayIn={i * 70}
+                from={{ opacity: 0, y: 18 }}
+                to={{ opacity: 1, y: 0 }}
+                config={{ tension: 180, friction: 27 }}
+                className={i === 0 ? "col-span-2" : ""}
+              >
+                <ShotCrop
+                  src={card.src}
+                  alt={card.alt}
+                  crop={card.crop}
+                  sizes={i === 0 ? "100vw" : "50vw"}
+                  className="rounded-lg shadow-product ring-1 ring-white/20"
+                />
+              </Inview>
+            );
+          })}
+        </ul>
+      </div>
+
       {/* Stage */}
       <Inview
         mode="once"
@@ -139,14 +193,14 @@ export const Outputs = () => (
         from={{ opacity: 0, y: 32 }}
         to={{ opacity: 1, y: 0 }}
         config={{ tension: 160, friction: 30 }}
-        className="grain relative isolate mx-auto mt-14 aspect-[4/5] max-w-6xl overflow-hidden rounded-3xl bg-brand-ink sm:aspect-[16/9]"
+        className="grain relative isolate mx-auto mt-14 hidden aspect-[16/9] max-w-6xl overflow-hidden rounded-3xl bg-brand-ink sm:block"
       >
         <ArcField className="pointer-events-none absolute inset-0 -z-10 size-full text-white/10" />
 
         {/* The prompt that produced them */}
         <div className="absolute left-1/2 top-[7%] z-30 w-[86%] max-w-xl -translate-x-1/2">
           <div className="flex items-center gap-3 rounded-2xl bg-background py-2 pl-4 pr-2 shadow-product">
-            <span className="flex-1 truncate text-xs text-foreground sm:text-sm">
+            <span className="flex-1 truncate text-sm text-foreground">
               Prepare the Q3 delivery review for the board
             </span>
             <span
