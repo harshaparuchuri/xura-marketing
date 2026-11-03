@@ -54,7 +54,6 @@ export const PRICING_PLANS: PricingPlan[] = [
     features: [
       "Every output: dashboards, decks, research, briefs",
       "Connect your tools or upload a file",
-      "Goal: automate one crucial business flow",
       "No credit card",
       "24x7 support",
     ],
@@ -188,7 +187,7 @@ export const PRICING_FAQ: { question: string; answer: string }[] = [
   {
     question: "Is the pilot really free?",
     answer:
-      "Yes. One week, one user, 100 credits, on your own data. No credit card. The goal is to automate one crucial business flow; if it works, pick a plan.",
+      "Yes. One week, one user, 100 credits, on your own data. No credit card. If it works for you, pick a plan.",
   },
   {
     question: "How long does the early-customer price last?",

@@ -9,6 +9,8 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-11-03
+- **Pilot card** — dropped "Goal: automate one crucial business flow" (and
+  the same line from the "Is the pilot really free?" FAQ answer).
 - **Pricing: early-customer offer** — Starter ~~$50~~ $20 and Growth
   ~~$100~~ $50 per user / month for the first 6 months ("Early-customer
   price · limited spots"); Custom shows "Custom Flows $100 one-time setup per
