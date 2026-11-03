@@ -35,7 +35,7 @@ const NavLink = ({ label, href, external }: (typeof LINKS)[number]) =>
 
 /**
  * Top navigation — wordmark and links left, CTAs right: "Book a demo"
- * filled primary (always shown) and "Get started for free" outlined (lg+;
+ * filled primary (always shown) and "Start free" outlined (lg+;
  * in the mobile menu below that). No separate
  * Sign in — the app's auth page (Get started) has both tabs.
  * Links sit left, right after the logo (auto · 1fr · auto grid at md+).
@@ -72,7 +72,7 @@ export const SiteNav = () => (
           href={siteConfig.signupUrl}
           className="hidden rounded-full border border-foreground px-4 py-2 text-sm font-semibold text-foreground transition-colors duration-[var(--duration-fast)] ease-entrance hover:bg-foreground hover:text-background lg:inline-flex"
         >
-          Get started for free
+          Start free
         </a>
 
         {/* Mobile menu */}
@@ -94,7 +94,7 @@ export const SiteNav = () => (
             ))}
             <li className="border-t border-line px-2 pt-2.5">
               <a href={siteConfig.signupUrl} className={linkClass}>
-                Get started for free
+                Start free
               </a>
             </li>
           </ul>

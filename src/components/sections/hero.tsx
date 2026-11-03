@@ -89,7 +89,7 @@ export const Hero = () => (
               Book a demo <span aria-hidden>→</span>
             </a>
             <a href={siteConfig.signupUrl} className="pill pill-ghost px-6 py-4 text-sm font-semibold">
-              Get started for free
+              Start free
             </a>
           </div>
           <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted">

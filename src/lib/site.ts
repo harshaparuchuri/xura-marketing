@@ -22,7 +22,7 @@ export const siteConfig = {
   author: "Xura Labs",
   /** Contact address shown in the footer. */
   email: "hello@xuralabs.com",
-  /** "Get started for free" — the app's auth page, opened on the Sign up tab. */
+  /** "Start free" — the app's auth page, opened on the Sign up tab. */
   signupUrl: "https://app.xuralabs.com/?tab=signup",
   /**
    * Calendly event for step 3 of the demo form ("Pick a time"), e.g.

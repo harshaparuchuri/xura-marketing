@@ -44,7 +44,7 @@ export default function NotFound() {
               Industries
             </Link>
             <Link href={siteConfig.signupUrl} className="pill pill-ghost">
-              Get started for free
+              Start free
             </Link>
           </nav>
         </section>

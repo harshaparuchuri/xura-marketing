@@ -33,7 +33,7 @@ import { siteConfig } from "@/lib/site";
  *   (deployed as *Execute as: Me · Who has access: Anyone*). To point at a
  *   different sheet, deploy your own Apps Script and edit `SHEETS_URL`.
  *   No env vars, no server route (see decisions-log ADR-0020).
- * - Success state renders in-place with a "Get started for free" CTA.
+ * - Success state renders in-place with a "Start free" CTA.
  */
 const SHEETS_URL =
   "https://script.google.com/macros/s/AKfycbx8KkFR3QUmLwg7MSKvn-AjJ97PwD1QlurNdiIvyT4QtXop9Cb7Xn0nboaYMm7i58WC/exec";
@@ -261,7 +261,7 @@ export const TrialForm = () => {
           href={siteConfig.signupUrl}
           className="pill mt-6 inline-flex"
         >
-          Get started for free <span aria-hidden>→</span>
+          Start free <span aria-hidden>→</span>
         </Link>
       </div>
     );

@@ -47,7 +47,7 @@ export const ClosingCta = () => (
           Book a demo <span aria-hidden>→</span>
         </a>
         <a href={siteConfig.signupUrl} className="pill pill-ghost">
-          Get started for free
+          Start free
         </a>
       </Inview>
     </div>
