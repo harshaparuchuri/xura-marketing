@@ -130,7 +130,7 @@ export const TrialView = () => (
             href={siteConfig.signupUrl}
             className="font-semibold text-foreground underline underline-offset-4"
           >
-            Get started for free
+            Start free
           </a>
         </p>
       </div>

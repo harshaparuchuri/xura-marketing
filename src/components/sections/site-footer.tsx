@@ -16,7 +16,7 @@ const PRODUCT: FooterLink[] = [
   { label: "Pricing", href: "/pricing" },
   { label: "Docs", href: DOCS_URL, external: true },
   { label: "Book a demo", href: siteConfig.demoUrl },
-  { label: "Get started for free", href: siteConfig.signupUrl, external: true },
+  { label: "Start free", href: siteConfig.signupUrl, external: true },
 ];
 
 const COMPANY: FooterLink[] = [

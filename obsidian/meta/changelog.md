@@ -1,12 +1,17 @@
 ---
 tags: [meta, changelog]
-updated: 2026-10-22
+updated: 2026-11-03
 ---
 
 # Changelog
 
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
+
+## 2026-11-03
+- **Sign-up CTA renamed** — "Get started for free" is now "Start free"
+  everywhere (nav, hero, pilot offer, closing CTA, footer, pricing cards,
+  industry pages, demo-form success, 404). Same link (`siteConfig.signupUrl`).
 
 ## 2026-10-22
 - **Animated hero on phones** — new `MobilePromptCard` cycles the four use

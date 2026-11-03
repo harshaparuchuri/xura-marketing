@@ -112,7 +112,7 @@ export const PilotOffer = () => (
             href={siteConfig.signupUrl}
             className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-foreground transition-opacity duration-[var(--duration-fast)] ease-entrance hover:opacity-90"
           >
-            Get started for free <span aria-hidden>→</span>
+            Start free <span aria-hidden>→</span>
           </Link>
           <a
             href={siteConfig.demoUrl}
