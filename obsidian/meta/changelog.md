@@ -9,6 +9,14 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-11-03
+- **No more "1 week" pilot framing** — the free pilot is now pitched as
+  "explore with 100 free credits while we map and automate your core flows".
+  Hero chip "Hire your first AI employee: 100 credits on us"; hero subline
+  "Start with 100 free credits. While you explore, we map your core business
+  flows and automate them, so your team runs on AI in weeks, not quarters.";
+  pilot band facts (100 credits · $0 · Flows built for you · 24x7) and
+  paragraph; pricing H1 "…Start with 100 free credits.", Nora quote, Pilot
+  card unit "100 credits to explore", pilot FAQ answer.
 - **Custom flows ~~$100~~ $25** one-time setup per flow, limited slots;
   description reworded ("We build a custom flow around your business
   processes…").

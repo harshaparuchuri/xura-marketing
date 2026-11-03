@@ -17,9 +17,9 @@ import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
  * post ~6 credits).
  */
 const FACTS: { value: string; label: string }[] = [
-  { value: "1 week", label: "on your own data" },
   { value: "100", label: "free credits" },
   { value: "$0", label: "no credit card" },
+  { value: "Flows", label: "built for you" },
   { value: "24x7", label: "support" },
 ];
 
@@ -76,9 +76,9 @@ export const PilotOffer = () => (
           config={{ tension: 180, friction: 27 }}
           className="mt-5 max-w-[48ch] text-sm leading-relaxed text-white/70 md:text-base"
         >
-          Sign up, connect a tool or upload a file, and put Nora to work. If
-          she hasn&apos;t automated one flow you care about in a week, walk
-          away. No credit card, no sales call.
+          Sign up, connect a tool or upload a file, and explore with 100 free
+          credits. Meanwhile we&apos;ll map your core business flows and set
+          them up for you. No credit card, no sales call.
         </Inview>
 
         <Inview

@@ -139,7 +139,7 @@ export const PricingView = () => (
               className="display-serif mx-auto mt-3 max-w-[20ch]"
             >
               Hire your first AI employee.{" "}
-              <span className="font-semibold italic">Free for a week.</span>
+              <span className="font-semibold italic">Start with 100 free credits.</span>
             </Spring>
             <Spring
               tag="p"
@@ -150,8 +150,8 @@ export const PricingView = () => (
               config={{ tension: 175, friction: 28 }}
               className="mx-auto mt-5 max-w-[56ch] text-sm leading-relaxed text-muted"
             >
-              &ldquo;Give me a week and 100 credits on your own data. If I
-              haven&apos;t automated one flow you care about, walk away.&rdquo;
+              &ldquo;Explore with 100 credits on your own data. I&apos;ll learn
+              your core flows and get them running for you.&rdquo;
               <span className="mt-1 block text-xs">Nora, Chief of Staff</span>
             </Spring>
           </div>
