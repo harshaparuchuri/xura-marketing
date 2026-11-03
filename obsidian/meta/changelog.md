@@ -9,6 +9,12 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-11-03
+- **Pricing: early-customer offer** — Starter ~~$50~~ $20 and Growth
+  ~~$100~~ $50 per user / month for the first 6 months ("Early-customer
+  price · limited spots"); Custom shows "Custom Flows $100 one-time setup per
+  flow"; the Pilot card lists what 100 credits gets you (~16 social posts,
+  ~5 dashboards, ~2 decks, ~1 research report). Two FAQ entries added.
+  See [[decisions-log]] ADR-0028.
 - **Sign-up CTA renamed** — "Get started for free" is now "Start free"
   everywhere (nav, hero, pilot offer, closing CTA, footer, pricing cards,
   industry pages, demo-form success, 404). Same link (`siteConfig.signupUrl`).

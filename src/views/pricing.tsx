@@ -43,6 +43,27 @@ const CreditsChip = ({ credits, featured }: { credits: string; featured?: boolea
   );
 };
 
+/** "What 100 credits gets you": how many of each output fit the allowance. */
+const CreditBreakdown = ({ credits }: { credits: number }) => {
+  const rows = CREDIT_EXAMPLES.map((e) => ({ n: Math.floor(credits / e.credits), e }))
+    .filter((r) => r.n >= 1)
+    .sort((a, b) => b.n - a.n);
+  return (
+    <div className="mt-3 rounded-xl bg-background px-3.5 py-3 text-xs ring-1 ring-line">
+      <p className="font-semibold">What {credits} credits gets you</p>
+      <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 xl:grid-cols-1">
+        {rows.map(({ n, e }) => (
+          <li key={e.output}>
+            <span className="font-semibold">~{n}</span>{" "}
+            <span className="text-muted">{n === 1 ? e.output.toLowerCase() : e.plural}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2 text-muted">or any mix of them</p>
+    </div>
+  );
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -172,6 +193,19 @@ export const PricingView = () => (
               </p>
 
               <p className="mt-6 font-serif leading-display">
+                {plan.listPrice && (
+                  <>
+                    <del
+                      className={`mr-2 whitespace-nowrap text-3xl decoration-2 ${
+                        plan.featured ? "text-white/45" : "text-muted"
+                      }`}
+                    >
+                      <span className="sr-only">Was </span>
+                      {plan.listPrice}
+                    </del>
+                    <span className="sr-only">, now </span>
+                  </>
+                )}
                 <span className={`whitespace-nowrap ${plan.price.length > 5 ? "text-4xl" : "text-5xl"}`}>
                   {plan.price}
                 </span>
@@ -179,8 +213,29 @@ export const PricingView = () => (
                   {plan.unit ?? "Tailored to your rollout"}
                 </span>
               </p>
+              {plan.offer && (
+                <p
+                  className={`mt-3 inline-flex self-start rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold ${
+                    plan.featured ? "bg-white/10 text-accent" : "bg-duo-wash text-duo"
+                  }`}
+                >
+                  {plan.offer}
+                </p>
+              )}
 
               <CreditsChip credits={plan.credits} featured={plan.featured} />
+
+              {plan.creditBreakdown && <CreditBreakdown credits={plan.creditBreakdown} />}
+
+              {plan.addOn && (
+                <p className="mt-3 rounded-xl bg-duo-wash px-3.5 py-2.5 text-xs">
+                  <span className="font-semibold">{plan.addOn.label}</span>
+                  <span className="mt-0.5 flex items-baseline gap-1.5">
+                    <span className="text-lg font-semibold">{plan.addOn.price}</span>
+                    <span className="text-muted">{plan.addOn.note}</span>
+                  </span>
+                </p>
+              )}
 
               {plan.featuresLead && (
                 <p className={`mt-6 text-xs font-semibold ${plan.featured ? "text-white/60" : "text-muted"}`}>
