@@ -957,3 +957,23 @@ limited customer slots; `CUSTOM_FLOWS.listPrice` holds the $100.
 restoring `price` and `unit` on the two plans, plus the FAQ entry. Changing
 credit costs in `CREDIT_EXAMPLES` updates the Pilot breakdown automatically.
 
+## ADR-0029 — Pilot positioned as "explore with credits", not a 1-week trial
+
+**Date.** 2026-11-03
+
+**Context.** The site sold the free pilot as "1 week, 100 credits" with a
+"if Nora hasn't automated a flow in a week, walk away" promise. The actual
+motion: users explore with 100 credits while the team identifies their core
+flows and customises them, then they convert. A "week" deadline and a
+self-serve automation promise misstate that.
+
+**Decision.** Drop every "1 week" / "in a week" claim. Copy leads with "100
+free credits" and "we map your core flows and set them up for you". The
+headline stays "AI employees that answer, explain and act." (concrete,
+self-serve); the AI-transformation angle lives in the subline ("…runs on AI
+in weeks, not quarters"), not the H1. The plan keeps the name "Pilot". No
+claim is made about whether the pilot expires.
+
+**Consequences.** If a time limit is reintroduced, add it back to the Pilot
+card `unit`, the pricing FAQ and the pilot band facts together.
+

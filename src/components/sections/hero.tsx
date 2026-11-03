@@ -44,7 +44,7 @@ export const Hero = () => (
             className="inline-flex items-center gap-2 rounded-full border border-line bg-background/80 py-1 pl-1 pr-3.5 text-xs transition-colors duration-[var(--duration-fast)] ease-entrance hover:border-foreground"
           >
             <span className="rounded-full bg-accent px-2.5 py-0.5 font-semibold">Free</span>
-            Hire your first AI employee: 1 week, 100 credits
+            Hire your first AI employee: 100 credits on us
             <span aria-hidden>→</span>
           </Link>
         </Spring>
@@ -70,10 +70,9 @@ export const Hero = () => (
           config={{ tension: 175, friction: 28 }}
           className="mx-auto mt-5 max-w-[54ch] text-base leading-relaxed text-muted md:text-lg"
         >
-          Stop chasing numbers across spreadsheets, CRMs and inboxes.
-          Xura&apos;s AI employees answer from your own data, find the reason
-          behind the number, and draft the next step. Nothing goes out until
-          you approve.
+          Start with 100 free credits. While you explore, we map your core
+          business flows and automate them, so your team runs on AI in weeks,
+          not quarters.
         </Spring>
 
         <Spring

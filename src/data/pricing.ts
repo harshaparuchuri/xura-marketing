@@ -58,7 +58,7 @@ export const PRICING_PLANS: PricingPlan[] = [
   {
     name: "Pilot",
     price: "Free",
-    unit: "for 1 week",
+    unit: "100 credits to explore",
     credits: "100 credits · 1 user",
     summary: "Put one AI employee to work on your own data.",
     features: [
@@ -196,7 +196,7 @@ export const PRICING_FAQ: { question: string; answer: string }[] = [
   {
     question: "Is the pilot really free?",
     answer:
-      "Yes. One week, one user, 100 credits, on your own data. No credit card. If it works for you, pick a plan.",
+      "Yes. 100 credits for one user, on your own data, no credit card. While you explore, we identify your core flows and customise them for you. When you're ready, pick a plan.",
   },
   {
     question: "How long does the early-customer price last?",
