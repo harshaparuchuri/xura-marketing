@@ -929,3 +929,31 @@ in `deploy.yml` after the build and fails the deploy on errors.
 have one H1, or the deploy fails. A route-level loading UI, if ever needed,
 must be scoped to that route and not the root. The checklist is in
 [[seo-checklist]].
+
+## ADR-0028 — Early-customer pricing shown as a struck-through list price
+
+**Date.** 2026-11-03
+
+**Context.** Starter and Growth get an early-customer price for the first 6
+months (Starter $20, normally $50; Growth $50, normally $100), with limited
+spots. Custom Flows are a $100 one-time setup per flow.
+
+**Decision.** `PricingPlan` gains optional `listPrice` (rendered in `<del>`
+with screen-reader "Was … , now"), `offer` (pill under the price, shared
+`EARLY_OFFER` copy), `creditBreakdown` (a credit amount; the card lists how
+many of each `CREDIT_EXAMPLES` output fit, derived, not hard-coded) and
+`addOn` (highlighted add-on price). `price` stays the amount customers pay,
+so the Product JSON-LD offers carry $20 / $50, never the list price. The
+FAQ explains the 6-month term and Flow setup.
+
+**Update 2026-11-03.** Custom business flows are $100 one-time setup per
+flow on **every** plan (limited slots), not just Custom. The per-card
+`addOn` field was removed; `CUSTOM_FLOWS` in `data/pricing.ts` drives one
+full-width strip under the plan cards, and the FAQ says "on any plan".
+Later the same day the setup became **$25 (list $100, struck through)** for
+limited customer slots; `CUSTOM_FLOWS.listPrice` holds the $100.
+
+**Consequences.** Ending the offer means deleting `listPrice`/`offer` and
+restoring `price` and `unit` on the two plans, plus the FAQ entry. Changing
+credit costs in `CREDIT_EXAMPLES` updates the Pilot breakdown automatically.
+

@@ -9,6 +9,20 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-11-03
+- **Custom flows ~~$100~~ $25** one-time setup per flow, limited slots;
+  description reworded ("We build a custom flow around your business
+  processes…").
+- **Pricing: custom flows on every plan** — "$100 one-time setup per flow ·
+  Limited slots" moved from the Custom card to a full-width strip under all
+  plan cards; FAQ updated (ADR-0028 update).
+- **Pilot card** — dropped "Goal: automate one crucial business flow" (and
+  the same line from the "Is the pilot really free?" FAQ answer).
+- **Pricing: early-customer offer** — Starter ~~$50~~ $20 and Growth
+  ~~$100~~ $50 per user / month for the first 6 months ("Early-customer
+  price · limited spots"); Custom shows "Custom Flows $100 one-time setup per
+  flow"; the Pilot card lists what 100 credits gets you (~16 social posts,
+  ~5 dashboards, ~2 decks, ~1 research report). Two FAQ entries added.
+  See [[decisions-log]] ADR-0028.
 - **Sign-up CTA renamed** — "Get started for free" is now "Start free"
   everywhere (nav, hero, pilot offer, closing CTA, footer, pricing cards,
   industry pages, demo-form success, 404). Same link (`siteConfig.signupUrl`).

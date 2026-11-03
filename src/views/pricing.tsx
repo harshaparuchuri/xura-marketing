@@ -12,6 +12,7 @@ import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 import {
   CREDIT_EXAMPLES,
   CREDITS_NOTE,
+  CUSTOM_FLOWS,
   PRICING_FAQ,
   PRICING_PLANS,
 } from "@/data/pricing";
@@ -40,6 +41,27 @@ const CreditsChip = ({ credits, featured }: { credits: string; featured?: boolea
         <span className="font-medium">{credits}</span>
       )}
     </p>
+  );
+};
+
+/** "What 100 credits gets you": how many of each output fit the allowance. */
+const CreditBreakdown = ({ credits }: { credits: number }) => {
+  const rows = CREDIT_EXAMPLES.map((e) => ({ n: Math.floor(credits / e.credits), e }))
+    .filter((r) => r.n >= 1)
+    .sort((a, b) => b.n - a.n);
+  return (
+    <div className="mt-3 rounded-xl bg-background px-3.5 py-3 text-xs ring-1 ring-line">
+      <p className="font-semibold">What {credits} credits gets you</p>
+      <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 xl:grid-cols-1">
+        {rows.map(({ n, e }) => (
+          <li key={e.output}>
+            <span className="font-semibold">~{n}</span>{" "}
+            <span className="text-muted">{n === 1 ? e.output.toLowerCase() : e.plural}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2 text-muted">or any mix of them</p>
+    </div>
   );
 };
 
@@ -172,6 +194,19 @@ export const PricingView = () => (
               </p>
 
               <p className="mt-6 font-serif leading-display">
+                {plan.listPrice && (
+                  <>
+                    <del
+                      className={`mr-2 whitespace-nowrap text-3xl decoration-2 ${
+                        plan.featured ? "text-white/45" : "text-muted"
+                      }`}
+                    >
+                      <span className="sr-only">Was </span>
+                      {plan.listPrice}
+                    </del>
+                    <span className="sr-only">, now </span>
+                  </>
+                )}
                 <span className={`whitespace-nowrap ${plan.price.length > 5 ? "text-4xl" : "text-5xl"}`}>
                   {plan.price}
                 </span>
@@ -179,8 +214,19 @@ export const PricingView = () => (
                   {plan.unit ?? "Tailored to your rollout"}
                 </span>
               </p>
+              {plan.offer && (
+                <p
+                  className={`mt-3 inline-flex self-start rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold ${
+                    plan.featured ? "bg-white/10 text-accent" : "bg-duo-wash text-duo"
+                  }`}
+                >
+                  {plan.offer}
+                </p>
+              )}
 
               <CreditsChip credits={plan.credits} featured={plan.featured} />
+
+              {plan.creditBreakdown && <CreditBreakdown credits={plan.creditBreakdown} />}
 
               {plan.featuresLead && (
                 <p className={`mt-6 text-xs font-semibold ${plan.featured ? "text-white/60" : "text-muted"}`}>
@@ -219,6 +265,37 @@ export const PricingView = () => (
             </Inview>
           ))}
         </ul>
+
+        {/* Custom flows: one price on every plan, while slots last */}
+        <Inview
+          mode="once"
+          delayIn={280}
+          from={{ opacity: 0, y: 18 }}
+          to={{ opacity: 1, y: 0 }}
+          config={{ tension: 180, friction: 27 }}
+          className="shell mt-5"
+        >
+          <div className="flex flex-col gap-3 rounded-2xl border border-duo-soft bg-duo-wash p-6 sm:flex-row sm:items-center sm:justify-between md:px-7">
+            <div>
+              <p className="flex flex-wrap items-center gap-2">
+                <span className="text-lg font-semibold tracking-tight">{CUSTOM_FLOWS.label}</span>
+                <span className="rounded-full bg-duo px-2.5 py-1 text-[0.6875rem] font-semibold text-white">
+                  {CUSTOM_FLOWS.offer}
+                </span>
+              </p>
+              <p className="mt-1 text-sm text-muted">{CUSTOM_FLOWS.summary}</p>
+            </div>
+            <p className="shrink-0 font-serif leading-display">
+              <del className="mr-2 text-2xl text-muted decoration-2">
+                <span className="sr-only">Was </span>
+                {CUSTOM_FLOWS.listPrice}
+              </del>
+              <span className="sr-only">, now </span>
+              <span className="text-4xl">{CUSTOM_FLOWS.price}</span>
+              <span className="mt-1 block font-sans text-xs text-muted">{CUSTOM_FLOWS.unit}</span>
+            </p>
+          </div>
+        </Inview>
       </section>
 
       {/* What credits buy */}

@@ -6,12 +6,37 @@ import { siteConfig } from "@/lib/site";
  *
  * Credit policy (confirmed 2026-10-18): credits are per seat, do NOT roll
  * over, and can be topped up mid-month.
+ *
+ * Early-customer offer (2026-11-03): Starter $20 (list $50) and Growth $50
+ * (list $100) for the first 6 months, limited spots. Custom business flows
+ * are a $25 one-time setup per flow (normally $100) on every plan, limited slots.
  */
+
+/** Label shown with the early-customer price on discounted plans. */
+export const EARLY_OFFER = "Early-customer price · limited spots";
+
+/** Custom business flows — same setup price on every plan, shown below the cards. */
+export const CUSTOM_FLOWS = {
+  label: "Custom business flows",
+  offer: "Limited slots",
+  summary:
+    "We build a custom flow around your business processes, on any plan. After setup, it runs on your credits.",
+  price: "$25",
+  /** Standard setup price, struck through while slots last. */
+  listPrice: "$100",
+  unit: "one-time setup per flow",
+};
 
 export interface PricingPlan {
   name: string;
   /** Display price, e.g. "$50", "Free" or "Let's talk". */
   price: string;
+  /** Standard price, shown struck through before `price` while an offer runs. */
+  listPrice?: string;
+  /** Short offer line under the price (e.g. `EARLY_OFFER`). */
+  offer?: string;
+  /** Show "what N credits gets you" on the card, using `CREDIT_EXAMPLES`. */
+  creditBreakdown?: number;
   /** Unit shown after the price, e.g. "per user / month". */
   unit?: string;
   /** Credit allowance, shown as a highlighted line on the card. */
@@ -39,18 +64,20 @@ export const PRICING_PLANS: PricingPlan[] = [
     features: [
       "Every output: dashboards, decks, research, briefs",
       "Connect your tools or upload a file",
-      "Goal: automate one crucial business flow",
       "No credit card",
       "24x7 support",
     ],
     cta: { label: "Start free", href: siteConfig.signupUrl },
     badge: "Start here",
     entry: true,
+    creditBreakdown: 100,
   },
   {
     name: "Starter",
-    price: "$50",
-    unit: "per user / month",
+    price: "$20",
+    listPrice: "$50",
+    offer: EARLY_OFFER,
+    unit: "per user / month for 6 months",
     credits: "500 credits per user / month",
     summary: "For a team trying Xura on one use case.",
     features: [
@@ -64,8 +91,10 @@ export const PRICING_PLANS: PricingPlan[] = [
   },
   {
     name: "Growth",
-    price: "$100",
-    unit: "per user / month",
+    price: "$50",
+    listPrice: "$100",
+    offer: EARLY_OFFER,
+    unit: "per user / month for 6 months",
     credits: "1,000 credits per user / month",
     summary: "For teams running Xura every day.",
     featuresLead: "Everything in Starter, plus:",
@@ -99,6 +128,8 @@ export const PRICING_PLANS: PricingPlan[] = [
 /** What a credit buys — rates derived from the deck (500 credits ≈ 25 dashboards, etc.). */
 export interface CreditExample {
   output: string;
+  /** Plural, lower-case, for counts ("16 social posts"). */
+  plural: string;
   /** Approximate credit cost, as a number for the badge. */
   credits: number;
   prompt: string;
@@ -110,6 +141,7 @@ export interface CreditExample {
 export const CREDIT_EXAMPLES: CreditExample[] = [
   {
     output: "Social post",
+    plural: "social posts",
     credits: 6,
     prompt: "Turn Q4 plant performance into a shareable infographic",
     result: "Ready in your brand, as PNG or PDF.",
@@ -121,6 +153,7 @@ export const CREDIT_EXAMPLES: CreditExample[] = [
   },
   {
     output: "Live dashboard",
+    plural: "dashboards",
     credits: 20,
     prompt: "Show headcount by department",
     result: "Live dashboard, refreshing daily.",
@@ -132,6 +165,7 @@ export const CREDIT_EXAMPLES: CreditExample[] = [
   },
   {
     output: "Slide deck",
+    plural: "slide decks",
     credits: 40,
     prompt: "Make a team review deck on task completion by team",
     result: "Numbers sourced, exported to .pptx.",
@@ -143,6 +177,7 @@ export const CREDIT_EXAMPLES: CreditExample[] = [
   },
   {
     output: "Research report",
+    plural: "research reports",
     credits: 60,
     prompt: "Research the market for our next launch",
     result: "87 citations from 30 sources.",
@@ -161,7 +196,17 @@ export const PRICING_FAQ: { question: string; answer: string }[] = [
   {
     question: "Is the pilot really free?",
     answer:
-      "Yes. One week, one user, 100 credits, on your own data. No credit card. The goal is to automate one crucial business flow; if it works, pick a plan.",
+      "Yes. One week, one user, 100 credits, on your own data. No credit card. If it works for you, pick a plan.",
+  },
+  {
+    question: "How long does the early-customer price last?",
+    answer:
+      "Your first 6 months: Starter is $20 per user / month (normally $50) and Growth is $50 (normally $100). After that the plan moves to its standard price. Spots are limited.",
+  },
+  {
+    question: "What does a custom Flow cost?",
+    answer:
+      "$25 one-time setup per Flow (normally $100), on any plan, while slots last. We build it around your business process; after that it runs on your credits.",
   },
   {
     question: "What is a credit?",
