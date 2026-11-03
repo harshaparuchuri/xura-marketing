@@ -950,7 +950,7 @@ FAQ explains the 6-month term and Flow setup.
 flow on **every** plan (limited slots), not just Custom. The per-card
 `addOn` field was removed; `CUSTOM_FLOWS` in `data/pricing.ts` drives one
 full-width strip under the plan cards, and the FAQ says "on any plan".
-Later the same day the setup became **$50 (list $100, struck through)** for
+Later the same day the setup became **$25 (list $100, struck through)** for
 limited customer slots; `CUSTOM_FLOWS.listPrice` holds the $100.
 
 **Consequences.** Ending the offer means deleting `listPrice`/`offer` and
