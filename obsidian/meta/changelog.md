@@ -9,6 +9,7 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-11-03
+- **Custom flows ~~$100~~ $50** one-time setup per flow, limited slots.
 - **Pricing: custom flows on every plan** — "$100 one-time setup per flow ·
   Limited slots" moved from the Custom card to a full-width strip under all
   plan cards; FAQ updated (ADR-0028 update).

@@ -9,7 +9,7 @@ import { siteConfig } from "@/lib/site";
  *
  * Early-customer offer (2026-11-03): Starter $20 (list $50) and Growth $50
  * (list $100) for the first 6 months, limited spots. Custom business flows
- * are a $100 one-time setup per flow on every plan, limited slots.
+ * are a $50 one-time setup per flow (normally $100) on every plan, limited slots.
  */
 
 /** Label shown with the early-customer price on discounted plans. */
@@ -21,7 +21,9 @@ export const CUSTOM_FLOWS = {
   offer: "Limited slots",
   summary:
     "We build a Flow around one of your business processes, on any plan. After setup it runs on your credits.",
-  price: "$100",
+  price: "$50",
+  /** Standard setup price, struck through while slots last. */
+  listPrice: "$100",
   unit: "one-time setup per flow",
 };
 
@@ -204,7 +206,7 @@ export const PRICING_FAQ: { question: string; answer: string }[] = [
   {
     question: "What does a custom Flow cost?",
     answer:
-      "$100 one-time setup per Flow, on any plan, while slots last. We build it around your business process; after that it runs on your credits.",
+      "$50 one-time setup per Flow (normally $100), on any plan, while slots last. We build it around your business process; after that it runs on your credits.",
   },
   {
     question: "What is a credit?",

@@ -286,6 +286,11 @@ export const PricingView = () => (
               <p className="mt-1 text-sm text-muted">{CUSTOM_FLOWS.summary}</p>
             </div>
             <p className="shrink-0 font-serif leading-display">
+              <del className="mr-2 text-2xl text-muted decoration-2">
+                <span className="sr-only">Was </span>
+                {CUSTOM_FLOWS.listPrice}
+              </del>
+              <span className="sr-only">, now </span>
               <span className="text-4xl">{CUSTOM_FLOWS.price}</span>
               <span className="mt-1 block font-sans text-xs text-muted">{CUSTOM_FLOWS.unit}</span>
             </p>
