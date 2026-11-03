@@ -946,6 +946,11 @@ many of each `CREDIT_EXAMPLES` output fit, derived, not hard-coded) and
 so the Product JSON-LD offers carry $20 / $50, never the list price. The
 FAQ explains the 6-month term and Flow setup.
 
+**Update 2026-11-03.** Custom business flows are $100 one-time setup per
+flow on **every** plan (limited slots), not just Custom. The per-card
+`addOn` field was removed; `CUSTOM_FLOWS` in `data/pricing.ts` drives one
+full-width strip under the plan cards, and the FAQ says "on any plan".
+
 **Consequences.** Ending the offer means deleting `listPrice`/`offer` and
 restoring `price` and `unit` on the two plans, plus the FAQ entry. Changing
 credit costs in `CREDIT_EXAMPLES` updates the Pilot breakdown automatically.

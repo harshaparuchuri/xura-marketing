@@ -12,6 +12,7 @@ import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 import {
   CREDIT_EXAMPLES,
   CREDITS_NOTE,
+  CUSTOM_FLOWS,
   PRICING_FAQ,
   PRICING_PLANS,
 } from "@/data/pricing";
@@ -227,16 +228,6 @@ export const PricingView = () => (
 
               {plan.creditBreakdown && <CreditBreakdown credits={plan.creditBreakdown} />}
 
-              {plan.addOn && (
-                <p className="mt-3 rounded-xl bg-duo-wash px-3.5 py-2.5 text-xs">
-                  <span className="font-semibold">{plan.addOn.label}</span>
-                  <span className="mt-0.5 flex items-baseline gap-1.5">
-                    <span className="text-lg font-semibold">{plan.addOn.price}</span>
-                    <span className="text-muted">{plan.addOn.note}</span>
-                  </span>
-                </p>
-              )}
-
               {plan.featuresLead && (
                 <p className={`mt-6 text-xs font-semibold ${plan.featured ? "text-white/60" : "text-muted"}`}>
                   {plan.featuresLead}
@@ -274,6 +265,32 @@ export const PricingView = () => (
             </Inview>
           ))}
         </ul>
+
+        {/* Custom flows: one price on every plan, while slots last */}
+        <Inview
+          mode="once"
+          delayIn={280}
+          from={{ opacity: 0, y: 18 }}
+          to={{ opacity: 1, y: 0 }}
+          config={{ tension: 180, friction: 27 }}
+          className="shell mt-5"
+        >
+          <div className="flex flex-col gap-3 rounded-2xl border border-duo-soft bg-duo-wash p-6 sm:flex-row sm:items-center sm:justify-between md:px-7">
+            <div>
+              <p className="flex flex-wrap items-center gap-2">
+                <span className="text-lg font-semibold tracking-tight">{CUSTOM_FLOWS.label}</span>
+                <span className="rounded-full bg-duo px-2.5 py-1 text-[0.6875rem] font-semibold text-white">
+                  {CUSTOM_FLOWS.offer}
+                </span>
+              </p>
+              <p className="mt-1 text-sm text-muted">{CUSTOM_FLOWS.summary}</p>
+            </div>
+            <p className="shrink-0 font-serif leading-display">
+              <span className="text-4xl">{CUSTOM_FLOWS.price}</span>
+              <span className="mt-1 block font-sans text-xs text-muted">{CUSTOM_FLOWS.unit}</span>
+            </p>
+          </div>
+        </Inview>
       </section>
 
       {/* What credits buy */}

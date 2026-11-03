@@ -9,6 +9,9 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-11-03
+- **Pricing: custom flows on every plan** — "$100 one-time setup per flow ·
+  Limited slots" moved from the Custom card to a full-width strip under all
+  plan cards; FAQ updated (ADR-0028 update).
 - **Pilot card** — dropped "Goal: automate one crucial business flow" (and
   the same line from the "Is the pilot really free?" FAQ answer).
 - **Pricing: early-customer offer** — Starter ~~$50~~ $20 and Growth

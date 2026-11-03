@@ -8,12 +8,22 @@ import { siteConfig } from "@/lib/site";
  * over, and can be topped up mid-month.
  *
  * Early-customer offer (2026-11-03): Starter $20 (list $50) and Growth $50
- * (list $100) for the first 6 months, limited spots. Custom Flows are a $100
- * one-time setup per flow.
+ * (list $100) for the first 6 months, limited spots. Custom business flows
+ * are a $100 one-time setup per flow on every plan, limited slots.
  */
 
 /** Label shown with the early-customer price on discounted plans. */
 export const EARLY_OFFER = "Early-customer price · limited spots";
+
+/** Custom business flows — same setup price on every plan, shown below the cards. */
+export const CUSTOM_FLOWS = {
+  label: "Custom business flows",
+  offer: "Limited slots",
+  summary:
+    "We build a Flow around one of your business processes, on any plan. After setup it runs on your credits.",
+  price: "$100",
+  unit: "one-time setup per flow",
+};
 
 export interface PricingPlan {
   name: string;
@@ -25,8 +35,6 @@ export interface PricingPlan {
   offer?: string;
   /** Show "what N credits gets you" on the card, using `CREDIT_EXAMPLES`. */
   creditBreakdown?: number;
-  /** Highlighted add-on price, e.g. Custom Flows setup. */
-  addOn?: { label: string; price: string; note: string };
   /** Unit shown after the price, e.g. "per user / month". */
   unit?: string;
   /** Credit allowance, shown as a highlighted line on the card. */
@@ -102,7 +110,6 @@ export const PRICING_PLANS: PricingPlan[] = [
     name: "Custom",
     price: "Let's talk",
     credits: "Credits sized to your team",
-    addOn: { label: "Custom Flows", price: "$100", note: "one-time setup per flow" },
     summary: "For larger rollouts and custom needs.",
     featuresLead: "Everything in Growth, plus:",
     features: [
@@ -197,7 +204,7 @@ export const PRICING_FAQ: { question: string; answer: string }[] = [
   {
     question: "What does a custom Flow cost?",
     answer:
-      "$100 one-time setup per Flow, on the Custom plan. We build it around your business process; after that it runs on your credits.",
+      "$100 one-time setup per Flow, on any plan, while slots last. We build it around your business process; after that it runs on your credits.",
   },
   {
     question: "What is a credit?",
