@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/industries", 0.8),
     ...INDUSTRIES.map((i) => entry(`/industries/${i.slug}`, 0.8)),
     entry("/trial", 0.7),
+    entry("/privacy", 0.3, "yearly"),
   ];
 }
 

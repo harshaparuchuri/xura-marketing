@@ -977,3 +977,51 @@ claim is made about whether the pilot expires.
 **Consequences.** If a time limit is reintroduced, add it back to the Pilot
 card `unit`, the pricing FAQ and the pilot band facts together.
 
+## ADR-0030 — Privacy policy on the marketing site
+
+**Date.** 2026-11-04
+
+**Context.** The site collects names, emails and phone numbers (demo form →
+Google Sheets), books calls through Calendly and runs Google Analytics 4 in
+production, but had no privacy policy.
+
+**Decision.** Add `/privacy`, a static page rendered from `data/privacy.ts`
+(paragraph, list and two-column table blocks), modelled on established SaaS
+policies: an at-a-glance summary, a Customer Data (processor) vs other
+information (controller) split, tables for collection, purposes and legal
+bases, sharing and retention, and rights by region (India DPDP incl.
+Grievance Officer, EEA/UK, US). Service providers are named where the repo
+shows them (Google, Calendly, Meta/Slack/Microsoft); hosting, AI and payment
+providers are listed by category with the full list on request.
+
+**Consequences.** The policy states commitments (no training on Customer
+Data, no sale of personal information, 30-day responses, 14-month GA
+retention, encryption in transit). Any product, vendor or retention change
+must update `data/privacy.ts` and the effective date. Legal review is
+recommended before relying on it. A cookie-consent banner for GA4 and a
+privacy notice on the demo form are open follow-ups.
+
+## ADR-0031 — Cookie consent for EU/UK visitors only
+
+**Date.** 2026-11-04
+
+**Context.** GA4 loaded on every page and set cookies without consent. A
+banner for everyone would cut analytics numbers; the owner wanted consent
+only where it's clearly required (GDPR/ePrivacy for EU/UK visitors) and
+normal tracking elsewhere.
+
+**Decision.** Region-aware opt-in. The site is a static export (GitHub
+Pages), so the region is inferred from the browser timezone
+(`CONSENT_REGION_TZ`: `Europe/*` plus EU/EEA Atlantic islands). Undecided
+visitors in that region get no GA until "Allow all"; others get GA by
+default. A stored choice always wins, in any region, and the footer "Cookie
+settings" lets anyone opt out. Choice in localStorage
+(`xura-analytics-consent`); no consent-management platform.
+
+**Consequences.** Timezone is approximate: EU visitors on a non-European
+timezone (VPN, travel) are tracked without asking, and some non-EU European
+zones (e.g. Turkey, Ukraine) are asked. India's DPDP Act also expects consent
+for analytics as its rules phase in, so revisit for Indian visitors when that
+is enforced, or when EU traffic or enterprise deals grow. Alternatives if
+needed later: a geo-IP consent tool, or Google Consent Mode "advanced"
+(cookieless pings before a choice, needs legal sign-off).

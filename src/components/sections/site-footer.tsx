@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { XuraLogo } from "@/components/brand/logo";
+import { CookieSettingsButton } from "@/components/common/cookie-banner";
 import { PixelWordmark } from "@/components/graphics/pixel-wordmark";
 
 import { INDUSTRIES } from "@/data/industries";
@@ -21,6 +22,7 @@ const PRODUCT: FooterLink[] = [
 
 const COMPANY: FooterLink[] = [
   { label: "Contact us", href: `mailto:${siteConfig.email}` },
+  { label: "Privacy policy", href: "/privacy" },
 ];
 
 /** Review and launch profiles; entries with no URL yet are skipped. */
@@ -44,7 +46,16 @@ const FooterAnchor = ({ label, href, external }: FooterLink) =>
     </Link>
   );
 
-const Column = ({ title, links }: { title: string; links: FooterLink[] }) => (
+const Column = ({
+  title,
+  links,
+  extra,
+}: {
+  title: string;
+  links: FooterLink[];
+  /** Optional trailing item that isn't a link, e.g. the cookie settings button. */
+  extra?: React.ReactNode;
+}) => (
   <nav aria-label={title}>
     <h2 className="text-[0.6875rem] font-semibold uppercase tracking-widest opacity-60">{title}</h2>
     <ul className="mt-3 space-y-2 text-sm">
@@ -53,6 +64,7 @@ const Column = ({ title, links }: { title: string; links: FooterLink[] }) => (
           <FooterAnchor {...link} />
         </li>
       ))}
+      {extra && <li>{extra}</li>}
     </ul>
   </nav>
 );
@@ -80,7 +92,11 @@ export const SiteFooter = () => (
         title="Industries"
         links={INDUSTRIES.map((i) => ({ label: i.label, href: `/industries/${i.slug}` }))}
       />
-      <Column title="Company" links={COMPANY} />
+      <Column
+        title="Company"
+        links={COMPANY}
+        extra={<CookieSettingsButton className={linkClass} />}
+      />
       <Column title="Find us" links={FIND_US} />
     </div>
     <div className="shell relative">

@@ -21,7 +21,7 @@ export const siteConfig = {
   twitterHandle: "@xuralabs",
   author: "Xura Labs",
   /** Contact address shown in the footer. */
-  email: "hello@xuralabs.com",
+  email: "admin@xuralabs.com",
   /** "Start free" — the app's auth page, opened on the Sign up tab. */
   signupUrl: "https://app.xuralabs.com/?tab=signup",
   /**

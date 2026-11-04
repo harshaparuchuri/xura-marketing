@@ -1,12 +1,31 @@
 ---
 tags: [meta, changelog]
-updated: 2026-11-03
+updated: 2026-11-04
 ---
 
 # Changelog
 
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
+
+## 2026-11-04
+- **Removed unsupported compliance labels** — the "SOC 2 Type II" and
+  "GDPR-ready" chips are gone from the homepage Enterprise-ready section; Xura
+  holds neither certification.
+- **Privacy policy page** — new `/privacy` route (`app/privacy/page.tsx` →
+  `views/privacy.tsx`, content in `data/privacy.ts`), linked from the footer
+  Company column and listed in the sitemap. "Privacy at a glance" cards,
+  Customer Data vs other information, tables for what we collect / why / how
+  long and who we share with, AI and messaging-channel sections, rights for
+  India (DPDP), EEA/UK and US, Grievance Officer. Static, no reveal animation.
+  See [[decisions-log]] ADR-0030.
+- **Cookie consent for EU/UK visitors** — visitors in a European timezone
+  see a banner ("Allow all" / "Allow necessary") and Google Analytics waits
+  for "Allow all"; everyone else is tracked as before. "Cookie settings" in
+  the footer lets anyone change their choice. Privacy policy cookie section
+  updated. ADR-0031.
+- **Contact email** — `siteConfig.email` is now admin@xuralabs.com (was
+  hello@): footer "Contact us" and every privacy-policy contact.
 
 ## 2026-11-03
 - **No more "1 week" pilot framing** — the free pilot is now pitched as
