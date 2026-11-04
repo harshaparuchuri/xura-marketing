@@ -43,8 +43,6 @@ const ITEMS: Item[] = [
 const CHIPS = [
   "SSO / SAML",
   "RBAC",
-  "SOC 2 Type II",
-  "GDPR-ready",
   "VPC deploy",
   "Data residency",
   "Audit logs",

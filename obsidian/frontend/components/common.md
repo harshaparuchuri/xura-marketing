@@ -8,42 +8,25 @@ updated: 2026-10-18
 Files in `src/components/common/` — shared infrastructure that may depend on
 providers. Conventions: [[component-conventions]].
 
-## Cookie — `Cookie/`
+## Cookie consent — EU/UK only (`cookie-banner.tsx` + `google-analytics.tsx`)
 
-Self-contained cookie consent system — a bottom-right **banner** plus a full
-category **preferences modal**. No third-party library (the old
-`react-cookie-consent` dependency was removed). Lives in `src/components/common/Cookie/`.
+**2026-11-04.** Replaces the old `Cookie/` system (no longer in the repo). No
+third-party library. Region comes from the browser timezone (static site, no
+server geolocation): `CONSENT_REGION_TZ` = every `Europe/*` zone plus
+EU/EEA Atlantic islands. Deliberately broad, but VPNs and travel can fool it.
 
-| File | Role |
+| Export | Role |
 |------|------|
-| `Cookie.tsx` | Mount component — hydrates the store, renders banner + modal |
-| `LazyCookie.tsx` | `next/dynamic` `ssr:false` wrapper — keeps cookie JS out of first-load |
-| `CookieBanner.tsx` | Bottom-right consent banner |
-| `CookiePreferencesModal.tsx` | Category preferences dialog with per-category toggles |
-| `CookieButton.tsx` | Local button primitive — `primary` / `secondary` variants |
-| `cookieStore.ts` | Zustand store + `localStorage` persistence |
-| `index.ts` | Barrel exports — `Cookie`, `LazyCookie`, `useCookieStore`, `CookieConsent` |
+| `GoogleAnalytics` (`google-analytics.tsx`) | Inline `<head>` script defining `window.xuraLoadAnalytics()` (injects gtag.js once). Loads GA when the stored choice is `"granted"`, or when there's no choice and the timezone is outside `CONSENT_REGION_TZ`. Never loads on `"denied"`. Renders nothing without `NEXT_PUBLIC_GA_ID`. |
+| `CONSENT_KEY` | localStorage `"xura-analytics-consent"` — `"granted"` \| `"denied"`; absent = undecided. |
+| `CONSENT_REGION_TZ` | Timezone regex for the consent region. |
+| `CookieBanner` (client) | Auto-opens only for undecided EU/UK-timezone visitors. "Cookie settings" / "We use cookies to analyze site traffic. Learn more" (→ `/privacy#cookies`). "Allow all" → `granted` + load GA; "Allow necessary" → `denied`, reload if GA was running. Spring slide-up. Mounted in `app/layout.tsx`. |
+| `CookieSettingsButton` | Footer "Cookie settings" (Company column) — reopens the banner for anyone, so non-EU visitors can opt out too. |
 
-**Mounting** — the root layout renders `<LazyCookie />` inside `ScrollLayout`:
-```tsx
-import { LazyCookie } from "@/components/common/Cookie";
-```
-
-**State** — `useCookieStore` (Zustand). `consent` is `null` until the user decides;
-the banner shows only after hydration confirms `consent === null`. Persisted to
-`localStorage` under key `cookie-consent-v1`. Three categories: `necessary`
-(always on), `analytics`, `marketing`.
-
-**Styling & motion** — ported to the project stack: Tailwind v4 with the
-`background` / `foreground` design tokens (dark-mode adaptive, no hardcoded hex),
-and `@react-spring/web` for all motion — `useTransition` drives the banner and
-modal mount/unmount, `useSpring` drives the toggle knob. No CSS transitions.
-The modal locks scroll through the Lenis [[smooth-scroll|scroll store]]
-(`useScroll.stop()`), not `body` overflow.
-
-> [!note] `#todo`
-> The privacy-policy link points to `/privacy-policy` — that route does not exist
-> yet. Placeholder consent copy should be reviewed before launch.
+Verified on the static export (2026-11-04): Europe/Berlin and Europe/London
+show the banner and load no GA until "Allow all"; Asia/Kolkata and
+America/New_York load GA with no banner, and opting out via the footer stops
+it after reload. See ADR-0031.
 
 ## Grid — adaptive scaling (`grid/`)
 

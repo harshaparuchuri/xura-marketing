@@ -13,6 +13,7 @@ import { GoogleAnalytics } from "@/components/common/google-analytics";
 import { AdaptiveGrid } from "@/components/common/grid";
 import { ReducedMotion } from "@/components/common/reduced-motion";
 import { AiHelpAgent } from "@/components/graphics/ai-help-agent";
+import { CookieBanner } from "@/components/common/cookie-banner";
 import { ScrollLayout } from "@/layouts/scroll-layout";
 
 import "@/app/globals.css";
@@ -66,6 +67,7 @@ export default function RootLayout({
           <ReducedMotion />
           {children}
           <AiHelpAgent />
+          <CookieBanner />
         </ScrollLayout>
       </body>
     </html>
