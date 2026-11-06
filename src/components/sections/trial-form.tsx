@@ -1,5 +1,6 @@
 "use client";
 
+import { trackEvent } from "@/lib/analytics";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 
@@ -173,6 +174,7 @@ export const TrialForm = () => {
         source: "demo-page",
         ts: new Date().toISOString(),
       });
+      trackEvent("demo_booked");
       setDone("booked");
     },
     [values.email],
@@ -236,6 +238,8 @@ export const TrialForm = () => {
       source: "demo-page",
       ts: new Date().toISOString(),
     });
+
+    trackEvent("generate_lead", { form: "demo" });
 
     if (calendlyUrl) setStep(3);
     else setDone("requested");

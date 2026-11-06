@@ -93,6 +93,25 @@ Server component rendered inside `<head>` in `app/layout.tsx`, so GA4
 `NEXT_PUBLIC_GA_ID` from `publicEnv` (validated as `G-…`); renders nothing when
 unset, so dev/preview builds don't track.
 
+## AnalyticsEvents — `analytics-events.tsx`
+
+Client leaf in `app/layout.tsx` (renders nothing) that sends GA4 events through
+`trackEvent` in `src/lib/analytics.ts`. That helper is a no-op until gtag has
+loaded, so consent rules carry over. Never send personal data in event params.
+
+| Event | Fires when | Params |
+|---|---|---|
+| `generate_lead` | Demo form details submitted (`trial-form.tsx`) | `form` |
+| `demo_booked` | Calendly booking confirmed (`trial-form.tsx`) | none |
+| `cta_click` | Click to `siteConfig.demoUrl` or the app signup URL | `cta` (`demo`/`signup`), `location`, `page` |
+| `sign_in_click` | Click to `app.xuralabs.com` without `tab=signup` | `location`, `page` |
+| `whatsapp_click` | Click to `wa.me` / `whatsapp.com` | `location`, `page` |
+| `pricing_view` | `/pricing` opened, including client-side navigation | none |
+
+Links are classified by destination in one delegated listener, so new CTAs need
+no wiring. Sign-ups complete on the app domain, so `cta_click` with
+`cta=signup` measures intent, not completed sign-ups.
+
 ## Skeleton loaders
 
 Three skeleton components for `loading` states of async-data components — every

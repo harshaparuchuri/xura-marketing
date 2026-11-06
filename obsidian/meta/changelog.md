@@ -1,12 +1,18 @@
 ---
 tags: [meta, changelog]
-updated: 2026-11-04
+updated: 2026-11-07
 ---
 
 # Changelog
 
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
+
+## 2026-11-07
+- **GA4 interaction events** — added `generate_lead`, `demo_booked`, `cta_click`,
+  `sign_in_click`, `whatsapp_click` and `pricing_view` via `AnalyticsEvents` and
+  `src/lib/analytics.ts`. They only send once GA has loaded, so EU/UK consent
+  still applies. See [[components/common]].
 
 ## 2026-11-04
 - **Removed unsupported compliance labels** — the "SOC 2 Type II" and
