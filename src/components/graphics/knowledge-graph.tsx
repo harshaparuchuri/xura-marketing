@@ -4,6 +4,7 @@ import { animated, useSpring } from "@react-spring/web";
 import { useEffect, useRef, useState } from "react";
 
 import { AiOrb } from "@/components/graphics/ai-orb";
+import { useInViewport } from "@/hooks/use-in-viewport";
 import { useOrbDock } from "@/hooks/use-orb-dock";
 
 /**
@@ -97,11 +98,14 @@ export const KnowledgeGraph = ({ className }: { className?: string }) => {
     };
   }, [setTarget, clearTarget]);
 
+  const inView = useInViewport(svgRef);
+
   // Flowing dashes on the connector stems.
   const flow = useSpring({
     from: { offset: 0 },
     to: { offset: -18 },
     loop: true,
+    pause: !inView,
     config: { duration: 1800 },
   });
 

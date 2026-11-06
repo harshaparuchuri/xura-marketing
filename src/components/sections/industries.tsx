@@ -3,8 +3,9 @@
 import { animated, useSpring } from "@react-spring/web";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import { useInViewport } from "@/hooks/use-in-viewport";
 import { Inview } from "@/components/animation/springs/in-view";
 import { INDUSTRIES } from "@/data/industries";
 
@@ -19,16 +20,19 @@ const CYCLE_MS = 5000;
  */
 export const Industries = () => {
   const [active, setActive] = useState(0);
+  const rootRef = useRef<HTMLElement>(null);
+  const inView = useInViewport(rootRef);
 
   useEffect(() => {
+    if (!inView) return;
     const t = setInterval(
       () => setActive((i) => (i + 1) % INDUSTRIES.length),
       CYCLE_MS,
     );
     return () => clearInterval(t);
-  }, []);
+  }, [inView]);
 
-  const [progress] = useSpring(
+  const [progress, progressApi] = useSpring(
     () => ({
       from: { p: 0 },
       to: { p: 1 },
@@ -38,10 +42,15 @@ export const Industries = () => {
     [active],
   );
 
+  useEffect(() => {
+    if (inView) progressApi.resume();
+    else progressApi.pause();
+  }, [inView, progressApi]);
+
   const current = INDUSTRIES[active]!;
 
   return (
-    <section id="industries" className="bg-background py-20 md:py-24">
+    <section ref={rootRef} id="industries" className="bg-background py-20 md:py-24">
       <div className="shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div>
           <Inview
@@ -50,7 +59,7 @@ export const Industries = () => {
             from={{ opacity: 0, y: 14 }}
             to={{ opacity: 1, y: 0 }}
             config={{ tension: 180, friction: 27 }}
-            className="meta text-duo"
+            className="meta text-duo-ink"
           >
             Built for the way every industry actually works
           </Inview>
@@ -126,7 +135,7 @@ export const Industries = () => {
                       {industry.label}
                       <span
                         aria-hidden
-                        className="text-duo transition-transform duration-[var(--duration-fast)] ease-entrance group-hover:translate-x-0.5"
+                        className="text-duo-ink transition-transform duration-[var(--duration-fast)] ease-entrance group-hover:translate-x-0.5"
                       >
                         →
                       </span>
@@ -137,7 +146,7 @@ export const Industries = () => {
                   </div>
                   {headlineStat ? (
                     <div className="md:text-right">
-                      <p className="text-lg font-semibold tracking-tight text-duo">
+                      <p className="text-lg font-semibold tracking-tight text-duo-ink">
                         {headlineStat.value}
                       </p>
                       <p className="meta mt-1">{headlineStat.label}</p>

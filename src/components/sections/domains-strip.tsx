@@ -3,6 +3,8 @@
 import { animated, useSpring } from "@react-spring/web";
 import { useEffect, useRef, useState } from "react";
 
+import { useInViewport } from "@/hooks/use-in-viewport";
+
 /**
  * DomainsStrip — dark band echoing the "one layer across every team you
  * onboard" section on xuralabs.com. Single-line, infinite side-scrolling
@@ -24,6 +26,7 @@ const SPEED_PX_PER_S = 60;
 export const DomainsStrip = () => {
   const trackRef = useRef<HTMLUListElement>(null);
   const [trackWidth, setTrackWidth] = useState(0);
+  const inView = useInViewport(trackRef);
 
   useEffect(() => {
     const el = trackRef.current;
@@ -35,7 +38,7 @@ export const DomainsStrip = () => {
     return () => ro.disconnect();
   }, []);
 
-  const [style] = useSpring(
+  const [style, api] = useSpring(
     () => ({
       from: { x: 0 },
       to: { x: -trackWidth },
@@ -45,6 +48,11 @@ export const DomainsStrip = () => {
     }),
     [trackWidth],
   );
+
+  useEffect(() => {
+    if (inView) api.resume();
+    else api.pause();
+  }, [inView, api]);
 
   const items = [...DOMAINS, ...DOMAINS];
 

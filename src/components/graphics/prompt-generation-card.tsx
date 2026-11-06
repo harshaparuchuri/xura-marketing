@@ -1,7 +1,8 @@
 "use client";
 
 import { animated, useSpring, useTransition } from "@react-spring/web";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useInViewport } from "@/hooks/use-in-viewport";
 import { XuraLogo } from "@/components/brand/logo";
 import { AiOrb } from "@/components/graphics/ai-orb";
 
@@ -70,6 +71,8 @@ const REVEAL_DELAY_MS = 320;
 const HOLD_MS = 3800;
 
 export const PromptGenerationCard = () => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inView = useInViewport(rootRef);
   const [sceneIdx, setSceneIdx] = useState(0);
   const [typed, setTyped] = useState("");
   const [phase, setPhase] = useState<"typing" | "generating" | "showing">(
@@ -83,6 +86,7 @@ export const PromptGenerationCard = () => {
   const shown = SCENES[shownIdx]!;
 
   useEffect(() => {
+    if (!inView) return;
     setTyped("");
     setPhase("typing");
     let i = 0;
@@ -97,10 +101,10 @@ export const PromptGenerationCard = () => {
       }
     }, TYPE_MS_PER_CHAR);
     return () => clearInterval(typer);
-  }, [sceneIdx, scene.prompt]);
+  }, [sceneIdx, scene.prompt, inView]);
 
   useEffect(() => {
-    if (phase !== "showing") return;
+    if (phase !== "showing" || !inView) return;
     // Batch scene advance + phase reset in the SAME tick so the next scene's
     // kind isn't briefly rendered under the leaving one (React 18 auto-batches).
     const t = setTimeout(() => {
@@ -109,7 +113,7 @@ export const PromptGenerationCard = () => {
       setTyped("");
     }, HOLD_MS);
     return () => clearTimeout(t);
-  }, [phase]);
+  }, [phase, inView]);
 
   const reveal = useSpring({
     opacity: phase === "showing" ? 1 : 0,
@@ -126,7 +130,7 @@ export const PromptGenerationCard = () => {
   });
 
   return (
-    <div className="flex overflow-hidden rounded-xl border border-line bg-background shadow-[0_28px_70px_-32px_rgba(16,17,18,0.30)]">
+    <div ref={rootRef} className="flex overflow-hidden rounded-xl border border-line bg-background shadow-[0_28px_70px_-32px_rgba(16,17,18,0.30)]">
       {/* App left rail — mirrors real product nav */}
       <AppRail />
 

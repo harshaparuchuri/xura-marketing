@@ -9,6 +9,12 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-11-07
+- **Mobile performance** — looping work now pauses off-screen via
+  `useInViewport` (hero prompt cards, domains marquee, Industries rotation,
+  knowledge graph), including the hidden breakpoint variant of the hero card.
+  `HeroBackdrop` draws one static frame on phones and with reduced motion.
+  Responsive images ship through a custom loader (ADR-0032). New `--duo-ink` token
+  fixes the Industries contrast failure.
 - **GA4 interaction events** — added `generate_lead`, `demo_booked`, `cta_click`,
   `sign_in_click`, `whatsapp_click` and `pricing_view` via `AnalyticsEvents` and
   `src/lib/analytics.ts`. They only send once GA has loaded, so EU/UK consent

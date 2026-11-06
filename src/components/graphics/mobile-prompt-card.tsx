@@ -1,7 +1,9 @@
 "use client";
 
 import { animated, useTransition } from "@react-spring/web";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { useInViewport } from "@/hooks/use-in-viewport";
 import { ShotCrop } from "@/components/common/shot-crop";
 import { AiOrb } from "@/components/graphics/ai-orb";
 
@@ -75,6 +77,8 @@ type Phase = "typing" | "working" | "showing";
 export const MobilePromptCard = () => {
   const [sceneIdx, setSceneIdx] = useState(0);
   const [typed, setTyped] = useState(SCENES[0]!.prompt);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inView = useInViewport(rootRef);
   // Start on a finished frame so the first paint is never empty.
   const [phase, setPhase] = useState<Phase>("showing");
   const scene = SCENES[sceneIdx]!;
@@ -83,6 +87,7 @@ export const MobilePromptCard = () => {
     phase === "showing" ? sceneIdx : (sceneIdx + SCENES.length - 1) % SCENES.length;
 
   useEffect(() => {
+    if (!inView) return;
     if (phase === "typing") {
       if (typed.length < scene.prompt.length) {
         const t = setTimeout(
@@ -104,7 +109,7 @@ export const MobilePromptCard = () => {
       setPhase("typing");
     }, HOLD_MS);
     return () => clearTimeout(t);
-  }, [phase, typed, scene.prompt]);
+  }, [phase, typed, scene.prompt, inView]);
 
   const transitions = useTransition(shownIdx, {
     keys: (i) => i,
@@ -115,7 +120,7 @@ export const MobilePromptCard = () => {
   });
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-line bg-background shadow-product">
+    <div ref={rootRef} className="overflow-hidden rounded-2xl border border-line bg-background shadow-product">
       <div className="flex items-center gap-2 border-b border-line bg-band-mist px-3 py-2.5">
         <span aria-hidden className="text-xs text-muted">✳</span>
         <p className="min-h-[1.25rem] flex-1 truncate text-sm">
