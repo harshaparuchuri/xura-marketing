@@ -190,6 +190,15 @@ Conditions — all three, or it is a spring:
 If you are reaching past this list, you want `<Hover>` — see
 [[components/animation-springs]].
 
+## Responsive images
+
+`next/image` uses `src/lib/images/loader.js` (ADR-0032). After adding or replacing a
+`.webp` in `public/assets/product` or `public/industries`, run
+`node scripts/resize-images.mjs` and commit the `-640` and `-1080` variants. Set an
+accurate `sizes` prop, and a `width` close to display size for fixed-size images.
+
+Use `text-duo-ink`, not `text-duo`, for blue text on white or `duo-wash`.
+
 ## Typography
 
 Font: **Onest** (`next/font/google`), bound to `--font-onest` → `--font-sans`.

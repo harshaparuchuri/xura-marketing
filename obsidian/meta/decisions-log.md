@@ -10,6 +10,22 @@ consequences. Use [[templates/adr-note]] for new entries. Newest first.
 
 ---
 
+## ADR-0032 — Pre-generated responsive images on the static export
+
+- **Status:** Accepted
+- **Date:** 2026-11-07
+- **Context:** The static export has no image optimiser, so `unoptimized: true`
+  sent full-size files to every device. PageSpeed estimated 331 KiB of waste on
+  mobile, including a 1212px logo displayed at about 32px.
+- **Decision:** Use a custom `next/image` loader (`src/lib/images/loader.js`) that
+  maps requested widths to committed variants made by
+  `scripts/resize-images.mjs`. This refines the image trade-off in ADR-0022.
+- **Consequences:** Existing `sizes` props now produce useful `srcset`s without
+  changing components. Adding or replacing an image under `public/assets/product`
+  or `public/industries` requires re-running the script, or the variant 404s.
+
+---
+
 ## ADR-0024 — Cursor-field animations exempt from spring-only rule
 
 - **Status:** Accepted

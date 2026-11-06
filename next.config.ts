@@ -27,9 +27,10 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    // `output: "export"` disables the on-the-fly image optimiser; every
-    // `next/image` source ships as-is. Pre-compress large images at source.
-    unoptimized: true,
+    // `output: "export"` has no on-the-fly image optimiser, so this loader maps
+    // each width to a pre-generated file (see scripts/resize-images.mjs).
+    loader: "custom",
+    loaderFile: "./src/lib/images/loader.js",
   },
 
   // React Compiler (automatic memoisation) is an opt-in performance win.

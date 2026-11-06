@@ -18,8 +18,8 @@ export const XuraLogo = ({ className, markOnly = false }: LogoProps) => (
     <Image
       src="/assets/xura-logo.png"
       alt={markOnly ? "Xura AI" : ""}
-      width={1212}
-      height={1212}
+      width={64}
+      height={64}
       priority
       className="size-7 shrink-0 rounded-[6px]"
     />

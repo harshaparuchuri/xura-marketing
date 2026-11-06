@@ -101,6 +101,8 @@ export const HeroBackdrop = ({
     if (!ctx) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Phones get one static frame: redrawing the mesh costs too much CPU there.
+    const staticFrame = reduced || window.innerWidth < 768;
     const rgb = hexToRgb(targetRef.current.color) ?? { r: 5, g: 150, b: 105 };
     const rgbRef = { current: rgb };
 
@@ -116,7 +118,10 @@ export const HeroBackdrop = ({
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
-    const ro = new ResizeObserver(resize);
+    const ro = new ResizeObserver(() => {
+      resize();
+      resume(); // Resizing clears the canvas, so a static frame must redraw.
+    });
     ro.observe(canvas);
 
     let curPx = 0,
@@ -269,7 +274,7 @@ export const HeroBackdrop = ({
       }
       ctx.restore();
 
-      raf = requestAnimationFrame(draw);
+      raf = staticFrame ? 0 : requestAnimationFrame(draw);
     };
 
     const resume = () => {

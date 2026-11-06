@@ -34,6 +34,7 @@ components — don't call them directly unless extending the engine.
 |------|------|------|
 | `useWindowWidth` / `useWindowHeight` / `useWindowSize` | `use-window-size.ts` | SSR-safe window dimensions — all three share **one** debounced (300 ms) `resize` listener via a `useSyncExternalStore` store |
 | `useAdaptiveGrid` | `use-adaptive-grid.ts` | Scales the root `<html>` font-size up while the viewport exceeds `baseWidth` — powers `<AdaptiveGrid>`, see [[components/common]] |
+| `useInViewport` | `use-in-viewport.ts` | True while an element is on or near screen; `display: none` elements read false. Gate any looping timer or spring on it. |
 | `useOrbDock` | `use-orb-dock.ts` | Zustand store publishing a viewport-space target rect. Any section (currently `KnowledgeGraph`) can dock the site-wide `AiHelpAgent` orb into a slot; the orb springs from its bottom-right rest into place while the target is set, and springs back when cleared. |
 
 > [!note] Shared render loop

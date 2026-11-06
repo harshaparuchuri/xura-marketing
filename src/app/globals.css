@@ -40,6 +40,7 @@
   --raw-color-wa-meta: #667781;
 
   /* Duotone blues used to treat photography */
+  --raw-color-blue-700: #1f54c4;
   --raw-color-blue-600: #2f6be8;
   --raw-color-blue-400: #6ea3f2;
   --raw-color-blue-200: #b9d3f7;
@@ -90,6 +91,7 @@
   --whatsapp-meta: var(--raw-color-wa-meta);
 
   --duo: var(--raw-color-blue-600);
+  --duo-ink: var(--raw-color-blue-700); /* AA-contrast text on wash and white */
   --duo-mid: var(--raw-color-blue-400);
   --duo-soft: var(--raw-color-blue-200);
   --duo-wash: var(--raw-color-blue-50);
@@ -137,6 +139,7 @@
   --color-brand-ink: var(--brand-ink);
 
   --color-duo: var(--duo);
+  --color-duo-ink: var(--duo-ink);
   --color-duo-mid: var(--duo-mid);
   --color-duo-soft: var(--duo-soft);
   --color-duo-wash: var(--duo-wash);
