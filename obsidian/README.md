@@ -16,6 +16,9 @@ humans and AI agents (Claude Code, Cursor).
 
 ## 🗺️ Map of Content
 
+### Plans
+- [[home-repositioning-plan]] — draft home page copy for the forward-deployed positioning
+
 ### 00 — Meta
 - [[meta/README|Meta overview]] — how to use and maintain this vault
 - [[changelog]] — chronological log of notable project changes
