@@ -1288,3 +1288,8 @@ needed later: a geo-IP consent tool, or Google Consent Mode "advanced"
 
 **Decision:** retired URLs and trailing-slash URLs are redirected by an inline script in `app/not-found.tsx` (exported as `404.html`), with a `MOVED` map for renamed routes.
 **Why:** GitHub Pages serves static files only — no 301s, no rewrites — and returns `404.html` for every unknown path. A pre-paint `location.replace` is the only redirect available; Google follows JavaScript redirects. Add any future renamed route to `MOVED`.
+
+## ADR — "Talk to us" is the primary CTA (2026-11-16)
+
+**Decision:** every primary CTA (header, heroes, closing bands, footer, floating orb) is "Talk to us" → `/trial?talk`; "Book a 2-day bootcamp" leads only where the content is about the bootcamp. One pill per spot, no secondary text link. GA4 separates them (`cta: "talk"` vs `cta: "demo"`).
+**Why:** the bootcamp is a paid two-day commitment, too big an ask for most first visits; a conversation is the lower-friction first step and still ends in the same 30-minute call. Owner decision.

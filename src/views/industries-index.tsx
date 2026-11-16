@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteNav } from "@/components/sections/site-nav";
 import { INDUSTRIES, industryFocus } from "@/data/industries";
 import { siteConfig } from "@/lib/site";
+import { CtaPair, TALK_URL } from "@/components/common/cta-pair";
 
 /**
  * Industries hub (/industries) — same system as the home (ADR-0036): a short
@@ -65,8 +66,8 @@ export const IndustriesIndexView = () => (
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 We start with the work, not the sector. If your team runs on ERP, spreadsheets and email, we can help.
               </p>
-              <a href={siteConfig.demoUrl} className="pill mt-6 self-start">
-                Book a 2-day bootcamp <span aria-hidden>→</span>
+              <a href={TALK_URL} className="pill mt-6 self-start">
+                Talk to us <span aria-hidden>→</span>
               </a>
             </div>
           </Reveal>
@@ -83,9 +84,7 @@ export const IndustriesIndexView = () => (
             Start with a 2-day bootcamp. See it live in 2 weeks.
           </Reveal>
           <Reveal delay={80} className="mt-9 flex justify-center">
-            <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
-              Book a 2-day bootcamp <span aria-hidden>→</span>
-            </a>
+            <CtaPair />
           </Reveal>
         </div>
       </section>

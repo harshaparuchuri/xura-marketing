@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { AiOrb } from "@/components/graphics/ai-orb";
 import { useOrbDock } from "@/hooks/use-orb-dock";
 import { siteConfig } from "@/lib/site";
+import { TALK_URL } from "@/components/common/cta-pair";
 
 /**
  * AiHelpAgent — floating orb in the viewport's bottom-right on desktop.
@@ -62,9 +63,9 @@ export const AiHelpAgent = () => {
           centre in viewport coordinates. */}
       <div ref={anchorRef} style={{ width: REST_SIZE, height: REST_SIZE }}>
         <animated.a
-          href={siteConfig.demoUrl}
-          aria-label="Book a 2-day bootcamp with Xura"
-          title="Book a bootcamp"
+          href={TALK_URL}
+          aria-label="Talk to the Xura team"
+          title="Talk to us"
           className="pointer-events-auto block cursor-pointer"
           style={{
             width: REST_SIZE,

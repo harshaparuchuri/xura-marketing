@@ -44,8 +44,20 @@ import { ANSWERS, ESSAYS, RELATED } from "@/data/pov";
 
 type Page = { path: string; name: string; h1: string; sub: string };
 
-const Hero = ({ page, id, variant = 0, children }: { page: Page; id: string; variant?: 0 | 1 | 2; children?: React.ReactNode }) => (
-  <PageHero id={id} title={page.h1} sub={page.sub} path={page.path} name={page.name} variant={variant}>
+const Hero = ({
+  page,
+  id,
+  variant = 0,
+  lead,
+  children,
+}: {
+  page: Page;
+  id: string;
+  variant?: 0 | 1 | 2;
+  lead?: "bootcamp" | "talk";
+  children?: React.ReactNode;
+}) => (
+  <PageHero id={id} title={page.h1} sub={page.sub} path={page.path} name={page.name} variant={variant} lead={lead}>
     {children}
   </PageHero>
 );
@@ -215,7 +227,7 @@ export const BootcampView = () => {
   const p = BOOTCAMP;
   return (
     <Shell palette="palette-amber">
-      <Hero page={p} id="bootcamp-h1" variant={1} />
+      <Hero page={p} id="bootcamp-h1" variant={1} lead="bootcamp" />
       <AnswerBlock id="bc-answer" {...ANSWERS.bootcamp} />
       <EssaySection id="bc-pov" essay={ESSAYS.bootcamp} variant={2} />
       <WalkthroughSection id="bc-agenda" {...BC_AGENDA} variant={0} />
@@ -223,7 +235,7 @@ export const BootcampView = () => {
       <ChecklistSection id="bc-prep" {...BC_PREP} variant={2} />
       <FaqSection id="bc-faq" items={p.faq} />
       <RelatedLinks id="bc-related" links={RELATED.bootcamp} />
-      <CtaBand id="bc-cta" {...p.cta} />
+      <CtaBand id="bc-cta" {...p.cta} lead="bootcamp" />
     </Shell>
   );
 };

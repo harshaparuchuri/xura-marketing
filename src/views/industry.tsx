@@ -1,3 +1,4 @@
+import { TALK_URL } from "@/components/common/cta-pair";
 import { HazeField } from "@/components/graphics/haze-field";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -17,6 +18,7 @@ import { GridSection } from "@/components/sections/shared/feature-sections";
 import { getIndustry } from "@/data/industries";
 import { getUseCase } from "@/data/use-cases";
 import { siteConfig } from "@/lib/site";
+import { CtaPair } from "@/components/common/cta-pair";
 
 type Props = { slug: string };
 
@@ -96,10 +98,10 @@ export const IndustryView = ({ slug }: Props) => {
               config={{ tension: 180, friction: 27 }}
               className="mt-9 flex flex-wrap justify-center gap-3"
             >
-              <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
-                Book a 2-day bootcamp <span aria-hidden>→</span>
+              <a href={TALK_URL} className="pill pill-inverse pill-lg">
+                Talk to us <span aria-hidden>→</span>
               </a>
-              <Link href="/#how-we-deploy" className="pill pill-lg border border-background/40 bg-transparent text-background hover:bg-background/10">
+              <Link href="/deployment" className="pill pill-lg border border-background/40 bg-transparent text-background hover:bg-background/10">
                 See how we deploy
               </Link>
             </Spring>
@@ -217,9 +219,7 @@ export const IndustryView = ({ slug }: Props) => {
               {industry.cta}
             </Reveal>
             <Reveal delay={120} className="mt-9 flex justify-center">
-              <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
-                Book a 2-day bootcamp <span aria-hidden>→</span>
-              </a>
+              <CtaPair />
             </Reveal>
           </div>
         </section>

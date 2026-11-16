@@ -24,7 +24,7 @@ export const UseCaseView = ({ slug }: { slug: string }) => {
   return (
     <div className="palette-blue">
       <main>
-        <PageHero id="uc-h1" title={u.h1} sub={u.sub} path={`/use-cases/${u.slug}`} name={u.name} variant={1} />
+        <PageHero id="uc-h1" title={u.h1} sub={u.sub} path={`/use-cases/${u.slug}`} name={u.name} variant={1} lead="talk" />
         <AnswerBlock id="uc-answer" {...u.answer} />
         <EssaySection id="uc-why" essay={{ label: "The problem", heading: u.why.heading, paragraphs: u.why.paragraphs }} variant={0} />
         <WalkthroughSection id="uc-walk" label="How it works" heading={u.walk.heading} lead={u.walk.lead} steps={u.walk.steps} variant={1} />
@@ -41,7 +41,7 @@ export const UseCaseView = ({ slug }: { slug: string }) => {
         <EssaySection id="uc-example" essay={{ label: "In practice", heading: u.example.heading, paragraphs: u.example.body }} variant={0} />
         <FaqSection id="uc-faq" items={u.faq} />
         <RelatedLinks id="uc-related" links={u.related} />
-        <CtaBand id="uc-cta" heading="Hand over this job now." sub="Start with a 2-day bootcamp. See it live in 2 weeks." />
+        <CtaBand id="uc-cta" heading="Hand over this job now." sub="Start with a 2-day bootcamp. See it live in 2 weeks." lead="talk" />
       </main>
       <SiteFooter />
     </div>
@@ -82,7 +82,7 @@ export const UseCasesIndexView = () => (
           </ul>
         </div>
       </section>
-      <CtaBand id="ucs-cta" heading="Not sure where to start?" sub="The 2-day bootcamp finds your first job and shows it working on your data." />
+      <CtaBand id="ucs-cta" heading="Not sure where to start?" sub="The 2-day bootcamp finds your first job and shows it working on your data." lead="talk" />
     </main>
     <SiteFooter />
   </div>
@@ -94,7 +94,7 @@ export const CompareView = ({ slug }: { slug: string }) => {
   return (
     <div className="palette-violet">
       <main>
-        <PageHero id="cmp-h1" title={c.h1} sub={c.sub} path={`/compare/${c.slug}`} name={c.name} variant={0} />
+        <PageHero id="cmp-h1" title={c.h1} sub={c.sub} path={`/compare/${c.slug}`} name={c.name} variant={0} lead="talk" />
         <AnswerBlock id="cmp-answer" {...c.answer} />
         <ComparisonTable id="cmp-table" data={c.table} variant={1} />
         <section aria-labelledby="cmp-choose" className="relative isolate overflow-hidden py-24 md:py-32">
@@ -113,7 +113,7 @@ export const CompareView = ({ slug }: { slug: string }) => {
         </section>
         <FaqSection id="cmp-faq" items={c.faq} />
         <RelatedLinks id="cmp-related" links={c.related} />
-        <CtaBand id="cmp-cta" heading="Meet your first AI employee now." sub="Start with a 2-day bootcamp. See it live in 2 weeks." />
+        <CtaBand id="cmp-cta" heading="Meet your first AI employee now." sub="Start with a 2-day bootcamp. See it live in 2 weeks." lead="talk" />
       </main>
       <SiteFooter />
     </div>

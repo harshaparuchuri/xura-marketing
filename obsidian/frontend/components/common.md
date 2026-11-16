@@ -195,3 +195,8 @@ media="(min-width: 48rem)">` for desktop) with `loading="eager"` and
 ## `skip-link.tsx`
 
 **New 2026-11-16.** `SkipLink` (client) — first focusable element on every page, mounted in `app/layout.tsx` before `ScrollLayout`. `sr-only` until keyboard focus, then a `pill pill-inverse` fixed top-left. Targets the page's `main h1` (not `<main>`: the nav lives inside each hero, inside `<main>`), giving it `tabindex=-1` and focus so the next Tab continues in the content.
+
+
+## `cta-pair.tsx`
+
+**New 2026-11-16; revised same day (owner).** `CtaPair({ lead?: "talk" | "bootcamp", bootcampLabel? })` — the site's main CTA, a single `pill pill-inverse pill-lg` (no secondary text link — owner: "we don't need the link button"). `lead="talk"` (default): **"Talk to us →"** to `TALK_URL` = `/trial?talk`, which switches the form heading (`sections/trial-intro.tsx`) and is tracked as GA4 `cta_click` `cta: "talk"`. `lead="bootcamp"`: "Book a 2-day bootcamp →" to `/trial` (`cta: "demo"`, kept for report continuity) — only on the /bootcamp page hero and closing. Used by `CtaBand` and `PageHero` (both take `lead`, default talk), `PlatformHero`, `HomeClosing`, the industry closing and /industries. "Talk to us" is also the header pill, footer pill, 404 link and floating-orb link; home and industry heroes pair it with "See how we deploy" (→ `/deployment`). Bootcamp links remain on the mega-menu bootcamp card, the home bootcamp section and the deployment page's bootcamp step.

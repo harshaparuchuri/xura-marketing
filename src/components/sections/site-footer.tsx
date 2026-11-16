@@ -6,6 +6,7 @@ import { PixelWordmark } from "@/components/graphics/pixel-wordmark";
 
 import { INDUSTRIES } from "@/data/industries";
 import { siteConfig } from "@/lib/site";
+import { TALK_URL } from "@/components/common/cta-pair";
 
 const DOCS_URL = "https://xura.mintlify.site/introduction/welcome";
 
@@ -104,8 +105,8 @@ export const SiteFooter = () => (
           systems, with you approving every step.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href={siteConfig.demoUrl} className="pill pill-inverse justify-center whitespace-nowrap max-sm:w-full">
-            Book a bootcamp <span aria-hidden>→</span>
+          <Link href={TALK_URL} className="pill pill-inverse justify-center whitespace-nowrap max-sm:w-full">
+            Talk to us <span aria-hidden>→</span>
           </Link>
           <a
             href={siteConfig.signinUrl}

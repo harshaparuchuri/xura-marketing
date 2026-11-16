@@ -7,6 +7,7 @@ import { StickyHeader } from "@/components/sections/sticky-header";
 import { INDUSTRIES } from "@/data/industries";
 import { HOW_MENU, PLATFORM_MENU } from "@/data/platform";
 import { siteConfig } from "@/lib/site";
+import { TALK_URL } from "@/components/common/cta-pair";
 
 // Extra top-level links after the menus. Docs moved to the footer only
 // (owner, 2026-11-16); add entries here to bring a plain link back.
@@ -44,7 +45,7 @@ const NavLink = ({ label, href, external, className = "" }: (typeof LINKS)[numbe
   );
 
 /**
- * Top navigation — wordmark and links left, CTAs right: "Book a bootcamp"
+ * Top navigation — wordmark and links left, CTAs right: "Talk to us"
  * filled primary (always shown) and "Sign in" outlined (lg+;
  * in the mobile menu below that). No separate
  * Sign in — the app's auth page (Get started) has both tabs.
@@ -82,10 +83,10 @@ export const SiteNav = ({ overDark = false }: { overDark?: boolean }) => (
 
       <div className="flex items-center gap-4 justify-self-end">
         <a
-          href={siteConfig.demoUrl}
+          href={TALK_URL}
           className="rounded-full bg-[color:var(--nav-ink,var(--foreground))] px-4 py-2 text-sm font-semibold text-[color:var(--nav-paper,var(--background))] transition-opacity duration-[var(--duration-fast)] ease-entrance hover:opacity-85"
         >
-          Book a bootcamp
+          Talk to us
         </a>
         <a
           href={siteConfig.signinUrl}

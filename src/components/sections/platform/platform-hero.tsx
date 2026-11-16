@@ -1,3 +1,4 @@
+import { CtaPair } from "@/components/common/cta-pair";
 import Image from "next/image";
 
 import { Spring } from "@/components/animation/springs/spring";
@@ -28,9 +29,7 @@ export const PlatformHero = () => (
         {PLATFORM_HERO.sub}
       </Spring>
       <Spring mode="once" delayIn={160} from={{ y: 14 }} to={{ y: 0 }} config={{ tension: 180, friction: 27 }} className="mt-9 flex justify-center">
-        <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
-          Book a 2-day bootcamp <span aria-hidden>→</span>
-        </a>
+        <CtaPair />
       </Spring>
       <Spring mode="once" delayIn={220} from={{ y: 40 }} to={{ y: 0 }} config={{ tension: 150, friction: 30 }} className="mx-auto mt-16 max-w-[60rem]">
         <Image
