@@ -88,11 +88,13 @@ PageSpeed, HeadlessChrome, GTmetrix, Pingdom, Bingbot, Yandexbot.
 ## Static assets
 
 The `public/` **root** holds meta/PWA/SEO assets — favicons (multiple sizes),
-Android/Apple icons, `manifest.json`, `browserconfig.xml`, `open-graph-v3.png`.
+Android/Apple icons, `manifest.json`, `browserconfig.xml`, `og-image.png`.
 Site **content** assets (images, videos) go under `public/assets/<section>/` —
 see [[folder-structure]].
 
-> [!note] Share image (2026-10-04)
+> [!note] Share image — **2026-11-16: v2** `/og-image.png`, rendered by `scripts/og-image.mjs` (`npm run og`, `next/og` + Figtree 300/500 TTFs in `src/fonts/og/`): monochrome ink, logo, home-hero headline "AI transformation, built for your business.", sub, three pills, xuralabs.com. Re-run and commit when the headline changes. Not `app/opengraph-image.tsx`: sub-pages set their own `openGraph` (drops the inherited image) and static export names it `opengraph-image` with no extension (wrong content type on GitHub Pages). `open-graph-v3.png` deleted. Manifest renamed "App" → "Xura AI" with description/colours; `themeColor` `#f2f213` → ink `#101112`.
+>
+> *History (2026-10-04, superseded):*
 > `siteConfig.ogImage` → `/open-graph-v3.png`, **1200×630** (matches the
 > dimensions declared in `generate-page-metadata.ts`). Dark product-stage
 > design: logo + hero headline + channel chips left; a real deck-slide crop

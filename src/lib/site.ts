@@ -16,8 +16,6 @@ export const siteConfig = {
    * sitemap, and JSON-LD. Set `NEXT_PUBLIC_SITE_URL` in production.
    */
   url: publicEnv.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  /** Default Open Graph / Twitter share image (path under `public/`). */
-  ogImage: "/open-graph-v3.png",
   twitterHandle: "@xuralabs",
   author: "Xura Labs",
   /** Contact address shown in the footer. */
@@ -45,6 +43,8 @@ export const siteConfig = {
     youtube: "https://www.youtube.com/@XuraLabs",
     linkedin: "https://www.linkedin.com/company/xuralabs/",
   },
+  /** Share image (Open Graph / Twitter), 1200×630 — `npm run og` re-renders it. */
+  ogImage: "/og-image.png",
   /** Browser theme-color (address bar / PWA). */
-  themeColor: "#f2f213",
+  themeColor: "#101112",
 } as const;

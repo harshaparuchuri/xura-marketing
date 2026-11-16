@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "seo": "node scripts/seo-check.mjs",
-    "llms": "node scripts/llms-full.mjs"
+    "llms": "node scripts/llms-full.mjs",
+    "og": "node scripts/og-image.mjs"
   },
   "dependencies": {
     "@react-spring/web": "^10.0.3",
