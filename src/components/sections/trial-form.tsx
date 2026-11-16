@@ -311,7 +311,7 @@ export const TrialForm = () => {
           Continue <span aria-hidden>→</span>
         </button>
         <p className="mt-4 text-center text-xs text-muted">
-          Takes under a minute. We&apos;ll never share your email.
+          Takes under a minute. We reply within one business day and never share your email.
         </p>
       </form>
     );

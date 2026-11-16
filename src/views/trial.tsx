@@ -21,6 +21,7 @@ const POINTS: string[] = [
   "Answers from your own data, with the sources shown",
   "Works in WhatsApp, Slack, Teams and the web",
   "Nothing is sent or changed until you approve it",
+  "A Xura deployment lead runs both days with your process owner",
 ];
 
 const AGENDA: { title: string; body: string }[] = [
@@ -42,7 +43,7 @@ export const TrialView = () => (
         <XuraLogo markOnly />
       </Link>
 
-      <div className="mt-10 max-w-lg lg:mt-20">
+      <div className="mt-8 max-w-lg lg:mt-12">
         <Spring
           mode="once"
           from={{ opacity: 0, y: 14 }}
@@ -52,9 +53,9 @@ export const TrialView = () => (
         >
           <OrbDockSlot id="demo-page" size={56} accent="var(--employee-chief-of-staff)" />
           <p className="text-sm text-white/70">
-            Two days with our team,
+            Paid, quoted per company.
             <br />
-            on your own data.
+            The fee is credited to your deployment.
           </p>
         </Spring>
 
@@ -65,13 +66,20 @@ export const TrialView = () => (
           from={{ y: 22 }}
           to={{ y: 0 }}
           config={{ tension: 175, friction: 28 }}
-          className="display-light mt-6 text-white lg:mt-8"
+          className="display-light-md mt-6 text-white"
         >
           See your AI employees at work{" "}
           <span className="text-white/60">on your data.</span>
         </Spring>
 
-        <ol className="mt-10 hidden gap-3 sm:grid sm:grid-cols-3">
+        {/* Phones: the agenda in one line (cards and points are sm+). */}
+        <p className="mt-6 text-sm leading-relaxed text-white/70 sm:hidden">
+          <span className="whitespace-nowrap">Day 1: find the job</span> ·{" "}
+          <span className="whitespace-nowrap">Day 2: see it working</span> ·{" "}
+          <span className="whitespace-nowrap">Live in 2 weeks</span>
+        </p>
+
+        <ol className="mt-8 hidden gap-3 sm:grid sm:grid-cols-3">
           {AGENDA.map((item, i) => (
             <Inview
               key={item.title}
@@ -90,7 +98,7 @@ export const TrialView = () => (
           ))}
         </ol>
 
-        <ul className="mt-10 hidden space-y-3 text-sm text-white/80 sm:block">
+        <ul className="mt-8 hidden space-y-3 text-sm text-white/80 sm:block">
           {POINTS.map((point) => (
             <li key={point} className="flex items-start gap-3">
               <span
@@ -111,15 +119,15 @@ export const TrialView = () => (
     {/* Form panel */}
     <section
       aria-labelledby="demo-form-heading"
-      className="flex items-center justify-center bg-background px-6 py-12 sm:px-10"
+      className="flex items-center justify-center bg-background px-6 py-12 sm:px-10 lg:items-start lg:pt-48"
     >
       <div className="w-full max-w-md">
         <h2 id="demo-form-heading" className="display-light-md">
-          Book a 2-day bootcamp
+          Book a <span className="whitespace-nowrap">2-day</span> bootcamp
         </h2>
-        <p className="mt-2 text-sm text-muted">
-          Tell us about your company. We&apos;ll get back within one business
-          day to plan your two days. Bring the person who owns the process you want to start with.
+        <p className="mt-3 text-sm text-muted">
+          Tell us about your company and we&apos;ll plan your two days. Bring
+          the person who owns the process you want to start with.
         </p>
         <div className="mt-8">
           <TrialForm />

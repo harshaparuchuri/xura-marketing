@@ -237,3 +237,20 @@ export const HOME_CLOSING = {
   heading: "Meet your AI team now.",
   sub: "Start with a 2-day bootcamp. See it live in 2 weeks.",
 } as const;
+
+/**
+ * Team strip above "What we build": the teams Xura's AI employees work for,
+ * each linked to the page that shows that job (internal links, not décor).
+ */
+export const HOME_TEAMS = {
+  label: "AI employees for every team you run",
+  teams: [
+    { name: "Operations", href: "/use-cases/plant-performance-review" },
+    { name: "Quality", href: "/use-cases/capa-tracking" },
+    { name: "Sales", href: "/use-cases/monthly-sales-review" },
+    { name: "Leadership", href: "/use-cases/leadership-decks" },
+    { name: "Hiring", href: "/use-cases/hiring-pipeline" },
+    { name: "Marketing", href: "/ai-employees" },
+    { name: "IT", href: "/integrations" },
+  ],
+} as const;

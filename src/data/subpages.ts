@@ -296,7 +296,12 @@ export const TRANSFORMATION: Page & {
 
 export const BOOTCAMP: Page & {
   days: { label: string; heading: string; steps: readonly Item[] };
-  get: { label: string; heading: string; items: readonly Item[] };
+  get: {
+    label: string;
+    heading: string;
+    items: readonly Item[];
+    shot: { src: string; alt: string; crop: { x: number; y: number; w: number; h: number }; caption: string };
+  };
 } = {
   path: "/bootcamp",
   name: "Bootcamp",
@@ -322,13 +327,17 @@ export const BOOTCAMP: Page & {
     items: [
       { title: "A working demo on your data", body: "One process, working on your own systems, that your team has seen run." },
       { title: "A clear first job", body: "The process to start with, agreed with the people who own it." },
-      { title: "A plan to go live", body: "What going live takes: systems, people and timeline." },
+      { title: "A written go-live plan", body: "The systems to connect, who owns each step, and the dates for the next two weeks." },
     ],
+    // Real output from the product, so visitors see what "proof" looks like.
+    shot: { ...HOME_EMPLOYEES.jobs.find((j) => j.name === "Nora")!.shot, caption: "The kind of output your team approves on day two." },
   },
   faq: [
-    { q: "What does the bootcamp cost?", a: "It depends on your company and the job we start with. Book a call and we'll quote it. If you go ahead, the fee is credited to your deployment." },
+    { q: "What does the bootcamp cost?", a: "It depends on your company and the job we start with. Book a bootcamp and we'll quote it before anything is scheduled. If you go ahead, the fee is credited to your deployment." },
+    { q: "Is our data safe during the bootcamp?", a: "Yes. Your IT team grants the access, queries run inside your own systems, and no raw data is copied or stored. Nothing is sent or changed without your approval." },
+    { q: "Who comes from Xura?", a: "Your deployment lead, the person who builds your first job and stays with you through go-live." },
+    { q: "Is it on site?", a: "Yes. Our team runs both days with yours, at your site." },
     { q: "What do we need to bring?", a: "Access to the systems the process uses, and a person who owns the process and can answer questions." },
-    { q: "Is it on site?", a: "Our team works with yours where the work happens." },
     { q: "What happens after the bootcamp?", a: "If you go ahead, you see it live in about 2 weeks, and we add the next job every quarter." },
   ],
   cta: { heading: "Book your 2-day bootcamp now.", sub: "Two days with our team, on your own data. See it live in 2 weeks." },
@@ -540,6 +549,6 @@ export const BC_PREP = {
   heading: "Who to bring and what to prepare",
   lists: [
     { title: "Who should be there", items: ["A sponsor who can decide to go ahead", "The owner of the process we'll start with", "Two or three people who do the work today", "Someone from IT who can grant access"] },
-    { title: "What to prepare", items: ["A shortlist of painful recurring jobs", "Access to the systems those jobs use", "Recent examples of the output, like last month's review", "A room and two half-days of the team's time"] },
+    { title: "What to prepare", items: ["A shortlist of painful recurring jobs", "Access to the systems those jobs use", "Recent examples of the output, like last month's review", "A room for both days; your people join for about half of each"] },
   ],
 } as const;

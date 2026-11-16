@@ -17,7 +17,7 @@ import { Reveal, SectionHead } from "@/components/sections/home/reveal";
 export type Answer = { q: string; a: string };
 
 export const AnswerBlock = ({ id, q, a }: Answer & { id: string }) => (
-  <section aria-labelledby={id} className="py-16 md:py-20">
+  <section aria-labelledby={id} className="py-12 md:py-14">
     <div className="shell">
       <Reveal className="mx-auto max-w-[48rem] border-l-2 border-foreground pl-6 md:pl-8">
         <h2 id={id} className="text-xl font-medium tracking-tight md:text-2xl">

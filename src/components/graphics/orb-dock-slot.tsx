@@ -55,17 +55,27 @@ export const OrbDockSlot = ({
       { threshold: [0, 0.6, 1], rootMargin: "0px 0px -15% 0px" },
     );
     io.observe(slot);
+    // Measure at most once per frame, and only while this slot is on screen.
+    let frame = 0;
+    const onScroll = () => {
+      if (!visible || frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        publish();
+      });
+    };
     // When another slot releases the orb, claim it if we're on screen.
     const unsubscribe = useOrbDock.subscribe((state, prev) => {
       if (prev.owner && !state.owner) publish();
     });
-    window.addEventListener("scroll", publish, { passive: true });
-    window.addEventListener("resize", publish);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     return () => {
       io.disconnect();
       unsubscribe();
-      window.removeEventListener("scroll", publish);
-      window.removeEventListener("resize", publish);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
       clearTarget(id);
     };
   }, [id, accent, setTarget, clearTarget]);

@@ -303,5 +303,7 @@ a section shows **one** mascot, so the page never shows two copies of the same
 character. Below `md` the slot renders a normal AiOrb. Only one slot holds the
 orb at a time (owner ids in `useOrbDock`).
 
+**Perf (2026-11-16):** `AiOrb` watches itself with an IntersectionObserver; off-screen it adds `.m-orb--paused` (all CSS loops `animation-play-state: paused`) and stops its emotion cycle. The halo has `will-change: transform, opacity` so its `blur(8px)` rasterises once. `OrbDockSlot` re-measures at most once per frame on scroll, only while visible.
+
 ### Cards on haze sections (2026-11-16)
 Cards inside a `HazeField` section use `rounded-3xl border border-line bg-background` (white + hairline), never `bg-line-soft` — grey cards turn muddy on the tinted haze.

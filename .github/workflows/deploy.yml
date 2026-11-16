@@ -32,6 +32,8 @@ jobs:
       # alt text, internal links…). Errors fail the deploy; see
       # obsidian/workflows/seo-checklist.md.
       - run: node scripts/seo-check.mjs
+      # Plain-text copy of every page for AI answer engines → out/llms-full.txt
+      - run: node scripts/llms-full.mjs
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:

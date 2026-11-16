@@ -58,6 +58,9 @@ const SITE = sitemapUrls[0]?.replace(/\/$/, "") ?? "";
 // ---------------------------------------------------------------- checks
 const files = walk(OUT).filter((f) => !SKIP.has(routeOf(f)));
 const routes = new Set(files.map(routeOf));
+// Pages deliberately kept out of the index (noindex + not in the sitemap).
+// /trial is a form page; /bootcamp is the page that ranks for that intent.
+const NOINDEX = new Set(["/trial"]);
 const seen = { title: new Map(), description: new Map() };
 const results = [];
 
@@ -94,7 +97,9 @@ for (const file of files) {
 
   // 5. Indexable
   const robots = meta(html, "robots");
-  if (/noindex/i.test(robots)) err(`robots meta is "${robots}"`);
+  if (NOINDEX.has(route)) {
+    if (!/noindex/i.test(robots)) err("listed in NOINDEX but robots meta allows indexing");
+  } else if (/noindex/i.test(robots)) err(`robots meta is "${robots}"`);
 
   // 6. Social tags
   for (const key of ["og:title", "og:description", "og:image", "og:url", "twitter:card"])
@@ -154,7 +159,10 @@ for (const file of files) {
   if (broken.length) err(`broken internal links: ${broken.join(", ")}`);
 
   // 11. Listed in the sitemap
-  if (!sitemapUrls.some((u) => u.replace(/\/$/, "") === expected.replace(/\/$/, ""))) err("not in sitemap.xml");
+  const inSitemap = sitemapUrls.some((u) => u.replace(/\/$/, "") === expected.replace(/\/$/, ""));
+  if (NOINDEX.has(route)) {
+    if (inSitemap) err("noindex page is listed in sitemap.xml");
+  } else if (!inSitemap) err("not in sitemap.xml");
 
   results.push({ route: route || "/", title, errors, warns });
 }

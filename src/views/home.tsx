@@ -6,13 +6,14 @@ import { HomeHero } from "@/components/sections/home/home-hero";
 import { IndustriesTabs } from "@/components/sections/home/industries-tabs";
 import { PlatformTeam } from "@/components/sections/home/platform-team";
 import { Statement } from "@/components/sections/home/statement";
+import { TeamStrip } from "@/components/sections/home/team-strip";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { getServiceStructuredData } from "@/utils/seo/structured-data";
 
 /**
  * Home view — Server Component. Seven sections modelled on wonderful.ai's
  * structure (obsidian/workflows/home-repositioning-plan.md, ADR-0035):
- * hero → statement → platform + team → AI employees grid → industries tabs
+ * hero → statement → platform + team → team strip → AI employees grid → industries tabs
  * → bootcamp → FAQ + closing → footer. Monochrome; abstract `FlowField`
  * backdrops stand in for photography until real team photos exist.
  */
@@ -26,6 +27,7 @@ export const HomeView = () => (
       <HomeHero />
       <Statement />
       <PlatformTeam />
+      <TeamStrip />
       <EmployeesGrid />
       <IndustriesTabs />
       <Bootcamp />

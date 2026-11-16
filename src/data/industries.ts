@@ -406,6 +406,12 @@ export const INDUSTRIES: Industry[] = [
       ],
     },
     cta: "Start with a 2-day bootcamp on your own data, then our team connects Xura to your EHR, scheduling, and billing systems.",
+    faq: [
+      { q: "Does the AI make clinical decisions?", a: "No. AI employees gather the numbers and draft briefs, pre-reads and follow-ups. People decide, and every message waits for your OK before it is sent." },
+      { q: "Does patient data leave our environment?", a: "No. Xura can run in your own cloud account (VPC) or on your own servers. Queries run where your data lives, and no raw data is stored." },
+      { q: "Do we need to replace our EHR or billing system?", a: "No. Xura connects to the EHR, scheduling and billing systems you already use, or reads their exports, and joins them in one knowledge graph." },
+      { q: "Where should a hospital start?", a: "Usually with the morning brief on capacity, throughput and denials: it runs on data you already have and replaces a manual daily pull." },
+    ],
     employees: [
       {
         name: "Nora",
@@ -506,6 +512,12 @@ export const INDUSTRIES: Industry[] = [
       ],
     },
     cta: "Start with a 2-day bootcamp on your own data, then our team connects Xura to your CRM, product, and billing stack.",
+    faq: [
+      { q: "Which tools does Xura connect to?", a: "Your CRM (such as HubSpot or Salesforce), product analytics, billing and finance, over MCP and 50+ native integrations. No ETL pipeline to build." },
+      { q: "Can it send emails or change deals on its own?", a: "No. Briefs and alerts are read-only, and every nudge, message or budget change waits for your approval. Each action is recorded in an audit log." },
+      { q: "Can it produce board-ready reporting?", a: "Yes. The week-in-review can be a brief or a board-ready deck, with every number linked to its source. You approve it before it goes to the board." },
+      { q: "Where should a SaaS team start?", a: "Usually with the morning pipeline brief: deals and renewals at risk, what changed overnight and your meetings, from data your CRM already holds." },
+    ],
     employees: [
       {
         name: "Nora",
@@ -604,6 +616,12 @@ export const INDUSTRIES: Industry[] = [
       ],
     },
     cta: "Start with a 2-day bootcamp on your own data, then our team connects Xura to your ledger, payments, and risk systems.",
+    faq: [
+      { q: "Does the AI move money or approve transactions?", a: "No. Briefs and digests are read-only. Fixes and follow-ups are drafted, and nothing is sent or changed without a person's approval." },
+      { q: "Can Xura run inside our own infrastructure?", a: "Yes. Xura can run in our cloud, in your own cloud account (VPC), or on your own servers for strict data-residency rules." },
+      { q: "Is there an audit trail?", a: "Yes. Every action is recorded in an audit log, and row-level permissions control who can see which data." },
+      { q: "Where should a fintech team start?", a: "Usually with the morning brief on exposure, volumes and reconciliation breaks, so breaks are caught the same day instead of days later." },
+    ],
     employees: [
       {
         name: "Nora",

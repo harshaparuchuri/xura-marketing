@@ -66,9 +66,9 @@ export const USE_CASES: readonly UseCase[] = [
     systems: ["TrackWise, Caliber, AmpleLogic or an Excel register (exports)", "MES or paper batch records", "LIMS test results", "SOP index and templates on SharePoint", "WhatsApp, Slack or Teams for the QA channel"],
     approvals: ["Every intake is reviewed before it's logged", "Root cause and CAPA are decided by QA, never by Meera", "Nothing is sent outside Xura without approval", "Reviewer corrections are saved and reused"],
     example: {
-      heading: "An example, start to finish",
+      heading: "From report to signed investigation",
       body: [
-        "Example only, not a customer result. An OOS result is reported on a tablet batch. Within the hour Meera posts a draft intake to the QA channel: the batch, the test, the two most similar deviations from the last three years on the same compression machine, and the CAPA raised last time.",
+        "An OOS result is reported on a tablet batch. Within the hour Meera posts a draft intake to the QA channel: the batch, the test, the two most similar deviations from the last three years on the same compression machine, and the CAPA raised last time.",
         "The draft investigation proposes a likely cause and lists what still needs checking on the floor. The QA reviewer confirms one check, rejects another, edits the impact assessment and signs. The CAPA goes on the ageing digest with its due date.",
       ],
     },
@@ -120,9 +120,9 @@ export const USE_CASES: readonly UseCase[] = [
     systems: ["QMS exports: TrackWise, Caliber, AmpleLogic or Excel registers", "Change control and commitments trackers", "WhatsApp, Slack, Teams or email for nudges"],
     approvals: ["Every nudge to an owner waits for your OK", "Trend reports are signed off by QA before sharing", "The monthly pack is approved by the QA head", "Ageing is reported exactly as recorded; dates are never estimated"],
     example: {
-      heading: "An example morning",
+      heading: "A typical morning",
       body: [
-        "Example only, not a customer result. At 9:00 the QA channel gets the digest: a handful of CAPAs overdue, two of them past 30 days, one with a second extension request. Each owner has a drafted nudge.",
+        "At 9:00 the QA channel gets the digest: a handful of CAPAs overdue, two of them past 30 days, one with a second extension request. Each owner has a drafted nudge.",
         "The QA head edits one nudge, approves the rest, and asks in the chat which area has the most repeat deviations this quarter. The answer comes back with links to the records.",
       ],
     },
@@ -173,9 +173,9 @@ export const USE_CASES: readonly UseCase[] = [
     systems: ["ERP: SAP, Oracle, Odoo, Zoho or Tally exports", "CRM: Salesforce, HubSpot or Zoho", "Targets in Excel or Google Sheets", "WhatsApp, Slack, Teams or email"],
     approvals: ["The sales head approves before it goes to leadership", "Every number links to its source", "Nothing is emailed without approval"],
     example: {
-      heading: "An example month",
+      heading: "A typical month-end",
       body: [
-        "Example only, not a customer result. On the first working day, the sales head gets the draft on WhatsApp: the month against target, the three regions that moved most, and for each one the reason found in the data, such as a delayed shipment to a large distributor.",
+        "On the first working day, the sales head gets the draft on WhatsApp: the month against target, the three regions that moved most, and for each one the reason found in the data, such as a delayed shipment to a large distributor.",
         "They ask a follow-up question in the chat, edit one line of commentary and approve. Ezra turns the approved review into the leadership deck.",
       ],
     },
@@ -225,9 +225,9 @@ export const USE_CASES: readonly UseCase[] = [
     systems: ["Approved reviews and dashboards in Xura", "Your brand kit (colours and fonts)", "Share a link or download"],
     approvals: ["The presenter approves before sharing", "Numbers come only from approved reviews", "Every chart links to its query"],
     example: {
-      heading: "An example",
+      heading: "A typical month",
       body: [
-        "Example only, not a customer result. The day after the sales review is approved, the presenter gets a draft deck with the same twelve sections as last month, every chart updated and speaker notes for each slide. They rewrite two notes and approve it.",
+        "The day after the sales review is approved, the presenter gets a draft deck with the same twelve sections as last month, every chart updated and speaker notes for each slide. They rewrite two notes and approve it.",
       ],
     },
     faq: [
@@ -275,9 +275,9 @@ export const USE_CASES: readonly UseCase[] = [
     systems: ["MES and SCADA exports", "SAP or another ERP", "Maintenance logs", "WhatsApp for supervisors"],
     approvals: ["Briefs are read-only", "Every nudge waits for your OK", "The plant head approves the monthly review"],
     example: {
-      heading: "An example morning",
+      heading: "A typical morning",
       body: [
-        "Example only, not a customer result. At 8:30 the plant head reads the brief on WhatsApp: one line below target overnight, the stoppage that caused it, and two orders now at risk. They ask which supplier the late part came from and forward the drafted follow-up after approving it.",
+        "At 8:30 the plant head reads the brief on WhatsApp: one line below target overnight, the stoppage that caused it, and two orders now at risk. They ask which supplier the late part came from and forward the drafted follow-up after approving it.",
       ],
     },
     faq: [
@@ -325,9 +325,9 @@ export const USE_CASES: readonly UseCase[] = [
     systems: ["Applications (ATS export or form)", "Google Calendar or Outlook", "Interviewer feedback", "WhatsApp, Slack or Teams"],
     approvals: ["Nothing reaches a candidate without approval", "Only people you add can open the app", "Every change to the app is versioned"],
     example: {
-      heading: "An example week",
+      heading: "A typical week",
       body: [
-        "Example only, not a customer result. On Monday the hiring manager opens the app and sees that most candidates stall between interview and offer. Kira's brief lists this week's interviews with a summary for each, and a drafted nudge to an interviewer who hasn't left feedback, waiting for approval.",
+        "On Monday the hiring manager opens the app and sees that most candidates stall between interview and offer. Kira's brief lists this week's interviews with a summary for each, and a drafted nudge to an interviewer who hasn't left feedback, waiting for approval.",
       ],
     },
     faq: [

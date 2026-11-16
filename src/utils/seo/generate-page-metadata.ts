@@ -97,16 +97,23 @@ export function pageMetadata({
   title,
   description,
   path,
+  noindex = false,
 }: {
   title: string;
   description: string;
   /** Route path, e.g. "/pricing". */
   path: string;
+  /**
+   * Keep the page out of search (still followed). Also remove it from
+   * `sitemap.ts` and add it to `NOINDEX` in scripts/seo-check.mjs.
+   */
+  noindex?: boolean;
 }): Metadata {
   const base = generateMetadata({ title, description, url: path });
   const fullTitle = `${title} | ${siteConfig.name} AI`;
   return {
     ...base,
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: { ...base.openGraph, title: fullTitle },
     twitter: { ...base.twitter, title: fullTitle },
   };

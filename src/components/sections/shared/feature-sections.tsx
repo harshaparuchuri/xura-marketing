@@ -1,3 +1,4 @@
+import { ShotCrop } from "@/components/common/shot-crop";
 import { HazeField } from "@/components/graphics/haze-field";
 import { Reveal, SectionHead } from "@/components/sections/home/reveal";
 
@@ -51,7 +52,18 @@ export const GridSection = ({ id, label, heading, lead, variant = 0, items }: Bl
 );
 
 /** Soft cards (examples, use cases). */
-export const CardsSection = ({ id, label, heading, lead, variant = 2, items }: Block & { items: readonly Item[] }) => (
+type Shot = { src: string; alt: string; crop: { x: number; y: number; w: number; h: number }; caption?: string };
+
+/** Cards grid; an optional product `shot` shows the outcome below the cards. */
+export const CardsSection = ({
+  id,
+  label,
+  heading,
+  lead,
+  variant = 2,
+  items,
+  shot,
+}: Block & { items: readonly Item[]; shot?: Shot }) => (
   <section aria-labelledby={id} className="relative isolate overflow-hidden py-24 md:py-32">
     <HazeField variant={variant} />
     <div className="shell">
@@ -64,6 +76,12 @@ export const CardsSection = ({ id, label, heading, lead, variant = 2, items }: B
           </Reveal>
         ))}
       </ul>
+      {shot ? (
+        <Reveal tag="figure" className="mx-auto mt-12 max-w-[46rem]">
+          <ShotCrop src={shot.src} alt={shot.alt} crop={shot.crop} sizes="(min-width: 768px) 46rem, 100vw" className="rounded-2xl shadow-product" />
+          {shot.caption ? <figcaption className="mt-4 text-center text-sm text-muted">{shot.caption}</figcaption> : null}
+        </Reveal>
+      ) : null}
     </div>
   </section>
 );

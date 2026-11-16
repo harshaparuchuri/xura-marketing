@@ -13,8 +13,8 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
  * top it's transparent; once scrolled it's a light frosted glass over light
  * sections and a dark frosted glass over dark ones (any `<section>` with
  * `text-background`), with the nav ink flipping via `--nav-ink` /
- * `--nav-paper`. The tone is read from the section under the header on
- * scroll. Discrete state → CSS colour transition, token-timed.
+ * `--nav-paper`. The tone comes from an IntersectionObserver band under the
+ * header (no per-frame layout reads). Discrete state → CSS colour transition, token-timed.
  */
 export const StickyHeader = ({
   children,
@@ -28,24 +28,48 @@ export const StickyHeader = ({
   const [darkBelow, setDarkBelow] = useState(overDark);
 
   useEffect(() => {
+    // Scrolled flag: cheap scrollY read, rAF-throttled, state set only on change.
     let frame = 0;
     const update = () => {
       frame = 0;
       setScrolled(window.scrollY > 8);
-      // What sits just under the header? (Header is 4.5rem tall.)
-      const y = parseFloat(getComputedStyle(document.documentElement).fontSize) * 4.5 + 2;
-      const below = document.elementsFromPoint(window.innerWidth / 2, y).find((el) => !el.closest("header"));
-      setDarkBelow(!!below?.closest("section")?.classList.contains("text-background"));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+
+    // Dark-section detection: an IntersectionObserver on a thin band just
+    // under the header (4.5rem) — no per-frame elementsFromPoint/style reads.
+    // rootMargin only takes px/% — build a 2px band at the header's bottom
+    // edge (4.5rem), rebuilt on resize.
+    const dark = new Set<Element>();
+    let io: IntersectionObserver | null = null;
+    const observe = () => {
+      io?.disconnect();
+      dark.clear();
+      const top = parseFloat(getComputedStyle(document.documentElement).fontSize) * 4.5;
+      const bottom = Math.max(0, window.innerHeight - top - 2);
+      io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) dark.add(e.target);
+            else dark.delete(e.target);
+          }
+          setDarkBelow(dark.size > 0);
+        },
+        { rootMargin: `-${top}px 0px -${bottom}px 0px` },
+      );
+      document.querySelectorAll("section.text-background").forEach((el) => io?.observe(el));
+    };
+    observe();
+    window.addEventListener("resize", observe);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", observe);
+      io?.disconnect();
       if (frame) cancelAnimationFrame(frame);
     };
   }, []);
@@ -61,8 +85,8 @@ export const StickyHeader = ({
           !scrolled
             ? "border-transparent bg-transparent"
             : dark
-              ? "border-background/10 bg-foreground/35 backdrop-blur-xl backdrop-saturate-150"
-              : "border-foreground/5 bg-background/55 backdrop-blur-xl backdrop-saturate-150"
+              ? "border-background/10 bg-foreground/35 backdrop-blur-md backdrop-saturate-150"
+              : "border-foreground/5 bg-background/55 backdrop-blur-md backdrop-saturate-150"
         }`}
       >
         {children}

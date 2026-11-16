@@ -140,7 +140,14 @@ Click-to-load YouTube embed (client leaf). Shows the video's YouTube thumbnail
 (`next/image`, unoptimised under static export) with a play button; the
 `youtube-nocookie.com` iframe mounts only on click, so the YouTube player never
 loads with the page. Emits its own `VideoObject` JSON-LD. Props: `videoId`,
-`title`, `description`, `uploadDate`, `duration` (ISO 8601), `className`.
+`title`, `description`, `uploadDate`, `duration` (ISO 8601), `structuredData`
+(default `true`), `className`.
+**2026-11-16 (SEO/AEO):** JSON-LD adds `publisher` (→ `#organization`),
+`inLanguage`, both thumbnail sizes and a `SeekToAction` (YouTube `&t=`) so
+Google can generate key moments. Thumbnail falls back from `maxresdefault` to
+`hqdefault` on error and has descriptive alt text. **Only /platform emits the
+VideoObject** — home `#tour` and /ai-employees pass `structuredData={false}`
+(one watch page per video).
 Used in `sections/ai-employees.tsx` as `#tour` ("Meet your AI team", 1:38);
 the hero's "Watch the tour" pill links to `/#tour`.
 
@@ -178,3 +185,8 @@ Data Saver or 2G (`navigator.connection`). Phone cut made with
 `ffmpeg -vf "crop=608:1080:(iw-608)/2:0,scale=540:960" -an -crf 30 -movflags +faststart`. The home hero's video has grade and grain baked in
 (`scripts/render-hero-video.sh`), so it takes no `.grain-photo`; for ungraded
 footage, add `.grain-photo` via `className`. Assets in `public/assets/video/`.
+**2026-11-16 (LCP):** with `mobilePoster`, the two posters render as one
+`<picture>` (`ArtDirectedPoster`, built with `getImageProps`; `<source
+media="(min-width: 48rem)">` for desktop) with `loading="eager"` and
+`fetchPriority="high"`, so each device downloads only its own poster (two
+`priority` `<Image>`s preloaded both).

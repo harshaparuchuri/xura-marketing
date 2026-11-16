@@ -73,7 +73,7 @@ export const AiEmployeesView = () => {
         </ul>
       </Hero>
       <AnswerBlock id="ae-answer" {...ANSWERS.aiEmployees} />
-      <VideoSection id="ae-tour" label="Product tour" heading="Meet your AI team" lead="98 seconds: how AI employees connect to your systems, answer from your data and wait for your approval." variant={2} />
+      <VideoSection id="ae-tour" label="Product tour · 2 min" heading="Meet your Xura AI team" lead="How Xura's AI employees connect to your systems, answer from your data and wait for your approval." variant={2} structuredData={false} />
       <section aria-labelledby="ae-inside" className="relative isolate overflow-hidden py-24 md:py-32">
         <HazeField variant={0} />
         <div className="shell">

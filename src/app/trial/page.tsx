@@ -6,6 +6,8 @@ export const metadata = pageMetadata({
   description:
     "Book a 2-day bootcamp: Xura's team puts an AI employee to work on your own data and plans your go-live.",
   path: "/trial",
+  // Form page: /bootcamp ranks for this intent (see seo-check NOINDEX).
+  noindex: true,
 });
 
 export default function TrialPage() {

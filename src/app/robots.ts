@@ -3,7 +3,9 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
 
 /**
- * Generates `/robots.txt`. Allows all crawlers and points them at the sitemap.
+ * Generates `/robots.txt`. Allows all crawlers — including AI crawlers
+ * (GPTBot, ClaudeBot, PerplexityBot, Google-Extended), which is deliberate for
+ * AEO — and points them at the sitemap. No `Host:` (Yandex-only, non-standard).
  * Tighten the rules per environment (e.g. disallow `/` on staging).
  */
 export default function robots(): MetadataRoute.Robots {
@@ -13,7 +15,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     sitemap: `${siteConfig.url}/sitemap.xml`,
-    host: siteConfig.url,
   };
 }
 

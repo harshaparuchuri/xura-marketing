@@ -12,6 +12,7 @@ import { VideoSection } from "@/components/sections/shared/video-section";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { PLATFORM_CLOSING } from "@/data/platform";
 import { siteConfig } from "@/lib/site";
+import { getPlatformStructuredData } from "@/utils/seo/structured-data";
 
 /**
  * Platform view (/platform) — the feature depth the lean home left out
@@ -20,9 +21,13 @@ import { siteConfig } from "@/lib/site";
  */
 export const PlatformView = () => (
   <div className="palette-violet">
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(getPlatformStructuredData()) }}
+    />
     <main>
       <PlatformHero />
-      <VideoSection id="platform-tour" label="Product tour" heading="See it in 98 seconds" lead="AI employees connected to your systems, answering from your own data and drafting the next step for your approval." variant={0} />
+      <VideoSection id="platform-tour" label="Product tour · 2 min" heading="Watch Xura's AI employees at work" lead="Xura's AI employees connect to your systems, answer from your own data and draft the next step for your approval." variant={0} />
       <Connect />
       <AskAct />
       <OutputsRail />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 
 import "./ai-orb.css";
 
@@ -90,11 +90,22 @@ export const AiOrb = ({
     });
   }, []);
 
+  // Off-screen orbs pause their CSS loops and emotion cycle (no repaints).
+  const rootRef = useRef<HTMLSpanElement>(null);
+  const [onScreen, setOnScreen] = useState(true);
   useEffect(() => {
-    if (!autoCycle) return;
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(e?.isIntersecting ?? true), { rootMargin: "100px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!autoCycle || !onScreen) return;
     const id = setInterval(advance, 2600);
     return () => clearInterval(id);
-  }, [autoCycle, advance]);
+  }, [autoCycle, advance, onScreen]);
 
   const emo: Emotion = emotion ?? (autoCycle ? cycle.deck[cycle.idx]! : STATE_EMOTION[state]);
   const withArc = size >= 30;
@@ -107,6 +118,7 @@ export const AiOrb = ({
     withArc ? "m-orb--arc" : "",
     withSpin ? "m-orb--spin" : "",
     accent ? "m-orb--tinted" : "",
+    onScreen ? "" : "m-orb--paused",
     className,
   ]
     .filter(Boolean)
@@ -114,6 +126,7 @@ export const AiOrb = ({
 
   return (
     <span
+      ref={rootRef}
       className={cls}
       style={
         {

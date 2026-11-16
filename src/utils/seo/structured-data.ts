@@ -82,6 +82,35 @@ export function getBreadcrumbStructuredData(crumbs: Crumb[]) {
 }
 
 /**
+ * SoftwareApplication for /platform — tells search and AI answer engines what
+ * the product is. No `offers`: pricing is quoted per company.
+ */
+export function getPlatformStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": `${siteConfig.url}/platform#software`,
+    name: `${siteConfig.name} AI platform`,
+    applicationCategory: "BusinessApplication",
+    applicationSubCategory: "AI agents and workflow automation",
+    operatingSystem: "Web, WhatsApp, Slack, Microsoft Teams, email",
+    description:
+      "AI employees, agentic workflows and custom apps on one platform: a live knowledge graph over your ERP, CRM and spreadsheets, with every output approved in WhatsApp, Slack or Teams.",
+    url: `${siteConfig.url}/platform`,
+    featureList: [
+      "AI employees for sales reviews, quality tracking, leadership decks and hiring",
+      "Agentic workflows with approval steps",
+      "Internal apps built by describing them in chat",
+      "MCP and 50+ native integrations including SAP, Salesforce, HubSpot and Snowflake",
+      "Runs in Xura cloud, your VPC or on premises",
+      "Audit logs and row-level permissions",
+    ],
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    provider: { "@id": `${siteConfig.url}/#organization` },
+  };
+}
+
+/**
  * SoftwareApplication with one Offer per priced plan, for the pricing page.
  * `price` is the per-user monthly price as a number string ("0", "50").
  */

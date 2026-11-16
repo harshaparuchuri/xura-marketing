@@ -38,7 +38,7 @@ export const UseCaseView = ({ slug }: { slug: string }) => {
           ]}
           variant={2}
         />
-        <EssaySection id="uc-example" essay={{ label: "Example", heading: u.example.heading, paragraphs: u.example.body }} variant={0} />
+        <EssaySection id="uc-example" essay={{ label: "In practice", heading: u.example.heading, paragraphs: u.example.body }} variant={0} />
         <FaqSection id="uc-faq" items={u.faq} />
         <RelatedLinks id="uc-related" links={u.related} />
         <CtaBand id="uc-cta" heading="Hand over this job now." sub="Start with a 2-day bootcamp. See it live in 2 weeks." />

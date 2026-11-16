@@ -1268,3 +1268,13 @@ for analytics as its rules phase in, so revisit for Indian visitors when that
 is enforced, or when EU traffic or enterprise deals grow. Alternatives if
 needed later: a geo-IP consent tool, or Google Consent Mode "advanced"
 (cookieless pings before a choice, needs legal sign-off).
+
+## ADR — One VideoObject per video (2026-11-16)
+
+**Decision:** the product tour video carries VideoObject JSON-LD on a single watch page (/platform). Other pages embedding it set `structuredData={false}` on `VideoTour` / `VideoSection`.
+**Why:** identical VideoObject markup on several pages splits signals and Google picks a page arbitrarily for video results.
+
+## ADR — Generated llms-full.txt; explicit noindex list (2026-11-16)
+
+**Decision:** `llms-full.txt` is generated from the built HTML after every build (`scripts/llms-full.mjs`), not hand-written; `llms.txt` stays a hand-written index. Pages kept out of search are listed in `NOINDEX` in `scripts/seo-check.mjs`, which then requires them to be `noindex` and absent from the sitemap (first entry: `/trial`, a form page whose intent `/bootcamp` covers).
+**Why:** a hand-written full-text copy drifts from the live copy, and AI engines would quote stale facts. An explicit list keeps the deploy-blocking SEO check strict for every other page.

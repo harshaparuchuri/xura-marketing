@@ -1,11 +1,35 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { useInViewport } from "@/hooks/use-in-viewport";
 
 type NetworkInfo = { saveData?: boolean; effectiveType?: string };
+
+/**
+ * Phone / desktop posters as one <picture> (Next's art-direction pattern), so
+ * each device downloads only its own poster. Two `priority` <Image>s would
+ * preload both on every device.
+ */
+const ArtDirectedPoster = ({ poster, mobilePoster, alt }: { poster: string; mobilePoster: string; alt: string }) => {
+  // LCP image: load eagerly at high priority (getImageProps defaults to lazy).
+  const common = { alt, fill: true, sizes: "100vw", loading: "eager" as const, fetchPriority: "high" as const };
+  const {
+    props: { srcSet: desktopSrcSet },
+  } = getImageProps({ ...common, src: poster });
+  const {
+    props: { srcSet: mobileSrcSet, ...img },
+  } = getImageProps({ ...common, src: mobilePoster });
+  return (
+    <picture>
+      {/* 48rem = Tailwind `md`, matching the video's own breakpoint. */}
+      <source media="(min-width: 48rem)" srcSet={desktopSrcSet} />
+      <source srcSet={mobileSrcSet} />
+      <img {...img} alt={alt} className="object-cover" />
+    </picture>
+  );
+};
 
 /**
  * BackgroundVideo — a full-bleed, muted, looping background video
@@ -71,10 +95,7 @@ export const BackgroundVideo = ({
   return (
     <div ref={ref} className={`absolute inset-0 overflow-hidden bg-foreground ${className}`}>
       {mobilePoster ? (
-        <>
-          <Image src={mobilePoster} alt={alt} fill priority sizes="100vw" className="object-cover md:hidden" />
-          <Image src={poster} alt="" fill priority sizes="100vw" className="hidden object-cover md:block" />
-        </>
+        <ArtDirectedPoster poster={poster} mobilePoster={mobilePoster} alt={alt} />
       ) : (
         <Image src={poster} alt={alt} fill priority sizes="100vw" className="object-cover" />
       )}
