@@ -52,7 +52,7 @@ export const IndustriesIndexView = () => (
               >
                 <PhotoFill src={ind.photo.src} alt="" focus={ind.photo.focus} sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" className="-z-20" />
                 <span aria-hidden className="absolute inset-0 -z-10 bg-linear-to-t from-foreground/90 via-foreground/35 to-transparent transition-opacity duration-[var(--duration-normal)] ease-entrance group-hover:opacity-90" />
-                <p className="font-mono text-xs text-background/70">Example: {ind.useCases[0]?.title}</p>
+                <p className="font-mono text-xs text-background/70">{ind.useCases[0]?.title}</p>
                 <h2 className="mt-3 text-2xl font-light tracking-tight md:text-3xl">{ind.label}</h2>
                 <p className="mt-1 text-sm text-background/75">{industryFocus(ind)}</p>
                 <span className="mt-6 text-sm underline underline-offset-4">Explore <span aria-hidden>→</span></span>

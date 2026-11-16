@@ -1283,3 +1283,8 @@ needed later: a geo-IP consent tool, or Google Consent Mode "advanced"
 
 **Decision:** the Open Graph / Twitter image is `public/og-image.png`, rendered by `scripts/og-image.mjs` with `next/og`, and committed. Not the `app/opengraph-image.tsx` file convention.
 **Why:** under `output: "export"` the convention route is written as `opengraph-image` with no file extension (GitHub Pages serves it without an image content type, so some crawlers reject it), and every sub-page's own `openGraph` metadata drops the inherited image. A script keeps the design in code (fonts, tokens, headline) without either problem.
+
+## ADR — Client-side redirects from the 404 page (2026-11-16)
+
+**Decision:** retired URLs and trailing-slash URLs are redirected by an inline script in `app/not-found.tsx` (exported as `404.html`), with a `MOVED` map for renamed routes.
+**Why:** GitHub Pages serves static files only — no 301s, no rewrites — and returns `404.html` for every unknown path. A pre-paint `location.replace` is the only redirect available; Google follows JavaScript redirects. Add any future renamed route to `MOVED`.

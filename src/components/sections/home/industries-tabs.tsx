@@ -13,7 +13,7 @@ import { INDUSTRIES } from "@/data/industries";
 /**
  * Industries — pill tabs above one large card (visual reference: the
  * wonderful.ai industries block). The card shows the selected industry, its
- * an example workflow and a link to its page. Switching is a discrete state change.
+ * its first workflow and a link to its page. Switching is a discrete state change.
  * Photos crossfade (discrete opacity, CSS transition) under a dark wash.
  */
 export const IndustriesTabs = () => {
@@ -67,7 +67,7 @@ export const IndustriesTabs = () => {
             ) : null,
           )}
           <span aria-hidden className="absolute inset-0 -z-10 bg-foreground/60" />
-          <p className="text-sm text-background/60">Example: {ind.useCases[0]?.title}</p>
+          <p className="text-sm text-background/60">{ind.useCases[0]?.title}</p>
           <h3 className="display-light mt-3 max-w-[16ch]">AI for {ind.label}</h3>
           <p className="mt-5 max-w-[52ch] text-sm leading-relaxed text-background/70">{ind.subhead}</p>
           <Link href={`/industries/${ind.slug}`} className="pill pill-inverse mt-8">

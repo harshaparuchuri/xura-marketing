@@ -16,7 +16,7 @@ export const HomeHero = () => (
   <section aria-labelledby="hero-heading" className="relative isolate z-20 flex min-h-[100svh] flex-col overflow-hidden text-background">
     <BackgroundVideo {...HOME_HERO_VIDEO} className="-z-20" />
     {/* Soft centre shade so the headline reads over busy footage. */}
-    <span aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_90%_55%_at_50%_50%,var(--foreground)_0%,transparent_100%)] opacity-70 md:bg-[radial-gradient(ellipse_60%_48%_at_50%_50%,var(--foreground)_0%,transparent_100%)] md:opacity-60" />
+    <span aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_90%_55%_at_50%_50%,var(--foreground)_0%,transparent_100%)] opacity-70 md:bg-[radial-gradient(ellipse_68%_64%_at_50%_55%,var(--foreground)_0%,transparent_100%)] md:opacity-75" />
     <span aria-hidden className="absolute inset-0 -z-10 bg-linear-to-b from-foreground/40 via-foreground/20 to-foreground/60" />
     <SiteNav overDark />
 
@@ -55,7 +55,7 @@ export const HomeHero = () => (
         <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
           {HOME_BOOTCAMP.cta} <span aria-hidden>→</span>
         </a>
-        <a href="#how-we-deploy" className="pill pill-lg border border-background/40 bg-transparent text-background hover:bg-background/10">
+        <a href="#how-we-deploy" className="pill pill-lg border border-background/50 bg-foreground/25 text-background backdrop-blur-sm hover:bg-background/10">
           See how we deploy
         </a>
       </Spring>

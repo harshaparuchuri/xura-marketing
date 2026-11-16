@@ -190,3 +190,8 @@ footage, add `.grain-photo` via `className`. Assets in `public/assets/video/`.
 media="(min-width: 48rem)">` for desktop) with `loading="eager"` and
 `fetchPriority="high"`, so each device downloads only its own poster (two
 `priority` `<Image>`s preloaded both).
+
+
+## `skip-link.tsx`
+
+**New 2026-11-16.** `SkipLink` (client) — first focusable element on every page, mounted in `app/layout.tsx` before `ScrollLayout`. `sr-only` until keyboard focus, then a `pill pill-inverse` fixed top-left. Targets the page's `main h1` (not `<main>`: the nav lives inside each hero, inside `<main>`), giving it `tabindex=-1` and focus so the next Tab continues in the content.

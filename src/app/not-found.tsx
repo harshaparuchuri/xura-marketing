@@ -17,9 +17,28 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
+/**
+ * GitHub Pages serves this file for every unknown URL and has no server-side
+ * redirects, so this runs before paint and sends known cases on:
+ * - retired routes (`MOVED`) → their replacement;
+ * - a trailing slash (`/platform/`) → the same path without it (Pages only
+ *   serves `platform.html` at `/platform`).
+ * `location.replace` keeps the dead URL out of the back-button history.
+ */
+const MOVED: Record<string, string> = {
+  "/pricing": "/bootcamp",
+};
+
+const redirectScript = `(function(){
+var m=${JSON.stringify(MOVED)},l=location,p=l.pathname,t=p.length>1?p.replace(/\\/+$/,''):p;
+var to=m[t]||(t!==p?t:null);
+if(to)l.replace(to+l.search+l.hash);
+})();`;
+
 export default function NotFound() {
   return (
     <>
+      <script dangerouslySetInnerHTML={{ __html: redirectScript }} />
       <main className="bg-band-sand-soft">
         <SiteNav />
         <section className="shell flex flex-col items-center py-24 text-center md:py-32">
