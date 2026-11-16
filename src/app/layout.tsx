@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Bitter } from "next/font/google";
 import localFont from "next/font/local";
 
 import {
@@ -21,22 +20,16 @@ import { ScrollLayout } from "@/layouts/scroll-layout";
 import "@/app/globals.css";
 
 /**
- * Typefaces:
- *  - Figtree (variable, self-hosted) — sans for UI, body, and the sans half of mixed headings
- *  - Bitter (Google) — serif for display
+ * Typeface: Figtree (variable, self-hosted) — the only font on the site.
+ * Bitter (serif, from Google Fonts) was removed 2026-11-16: no live page used
+ * it, yet every page preloaded it, and the build fetched it from Google Fonts
+ * (a CI failure point). `--font-serif-display` now falls back to Figtree.
  */
 const figtree = localFont({
   src: "../fonts/Figtree-variable.woff2",
   variable: "--font-figtree",
   display: "swap",
   weight: "300 900",
-});
-
-const serifDisplay = Bitter({
-  variable: "--font-serif-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
 });
 
 export const metadata: Metadata = generateMetadata({
@@ -53,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${figtree.variable} ${serifDisplay.variable}`}>
+    <html lang="en" className={figtree.variable}>
       <head>
         <GoogleAnalytics />
       </head>

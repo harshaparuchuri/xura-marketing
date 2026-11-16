@@ -1293,3 +1293,8 @@ needed later: a geo-IP consent tool, or Google Consent Mode "advanced"
 
 **Decision:** every primary CTA (header, heroes, closing bands, footer, floating orb) is "Talk to us" → `/trial?talk`; "Book a 2-day bootcamp" leads only where the content is about the bootcamp. One pill per spot, no secondary text link. GA4 separates them (`cta: "talk"` vs `cta: "demo"`).
 **Why:** the bootcamp is a paid two-day commitment, too big an ask for most first visits; a conversation is the lower-friction first step and still ends in the same 30-minute call. Owner decision.
+
+## ADR — Self-hosted fonts only; Bitter removed (2026-11-16)
+
+**Decision:** load fonts only with `next/font/local` from `src/fonts/`. The Bitter serif (`next/font/google`) is removed; Figtree is the only typeface, and `--font-display` falls back to it.
+**Why:** `next/font/google` downloads the font from Google during the build; that request failed in CI and broke a deploy (PR #17's first run). Bitter wasn't rendered on any live page but was preloaded on every one, so removing it also saves a font download per visit.
