@@ -85,3 +85,7 @@ and add an ADR to [[decisions-log]].
 ## Related
 
 [[system-overview]] · [[folder-structure]]
+
+
+> [!note] Fonts (2026-11-16)
+> Fonts are self-hosted only (`next/font/local`, files in `src/fonts/`). `next/font/google` is no longer used: the Bitter serif was removed (unused on the live site) and Google Fonts fetches at build time had failed in CI.

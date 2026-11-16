@@ -114,7 +114,9 @@
      Raw CSS must reference THESE aliases — the @theme bindings below are
      inlined into utilities and are not emitted as custom properties. */
   --font-body: var(--font-figtree);
-  --font-display: var(--font-serif-display);
+  /* Legacy v1 serif role; Bitter was removed (2026-11-16), so it falls back
+     to Figtree. Only unused v1 components reference it. */
+  --font-display: var(--font-serif-display, var(--font-figtree));
 
   --elevation-product: var(--raw-shadow-lift);
 

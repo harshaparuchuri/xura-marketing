@@ -307,3 +307,7 @@ orb at a time (owner ids in `useOrbDock`).
 
 ### Cards on haze sections (2026-11-16)
 Cards inside a `HazeField` section use `rounded-3xl border border-line bg-background` (white + hairline), never `bg-line-soft` — grey cards turn muddy on the tinted haze.
+
+
+> [!note] Typeface (2026-11-16)
+> Figtree (variable, self-hosted in `src/fonts/`) is the **only** font. Bitter (Google Fonts serif) was removed; `--font-serif-display` is no longer defined, so `--font-display` / `.display-serif` / `font-serif` fall back to Figtree. Don't add `next/font/google` back: it fetches from Google at build time, which has failed in CI. Self-host any new font with `next/font/local`.
