@@ -1278,3 +1278,8 @@ needed later: a geo-IP consent tool, or Google Consent Mode "advanced"
 
 **Decision:** `llms-full.txt` is generated from the built HTML after every build (`scripts/llms-full.mjs`), not hand-written; `llms.txt` stays a hand-written index. Pages kept out of search are listed in `NOINDEX` in `scripts/seo-check.mjs`, which then requires them to be `noindex` and absent from the sitemap (first entry: `/trial`, a form page whose intent `/bootcamp` covers).
 **Why:** a hand-written full-text copy drifts from the live copy, and AI engines would quote stale facts. An explicit list keeps the deploy-blocking SEO check strict for every other page.
+
+## ADR — Share image is a static PNG rendered by a script (2026-11-16)
+
+**Decision:** the Open Graph / Twitter image is `public/og-image.png`, rendered by `scripts/og-image.mjs` with `next/og`, and committed. Not the `app/opengraph-image.tsx` file convention.
+**Why:** under `output: "export"` the convention route is written as `opengraph-image` with no file extension (GitHub Pages serves it without an image content type, so some crawlers reject it), and every sub-page's own `openGraph` metadata drops the inherited image. A script keeps the design in code (fonts, tokens, headline) without either problem.

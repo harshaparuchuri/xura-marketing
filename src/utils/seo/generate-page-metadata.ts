@@ -18,10 +18,10 @@ interface MetadataProps {
   /** Plain string, or a Next `{ default, template, absolute }` object. */
   title?: Metadata["title"];
   description?: string;
-  /** Canonical path (e.g. `/about`) or absolute URL for this page. */
-  url?: string;
   /** Open Graph / Twitter image — path under `public/` or absolute URL. */
   ogImage?: string;
+  /** Canonical path (e.g. `/about`) or absolute URL for this page. */
+  url?: string;
   twitterHandle?: string;
   author?: string;
   siteName?: string;
@@ -55,8 +55,8 @@ export function generateMetadata({
       description,
       url,
       siteName,
-      // Dimensions must match the real asset; 1200×630 is the ideal size.
-      images: [{ url: ogImage, width: 1200, height: 630 }],
+      // 1200×630, rendered by scripts/og-image.mjs (`npm run og`).
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${siteConfig.name} AI: AI transformation, built for your business` }],
       locale: "en_US",
       type: "website",
     },

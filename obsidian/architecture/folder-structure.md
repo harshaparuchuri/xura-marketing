@@ -85,7 +85,7 @@ src/
 
 ```
 public/
-├── favicon.ico, *-icon-*.png, manifest.json, browserconfig.xml, open-graph-v3.png
+├── favicon.ico, *-icon-*.png, manifest.json, browserconfig.xml, og-image.png
 │                            # site-level meta / PWA / SEO assets — stay at the root
 └── assets/                  # site content assets (images, video, …)
     └── <section>/           # one folder per section that uses them
@@ -96,7 +96,7 @@ public/
 > `public/assets/`, and **each section gets its own folder** — e.g.
 > `public/assets/hero/`, `public/assets/footer/`. Reference them by absolute
 > path (`/assets/hero/bg.webp`). Meta/PWA/SEO assets (favicons, icons,
-> `manifest.json`, `open-graph-v3.png`) stay at the `public/` root. Product
+> `manifest.json`, `og-image.png`) stay at the `public/` root. Product
 > screenshots used by the home stages live in `public/assets/product/`;
 > official brand logos in `public/assets/brands/`; profile photos of the
 > fictional people in scenes in `public/assets/people/` (128×128 JPEG).
