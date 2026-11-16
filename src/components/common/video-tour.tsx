@@ -37,7 +37,7 @@ export const VideoTour = ({ videoId, title, description, uploadDate, duration, c
 
   return (
     <figure
-      className={`relative aspect-video overflow-hidden rounded-2xl bg-brand-ink shadow-product ${className}`}
+      className={`relative aspect-video overflow-hidden rounded-2xl bg-foreground shadow-product ${className}`}
     >
       <script
         type="application/ld+json"
@@ -59,7 +59,7 @@ export const VideoTour = ({ videoId, title, description, uploadDate, duration, c
           aria-label={`Play video: ${title}`}
         >
           <Image src={thumbnail} alt="" fill sizes="(min-width: 1024px) 60rem, 100vw" className="object-cover" />
-          <span className="absolute inset-0 bg-brand-ink/20 transition-colors duration-[var(--duration-fast)] ease-entrance group-hover:bg-brand-ink/10" />
+          <span className="absolute inset-0 bg-foreground/20 transition-colors duration-[var(--duration-fast)] ease-entrance group-hover:bg-foreground/10" />
           <span className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background text-foreground shadow-product transition-transform duration-[var(--duration-fast)] ease-entrance group-hover:scale-105">
             <svg viewBox="0 0 24 24" className="ml-1 size-6" fill="currentColor" aria-hidden>
               <path d="M7 4.5v15l13-7.5z" />

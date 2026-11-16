@@ -10,6 +10,232 @@ consequences. Use [[templates/adr-note]] for new entries. Newest first.
 
 ---
 
+## ADR-0046 — Content depth: use cases, comparisons, POV essays, answer blocks (2026-11-16)
+**Context:** owner felt ancillary pages were thin. Review vs wonderful.ai and Palantir: their pages are no longer than ours; the gap was point of view, proof, and breadth of search-intent pages. Xura has no customer results yet.
+**Decision:**
+- New `/use-cases` index + `/use-cases/[slug]` (deviation-investigation, capa-tracking, monthly-sales-review, leadership-decks, plant-performance-review, hiring-pipeline) from `data/use-cases.ts`; facts from the product's employee seeds.
+- New `/compare/[slug]` (ai-agents-vs-rpa, partner-led-vs-in-house-ai, ai-employees-vs-chatbots) from `data/compare.ts`, with a semantic comparison table.
+- `content-blocks.tsx`: `AnswerBlock` (40–60 word definition under the hero for AEO), `EssaySection` (POV + numbered principles), `RelatedLinks`, `ComparisonTable`. Answer blocks on AI employees, workflows, integrations, security, AI transformation, bootcamp; POV essays on AI transformation and bootcamp (`data/pov.ts`); related links on all of them.
+- Pharma and manufacturing industry pages gain answer, compliance (Schedule M, 21 CFR 211.192, ICH Q9/Q10; ISO 9001/IATF 16949), systems, FAQ and use-case links.
+- **No invented outcomes:** industry "What changes" stats that implied results ("3d → hrs", "days → mins", "24/7"…) replaced with factual descriptions; use-case examples are labelled "Example only, not a customer result". Add real proof (story pages) once pilots produce numbers.
+
+## ADR-0045 — Real Pexels photos, no blur treatment (2026-11-16)
+**Context:** the AI-generated stand-in photos and the lens-blur + heavy-grain treatment read as smudged.
+**Decision:** use real Pexels photos (Indian/South Asian professionals, matching each scene), credited in `public/assets/photos/CREDITS.txt`. `PhotoFill` renders one sharp image with light grain (12%); the blurred edge copy is gone. Supersedes the "no stock photos" preference for these slots, at the owner's request.
+
+## ADR-0044 — Hero video plays on phones, as a light portrait cut (2026-11-16)
+**Context:** the hero video was desktop-only (15 MB, landscape) so phones saw a still poster. Owner wanted phones to play video, like wonderful.ai.
+**Decision:** ship a separate phone cut (9:16 centre crop, 540×960, ~1.5 MB, no audio, faststart) via `BackgroundVideo`'s `mobileSrc` / `mobilePoster`. Mount the video only after `window.load`; skip it for reduced motion, Data Saver and 2G. Supersedes the "poster only on phones" rule from the original component.
+
+## ADR-0043 — Free bootcamp offer, spring menus, real brand logos (2026-11-16)
+**Decision:** (1) ~~The 2-day bootcamp is free for the first 50 companies~~ — withdrawn the same day (owner): the site no longer mentions the offer; the bootcamp is quoted per company and credited to the deployment. (2) Nav mega-menus open with a spring (clip-path unroll + fade), per the springs-first rule. (3) Integration logos are the real brand marks from Simple Icons (CC0 path data, vendored into `data/brand-logos.ts`, no runtime dependency), shown only for systems the site already names. Microsoft marks (Teams, Excel, SharePoint) aren't in Simple Icons, so they stay text-only.
+**Resolved (owner, 2026-11-16):** keep SAP, Salesforce and BigQuery, and show a wider set (33 logos in two rows). The owner vouches for the list; the product code on disk did not show connectors for every one of them.
+
+## ADR-0042 — Sub-pages show the work, not just describe it (2026-11-16)
+**Context:** owner found the six ADR-0041 pages thin and templated: same card grids, no visuals, copy repeated from /platform.
+**Decision:** each page gets sections built for its topic, from `sections/shared/depth-sections.tsx`: `WalkthroughSection` (one real job step by step, with Reads / Produces and approval gates), `SplitSection` (copy + visual), `ProfilesSection` (AI employee profiles with real outputs), `ChecklistSection`, `DataFlowDiagram`. Per page: AI employees = profiles + "a day with Meera" (with ApprovalFeed); Workflows = Deviation to CAPA walkthrough + templates by team; Integrations = what Xura does per system + KnowledgeGraph explainer; Security = data-flow diagram + security-review checklist; AI transformation = 90-day timeline + first jobs by team; Bootcamp = agenda + who to bring / what to prepare. Copy in `data/subpages.ts` (depth block). Facts stay within what the site already claims.
+**Open:** bootcamp agenda detail and "Weeks 3–12 tune and hand over" need owner confirmation.
+
+## ADR-0041 — Nav restructure: every menu item gets its own page (2026-11-16)
+**Context:** the Platform menu mixed products, a service (Deployment) and trust, and three items pointed at anchors (`/#ai-employees`, `/platform#flows`, `/platform#trust`). Labels didn't match search terms ("Flows"), and there was no page for the bootcamp, integrations or the H1's "AI transformation" keyword.
+**Decision:** Platform ▾ = Overview, AI employees (`/ai-employees`, "AI agents" in meta), Workflows (`/workflows`, was "Flows"), Apps, Integrations (`/integrations`), Security (`/security`). New How we work ▾ = AI transformation (`/ai-transformation`), 2-day bootcamp (`/bootcamp`), Deployment. Industries unchanged. Copy reuses only facts already on the site (no new connectors or certifications).
+**Later:** Customers/case studies and Pricing once content exists.
+
+## ADR-0040 — Dedicated /apps and /deployment pages
+
+**Date.** 2026-11-16
+
+**Context.** Apps and the deployment model each lived in one section of
+/platform or the home, but they're the two things that set Xura apart and
+have their own search demand ("build internal apps with AI", "AI
+implementation/deployment partner").
+
+**Decision.** Add `/apps` and `/deployment`, built from shared inner-page
+pieces (`PageHero`, `FaqSection` with FAQPage JSON-LD, `CtaBand`) so future
+pages (e.g. `/flows`) are cheap. Copy comes from the product code (apps) and
+facts already on the site plus owner input (hosting: Xura cloud, the
+client's VPC, or on premises).
+
+**Consequences.** Catalog apps marked `planned` in the product are shown as
+examples, never "ready-made" — update when they ship. The deployment page's
+week-by-week timeline, bootcamp day split and "what you provide" FAQ are
+reasonable generalisations of existing copy; confirm with the owner. Don't
+name specific clouds or certifications until confirmed.
+
+## ADR-0039 — Xura's own background and statement visuals
+
+**Date.** 2026-11-15
+
+**Context.** The owner flagged that the statement band (silk texture, square
+dot ring, typing chips) read as a copy of wonderful.ai's AI OS section, and
+that every dark section shared the same blurred dark gradient.
+
+**Decision.** Use the reference for structure and restraint only, not its
+specific motifs. Backgrounds become `FlowField`, a faint flow-diagram
+pattern (nodes, connectors, step cards) that echoes what Xura builds, on
+flat ink. The statement band shows Xura's core idea, work drafted from your
+systems waiting on a person, as an `ApprovalFeed`.
+
+**Update (2026-11-16).** At the owner's request, dark backgrounds became a
+generated blue-to-ink gradient with grain (inside `FlowField`, flow pattern
+kept faint on top) instead of flat ink. Product replicas may use the
+product's own colours (`app-*` tokens). Light bands use a matching haze
+(`HazeField`), and each page type gets its own palette (blue, violet, teal,
+amber, green) via CSS variables set by a `.palette-*` class on the view.
+
+**Consequences.** `BlurField`, `DotGrid`, `TypingChip`, the silk texture and
+its generator were deleted. New dark sections should use `FlowField` with a
+different `variant` from their neighbours.
+
+## ADR-0038 — Background video in the home hero
+
+**Date.** 2026-11-15
+
+**Context.** The owner wanted the hero to use video of factories and labs,
+like wonderful.ai, without losing quality.
+
+**Decision.** One pre-stitched file (three clips, crossfaded) instead of
+several `<video>` elements: one request, one decoder, seamless loop. H.264
+CRF 20 at 1920×1080 (~21 MB; ~24 MB / 29 s after a fourth clip was
+added) for quality. `BackgroundVideo` loads it only on
+md+ screens without reduced motion and pauses it off screen; phones get the
+poster. The video lives in `public/assets/video/` (committed, served as-is by
+the static export).
+
+**Update.** The grade and film grain are baked into the file
+(`scripts/render-hero-video.sh`) rather than CSS filters on `<video>`: one
+consistent look across browsers and no per-frame filter cost. Grain raised
+the file to ~36 MB at CRF 20, so it ships at grain `alls=5`, CRF 23 (~15 MB,
+29 s). Those two values are the levers for size vs. quality.
+
+**Consequences.** ~21 MB on first desktop visit (progressive, after the
+poster) and in the repo. If it hurts LCP or hosting, re-encode at CRF 23 or
+add an AV1/WebM source. Swap for own footage when available.
+
+## ADR-0037 — Platform page holds the feature depth
+
+**Date.** 2026-11-15
+
+**Context.** The 7-section home (ADR-0035) dropped the old home's feature
+sections (connectors and knowledge graph, outputs, flows, channels,
+enterprise controls). Technical buyers and feature searches still need them.
+wonderful.ai keeps its home short and puts depth behind a "Platform" menu.
+
+**Decision.** Add `/platform` with that content in the new monochrome system
+(reusing `KnowledgeGraph`, `ChannelScene`, `ShotCrop`, product screenshots
+and the old copy, moved to `data/platform.ts`), and a desktop "Platform"
+mega-menu in `SiteNav` (`PlatformMenu`, client leaf; opacity-only CSS
+transition; Escape / outside-click / mouse-leave close). Label "Platform",
+not "Product", to match "platform + team".
+
+**Consequences.** The old home section files (`features.tsx`, `outputs.tsx`,
+`recommendations.tsx`, `enterprise-ready.tsx`, `how-it-works.tsx`,
+`channels.tsx`) remain unused; their copy now lives in `data/platform.ts`.
+Enterprise-control claims were carried over from the existing site as-is.
+Update (same day): an Industries mega-menu was added on a shared
+`NavDropdown` shell; the `/industries` hub was kept (breadcrumb parent,
+broad searches) and restyled rather than replaced by the menu.
+
+## ADR-0036 — Industry pages use the home design system
+
+**Date.** 2026-11-15
+
+**Context.** A design review found the industry pages still on the old site's
+look (blue-washed stock photos, coloured employee orbs, small cards, a
+routine timeline, "AI employees" headlines), so "Explore Pharma" from the new
+home felt like a different company.
+
+**Decision.** Rebuild `IndustryView` with the home's pieces: `PhotoFill` hero
+from a new `Industry.photo` field, `SiteNav overDark`, `Breadcrumbs
+tone="dark"`, `SectionHead`/`Reveal`, `BlurField` dark bands, a `RailNav`
+scroll rail for use cases, large-number stats, dark closing. Monochrome; no
+employee colours. Copy reframed to "AI transformation for {industry}".
+
+**Consequences.** `routine-timeline.tsx`, `EMPLOYEE_ACCENT` usage on these
+pages and `Industry.employees` are no longer rendered (data kept). The
+`scenario` blocks are illustrative, not customer results (owner confirmed
+2026-11-15). The owner didn't want an "illustrative" callout, so the
+headings were reworded from customer stories ("A specialty API manufacturer
+cuts…") to reader outcomes ("Yield investigations that took three days,
+answered in hours.") under the label "What changes" — no implied customer.
+Replace with real, named results once pilots produce them. The industries index
+page still uses the older layout.
+
+## ADR-0035 — Home follows wonderful.ai's structure, photo-free for now
+
+**Date.** 2026-11-15
+
+**Context.** After the imagery pass (ADR-0033 follow-ups) the home had 12
+sections of small cards, numbered steps, UI mockups and old-brand yellow
+and green. The owner said it had deviated from the wonderful.ai visual
+reference, and rejected stock (Pexels) photos as stand-ins.
+
+**Decision.** Seven sections with large surfaces and few words, centred
+type, monochrome ink and paper. Photography is replaced by abstract,
+static `BlurField` backdrops plus real product outputs; no stock people
+and no AI-generated people (they would misrepresent "our team"). Each
+backdrop is a marked `PHOTO SLOT`. Problem, Why Xura and Trust collapse to
+one line each; the FAQ stays for SEO/AEO.
+
+**Update (same day).** The owner then supplied generated photos made from
+`workflows/photo-brief.md`; they now fill the hero, team card, industry
+tabs, bootcamp card and closing. They are stand-ins: the hero and team card
+must become real team photos, and none may be captioned as our team or a
+client. The tiles were cut from contact sheets (~410 px); they were AI-upscaled 4×
+with Real-ESRGAN (offline tool, not a dependency), which restores usable
+detail, but full-resolution exports should still replace them before launch.
+
+**Consequences.** Some SEO body copy is gone; the H2s, FAQ and JSON-LD carry
+the search phrases. Industry pages still use the old Pexels photos and the
+old layout — next to redo. When team photos arrive, swap each `PHOTO SLOT`
+backdrop for a darkened photo (`next/image`, resized via
+`scripts/resize-images.mjs`).
+
+## ADR-0034 — Pricing page hidden
+
+**Date.** 2026-11-14
+
+**Context.** With the bootcamp model (ADR-0033), bootcamp and deployment
+prices are quoted per company, and the owner didn't want the per-seat plan
+prices public either.
+
+**Decision.** Remove the `/pricing` route and every link to it. Keep
+`views/pricing.tsx` and `data/pricing.ts` (incl. `ENGAGEMENT_STEPS`) so the
+page can return by re-adding `src/app/pricing/page.tsx` and the sitemap,
+nav and footer entries.
+
+**Consequences.** The only pricing signal on the site is "paid bootcamp, fee
+credited to your deployment". The `pricing_view` analytics event and
+`getProductStructuredData` are now unused. If the old live site has
+backlinks to `/pricing`, add a redirect to `/#bootcamp` when porting to git.
+
+## ADR-0033 — Home rebuilt around platform + deployment team
+
+**Date.** 2026-11-14
+
+**Context.** The Nov 2026 pitch repositions Xura from "an AI employee product"
+with a free pilot to "platform plus our deployment team", starting with a paid
+2-day bootcamp. A review against wonderful.ai and three SEO/AEO agent
+simulations ([[home-repositioning-plan]]) found the old home used our own
+language, had no citable "Xura is…" sentence and still advertised a free pilot.
+
+**Decision.** New home built from new sections in
+`src/components/sections/home/` with all copy in `src/data/home.ts`. Visual
+direction borrows wonderful.ai's restraint (light canvas, oversized
+light-weight headlines, black pills, one dark band, rounded cards) without its
+photography or enterprise jargon. Keyword H1 with the slogan as a tagline; one
+primary CTA ("Book a 2-day bootcamp") throughout; home FAQ with FAQPage
+JSON-LD; `Service` JSON-LD; Organization gains Hyderabad address and
+India + Southeast Asia `areaServed`; `/llms.txt` added. Built in a separate
+copy of the project (`xura-marketing-v2`) so the live site is untouched.
+
+**Consequences.** The old home sections stay in `sections/` (unused; kept for
+a possible rollback). Follow-up the same day moved pricing, nav, footer,
+`/trial` and industry pages to the bootcamp model: the free pilot is retired,
+"Start free" became "Sign in", and bootcamp/deployment prices stay
+unpublished while the per-seat platform plans keep their $ prices. No proof strip ships until there are real,
+permissioned results.
+
 ## ADR-0032 — Pre-generated responsive images on the static export
 
 - **Status:** Accepted
@@ -21,8 +247,9 @@ consequences. Use [[templates/adr-note]] for new entries. Newest first.
   maps requested widths to committed variants made by
   `scripts/resize-images.mjs`. This refines the image trade-off in ADR-0022.
 - **Consequences:** Existing `sizes` props now produce useful `srcset`s without
-  changing components. Adding or replacing an image under `public/assets/product`
-  or `public/industries` requires re-running the script, or the variant 404s.
+  changing components. Adding or replacing an image under `public/assets/product`,
+  `public/assets/photos` (added 2026-11-15, ADR-0035) or `public/industries`
+  requires re-running the script, or the variant 404s.
 
 ---
 

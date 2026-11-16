@@ -24,6 +24,13 @@ export function getSiteStructuredData() {
         url: siteConfig.url,
         logo: `${siteConfig.url}/android-icon-192x192.png`,
         email: siteConfig.email,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Hyderabad",
+          addressRegion: "Telangana",
+          addressCountry: "IN",
+        },
+        areaServed: ["India", "Southeast Asia"],
         sameAs: Object.values(siteConfig.profiles).filter(Boolean),
       },
       {
@@ -35,6 +42,26 @@ export function getSiteStructuredData() {
         publisher: { "@id": `${siteConfig.url}/#organization` },
       },
     ],
+  };
+}
+
+/**
+ * Service schema for the home page: AI employees deployed by Xura's own
+ * team, for pharma and manufacturing companies in India and Southeast Asia.
+ */
+export function getServiceStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteConfig.url}/#service`,
+    name: "AI transformation, built for your business",
+    serviceType: "AI implementation",
+    description:
+      "Xura's deployment team finds the work that needs attention in pharma and manufacturing companies and custom-builds AI employees, agentic workflows and apps on the Xura platform. Engagements start with a two-day bootcamp; you see it live in about two weeks.",
+    provider: { "@id": `${siteConfig.url}/#organization` },
+    areaServed: ["India", "Southeast Asia"],
+    audience: { "@type": "BusinessAudience", audienceType: "Pharma and manufacturing companies" },
+    url: siteConfig.url,
   };
 }
 

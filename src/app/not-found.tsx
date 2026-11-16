@@ -25,9 +25,9 @@ export default function NotFound() {
         <section className="shell flex flex-col items-center py-24 text-center md:py-32">
           <OrbDockSlot id="not-found" size={88} />
           <p className="meta mt-8">404</p>
-          <h1 className="display-serif mt-3 max-w-[20ch]">
+          <h1 className="display-light mt-3 max-w-[20ch]">
             I looked everywhere.{" "}
-            <span className="font-semibold italic">This page isn&apos;t here.</span>
+            <span className="text-muted">This page isn&apos;t here.</span>
           </h1>
           <p className="mt-5 max-w-[48ch] text-sm leading-relaxed text-muted">
             The link may be old, or the page has moved. Here&apos;s where most
@@ -37,14 +37,11 @@ export default function NotFound() {
             <Link href="/" className="pill">
               <span aria-hidden>▪</span> Back to home
             </Link>
-            <Link href="/pricing" className="pill pill-ghost">
-              Pricing
-            </Link>
             <Link href="/industries" className="pill pill-ghost">
               Industries
             </Link>
-            <Link href={siteConfig.signupUrl} className="pill pill-ghost">
-              Start free
+            <Link href={siteConfig.demoUrl} className="pill pill-ghost">
+              Book a bootcamp
             </Link>
           </nav>
         </section>

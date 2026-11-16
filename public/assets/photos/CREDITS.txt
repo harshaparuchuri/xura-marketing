@@ -1,0 +1,9 @@
+Photos from Pexels (free to use, Pexels License: https://www.pexels.com/license/). Replaced 2026-11-16.
+team-workshop        https://www.pexels.com/photo/7581110/
+bootcamp-room        https://www.pexels.com/photo/7580751/
+industry-pharma      https://www.pexels.com/photo/9574556/
+industry-manufacturing https://www.pexels.com/photo/31336007/
+industry-healthcare  https://www.pexels.com/photo/6129681/
+industry-saas        https://www.pexels.com/photo/39342696/
+industry-fintech     https://www.pexels.com/photo/7580643/
+Each saved as WebP at 2000 / 1080 / 640 px wide.

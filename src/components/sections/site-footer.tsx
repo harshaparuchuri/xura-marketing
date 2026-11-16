@@ -12,12 +12,22 @@ const DOCS_URL = "https://xura.mintlify.site/introduction/welcome";
 type FooterLink = { label: string; href: string; external?: boolean };
 
 const PRODUCT: FooterLink[] = [
-  { label: "AI employees", href: "/#ai-employees" },
-  { label: "Product tour", href: "/#tour" },
-  { label: "Pricing", href: "/pricing" },
+  { label: "Platform", href: "/platform" },
+  { label: "AI employees", href: "/ai-employees" },
+  { label: "Workflows", href: "/workflows" },
+  { label: "Apps", href: "/apps" },
+  { label: "Integrations", href: "/integrations" },
+  { label: "Security", href: "/security" },
+  { label: "AI transformation", href: "/ai-transformation" },
+  { label: "2-day bootcamp", href: "/bootcamp" },
+  { label: "Deployment", href: "/deployment" },
+  { label: "Use cases", href: "/use-cases" },
+  { label: "AI agents vs RPA", href: "/compare/ai-agents-vs-rpa" },
+  { label: "Partner-led vs in-house AI", href: "/compare/partner-led-vs-in-house-ai" },
+  { label: "AI employees vs chatbots", href: "/compare/ai-employees-vs-chatbots" },
   { label: "Docs", href: DOCS_URL, external: true },
-  { label: "Book a demo", href: siteConfig.demoUrl },
-  { label: "Start free", href: siteConfig.signupUrl, external: true },
+  { label: "Book a bootcamp", href: siteConfig.demoUrl },
+  { label: "Sign in", href: siteConfig.signinUrl, external: true },
 ];
 
 const COMPANY: FooterLink[] = [
@@ -29,6 +39,7 @@ const COMPANY: FooterLink[] = [
 const FIND_US: FooterLink[] = [
   { label: "G2 reviews", href: siteConfig.profiles.g2 ?? "", external: true },
   { label: "Product Hunt", href: siteConfig.profiles.productHunt, external: true },
+  { label: "LinkedIn", href: siteConfig.profiles.linkedin, external: true },
   { label: "YouTube", href: siteConfig.profiles.youtube, external: true },
 ].filter((l) => l.href);
 
@@ -76,15 +87,18 @@ const Column = ({
  * line.
  */
 export const SiteFooter = () => (
-  <footer className="texture relative isolate overflow-hidden bg-brand-ink text-white">
+  <footer
+    className="relative isolate overflow-hidden border-t border-background/15 bg-foreground bg-cover bg-bottom text-white"
+    style={{ backgroundImage: "var(--field-1)" }}
+  >
     <div className="shell relative grid grid-cols-2 gap-x-6 gap-y-10 pt-14 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
       <div className="col-span-2 max-w-xs lg:col-span-1">
         <Link href="/" aria-label="Xura home" className="inline-flex min-h-11 min-w-11 items-center">
           <XuraLogo markOnly />
         </Link>
         <p className="mt-4 text-sm leading-relaxed opacity-70">
-          AI employees that answer, explain and act, with you approving every
-          step.
+          AI employees, workflows and apps, custom-built by our team on your
+          systems, with you approving every step.
         </p>
       </div>
       <Column title="Product" links={PRODUCT} />
@@ -95,7 +109,7 @@ export const SiteFooter = () => (
       <Column
         title="Company"
         links={COMPANY}
-        extra={<CookieSettingsButton className={linkClass} />}
+        extra={<CookieSettingsButton className={`${linkClass} -my-3 inline-flex min-h-11 items-center`} />}
       />
       <Column title="Find us" links={FIND_US} />
     </div>

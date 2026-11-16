@@ -5,7 +5,7 @@ import { join } from "node:path";
 import sharp from "sharp";
 
 const WIDTHS = [640, 1080];
-const DIRS = ["public/assets/product", "public/industries"];
+const DIRS = ["public/assets/product", "public/assets/photos", "public/industries"];
 
 for (const dir of DIRS) {
   for (const file of readdirSync(dir)) {

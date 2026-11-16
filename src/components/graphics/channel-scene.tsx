@@ -271,7 +271,7 @@ const SURFACES = [
 export const ChannelScene = ({ className = "" }: { className?: string }) => (
   <div
     aria-hidden
-    className={`grain relative isolate overflow-hidden rounded-3xl bg-brand-ink p-5 sm:aspect-[1/1.02] sm:p-0 ${className}`}
+    className={`grain relative isolate overflow-hidden rounded-3xl bg-foreground p-5 sm:aspect-[1/1.02] sm:p-0 ${className}`}
   >
     <ArcField className="pointer-events-none absolute inset-0 -z-10 size-full text-white/10" />
     <div className="flex flex-col gap-5 sm:block">

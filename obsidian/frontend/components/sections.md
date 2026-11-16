@@ -1,12 +1,12 @@
 ---
 tags: [frontend, stable]
-updated: 2026-08-09
+updated: 2026-11-15
 ---
 
 # Catalog — Sections
 
 Files in `src/components/sections/` — full-width page bands composed into views
-under `src/views/`. Home order (2026-10-04): `Hero → DomainsStrip → HowItWorks → Features → Recommendations → Agents → Outputs → Channels → XuraVs → Industries → EnterpriseReady → CaseStudy → ClosingCta → SiteFooter`. Older order note follows: `Hero → DomainsStrip → Features → Channels →
+under `src/views/`. **Home order (2026-11-15, ADR-0035):** `HomeHero → Statement → PlatformTeam (#how-we-deploy) → EmployeesGrid (#ai-employees) → IndustriesTabs → Bootcamp (#bootcamp) → Faq → HomeClosing → SiteFooter`, all from `sections/home/`, copy in `src/data/home.ts`. Seven sections modelled on wonderful.ai's structure, monochrome, few words, big surfaces. `HomeHero` is full-viewport on a dark `FlowField` with `<SiteNav overDark />`. `Statement` (server) is a dark `FlowField` band: label + a short two-line statement + kicker + "See how we deploy" on the left, and `ApprovalFeed` on the right (grid children `min-w-0` so the feed's truncated rows can't widen the column on phones). The earlier silk texture / dot grid / typing chips were removed for looking like a copy of wonderful.ai. Theme rule: reuse old-site elements if useful, but recoloured to monochrome. `PlatformTeam` = two large cards (app screenshot / abstract field) + inline steps + MIT stat. `EmployeesGrid` has two parts: an open roster in the live site's layout (72 px expressive monochrome `AiOrb`, name in light 3xl, mono role, bold job + one line; no card boxes), then "What they produce" — a scroll rail of output cards (`ShotCrop`; roster jobs plus `HOME_OUTPUTS_EXTRA`, e.g. Social posts) with `RailNav` + right-edge fade. `Bootcamp` sits on a full-width `bg-line-soft` band; `Faq` is centred, single column. `IndustriesTabs` is a client leaf: pill tablist + one large panel. `Bootcamp` is one large light card + the trust line. `home/reveal.tsx` holds `Reveal` and `SectionHead`; `Faq` emits FAQPage JSON-LD. Photos (generated stand-ins from `public/assets/photos/`, see [[photo-brief]]) fill the hero, team card, industries tabs (cross-fade, home-only `PHOTO` map in `industries-tabs.tsx`), bootcamp right half and closing texture, each under a dark gradient + `.grain` where text sits on top. `SiteNav` takes `overDark`: `StickyHeader` sets `--nav-ink` / `--nav-paper` to white-on-ink until scroll, and nav links, logo and buttons read those vars (fallback foreground/background). Superseded 12-section order (2026-11-14, ADR-0033) used Problem, DeployBand, WhyXura, Employees, ChannelsBand, IndustriesGrid and Trust — those files were deleted. Previous home order (2026-10-04): `Hero → DomainsStrip → HowItWorks → Features → Recommendations → Agents → Outputs → Channels → XuraVs → Industries → EnterpriseReady → CaseStudy → ClosingCta → SiteFooter`. Older order note follows: `Hero → DomainsStrip → Features → Channels →
 XuraVs → CaseStudy → Journal → Testimonial → EnterpriseReady → ClosingCta →
 SiteFooter`. (`Values` was dropped 2026-08-10 — its three cards duplicated
 `WhatsApp` and `XuraVs` pitches; the file remains for possible reuse.)
@@ -38,7 +38,7 @@ web app for deep work (see [[changelog]] 2026-10-04; previously WhatsApp-first).
 | `enterprise-ready.tsx` | **New (2026-08-10)** — dark trust band on `#enterprise-ready`. Trust-surface only (agents act with your approval — first item, expanded 2026-10-04 — data privacy, zero raw data, RBAC, explainability, revocability). Feature parity vs LLMs lives in [[XuraVs]]; integration breadth lives in [[Features]] — do NOT restate them here. |
 | `values.tsx` | **Retired from home 2026-08-10** — file kept for possible reuse; three cards duplicated `WhatsApp` + `XuraVs` pitches. |
 | `closing-cta.tsx` | **2026-10-18:** now `display-serif` "Your newest hire. *Ready on day one.*" with an AI-employee subline. Mist band. **2026-10-04:** "Ready to hear what your business is telling you?" + channel-neutral subline (WhatsApp, Slack, Teams, web) + `pill` "Start free trial" and `pill pill-ghost` "See how it works" (→ `#how-it-works`). Note `pill-ghost` is a modifier — always pair it with `pill`. |
-| `sticky-header.tsx` | **New 2026-10-18.** Client wrapper used by `SiteNav`. Renders a 4.5rem spacer plus a `fixed inset-x-0 top-0 z-50` header; adds `border-line bg-background/80 backdrop-blur-md` once `scrollY > 8` (CSS colour transition). **Gotcha:** the header lives inside each page's hero, which is `isolate`, so those hero sections carry `z-20` — without it later sections paint over the header. |
+| `sticky-header.tsx` | **New 2026-10-18.** Client wrapper used by `SiteNav`. Renders a 4.5rem spacer plus a `fixed inset-x-0 top-0 z-50` header; adds `border-line bg-background/95 backdrop-blur-xl backdrop-saturate-150` once `scrollY > 8` (was 80%, read as grey over dark heroes) (CSS colour transition). **Gotcha:** the header lives inside each page's hero, which is `isolate`, so those hero sections carry `z-20` — without it later sections paint over the header. |
 | `site-footer.tsx` | **2026-11-04:** Company column adds "Privacy policy" → `/privacy` (draft page). **2026-10-18 (mobile):** `grid-cols-2` from base (blurb spans 2), logo link `min-h-11 min-w-11`, copyright `text-xs`, mobile wordmark `mt-8` (no negative margin). **2026-10-18:** rebuilt as a brand blurb + four columns — Product (AI employees, Product tour, Pricing, Docs, Start free pilot), Industries, Company (Book a demo, Contact `mailto:`; Sign in removed), Find us (G2 / Product Hunt / YouTube from `siteConfig.profiles`; a `null` URL hides the link). 1 → 2 → 5 columns at base / `sm` / `lg`. Copyright now names `siteConfig.legalName` (Xurian Labs LLP). Pixel wordmark kept. Accent band, oversized wordmark clipped at page edge; industries row. |
 
 ## Industry pages
@@ -60,3 +60,72 @@ the real photograph).
 
 Real assets drop against `data-slot` attributes. Current keys: `hero-device`,
 `features-visual` (`channels-thread` retired 2026-10-04 — the scene is coded).
+
+
+## Graphics added for the home redesign
+
+| File | Notes |
+|------|-------|
+| `sections/home/approval-feed.tsx` | **New 2026-11-15.** `ApprovalFeed` — client; a stack of three work cards from `HOME_FEED` (source chip, task, status, action pill), cycling every 2.6 s while in view (`useInViewport`); one `useTransition` animates the stack (updated 2026-11-16): the newest drops in on top, others glide down a slot and fade, the oldest slides out. Decorative (`aria-hidden`). |
+| `sections/home/rail-nav.tsx` | **New 2026-11-15.** `RailNav({ targetId, label })` — client; ‹ › round buttons that `scrollBy` the rail with `targetId` by 80% of its width (native smooth scroll). Used by the home outputs rail, the industry use-case rail and the platform outputs rail, each with a right-edge `bg-linear-to-l from-background` fade. |
+| `graphics/hiring-app-preview.tsx` | **New 2026-11-15, full page + colour 2026-11-16.** `HiringAppPreview` — static coded replica of the Hiring pipeline app's Overview: top bar with Ask Xura, left menu, numbers band (green/red change), drop-off funnel (blue bars, Biggest drop), Who is applying (candidates by role, applications per week), search row. Uses `app-*` colour tokens. Decorative. |
+| `graphics/flow-builder-preview.tsx` | **New 2026-11-15.** `FlowBuilderPreview` — static coded replica of the flow builder: bar (flow name, trigger chip, Run), step palette (md+), dotted canvas (16:9, `min-w-[46rem]`, scrolls sideways on phones) with absolutely positioned nodes (`NODES`, % centres) and SVG elbow edges (`EDGES`, optional branch labels). The approval node is drawn as the dark "gate". Node kinds mirror the product's flow graph. |
+| `graphics/haze-field.tsx` | **New 2026-11-16.** `HazeField({ variant? })` — light-band background: `var(--field-light-{variant})` (page palette's pale haze + grain) over `bg-line-soft`. Parent needs `relative isolate`. Used behind every grey and white content section (variants alternate 0/1/2 between neighbours); FAQs stay plain white. Edges fade out via `.mask-band` (globals.css) so stacked haze sections show no seam. |
+| `graphics/flow-field.tsx` | **Updated 2026-11-16:** dark tone paints `var(--field-{variant})` (the page palette's gradient + grain) (blue→ink gradient + grain) under the pattern; step cards translucent. **New 2026-11-15** (replaced `BlurField`, whose blurred dark gradient sat behind every dark section). `FlowField` — Xura's background pattern: a faint flow diagram (nodes on an 80 px grid, elbow connectors to the nearest node on the right, a few step "cards", a couple of brighter "hot" nodes), deterministic per `variant` 0–2, flat `bg-foreground` (`tone="dark"`) or `bg-line-soft` (`"light"`), faded behind the centre with `.mask-edges`. Static SVG, `aria-hidden`, `-z-10`; parent needs `relative isolate`. |
+
+## Platform page sections (`sections/platform/`, 2026-11-15, ADR-0037)
+
+| File | Notes |
+|------|-------|
+| `platform-hero.tsx` | `PlatformHero` — dark `FlowField`, `SiteNav overDark`, dark `Breadcrumbs`, H1 + sub + pill, app screenshot on a stage. |
+| `connect.tsx` | `Connect` — centred head; `KnowledgeGraph` card (grey frame) + hairline list of four. |
+| `ask-act.tsx` | `AskAct` — dark band, three steps in one bordered row. |
+| `outputs-rail.tsx` | `OutputsRail` — scroll rail of five output cards (`ShotCrop`) with `RailNav` + edge fade. |
+| `apps.tsx` | `Apps` (`#apps`) — "Describe the app you need. Xura builds it.": `HiringAppPreview` + four points (built from a chat, pages, Ask Xura inside, yours) + ready-made app chips (`PLATFORM_APPS`). |
+| `flows.tsx` | `Flows` — grey band (`#flows`), `FlowBuilderPreview` canvas, three points. |
+| `channels.tsx` | `PlatformChannels` — copy beside `ChannelScene`. |
+| `trust-grid.tsx` | `TrustGrid` — hairline 3×2 grid of six controls (`#trust`). |
+
+`sections/nav-dropdown.tsx` — `NavDropdown({ label, id, linkClass, children })`,
+client: shared mega-menu shell (md+). Trigger button + full-width white panel
+at `top-[4.5rem]`; opens on hover or click, closes on Escape / outside click /
+mouse-leave; opacity transition only. `children(close)` renders the panel.
+
+`sections/platform-menu.tsx` — `PlatformMenu({ linkClass })`: two columns
+from `PLATFORM_MENU` + a bootcamp feature card, on `NavDropdown`.
+
+`sections/industries-menu.tsx` — `IndustriesMenu({ linkClass })`, client:
+industries (label + `industryFocus()`) in two columns, a 4:3 photo that
+crossfades to the hovered/focused industry, "All industries →" to the hub.
+
+## Shared inner-page sections (`sections/shared/`, 2026-11-16, ADR-0040)
+
+| File | Notes |
+|------|-------|
+| `page-hero.tsx` | `PageHero({ id, title, sub, path, name, variant?, children? })` — dark `FlowField` hero, `SiteNav overDark`, dark `Breadcrumbs` (Home › name), light H1, sub, bootcamp pill, optional visual below. |
+| `faq-section.tsx` | `FaqSection({ id, items })` — centred single-column `<details>` FAQ + FAQPage JSON-LD from the same items. |
+| `cta-band.tsx` | `CtaBand({ id, heading, sub?, variant? })` — dark `FlowField` closing band with the bootcamp pill. |
+
+`sections/apps/apps-sections.tsx` — `AppsSteps`, `AppsAnatomy`, `AppsExamples`, `AppsCompare`.
+`sections/deployment/deployment-sections.tsx` — `DeploySteps`, `DeployLead`, `DeployBootcamp`, `DeployHosting`, `DeployWhy`.
+
+| `sections/shared/feature-sections.tsx` | **New 2026-11-16.** Used by `views/subpages.tsx`. Prop-driven `StepsSection`, `GridSection`, `CardsSection`, `CompareSection` (same layouts as /apps, each with `HazeField`) for the product and How we work sub-pages. `platform-menu.tsx` now exports `PlatformMenu` and `HowMenu` (shared `MegaMenu`; data `PLATFORM_MENU` / `HOW_MENU` in `data/platform.ts`). |
+| `sections/shared/depth-sections.tsx` | **New 2026-11-16 (ADR-0042).** `WalkthroughSection` (sticky intro + numbered steps with Reads/Produces, `gate` for approvals, optional `aside`), `SplitSection` (copy list + `visual`), `ProfilesSection` (orb, job, reads/produces/approves, real output on dark field), `ChecklistSection`, `DataFlowDiagram`. Used by `views/subpages.tsx`. |
+| `graphics/logo-marquee.tsx` | **New 2026-11-16 (ADR-0043).** `LogoMarquee` — two endless rows (opposite directions; `SYSTEMS_LOGOS` / `WORK_LOGOS`) of real brand logos (white tiles, brand-colour marks) drifting left; linear spring loop over two copies, paused off screen and for reduced motion, `.mask-x` edge fade, logo names in an sr-only line. Data: `data/brand-logos.ts` (Simple Icons v13 paths). |
+
+> **NavDropdown update (2026-11-16, ADR-0043):** opens with a spring (`useSpring`: clip-path `inset` unroll + opacity; content `translateY` −10→0 with 60ms delay) instead of the CSS opacity transition. A mouse click keeps the menu open (hover already opened it); touch and keyboard toggle. `platform-menu.tsx` also exports `HowMenu`.
+
+> **SiteNav phone menu (2026-11-16):** below `md` the `<details>` panel lists every page in three groups (`MOBILE_GROUPS`: Platform and How we work from `PLATFORM_MENU` / `HOW_MENU` columns, Industries from `INDUSTRIES` + "All industries"), then Sign in. Docs is footer-only since 2026-11-16 (`LINKS` empty). Scrolls within `100svh − 6rem`; rows are `min-h-11`. Add a page to the desktop menu data and it appears on phones too.
+
+> **Phone behaviour (2026-11-16):** `FlowBuilderPreview` shows a vertical step list below `md` (`PHONE_ORDER`); `ApprovalFeed` hides its source chip below `sm`; FAQ `<summary>` rows carry the padding (`min-h-11 py-5`) so the whole row is the tap target.
+| `sections/shared/content-blocks.tsx` | **New 2026-11-16 (ADR-0046).** `AnswerBlock({ id, q, a })` (40–60 word definition under the hero; h2 = the searched question), `EssaySection({ id, essay })` (POV paragraphs + optional numbered principles), `RelatedLinks({ id, heading?, links })`, `ComparisonTable({ id, data })` (semantic table, first column highlighted). Used by `views/content-pages.tsx`, `views/subpages.tsx`, `views/industry.tsx`. |
+| `graphics/employee-profile-preview.tsx` | **New 2026-11-16.** `EmployeeProfilePreview` — coded replica of the product's AI employee page (Xura-main `AgentProfile.tsx`) for Nora: hero with role, description and stats (routines on / playbooks / tools / ask you first), "A day with Nora" strip (meeting-prep band 8–18, markers), routines with Run now and switches. Accent `--employee-chief-of-staff` via `color-mix` tints. Used in the "Inside the product" `SplitSection` on /ai-employees. Decorative. |
+| `sections/shared/video-section.tsx` | **New 2026-11-16.** `VideoSection({ id, label, heading, lead?, variant? })` + `PRODUCT_TOUR` (the live site's YouTube tour `8tkNY0mJBss`, 1:38) rendered with `common/video-tour.tsx` (click-to-load youtube-nocookie, VideoObject JSON-LD). On /platform (after hero) and /ai-employees (after the answer block). `VideoTour` backdrop changed from green `brand-ink` to neutral `foreground`. |
+
+> **EmployeeProfilePreview layout (2026-11-16):** on `lg` the day strip and routines sit side by side (`grid-cols-[1fr_2fr]`), routines in a 2×2 grid with "Run now" hidden; stacked below `lg`. On /ai-employees it renders full-width (max 68rem) under a 4-up row of points, not in a `SplitSection`. `VideoSection` player max width is 46rem.
+
+> **EmployeeProfilePreview rebuilt (2026-11-16):** now mirrors the product layout — hero, full-width day strip (24h grid, markers with icons, legend), single-column routine rows with icons. Inline line icons (`ICON` map). Max width 52rem on /ai-employees. Supersedes the side-by-side note above.
+
+> **Mega-menus (2026-11-16):** a hover-image variant was tried and reverted; `MegaMenu` shows two link columns + the bootcamp feature card (`menu.feature`). Item `image` fields are unused. `StickyHeader` is adaptive glass (see changelog).
+
+> **ChecklistSection (2026-11-16):** one list → centred card (max 52rem) with items in two columns; two lists → side by side; three → 3-up.

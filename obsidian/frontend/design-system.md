@@ -151,6 +151,47 @@ colour, mirroring `DOMAIN_COLOR` in the Xura app. Tier 1
 bound into `@theme`; they're passed as `var(--employee-*)` to `AiOrb`'s
 `accent` prop (which sets `--orb-accent`) and used inline for the role label.
 
+**App-preview colours (2026-11-16).** Coded product replicas may use the
+product's own colours via `app-brand`, `app-brand-mid`, `app-brand-soft`,
+`app-positive`, `app-negative` (Tier 1 `--raw-color-app-green-700 /
+red-700` + the blue ramp). Never use them for site chrome.
+
+**Contrast rule for textures.** Dark textures must keep white text ≥ 4.5:1:
+`scripts/generate-gradient-textures.py` caps every dark tone at luminance
+0.15 and reports the contrast per palette — don't raise `MAX_DARK_L` or add
+pale highlights without re-checking.
+
+**Page palettes (2026-11-16).** `--field-{0,1,2}` (dark) and
+`--field-light-{0,1,2}` (light haze) hold `url()`s to the current page's
+gradient textures; `:root` = blue, `.palette-violet|teal|amber|green` swap
+them. Views set the class on their wrapper (home blue, platform violet, apps
+teal, deployment amber, industries green). New palette → add it to
+`PALETTES` in `scripts/generate-gradient-textures.py`, regenerate, add a
+`.palette-*` block.
+
+**Gradient backgrounds (2026-11-16).** Dark bands use `FlowField`, which now
+paints a blue-to-ink grain texture (`/assets/textures/field-{0,1,2}.webp`,
+regenerate with `scripts/generate-gradient-textures.py`) under the faint
+flow pattern.
+
+**Background pattern (2026-11-15).** Dark (and light) bands use `FlowField`,
+not gradients: a faint flow diagram on flat ink, faded behind centred content
+by `.mask-edges` (`@layer utilities`, radial mask transparent in the middle).
+
+**Photo treatment (2026-11-15).** Photos render through `PhotoFill` with
+`blur-photo` (Tier 1 `--raw-blur-photo: 2px` → Tier 2 `--photo-blur` →
+`@theme --blur-photo`; now 10 px, applied only toward the edges through the
+`.mask-lens` radial mask — a uniform blur looked fake) and `.grain-photo` (`@layer utilities`, `::before`
+noise at `--photo-grain-opacity`, overlay blend, `z-index: 1`). Change the
+look of every photo by editing those two Tier 1 values. Never blur product
+screenshots.
+
+**Home redesign utilities (2026-11-14, ADR-0033; home is monochrome since 2026-11-15, ADR-0035 — yellow/sand no longer used there).** `.scrollbar-none` hides the scrollbar on horizontal rails. `.display-light` (hero /
+closing, 300 weight, up to 5rem) and `.display-light-md` (section h2s) in
+`@layer utilities`, leading ≥ 1.1. `.pill-inverse` (white pill on dark bands)
+`.pill-accent` (yellow, for brand-ink bands) and `.pill-lg` (larger hero/CTA pill) in `@layer components` next to `.pill`.
+No new colour tokens: dark bands are `bg-foreground text-background` (the owner rejected brand-ink green surfaces; `--brand-ink` is now only for small in-mockup chips), warm bands `bg-band-sand` + `.texture`, the bootcamp panel `bg-accent`.
+
 **WhatsApp UI colours (2026-10-18).** `--raw-color-wa-*` → `--whatsapp-wallpaper
 / bubble-out / action / read / meta`, used only by the coded WhatsApp mockup
 in `graphics/channel-scene.tsx` (as arbitrary-value background and text utilities). They copy
@@ -193,7 +234,7 @@ If you are reaching past this list, you want `<Hover>` — see
 ## Responsive images
 
 `next/image` uses `src/lib/images/loader.js` (ADR-0032). After adding or replacing a
-`.webp` in `public/assets/product` or `public/industries`, run
+`.webp` in `public/assets/product`, `public/assets/photos` or `public/industries`, run
 `node scripts/resize-images.mjs` and commit the `-640` and `-1080` variants. Set an
 accurate `sizes` prop, and a `width` close to display size for fixed-size images.
 
@@ -261,3 +302,6 @@ there, scales to `size`, takes `accent` and stops spinning. Use a slot wherever
 a section shows **one** mascot, so the page never shows two copies of the same
 character. Below `md` the slot renders a normal AiOrb. Only one slot holds the
 orb at a time (owner ids in `useOrbDock`).
+
+### Cards on haze sections (2026-11-16)
+Cards inside a `HazeField` section use `rounded-3xl border border-line bg-background` (white + hairline), never `bg-line-soft` — grey cards turn muddy on the tinted haze.

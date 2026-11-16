@@ -9,17 +9,20 @@ import { AiOrb } from "@/components/graphics/ai-orb";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { getProductStructuredData } from "@/utils/seo/structured-data";
 import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
+import { siteConfig } from "@/lib/site";
 import {
   CREDIT_EXAMPLES,
   CREDITS_NOTE,
   CUSTOM_FLOWS,
+  ENGAGEMENT_STEPS,
   PRICING_FAQ,
   PRICING_PLANS,
 } from "@/data/pricing";
 
 /**
- * Pricing view. Hero in Nora's voice, four plan cards (free pilot + three
- * paid; the `featured` plan is emphasised), a "what credits buy" strip of
+ * Pricing view. Hero, the three-step engagement (bootcamp →
+ * deployment → platform plan), three platform plan cards (the `featured`
+ * plan is emphasised), a "what credits buy" strip of
  * chat-style examples, and an FAQ using native `<details>` with FAQPage
  * JSON-LD. Content lives in `data/pricing.ts`.
  */
@@ -100,7 +103,7 @@ export const PricingView = () => (
           className="pointer-events-none absolute inset-x-0 top-0 h-[26rem]"
           style={{
             background:
-              "linear-gradient(180deg, var(--duo-soft) 0%, var(--background) 80%)",
+              "linear-gradient(180deg, var(--line-soft) 0%, var(--background) 60%)",
           }}
         />
         <div className="relative z-10">
@@ -136,10 +139,9 @@ export const PricingView = () => (
               from={{ y: 22 }}
               to={{ y: 0 }}
               config={{ tension: 175, friction: 28 }}
-              className="display-serif mx-auto mt-3 max-w-[20ch]"
+              className="display-light mx-auto mt-3 max-w-[18ch]"
             >
-              Hire your first AI employee.{" "}
-              <span className="font-semibold italic">Start with 100 free credits.</span>
+              Start with two days. Then pay for what runs.
             </Spring>
             <Spring
               tag="p"
@@ -150,16 +152,57 @@ export const PricingView = () => (
               config={{ tension: 175, friction: 28 }}
               className="mx-auto mt-5 max-w-[56ch] text-sm leading-relaxed text-muted"
             >
-              &ldquo;Explore with 100 credits on your own data. I&apos;ll learn
-              your core flows and get them running for you.&rdquo;
-              <span className="mt-1 block text-xs">Nora, Chief of Staff</span>
+              Every engagement starts with a 2-day bootcamp on your own
+              data. Our team then has it live in about two
+              weeks, and it runs on a platform plan.
             </Spring>
           </div>
         </div>
       </section>
 
-      <section aria-label="Plans" className="bg-background py-14 md:py-20">
-        <ul className="shell grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <section aria-labelledby="engagement-heading" className="bg-background py-14 md:py-20">
+        <div className="shell">
+          <h2 id="engagement-heading" className="display-light-md max-w-[24ch]">
+            How a Xura engagement is priced
+          </h2>
+          <ol className="mt-10 grid gap-4 md:grid-cols-3">
+            {ENGAGEMENT_STEPS.map((step, i) => (
+              <Inview
+                key={step.title}
+                tag="li"
+                mode="once"
+                delayIn={i * 70}
+                from={{ opacity: 0, y: 18 }}
+                to={{ opacity: 1, y: 0 }}
+                config={{ tension: 180, friction: 27 }}
+                className={`flex flex-col rounded-3xl p-7 ${i === 0 ? "bg-foreground text-background" : "bg-line-soft"}`}
+              >
+                <span className={`text-xs ${i === 0 ? "text-background/60" : "text-muted"}`}>0{i + 1}</span>
+                <h3 className="mt-6 text-xl font-semibold">{step.title}</h3>
+                <p className={`mt-1 text-sm font-medium ${i === 0 ? "text-background/80" : ""}`}>{step.price}</p>
+                <p className={`mt-3 text-sm leading-relaxed ${i === 0 ? "text-background/70" : "text-muted"}`}>{step.body}</p>
+                {i === 0 ? (
+                  <a href={siteConfig.demoUrl} className="pill pill-inverse mt-6 self-start">
+                    Book a 2-day bootcamp <span aria-hidden>→</span>
+                  </a>
+                ) : null}
+              </Inview>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section aria-labelledby="plans-heading" className="bg-background pb-14 md:pb-20">
+        <div className="shell">
+          <h2 id="plans-heading" className="display-light-md max-w-[24ch]">
+            Platform plans
+          </h2>
+          <p className="mt-4 max-w-[56ch] text-base leading-relaxed text-muted">
+            Once it is live, it runs on a per-seat plan with a
+            monthly credit allowance.
+          </p>
+        </div>
+        <ul className="shell mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {PRICING_PLANS.map((plan, idx) => (
             <Inview
               key={plan.name}
@@ -178,7 +221,7 @@ export const PricingView = () => (
               }`}
             >
               <div className="flex items-center justify-between gap-3">
-                <h2 className="text-lg font-semibold tracking-tight">{plan.name}</h2>
+                <h3 className="text-lg font-semibold tracking-tight">{plan.name}</h3>
                 {plan.badge && (
                   <span
                     className={`rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold ${
@@ -305,7 +348,7 @@ export const PricingView = () => (
       >
         <div className="shell">
           <p className="meta">How credits work</p>
-          <h2 id="credits-heading" className="display-sans mt-3 max-w-[26ch]">
+          <h2 id="credits-heading" className="display-light-md mt-3 max-w-[26ch]">
             One allowance, spent on whatever work you need.
           </h2>
           <p className="mt-4 max-w-[60ch] text-sm leading-relaxed text-muted">

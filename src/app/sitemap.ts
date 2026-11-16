@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
+import { COMPARE_PAGES } from "@/data/compare";
 import { INDUSTRIES } from "@/data/industries";
+import { USE_CASES } from "@/data/use-cases";
 import { siteConfig } from "@/lib/site";
 
 /**
@@ -18,9 +20,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     entry("", 1, "weekly"),
-    entry("/pricing", 0.9),
+    entry("/platform", 0.9),
+    entry("/ai-employees", 0.9),
+    entry("/workflows", 0.9),
+    entry("/apps", 0.9),
+    entry("/integrations", 0.8),
+    entry("/security", 0.8),
+    entry("/ai-transformation", 0.9),
+    entry("/bootcamp", 0.9),
+    entry("/deployment", 0.9),
     entry("/industries", 0.8),
     ...INDUSTRIES.map((i) => entry(`/industries/${i.slug}`, 0.8)),
+    entry("/use-cases", 0.8),
+    ...USE_CASES.map((u) => entry(`/use-cases/${u.slug}`, 0.8)),
+    ...COMPARE_PAGES.map((c) => entry(`/compare/${c.slug}`, 0.7)),
     entry("/trial", 0.7),
     entry("/privacy", 0.3, "yearly"),
   ];

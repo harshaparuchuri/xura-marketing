@@ -55,6 +55,16 @@
 
   --raw-shadow-lift: 0 1.5rem 3.75rem -1.5rem rgb(16 17 18 / 0.28), 0 0.125rem 0.375rem rgb(16 17 18 / 0.06);
 
+  /* Product UI replicas (coded app previews) — the app's own status colours,
+     matching Xura-main apps workbench (good = green, bad = red ink). */
+  --raw-color-app-green-700: #067647;
+  --raw-color-app-red-700: #b42318;
+
+  /* Photo treatment (visual reference: wonderful.ai's soft, grainy photos). */
+  /* Blur applies only toward the edges (lens falloff), never on the subject. */
+  --raw-blur-photo: 10px;
+  --raw-opacity-photo-grain: 0.12;
+
   --raw-duration-fast: 150ms;
   --raw-duration-normal: 250ms;
 }
@@ -108,6 +118,17 @@
 
   --elevation-product: var(--raw-shadow-lift);
 
+  /* Product UI replicas: brand (blue, as in the Hiring app screenshot) and
+     status colours. Only for coded previews of the product, never site chrome. */
+  --app-brand: var(--raw-color-blue-600);
+  --app-brand-mid: var(--raw-color-blue-400);
+  --app-brand-soft: var(--raw-color-blue-200);
+  --app-positive: var(--raw-color-app-green-700);
+  --app-negative: var(--raw-color-app-red-700);
+
+  --photo-blur: var(--raw-blur-photo);
+  --photo-grain-opacity: var(--raw-opacity-photo-grain);
+
   --duration-fast: var(--raw-duration-fast);
   --duration-normal: var(--raw-duration-normal);
 }
@@ -158,6 +179,72 @@
   --ease-entrance: cubic-bezier(0.2, 0, 0, 1);
 
   --shadow-product: var(--elevation-product);
+
+  --blur-photo: var(--photo-blur);
+
+  --color-app-brand: var(--app-brand);
+  --color-app-brand-mid: var(--app-brand-mid);
+  --color-app-brand-soft: var(--app-brand-soft);
+  --color-app-positive: var(--app-positive);
+  --color-app-negative: var(--app-negative);
+}
+
+/* Section background palettes by page type (owner, 2026-11-16). FlowField,
+   HazeField and the footer read --field-N / --field-light-N; a page sets its
+   palette with one class on its wrapper. Default (no class) is blue.
+   Textures: scripts/generate-gradient-textures.py. */
+:root {
+  --field-0: url(/assets/textures/field-blue-0.webp);
+  --field-1: url(/assets/textures/field-blue-1.webp);
+  --field-2: url(/assets/textures/field-blue-2.webp);
+  --field-light-0: url(/assets/textures/field-light-blue-0.webp);
+  --field-light-1: url(/assets/textures/field-light-blue-1.webp);
+  --field-light-2: url(/assets/textures/field-light-blue-2.webp);
+}
+
+.palette-blue {
+  --field-0: url(/assets/textures/field-blue-0.webp);
+  --field-1: url(/assets/textures/field-blue-1.webp);
+  --field-2: url(/assets/textures/field-blue-2.webp);
+  --field-light-0: url(/assets/textures/field-light-blue-0.webp);
+  --field-light-1: url(/assets/textures/field-light-blue-1.webp);
+  --field-light-2: url(/assets/textures/field-light-blue-2.webp);
+}
+
+.palette-violet {
+  --field-0: url(/assets/textures/field-violet-0.webp);
+  --field-1: url(/assets/textures/field-violet-1.webp);
+  --field-2: url(/assets/textures/field-violet-2.webp);
+  --field-light-0: url(/assets/textures/field-light-violet-0.webp);
+  --field-light-1: url(/assets/textures/field-light-violet-1.webp);
+  --field-light-2: url(/assets/textures/field-light-violet-2.webp);
+}
+
+.palette-teal {
+  --field-0: url(/assets/textures/field-teal-0.webp);
+  --field-1: url(/assets/textures/field-teal-1.webp);
+  --field-2: url(/assets/textures/field-teal-2.webp);
+  --field-light-0: url(/assets/textures/field-light-teal-0.webp);
+  --field-light-1: url(/assets/textures/field-light-teal-1.webp);
+  --field-light-2: url(/assets/textures/field-light-teal-2.webp);
+}
+
+.palette-amber {
+  --field-0: url(/assets/textures/field-amber-0.webp);
+  --field-1: url(/assets/textures/field-amber-1.webp);
+  --field-2: url(/assets/textures/field-amber-2.webp);
+  --field-light-0: url(/assets/textures/field-light-amber-0.webp);
+  --field-light-1: url(/assets/textures/field-light-amber-1.webp);
+  --field-light-2: url(/assets/textures/field-light-amber-2.webp);
+}
+
+.palette-green {
+  --field-0: url(/assets/textures/field-green-0.webp);
+  --field-1: url(/assets/textures/field-green-1.webp);
+  --field-2: url(/assets/textures/field-green-2.webp);
+  --field-light-0: url(/assets/textures/field-light-green-0.webp);
+  --field-light-1: url(/assets/textures/field-light-green-1.webp);
+  --field-light-2: url(/assets/textures/field-light-green-2.webp);
 }
 
 /* The starter centres a single placeholder in the viewport; a marketing page
@@ -244,6 +331,37 @@ body {
     text-wrap: balance;
   }
 
+  /* Light, oversized grotesque display — the home hero and section heads in
+     the platform + deployment-team redesign (visual reference: large,
+     light-weight, tightly tracked headlines). Leading stays ≥ 1.1. */
+  .display-light {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5.6vw, 5rem);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .display-light-md {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(1.875rem, 3.4vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  /* Hide the scrollbar on horizontal rails (the home AI-employees rail);
+     the row still scrolls by touch, trackpad and keyboard. */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Tiny uppercase meta — "001", category labels, footer legal. */
   .meta {
     font-size: 0.6875rem;
@@ -263,6 +381,45 @@ body {
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.03' numOctaves='4' seed='7'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23t)' opacity='0.55'/%3E%3C/svg%3E");
     background-size: 22rem 22rem;
+  }
+
+  /* Heavier film grain for photographs (PhotoFill). Static SVG noise,
+     overlay blend so it reads on both light and dark areas. */
+  /* Lens-style falloff: the blurred copy shows only toward the edges; the
+     centre (the subject) stays sharp. Used by PhotoFill's second layer. */
+  .mask-lens {
+    /* Focus point comes from PhotoFill's `focus` prop (--lens-x / --lens-y). */
+    -webkit-mask-image: radial-gradient(ellipse 70% 65% at var(--lens-x, 50%) var(--lens-y, 45%), transparent 35%, black 100%);
+    mask-image: radial-gradient(ellipse 70% 65% at var(--lens-x, 50%) var(--lens-y, 45%), transparent 35%, black 100%);
+  }
+
+  /* Fades a background pattern out behind centred content (FlowField). */
+  .mask-edges {
+    -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, transparent 20%, black 85%);
+    mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, transparent 20%, black 85%);
+  }
+  /* Light haze bands fade out at top and bottom so stacked sections meet on
+     the plain page background, with no visible seam. */
+  /* Fades a horizontal marquee out at its left and right edges. */
+  .mask-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+  .mask-band {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 7rem, black calc(100% - 7rem), transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 7rem, black calc(100% - 7rem), transparent);
+  }
+
+  .grain-photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: var(--photo-grain-opacity);
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-size: 8rem 8rem;
   }
 
   /* Fine film grain for dark product stages (mirrors the product's login /
@@ -310,5 +467,30 @@ body {
   .pill-ghost:hover {
     background: var(--foreground);
     color: var(--background);
+  }
+
+  /* Inverted pill for dark bands (closing CTA). */
+  .pill-inverse {
+    background: var(--background);
+    color: var(--foreground);
+  }
+
+  .pill-inverse:hover {
+    background: var(--line);
+  }
+
+  /* Accent pill — the brand yellow, for the closing CTA on brand-ink. */
+  .pill-accent {
+    background: var(--accent);
+    color: var(--foreground);
+  }
+
+  .pill-accent:hover {
+    background: var(--accent-strong);
+  }
+
+  .pill-lg {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
   }
 }

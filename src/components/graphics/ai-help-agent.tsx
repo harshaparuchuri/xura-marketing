@@ -63,8 +63,8 @@ export const AiHelpAgent = () => {
       <div ref={anchorRef} style={{ width: REST_SIZE, height: REST_SIZE }}>
         <animated.a
           href={siteConfig.demoUrl}
-          aria-label="Book a demo with Xura's AI employees"
-          title="Book a demo"
+          aria-label="Book a 2-day bootcamp with Xura"
+          title="Book a bootcamp"
           className="pointer-events-auto block cursor-pointer"
           style={{
             width: REST_SIZE,
@@ -77,7 +77,8 @@ export const AiHelpAgent = () => {
           }}
         >
           {/* Docked: face forward like the roster orbs; free-floating: the usual 3D spin. */}
-          <AiOrb size={REST_SIZE} expressive accent={target?.accent} spin={target ? false : undefined} />
+          {/* Monochrome by default (site theme); a dock slot may still pass its own accent. */}
+          <AiOrb size={REST_SIZE} expressive accent={target?.accent ?? "var(--muted)"} spin={target ? false : undefined} />
         </animated.a>
       </div>
     </div>

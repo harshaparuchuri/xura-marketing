@@ -1,0 +1,14 @@
+# Xura
+
+> Xura (xuralabs.com) is an AI company based in Hyderabad. Its deployment team finds the work that needs attention inside mid-size companies across India and Southeast Asia, decides where an AI agent can improve it, and custom-builds AI employees, apps and agentic flows on the Xura platform. Engagements start with a paid two-day bootcamp on the customer's own data; it is live in about two weeks, and the customer approves every output.
+
+## Pages
+
+- [Home](https://xuralabs.com/): What Xura does, how the deployment team works, and the AI employees.
+- [Platform](https://xuralabs.com/platform): The Xura platform: connectors and a live knowledge graph, outputs (decks, dashboards, research, briefs), apps built by describing them in chat (e.g. a hiring pipeline, renewals desk), agentic flows, WhatsApp/Slack/Teams approvals, and enterprise controls.
+- [Apps](https://xuralabs.com/apps): Build internal apps by describing them in chat: records, pages, charts, Ask Xura inside, brand and access. Examples: hiring pipeline, renewals desk, billing exceptions.
+- [Deployment](https://xuralabs.com/deployment): How an engagement runs (2-day bootcamp, deployment lead on site, live in about two weeks) and where Xura runs: Xura cloud, the customer's VPC, or on premises.
+- [How we deploy](https://xuralabs.com/#how-we-deploy): Bootcamp, find what needs attention, custom-build apps and flows, live in about two weeks, then a new flow every quarter.
+- [AI employees](https://xuralabs.com/#ai-employees): Sales review, quality and operations tracking, leadership decks and hiring.
+- [Bootcamp](https://xuralabs.com/#bootcamp): A paid two-day session on your own data; the fee is credited to the deployment.
+- [Industries](https://xuralabs.com/industries): Pharma, manufacturing, healthcare, fintech and SaaS.
