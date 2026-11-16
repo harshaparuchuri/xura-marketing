@@ -29,7 +29,8 @@ export const classifyLink = (
       : { event: "sign_in_click" };
   }
   if (url.origin === window.location.origin && url.pathname === demoPath) {
-    return { event: "cta_click", cta: "demo" };
+    // `?talk` = the softer "Talk to us" CTA (see components/common/cta-pair.tsx).
+    return { event: "cta_click", cta: url.searchParams.has("talk") ? "talk" : "demo" };
   }
   return null;
 };

@@ -13,6 +13,7 @@ import { SiteFooter } from "@/components/sections/site-footer";
 import { PLATFORM_CLOSING } from "@/data/platform";
 import { siteConfig } from "@/lib/site";
 import { getPlatformStructuredData } from "@/utils/seo/structured-data";
+import { CtaPair } from "@/components/common/cta-pair";
 
 /**
  * Platform view (/platform) — the feature depth the lean home left out
@@ -45,9 +46,7 @@ export const PlatformView = () => (
             {PLATFORM_CLOSING.sub}
           </Reveal>
           <Reveal delay={120} className="mt-9 flex justify-center">
-            <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
-              Book a 2-day bootcamp <span aria-hidden>→</span>
-            </a>
+            <CtaPair />
           </Reveal>
         </div>
       </section>

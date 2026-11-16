@@ -1,9 +1,22 @@
 import { FlowField } from "@/components/graphics/flow-field";
 import { Reveal } from "@/components/sections/home/reveal";
-import { siteConfig } from "@/lib/site";
+import { CtaPair } from "@/components/common/cta-pair";
 
-/** CtaBand — dark FlowField closing band: heading, optional sub, bootcamp pill. */
-export const CtaBand = ({ id, heading, sub, variant = 2 }: { id: string; heading: string; sub?: string; variant?: 0 | 1 | 2 }) => (
+/** CtaBand — dark FlowField closing band: heading, optional sub, `CtaPair`. */
+export const CtaBand = ({
+  id,
+  heading,
+  sub,
+  variant = 2,
+  lead = "talk",
+}: {
+  id: string;
+  heading: string;
+  sub?: string;
+  variant?: 0 | 1 | 2;
+  /** Which CTA leads; see `CtaPair`. */
+  lead?: "bootcamp" | "talk";
+}) => (
   <section aria-labelledby={id} className="relative isolate overflow-hidden py-24 text-center text-background md:py-36">
     <FlowField tone="dark" variant={variant} />
     <div className="shell">
@@ -16,9 +29,7 @@ export const CtaBand = ({ id, heading, sub, variant = 2 }: { id: string; heading
         </Reveal>
       ) : null}
       <Reveal delay={120} className="mt-9 flex justify-center">
-        <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
-          Book a 2-day bootcamp <span aria-hidden>→</span>
-        </a>
+        <CtaPair lead={lead} />
       </Reveal>
     </div>
   </section>

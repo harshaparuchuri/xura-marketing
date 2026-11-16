@@ -1,3 +1,6 @@
+import Link from "next/link";
+
+import { TALK_URL } from "@/components/common/cta-pair";
 import { BackgroundVideo } from "@/components/common/background-video";
 import { Spring } from "@/components/animation/springs/spring";
 import { SiteNav } from "@/components/sections/site-nav";
@@ -52,12 +55,12 @@ export const HomeHero = () => (
         config={{ tension: 180, friction: 27 }}
         className="mt-9 flex flex-wrap justify-center gap-3"
       >
-        <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
-          {HOME_BOOTCAMP.cta} <span aria-hidden>→</span>
+        <a href={TALK_URL} className="pill pill-inverse pill-lg">
+          Talk to us <span aria-hidden>→</span>
         </a>
-        <a href="#how-we-deploy" className="pill pill-lg border border-background/50 bg-foreground/25 text-background backdrop-blur-sm hover:bg-background/10">
+        <Link href="/deployment" className="pill pill-lg border border-background/50 bg-foreground/25 text-background backdrop-blur-sm hover:bg-background/10">
           See how we deploy
-        </a>
+        </Link>
       </Spring>
     </div>
   </section>

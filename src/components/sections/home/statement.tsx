@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { FlowField } from "@/components/graphics/flow-field";
 import { ApprovalFeed } from "@/components/sections/home/approval-feed";
 import { Reveal } from "@/components/sections/home/reveal";
@@ -21,9 +23,9 @@ export const Statement = () => (
           {HOME_STATEMENT.kicker}
         </Reveal>
         <Reveal delay={120} className="mt-9">
-          <a href="#how-we-deploy" className="pill pill-inverse pill-lg">
+          <Link href="/deployment" className="pill pill-inverse pill-lg">
             See how we deploy
-          </a>
+          </Link>
         </Reveal>
       </div>
       <Reveal delay={100} className="rounded-3xl bg-background/5 p-4 ring-1 ring-background/10 md:p-6">

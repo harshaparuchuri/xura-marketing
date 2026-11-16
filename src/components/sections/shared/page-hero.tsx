@@ -4,6 +4,7 @@ import { Spring } from "@/components/animation/springs/spring";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { FlowField } from "@/components/graphics/flow-field";
 import { SiteNav } from "@/components/sections/site-nav";
+import { CtaPair } from "@/components/common/cta-pair";
 import { siteConfig } from "@/lib/site";
 
 /**
@@ -18,6 +19,7 @@ export const PageHero = ({
   path,
   name,
   variant = 0,
+  lead = "talk",
   children,
 }: {
   id: string;
@@ -26,6 +28,8 @@ export const PageHero = ({
   path: string;
   name: string;
   variant?: 0 | 1 | 2;
+  /** Which CTA leads; see `CtaPair`. */
+  lead?: "bootcamp" | "talk";
   children?: ReactNode;
 }) => (
   <section aria-labelledby={id} className="relative isolate z-20 overflow-hidden text-background">
@@ -40,9 +44,7 @@ export const PageHero = ({
         {sub}
       </Spring>
       <Spring mode="once" delayIn={160} from={{ y: 14 }} to={{ y: 0 }} config={{ tension: 180, friction: 27 }} className="mt-9 flex justify-center">
-        <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
-          Book a 2-day bootcamp <span aria-hidden>→</span>
-        </a>
+        <CtaPair lead={lead} />
       </Spring>
       {children ? (
         <Spring mode="once" delayIn={220} from={{ y: 40 }} to={{ y: 0 }} config={{ tension: 150, friction: 30 }} className="mx-auto mt-16 max-w-[60rem] text-left">

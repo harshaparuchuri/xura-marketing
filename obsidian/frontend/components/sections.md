@@ -132,3 +132,5 @@ crossfades to the hovered/focused industry, "All industries →" to the hub.
 > **ChecklistSection (2026-11-16):** one list → centred card (max 52rem) with items in two columns; two lists → side by side; three → 3-up.
 
 > **2026-11-16 (audit fixes):** `home/platform-team.tsx` card scrims are `from-55% via-foreground/85` below `md` (was 30% / 70%, so phone copy sat on the busy product shot); `md` keeps 30% / 70%. `home/home-hero.tsx` desktop scrim ellipse 60%×48% → 68%×64% at 50% 55%, opacity 0.6 → 0.75; "See how we deploy" pill gets `bg-foreground/25 backdrop-blur-sm`. `home/industries-tabs.tsx` and `views/industries-index.tsx` show the first use-case title without the "Example:" prefix.
+
+> **2026-11-16 (CTAs):** every "See how we deploy" (home hero, home statement, industry hero) now links to `/deployment` (was `#how-we-deploy` on the home page). `trial-intro.tsx` (client, in `<Suspense>` with the bootcamp copy as fallback, so the exported HTML keeps it): `/trial?talk` shows "Talk to our team" + a 30-minute-call intro. Use-case pages, the use-cases index and comparison pages pass `lead="talk"` to `PageHero` / `CtaBand`.

@@ -1,3 +1,4 @@
+import { CtaPair } from "@/components/common/cta-pair";
 import { FlowField } from "@/components/graphics/flow-field";
 import { Reveal } from "@/components/sections/home/reveal";
 import { HOME_BOOTCAMP, HOME_CLOSING } from "@/data/home";
@@ -15,9 +16,7 @@ export const HomeClosing = () => (
         {HOME_CLOSING.sub}
       </Reveal>
       <Reveal delay={120} className="mt-9 flex justify-center">
-        <a href={siteConfig.demoUrl} className="pill pill-inverse pill-lg">
-          {HOME_BOOTCAMP.cta} <span aria-hidden>→</span>
-        </a>
+        <CtaPair />
       </Reveal>
     </div>
   </section>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { Inview } from "@/components/animation/springs/in-view";
 import { Spring } from "@/components/animation/springs/spring";
@@ -6,6 +7,7 @@ import { XuraLogo } from "@/components/brand/logo";
 import { AiOrb } from "@/components/graphics/ai-orb";
 import { FlowField } from "@/components/graphics/flow-field";
 import { TrialForm } from "@/components/sections/trial-form";
+import { BootcampIntro, TrialIntro } from "@/components/sections/trial-intro";
 import { siteConfig } from "@/lib/site";
 import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 
@@ -122,13 +124,9 @@ export const TrialView = () => (
       className="flex items-center justify-center bg-background px-6 py-12 sm:px-10 lg:items-start lg:pt-48"
     >
       <div className="w-full max-w-md">
-        <h2 id="demo-form-heading" className="display-light-md">
-          Book a <span className="whitespace-nowrap">2-day</span> bootcamp
-        </h2>
-        <p className="mt-3 text-sm text-muted">
-          Tell us about your company and we&apos;ll plan your two days. Bring
-          the person who owns the process you want to start with.
-        </p>
+        <Suspense fallback={<BootcampIntro />}>
+          <TrialIntro />
+        </Suspense>
         <div className="mt-8">
           <TrialForm />
         </div>

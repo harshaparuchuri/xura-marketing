@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteNav } from "@/components/sections/site-nav";
 import { siteConfig } from "@/lib/site";
 import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
+import { TALK_URL } from "@/components/common/cta-pair";
 
 /**
  * 404 page. Rendered for unmatched routes and `notFound()` calls; Next serves
@@ -59,8 +60,8 @@ export default function NotFound() {
             <Link href="/industries" className="pill pill-ghost">
               Industries
             </Link>
-            <Link href={siteConfig.demoUrl} className="pill pill-ghost">
-              Book a bootcamp
+            <Link href={TALK_URL} className="pill pill-ghost">
+              Talk to us
             </Link>
           </nav>
         </section>
