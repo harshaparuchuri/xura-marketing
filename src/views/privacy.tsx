@@ -67,7 +67,7 @@ export const PrivacyView = () => (
             ]}
             className="mb-6"
           />
-          <h1 className="display-serif">Privacy policy</h1>
+          <h1 className="display-light">Privacy policy</h1>
           <p className="mt-3 text-xs text-muted">Effective {PRIVACY_EFFECTIVE}</p>
           <p className={`mt-6 ${textClass}`}>{PRIVACY_INTRO}</p>
 

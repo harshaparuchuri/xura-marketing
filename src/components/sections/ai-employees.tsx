@@ -180,7 +180,7 @@ export const AiEmployees = () => (
         ))}
       </ul>
 
-      {/* Product tour — "Meet your AI team" (98 s). Hero links here. */}
+      {/* Product tour — "Meet your AI team" (1:38). Hero links here. JSON-LD lives on /platform. */}
       <Inview
         id="tour"
         mode="once"
@@ -192,9 +192,10 @@ export const AiEmployees = () => (
         <VideoTour
           videoId="8tkNY0mJBss"
           title="Xura AI: Meet your AI team"
-          description="A 98-second tour of Xura's AI employees: they connect to your systems, answer from your own data, explain the reason behind the number and draft the next step for your approval."
+          description="A 1:38 tour of Xura's AI employees: they connect to your systems, answer from your own data, explain the reason behind the number and draft the next step for your approval."
           uploadDate="2026-10-14T12:33:05-07:00"
           duration="PT1M38S"
+          structuredData={false}
         />
       </Inview>
 

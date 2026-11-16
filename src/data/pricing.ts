@@ -1,30 +1,54 @@
 import { siteConfig } from "@/lib/site";
 
 /**
- * Pricing page content — matches the Oct 2026 sales deck (per-seat plans with
- * a monthly credit allowance) plus the free pilot.
+ * Pricing page content — the Nov 2026 engagement model (bootcamp →
+ * deployment → platform plan) plus the Oct 2026 per-seat plans with a
+ * monthly credit allowance. The free pilot was retired 2026-11-14 (ADR-0033).
  *
  * Credit policy (confirmed 2026-10-18): credits are per seat, do NOT roll
  * over, and can be topped up mid-month.
  *
  * Early-customer offer (2026-11-03): Starter $20 (list $50) and Growth $50
- * (list $100) for the first 6 months, limited spots. Custom business flows
- * are a $25 one-time setup per flow (normally $100) on every plan, limited slots.
+ * (list $100) for the first 6 months, limited spots. Custom business workflows
+ * are a $25 one-time setup per workflow (normally $100) on every plan, limited slots.
  */
+
+/**
+ * The engagement model (Nov 2026 repositioning, ADR-0033): bootcamp →
+ * deployment → platform plan. Bootcamp and deployment prices are not
+ * published; the bootcamp fee is credited to the deployment.
+ */
+export const ENGAGEMENT_STEPS: { title: string; price: string; body: string }[] = [
+  {
+    title: "2-day bootcamp",
+    price: "Quoted per company · fee credited to your deployment",
+    body: "Our team puts an AI employee to work on your own data in two days, so you see it before you commit.",
+  },
+  {
+    title: "Deployment",
+    price: "Scoped with your deployment lead",
+    body: "We connect your ERP, CRM and spreadsheets and see it live in about 2 weeks.",
+  },
+  {
+    title: "Platform plan",
+    price: "Per seat, per month",
+    body: "Your AI employees run on Xura. We add the next job every quarter.",
+  },
+];
 
 /** Label shown with the early-customer price on discounted plans. */
 export const EARLY_OFFER = "Early-customer price · limited spots";
 
-/** Custom business flows — same setup price on every plan, shown below the cards. */
+/** Custom business workflows — same setup price on every plan, shown below the cards. */
 export const CUSTOM_FLOWS = {
-  label: "Custom business flows",
+  label: "Custom business workflows",
   offer: "Limited slots",
   summary:
-    "We build a custom flow around your business processes, on any plan. After setup, it runs on your credits.",
+    "We build a custom workflow around your business processes, on any plan. After setup, it runs on your credits.",
   price: "$25",
   /** Standard setup price, struck through while slots last. */
   listPrice: "$100",
-  unit: "one-time setup per flow",
+  unit: "one-time setup per workflow",
 };
 
 export interface PricingPlan {
@@ -56,23 +80,6 @@ export interface PricingPlan {
 
 export const PRICING_PLANS: PricingPlan[] = [
   {
-    name: "Pilot",
-    price: "Free",
-    unit: "100 credits to explore",
-    credits: "100 credits · 1 user",
-    summary: "Put one AI employee to work on your own data.",
-    features: [
-      "Every output: dashboards, decks, research, briefs",
-      "Connect your tools or upload a file",
-      "No credit card",
-      "24x7 support",
-    ],
-    cta: { label: "Start free", href: siteConfig.signupUrl },
-    badge: "Start here",
-    entry: true,
-    creditBreakdown: 100,
-  },
-  {
     name: "Starter",
     price: "$20",
     listPrice: "$50",
@@ -87,7 +94,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Top up credits any time",
       "24x7 support",
     ],
-    cta: { label: "Start free", href: siteConfig.signupUrl },
+    cta: { label: "Book a 2-day bootcamp", href: siteConfig.demoUrl },
   },
   {
     name: "Growth",
@@ -99,12 +106,12 @@ export const PRICING_PLANS: PricingPlan[] = [
     summary: "For teams running Xura every day.",
     featuresLead: "Everything in Starter, plus:",
     features: [
-      "AI employees and Flows",
+      "AI employees and workflows",
       "Custom brand kit",
       "Company ontology and context graph",
       "24x7 support",
     ],
-    cta: { label: "Start free", href: siteConfig.signupUrl },
+    cta: { label: "Book a 2-day bootcamp", href: siteConfig.demoUrl },
     featured: true,
     badge: "Most popular",
   },
@@ -116,12 +123,12 @@ export const PRICING_PLANS: PricingPlan[] = [
     featuresLead: "Everything in Growth, plus:",
     features: [
       "Custom AI employees and connectors",
-      "Custom Flows for your business",
+      "Custom workflows for your business",
       "Agent evals, governance and updates",
       "Invoicing and custom billing terms",
       "24x7 support",
     ],
-    cta: { label: "Book a demo", href: siteConfig.demoUrl },
+    cta: { label: "Talk to us", href: siteConfig.demoUrl },
   },
 ];
 
@@ -194,9 +201,9 @@ export const CREDITS_NOTE =
 
 export const PRICING_FAQ: { question: string; answer: string }[] = [
   {
-    question: "Is the pilot really free?",
+    question: "What does the 2-day bootcamp cost?",
     answer:
-      "Yes. 100 credits for one user, on your own data, no credit card. While you explore, we identify your core flows and customise them for you. When you're ready, pick a plan.",
+      "The price depends on your company and the job we start with. Book a call and we'll quote it. If you go ahead, the fee is credited to your deployment.",
   },
   {
     question: "How long does the early-customer price last?",
@@ -204,14 +211,14 @@ export const PRICING_FAQ: { question: string; answer: string }[] = [
       "Your first 6 months: Starter is $20 per user / month (normally $50) and Growth is $50 (normally $100). After that the plan moves to its standard price. Spots are limited.",
   },
   {
-    question: "What does a custom Flow cost?",
+    question: "What does a custom workflow cost?",
     answer:
-      "$25 one-time setup per Flow (normally $100), on any plan, while slots last. We build it around your business process; after that it runs on your credits.",
+      "$25 one-time setup per workflow (normally $100), on any plan, while slots last. We build it around your business process; after that it runs on your credits.",
   },
   {
     question: "What is a credit?",
     answer:
-      "Credits are what Xura spends doing work for you: building a dashboard, writing a deck, researching a question, running a Flow. They work across every output, so you can spend them however your team needs.",
+      "Credits are what Xura spends doing work for you: building a dashboard, writing a deck, researching a question, running a workflow. They work across every output, so you can spend them however your team needs.",
   },
   {
     question: "Are credits per user?",
@@ -231,7 +238,7 @@ export const PRICING_FAQ: { question: string; answer: string }[] = [
   {
     question: "What support do I get?",
     answer:
-      "24x7 support on every plan, including the free pilot.",
+      "24x7 support on every plan.",
   },
   {
     question: "Can I change plans later?",

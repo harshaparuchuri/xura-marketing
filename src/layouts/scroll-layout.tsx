@@ -36,6 +36,9 @@ function ScrollController() {
     window.scrollTo(0, 0);
     const lenis = new Lenis({
       smoothWheel: true,
+      // Default lerp (0.1) trails the wheel by several frames and reads as
+      // lag; 0.16 keeps the glide but tracks input closely.
+      lerp: 0.16,
       // syncTouch: true,
     });
     (window as typeof window & { lenis: Lenis }).lenis = lenis;

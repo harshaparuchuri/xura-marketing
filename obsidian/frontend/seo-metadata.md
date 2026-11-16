@@ -109,9 +109,9 @@ see [[folder-structure]].
 
 ## Per-page metadata (2026-10-18)
 
-Use `pageMetadata({ title, description, path })` in every route. It gives the
+Use `pageMetadata({ title, description, path, noindex? })` in every route (`noindex` added 2026-11-16 → `index: false, follow: true`; also drop the route from the sitemap and add it to `NOINDEX` in seo-check). It gives the
 page its own canonical, `og:url` and `"<title> | Xura AI"` social titles. The
 layout's title template is `%s | Xura AI`. Structured-data helpers:
 `getSiteStructuredData` (Organization + WebSite, with `sameAs`),
-`getBreadcrumbStructuredData`, `getProductStructuredData`. The full checklist
+`getBreadcrumbStructuredData`, `getProductStructuredData` (unused pricing view), `getPlatformStructuredData` (/platform `SoftwareApplication`, 2026-11-16), `getServiceStructuredData` (home only, ADR-0033; Organization also carries the Hyderabad address and India + Southeast Asia `areaServed`). The full checklist
 and the CI check are in [[seo-checklist]].

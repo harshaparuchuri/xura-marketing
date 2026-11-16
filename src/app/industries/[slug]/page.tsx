@@ -16,7 +16,7 @@ export const generateMetadata = async ({
   const industry = getIndustry(slug);
   if (!industry) return {};
   return pageMetadata({
-    title: `AI employees for ${industry.label}`,
+    title: `AI Transformation for ${industry.label}`,
     description: industry.seoDescription,
     path: `/industries/${industry.slug}`,
   });

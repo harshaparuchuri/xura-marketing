@@ -3,7 +3,7 @@
 // `next/image` loader for the static export: there is no image server, so each
 // requested width maps to a variant made by scripts/resize-images.mjs. Other
 // images are served as they are. `?w=` only satisfies next/image's loader check.
-const RESIZED = /^\/(assets\/product|industries)\/.+\.webp$/;
+const RESIZED = /^\/(assets\/product|assets\/photos|industries)\/.+\.webp$/;
 const LOGO = "/assets/xura-logo.png";
 
 export default function imageLoader({ src, width }) {

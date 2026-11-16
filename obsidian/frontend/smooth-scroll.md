@@ -1,6 +1,6 @@
 ---
 tags: [frontend, scroll, stable]
-updated: 2026-05-21
+updated: 2026-11-16
 ---
 
 # Smooth Scroll — Lenis
@@ -25,7 +25,7 @@ Wraps the whole app (mounted in `app/layout.tsx`). It splits into:
 
 `ScrollController` on mount:
 1. Resets scroll to top.
-2. Creates `new Lenis({ smoothWheel: true })`, stores it on `window.lenis` and in
+2. Creates `new Lenis({ smoothWheel: true, lerp: 0.16 })` (**2026-11-16:** lerp raised from the 0.1 default, which trailed the wheel and read as lag), stores it on `window.lenis` and in
    the [[data-flow|scroll store]].
 3. Starts a `requestAnimationFrame` loop calling `lenis.raf(time)`.
 4. Watches `isEnableScroll` — starts/stops Lenis and locks/unlocks native scroll

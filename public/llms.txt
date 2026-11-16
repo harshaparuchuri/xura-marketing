@@ -1,0 +1,57 @@
+# Xura
+
+> Xura (xuralabs.com) is an AI company based in Hyderabad, India (Xurian Labs LLP). Its deployment team finds the work that needs attention inside mid-size companies — mainly operations, sales, quality and IT teams in pharma and manufacturing across India and Southeast Asia — and custom-builds AI employees, agentic workflows and apps on the Xura platform. Engagements start with a paid two-day bootcamp on the customer's own data (the fee is credited to the deployment); it is live in about two weeks, and the customer approves every output.
+
+Key facts:
+- AI employees are AI agents that own a recurring job (a sales review, CAPA tracking, a leadership deck, a hiring pipeline) on the customer's connected data.
+- They work in WhatsApp, Slack, Microsoft Teams and email. Nothing is sent or changed without a person's approval, and every action is in an audit log.
+- Xura connects over MCP and 50+ native integrations (SAP, Salesforce, HubSpot, Snowflake, BigQuery, Postgres, SharePoint, Notion, Excel) into one live knowledge graph. No ETL to build.
+- Xura runs in Xura's cloud, the customer's own cloud account (VPC), or on premises.
+
+A fuller plain-text version of the site is at https://xuralabs.com/llms-full.txt
+
+## Product
+
+- [Platform](https://xuralabs.com/platform): AI employees, agentic workflows and custom apps on one platform, over a live knowledge graph of your systems, with approvals in WhatsApp, Slack and Teams.
+- [AI employees](https://xuralabs.com/ai-employees): Ready-made roles (Nora, Chief of Staff; Ezra, Marketing Associate; Kira, Recruiting Coordinator; Meera, QA Investigation) or your own, drafting sales reviews, quality tracking, leadership decks and hiring work.
+- [Workflows](https://xuralabs.com/workflows): Agentic workflows — triggers, data, AI steps, conditions, approvals and actions on one canvas, built by Xura's team.
+- [Apps](https://xuralabs.com/apps): Internal apps built by describing them in chat: records, pages, charts, Ask Xura inside, brand and access.
+- [Integrations](https://xuralabs.com/integrations): MCP plus 50+ native connectors.
+- [Security](https://xuralabs.com/security): Queries run in your VPC, no raw data stored, row-level permissions, audit logs, nothing runs without approval.
+
+## How Xura works with you
+
+- [AI transformation](https://xuralabs.com/ai-transformation): The service: Xura's team finds the work AI should be doing and builds the apps and workflows that do it.
+- [Bootcamp](https://xuralabs.com/bootcamp): A paid two-day session that maps where work gets stuck and shows AI working on your own data before you commit.
+- [Deployment](https://xuralabs.com/deployment): A deployment lead on site, live in about two weeks, then about one new workflow per quarter.
+- [Book a bootcamp](https://xuralabs.com/trial): Request form.
+
+## Industries
+
+- [All industries](https://xuralabs.com/industries)
+- [Pharma & life sciences](https://xuralabs.com/industries/pharma): Monthly brand and market review from PharmaTrac and SAP; deviation, OOS and CAPA routines that QA signs off.
+- [Manufacturing & logistics](https://xuralabs.com/industries/manufacturing): Morning OEE and downtime briefs, deviation intake, CAPA ageing and trend reports.
+- [Healthcare & providers](https://xuralabs.com/industries/healthcare): Daily capacity and quality briefs, meeting pre-reads, hiring updates and follow-ups.
+- [SaaS & technology](https://xuralabs.com/industries/saas): Morning pipeline brief from HubSpot, renewal risk flags, campaign alerts and board-ready reviews.
+- [Fintech & financial services](https://xuralabs.com/industries/fintech): Morning exposure briefs, reconciliation breaks flagged early, regulatory digests.
+
+## Use cases
+
+- [All use cases](https://xuralabs.com/use-cases)
+- [Deviation investigation](https://xuralabs.com/use-cases/deviation-investigation): Drafts deviation and OOS investigations in your SOP format; QA decides and signs.
+- [CAPA tracking](https://xuralabs.com/use-cases/capa-tracking): Daily digest of overdue deviations, CAPAs and change controls by owner, with drafted nudges.
+- [Monthly sales review](https://xuralabs.com/use-cases/monthly-sales-review): Pulls ERP, CRM and targets and drafts the review with the reasons behind each movement.
+- [Leadership decks](https://xuralabs.com/use-cases/leadership-decks): Monthly branded leadership deck with charts and speaker notes from approved numbers.
+- [Plant performance review](https://xuralabs.com/use-cases/plant-performance-review): Morning brief on output, OEE, downtime and late orders by line.
+- [Hiring pipeline](https://xuralabs.com/use-cases/hiring-pipeline): Hiring app with drop-off funnel, this week's interviews and candidate summaries.
+
+## Comparisons
+
+- [AI agents vs RPA](https://xuralabs.com/compare/ai-agents-vs-rpa)
+- [AI employees vs AI chatbots](https://xuralabs.com/compare/ai-employees-vs-chatbots)
+- [Partner-led vs in-house AI](https://xuralabs.com/compare/partner-led-vs-in-house-ai)
+
+## Optional
+
+- [Privacy policy](https://xuralabs.com/privacy)
+- Contact: admin@xuralabs.com

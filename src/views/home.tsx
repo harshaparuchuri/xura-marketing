@@ -1,46 +1,39 @@
-import { AiEmployees } from "@/components/sections/ai-employees";
-import { CaseStudy } from "@/components/sections/case-study";
-import { ClosingCta } from "@/components/sections/closing-cta";
-import { EnterpriseReady } from "@/components/sections/enterprise-ready";
-import { DomainsStrip } from "@/components/sections/domains-strip";
-import { Features } from "@/components/sections/features";
-import { Hero } from "@/components/sections/hero";
-import { HowItWorks } from "@/components/sections/how-it-works";
-import { Industries } from "@/components/sections/industries";
-import { Outputs } from "@/components/sections/outputs";
-import { PilotOffer } from "@/components/sections/pilot-offer";
-import { Recommendations } from "@/components/sections/recommendations";
+import { Bootcamp } from "@/components/sections/home/bootcamp";
+import { EmployeesGrid } from "@/components/sections/home/employees-grid";
+import { Faq } from "@/components/sections/home/faq";
+import { HomeClosing } from "@/components/sections/home/home-closing";
+import { HomeHero } from "@/components/sections/home/home-hero";
+import { IndustriesTabs } from "@/components/sections/home/industries-tabs";
+import { PlatformTeam } from "@/components/sections/home/platform-team";
+import { Statement } from "@/components/sections/home/statement";
+import { TeamStrip } from "@/components/sections/home/team-strip";
 import { SiteFooter } from "@/components/sections/site-footer";
-import { Channels } from "@/components/sections/channels";
-import { XuraVs } from "@/components/sections/xura-vs";
+import { getServiceStructuredData } from "@/utils/seo/structured-data";
 
 /**
- * Home view — Server Component.
- *
- * Section order: hero → domains → how it works → features → recommendations → AI employees → pilot offer (incl. compact pricing) →
- * outputs → channels → Xura vs → industries → enterprise-ready → case study →
- * CTA → footer.
+ * Home view — Server Component. Seven sections modelled on wonderful.ai's
+ * structure (obsidian/workflows/home-repositioning-plan.md, ADR-0035):
+ * hero → statement → platform + team → team strip → AI employees grid → industries tabs
+ * → bootcamp → FAQ + closing → footer. Monochrome; abstract `FlowField`
+ * backdrops stand in for photography until real team photos exist.
  */
-export const HomeView = () => {
-  return (
-    <>
-      <main>
-        <Hero />
-        <DomainsStrip />
-        <HowItWorks />
-        <Features />
-        <Recommendations />
-        <AiEmployees />
-        <PilotOffer />
-        <Outputs />
-        <Channels />
-        <XuraVs />
-        <Industries />
-        <EnterpriseReady />
-        <CaseStudy />
-        <ClosingCta />
-      </main>
-      <SiteFooter />
-    </>
-  );
-};
+export const HomeView = () => (
+  <div className="palette-blue">
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(getServiceStructuredData()) }}
+    />
+    <main>
+      <HomeHero />
+      <Statement />
+      <PlatformTeam />
+      <TeamStrip />
+      <EmployeesGrid />
+      <IndustriesTabs />
+      <Bootcamp />
+      <Faq />
+      <HomeClosing />
+    </main>
+    <SiteFooter />
+  </div>
+);

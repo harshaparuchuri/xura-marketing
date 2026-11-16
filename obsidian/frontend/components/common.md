@@ -130,7 +130,9 @@ Server component. `<Breadcrumbs crumbs={[{ name, path }]} />` renders a
 visible `nav[aria-label="Breadcrumb"]` trail (the last crumb has
 `aria-current="page"`) and the matching `BreadcrumbList` JSON-LD. Used on
 pricing, the industries index and the industry pages. Links have a ≥40px
-tap area (`min-h-10`, negative `-my-2` to keep the row compact). See [[seo-checklist]].
+tap area (`min-h-10`, negative `-my-2` to keep the row compact). `tone="dark"`
+(2026-11-15) switches to white text for use over a dark photo hero (industry
+pages). See [[seo-checklist]].
 
 ## VideoTour — `video-tour.tsx`
 
@@ -138,7 +140,14 @@ Click-to-load YouTube embed (client leaf). Shows the video's YouTube thumbnail
 (`next/image`, unoptimised under static export) with a play button; the
 `youtube-nocookie.com` iframe mounts only on click, so the YouTube player never
 loads with the page. Emits its own `VideoObject` JSON-LD. Props: `videoId`,
-`title`, `description`, `uploadDate`, `duration` (ISO 8601), `className`.
+`title`, `description`, `uploadDate`, `duration` (ISO 8601), `structuredData`
+(default `true`), `className`.
+**2026-11-16 (SEO/AEO):** JSON-LD adds `publisher` (→ `#organization`),
+`inLanguage`, both thumbnail sizes and a `SeekToAction` (YouTube `&t=`) so
+Google can generate key moments. Thumbnail falls back from `maxresdefault` to
+`hqdefault` on error and has descriptive alt text. **Only /platform emits the
+VideoObject** — home `#tour` and /ai-employees pass `structuredData={false}`
+(one watch page per video).
 Used in `sections/ai-employees.tsx` as `#tour` ("Meet your AI team", 1:38);
 the hero's "Watch the tour" pill links to `/#tour`.
 
@@ -149,3 +158,35 @@ the hero's "Watch the tour" pill links to `/#tour`.
 ## Related
 
 [[component-conventions]] · [[components/animation-springs]]
+
+
+## `photo-fill.tsx`
+
+**New 2026-11-15.** `PhotoFill({ src, alt, sizes, priority?, focus?, className? })` —
+an absolutely positioned wrapper (`.grain-photo`, `overflow-hidden`) with one
+sharp `fill` `next/image` and light grain (12%). **Updated 2026-11-16
+(ADR-0045):** the blurred lens-falloff copy was removed — it made photos look
+smudged. `focus` only sets `--lens-x` / `--lens-y` now. Parent
+must be positioned; put text above it with a higher z-index and a dark
+gradient span between. Used by `HomeHero`, `PlatformTeam`, `IndustriesTabs`
+(cross-fade via `className` opacity) and `Bootcamp`. Not for screenshots.
+
+
+## `background-video.tsx`
+
+**New 2026-11-15.** `BackgroundVideo({ src, poster, alt, className? })` —
+client; an absolute, full-bleed muted looping video (home hero). The poster
+(`next/image`, `priority`, carries the alt) always renders; the `<video>`
+(`aria-hidden`, `playsInline`, `preload="auto"`) mounts after `window.load`
+and is played/paused by `useInViewport`. **Updated 2026-11-16:** optional
+`mobileSrc` / `mobilePoster` — phones (below `md`) play the light portrait cut
+instead of nothing; wide screens play `src`. No video for reduced motion,
+Data Saver or 2G (`navigator.connection`). Phone cut made with
+`ffmpeg -vf "crop=608:1080:(iw-608)/2:0,scale=540:960" -an -crf 30 -movflags +faststart`. The home hero's video has grade and grain baked in
+(`scripts/render-hero-video.sh`), so it takes no `.grain-photo`; for ungraded
+footage, add `.grain-photo` via `className`. Assets in `public/assets/video/`.
+**2026-11-16 (LCP):** with `mobilePoster`, the two posters render as one
+`<picture>` (`ArtDirectedPoster`, built with `getImageProps`; `<source
+media="(min-width: 48rem)">` for desktop) with `loading="eager"` and
+`fetchPriority="high"`, so each device downloads only its own poster (two
+`priority` `<Image>`s preloaded both).

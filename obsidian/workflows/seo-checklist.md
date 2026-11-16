@@ -24,14 +24,14 @@ Related: [[seo-metadata]], [[html-semantics]], [[new-page]], [[decisions-log]] A
 | 2 | `<title>` present; **30–65 chars** (warning), **unique** across the site | Title is the result headline; Google truncates ~60 chars |
 | 3 | Meta description present; **70–160 chars** (warning), unique | The result snippet |
 | 4 | **Canonical = this page's own URL** | Otherwise Google treats the page as a duplicate of whatever it points to |
-| 5 | Not `noindex` | The page must be indexable |
+| 5 | Not `noindex` — except routes in `NOINDEX` (seo-check.mjs; currently `/trial`), which **must** be noindex | The page must be indexable |
 | 6 | `og:title`, `og:description`, `og:image`, `og:url`, `twitter:card` | Link previews on LinkedIn, Slack, X and WhatsApp |
 | 7 | **Exactly one `<h1>`**, not empty; headings don't skip levels (warning) | Clear page topic and outline |
 | 8 | JSON-LD parses; `Organization` on every page; `BreadcrumbList` on inner pages (warning) | Rich results and the brand panel |
 | 9 | Industry pages show a visible breadcrumb nav | Users and Google see the hierarchy |
 | 10 | Every `<img>` has `alt` (empty `alt=""` is OK for decorative images) | Image search and accessibility |
 | 11 | Internal links resolve to a built page | No broken links or crawl dead ends |
-| 12 | Page is listed in `sitemap.xml` | Discovery |
+| 12 | Page is listed in `sitemap.xml` (`NOINDEX` routes must **not** be) | Discovery |
 
 **Site-wide:** `robots.txt` exists and points to the sitemap; every sitemap URL
 has a built page; no duplicate titles or descriptions.
@@ -47,6 +47,27 @@ has a built page; no duplicate titles or descriptions.
 - Inner pages render `<Breadcrumbs crumbs={…} />`
   (`components/common/breadcrumbs.tsx`), which also emits `BreadcrumbList`.
 - One `<h1>` per page, then `h2` → `h3` with no skipped levels.
+- Add the page to `public/llms.txt` (hand-written index for AI crawlers).
+  `llms-full.txt` is generated — nothing to do.
+- To keep a page out of search: `pageMetadata({ …, noindex: true })`, drop it
+  from `sitemap.ts`, add it to `NOINDEX` in `scripts/seo-check.mjs`.
+
+## AI answer engines (AEO) — added 2026-11-16
+
+- `public/llms.txt`: hand-written index — key facts + every page with a
+  one-line summary. Update it when a page is added or a fact changes.
+- `out/llms-full.txt`: **generated** after every build by
+  `scripts/llms-full.mjs` (in `npm run build` and the deploy workflow) from
+  each page's `<main>` in sitemap order. It strips the header/nav/footer and
+  every `aria-hidden="true"` subtree, so decorative product mockups with
+  sample numbers are never read as facts. Mark new mockups `aria-hidden`.
+- `robots.txt` allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot,
+  Google-Extended) on purpose.
+- Every page with real Q&A gets a `FaqSection` (FAQPage JSON-LD); all five
+  industry pages have one. /platform carries `SoftwareApplication` JSON-LD
+  (`getPlatformStructuredData`).
+- `sitemap.ts` sets no `lastModified` (a build-time date on every URL is
+  ignored by Google). Add real per-page dates if they become available.
 
 ## Speed (Core Web Vitals) — checked with Lighthouse, not the script
 
@@ -57,6 +78,9 @@ has a built page; no duplicate titles or descriptions.
   HTML (ADR-0027).
 - Canvas or WebGL loops start after `load` plus idle, run at ≤30fps, and
   pause off screen and when the tab is hidden (see `hero-backdrop.tsx`).
+- A hero with separate phone/desktop images uses one `<picture>` built with
+  `getImageProps` (eager, `fetchPriority="high"`), never two `priority`
+  `<Image>`s — those preload both on every device (`background-video.tsx`).
 - Images in `public/` are **WebP**, at most ~1920px wide (`cwebp -q 80 -resize 1920 0`).
   `next/image` doesn't optimise under static export.
 - Check with `npx lighthouse <url> --only-categories=performance,seo`, or

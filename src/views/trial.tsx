@@ -4,13 +4,13 @@ import { Inview } from "@/components/animation/springs/in-view";
 import { Spring } from "@/components/animation/springs/spring";
 import { XuraLogo } from "@/components/brand/logo";
 import { AiOrb } from "@/components/graphics/ai-orb";
-import { ArcField } from "@/components/graphics/arc-field";
+import { FlowField } from "@/components/graphics/flow-field";
 import { TrialForm } from "@/components/sections/trial-form";
 import { siteConfig } from "@/lib/site";
 import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
 
 /**
- * Book-a-demo view (`/trial`). A focused, two-panel page modelled on
+ * Book-a-bootcamp view (`/trial`). A focused, two-panel page modelled on
  * viktor.com/contact-sales: no nav or footer, just the logo home link.
  * Left: dark proof panel (what the demo covers, Nora, what's true about
  * Xura). Right: the two-step `TrialForm` (work email → details). Stacks on
@@ -19,30 +19,31 @@ import { OrbDockSlot } from "@/components/graphics/orb-dock-slot";
  */
 const POINTS: string[] = [
   "Answers from your own data, with the sources shown",
-  "Works in Slack, Teams, WhatsApp and the web",
+  "Works in WhatsApp, Slack, Teams and the web",
   "Nothing is sent or changed until you approve it",
+  "A Xura deployment lead runs both days with your process owner",
 ];
 
 const AGENDA: { title: string; body: string }[] = [
-  { title: "Your use case", body: "The flow you most want off your plate." },
-  { title: "Live on your stack", body: "Nora answering from tools like yours." },
-  { title: "Your first Flow", body: "Set up together, approval gate included." },
+  { title: "Day 1: find the job", body: "Where work gets stuck, and the one job to start with." },
+  { title: "Day 2: see it working", body: "An AI employee running that job on your own systems." },
+  { title: "After: live in 2 weeks", body: "What going live takes: systems, people and timeline." },
 ];
 
 export const TrialView = () => (
-  <main className="grid min-h-dvh lg:grid-cols-[1fr_1.05fr]">
+  <main className="palette-amber grid min-h-dvh lg:grid-cols-[1fr_1.05fr]">
     {/* Proof panel */}
     <section
-      aria-label="What a Xura demo covers"
-      className="grain relative isolate overflow-hidden bg-brand-ink px-6 py-8 text-white sm:px-10 lg:px-14 lg:py-12"
+      aria-label="What the 2-day bootcamp covers"
+      className="relative isolate overflow-hidden bg-foreground px-6 py-8 text-white sm:px-10 lg:px-14 lg:py-12"
     >
-      <ArcField className="pointer-events-none absolute inset-0 -z-10 size-full text-white/10" />
+      <FlowField tone="dark" variant={0} />
 
       <Link href="/" aria-label="Xura AI home" className="inline-block">
         <XuraLogo markOnly />
       </Link>
 
-      <div className="mt-10 max-w-lg lg:mt-20">
+      <div className="mt-8 max-w-lg lg:mt-12">
         <Spring
           mode="once"
           from={{ opacity: 0, y: 14 }}
@@ -52,9 +53,9 @@ export const TrialView = () => (
         >
           <OrbDockSlot id="demo-page" size={56} accent="var(--employee-chief-of-staff)" />
           <p className="text-sm text-white/70">
-            30 minutes with our team,
+            Paid, quoted per company.
             <br />
-            built around your use case.
+            The fee is credited to your deployment.
           </p>
         </Spring>
 
@@ -65,13 +66,20 @@ export const TrialView = () => (
           from={{ y: 22 }}
           to={{ y: 0 }}
           config={{ tension: 175, friction: 28 }}
-          className="display-serif mt-6 text-white lg:mt-8"
+          className="display-light-md mt-6 text-white"
         >
-          See your AI employees{" "}
-          <span className="font-semibold italic text-accent">at work.</span>
+          See your AI employees at work{" "}
+          <span className="text-white/60">on your data.</span>
         </Spring>
 
-        <ol className="mt-10 hidden gap-3 sm:grid sm:grid-cols-3">
+        {/* Phones: the agenda in one line (cards and points are sm+). */}
+        <p className="mt-6 text-sm leading-relaxed text-white/70 sm:hidden">
+          <span className="whitespace-nowrap">Day 1: find the job</span> ·{" "}
+          <span className="whitespace-nowrap">Day 2: see it working</span> ·{" "}
+          <span className="whitespace-nowrap">Live in 2 weeks</span>
+        </p>
+
+        <ol className="mt-8 hidden gap-3 sm:grid sm:grid-cols-3">
           {AGENDA.map((item, i) => (
             <Inview
               key={item.title}
@@ -83,19 +91,19 @@ export const TrialView = () => (
               config={{ tension: 180, friction: 27 }}
               className="rounded-2xl bg-white/[0.06] p-4 ring-1 ring-white/10"
             >
-              <span className="font-mono text-xs text-accent">0{i + 1}</span>
+              <span className="font-mono text-xs text-white/50">0{i + 1}</span>
               <p className="mt-2 text-sm font-semibold">{item.title}</p>
               <p className="mt-1 text-xs leading-relaxed text-white/60">{item.body}</p>
             </Inview>
           ))}
         </ol>
 
-        <ul className="mt-10 hidden space-y-3 text-sm text-white/80 sm:block">
+        <ul className="mt-8 hidden space-y-3 text-sm text-white/80 sm:block">
           {POINTS.map((point) => (
             <li key={point} className="flex items-start gap-3">
               <span
                 aria-hidden
-                className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-accent text-foreground"
+                className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-white text-foreground"
               >
                 <svg viewBox="0 0 24 24" className="size-3" fill="none">
                   <path d="M6 12.5l4 4 8-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
@@ -111,26 +119,26 @@ export const TrialView = () => (
     {/* Form panel */}
     <section
       aria-labelledby="demo-form-heading"
-      className="flex items-center justify-center bg-background px-6 py-12 sm:px-10"
+      className="flex items-center justify-center bg-background px-6 py-12 sm:px-10 lg:items-start lg:pt-48"
     >
       <div className="w-full max-w-md">
-        <h2 id="demo-form-heading" className="font-serif text-3xl leading-display">
-          Book a personalised demo
+        <h2 id="demo-form-heading" className="display-light-md">
+          Book a <span className="whitespace-nowrap">2-day</span> bootcamp
         </h2>
-        <p className="mt-2 text-sm text-muted">
-          So the right person on our team can get back to you, within one
-          business day.
+        <p className="mt-3 text-sm text-muted">
+          Tell us about your company and we&apos;ll plan your two days. Bring
+          the person who owns the process you want to start with.
         </p>
         <div className="mt-8">
           <TrialForm />
         </div>
         <p className="mt-10 border-t border-line pt-5 text-center text-sm text-muted">
-          Rather try it yourself?{" "}
+          Already a customer?{" "}
           <a
-            href={siteConfig.signupUrl}
+            href={siteConfig.signinUrl}
             className="font-semibold text-foreground underline underline-offset-4"
           >
-            Start free
+            Sign in
           </a>
         </p>
       </div>

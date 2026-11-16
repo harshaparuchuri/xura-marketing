@@ -9,7 +9,7 @@ import { DIAL_CODES } from "@/lib/dial-codes";
 import { siteConfig } from "@/lib/site";
 
 /**
- * Demo request form (`/trial`, the "Book a demo" destination), in two steps
+ * Bootcamp request form (`/trial`, the "Book a 2-day bootcamp" destination), in two steps
  * like viktor.com/contact-sales:
  *
  * 1. Work email only → "Continue". A partial lead (email, `stage: "email"`)
@@ -34,7 +34,7 @@ import { siteConfig } from "@/lib/site";
  *   (deployed as *Execute as: Me · Who has access: Anyone*). To point at a
  *   different sheet, deploy your own Apps Script and edit `SHEETS_URL`.
  *   No env vars, no server route (see decisions-log ADR-0020).
- * - Success state renders in-place with a "Start free" CTA.
+ * - Success state renders in-place with a "How we deploy" link.
  */
 const SHEETS_URL =
   "https://script.google.com/macros/s/AKfycbx8KkFR3QUmLwg7MSKvn-AjJ97PwD1QlurNdiIvyT4QtXop9Cb7Xn0nboaYMm7i58WC/exec";
@@ -55,7 +55,7 @@ const EMPTY: Values = {
   email: "",
   jobTitle: "",
   company: "",
-  country: "US",
+  country: "IN",
   phone: "",
   useCase: "",
 };
@@ -252,20 +252,20 @@ export const TrialForm = () => {
           🎉
         </p>
         <p className="mt-3 text-base font-semibold tracking-tight text-duo">
-          {done === "booked" ? "You're booked." : "Demo requested."}
+          {done === "booked" ? "You're booked." : "Bootcamp requested."}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-muted">
           {done === "booked"
             ? "The invite is on its way to your inbox."
-            : "We'll reach out within one business day to book a time."}
+            : "We'll reach out within one business day to plan your two days."}
           <br />
-          Want to look around before then?
+          Meanwhile, see how a deployment runs.
         </p>
         <Link
-          href={siteConfig.signupUrl}
+          href="/deployment"
           className="pill mt-6 inline-flex"
         >
-          Start free <span aria-hidden>→</span>
+          How we deploy <span aria-hidden>→</span>
         </Link>
       </div>
     );
@@ -311,7 +311,7 @@ export const TrialForm = () => {
           Continue <span aria-hidden>→</span>
         </button>
         <p className="mt-4 text-center text-xs text-muted">
-          Takes under a minute. We&apos;ll never share your email.
+          Takes under a minute. We reply within one business day and never share your email.
         </p>
       </form>
     );
@@ -402,17 +402,17 @@ export const TrialForm = () => {
 
       <Field
         name="useCase"
-        label="Primary use case"
+        label="Which job would you hand over first? (optional)"
         value={values.useCase}
         onChange={(v) => set("useCase", v)}
-        placeholder="Primary use case (optional)"
+        placeholder="e.g. monthly sales review, CAPA tracking"
       />
 
       <button
         type="submit"
         className="pill mt-2 justify-center py-3.5 text-sm font-semibold"
       >
-        {calendlyUrl ? "Pick a time" : "Book my demo"} <span aria-hidden>→</span>
+        {calendlyUrl ? "Pick a time" : "Request my bootcamp"} <span aria-hidden>→</span>
       </button>
     </form>
   );

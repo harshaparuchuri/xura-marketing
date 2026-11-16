@@ -2,10 +2,12 @@ import { pageMetadata } from "@/utils/seo/generate-page-metadata";
 import { TrialView } from "@/views/trial";
 
 export const metadata = pageMetadata({
-  title: "Book a demo of Xura's AI employees",
+  title: "Book a 2-day AI bootcamp on your own data",
   description:
-    "Book a 30-minute walkthrough of Xura's AI employees on your own use case: answers from your data, the reason behind the numbers, and approval-gated actions.",
+    "Book a 2-day bootcamp: Xura's team puts an AI employee to work on your own data and plans your go-live.",
   path: "/trial",
+  // Form page: /bootcamp ranks for this intent (see seo-check NOINDEX).
+  noindex: true,
 });
 
 export default function TrialPage() {

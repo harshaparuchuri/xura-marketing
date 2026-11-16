@@ -87,6 +87,8 @@
   background: rgba(52,211,153,0.5);
   filter: blur(8px);
   opacity: 0.5;
+  /* Own layer: the blur rasterises once; the pulse is compositor-only. */
+  will-change: transform, opacity;
   animation: m-orb-halo-pulse 4.5s ease-in-out infinite;
   pointer-events: none;
 }
@@ -282,3 +284,9 @@
   filter: drop-shadow(0 0 4px color-mix(in srgb, var(--orb-accent) 55%, transparent));
 }
 .m-orb--tinted .m-orb__halo { background: color-mix(in srgb, var(--orb-accent) 50%, transparent); }
+
+/* Off-screen (AiOrb IntersectionObserver): stop every loop. */
+.m-orb--paused,
+.m-orb--paused *,
+.m-orb--paused *::before,
+.m-orb--paused *::after { animation-play-state: paused !important; }

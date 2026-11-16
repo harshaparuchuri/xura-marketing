@@ -24,6 +24,13 @@ export function getSiteStructuredData() {
         url: siteConfig.url,
         logo: `${siteConfig.url}/android-icon-192x192.png`,
         email: siteConfig.email,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Hyderabad",
+          addressRegion: "Telangana",
+          addressCountry: "IN",
+        },
+        areaServed: ["India", "Southeast Asia"],
         sameAs: Object.values(siteConfig.profiles).filter(Boolean),
       },
       {
@@ -35,6 +42,26 @@ export function getSiteStructuredData() {
         publisher: { "@id": `${siteConfig.url}/#organization` },
       },
     ],
+  };
+}
+
+/**
+ * Service schema for the home page: AI employees deployed by Xura's own
+ * team, for pharma and manufacturing companies in India and Southeast Asia.
+ */
+export function getServiceStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteConfig.url}/#service`,
+    name: "AI transformation, built for your business",
+    serviceType: "AI implementation",
+    description:
+      "Xura's deployment team finds the work that needs attention in pharma and manufacturing companies and custom-builds AI employees, agentic workflows and apps on the Xura platform. Engagements start with a two-day bootcamp; you see it live in about two weeks.",
+    provider: { "@id": `${siteConfig.url}/#organization` },
+    areaServed: ["India", "Southeast Asia"],
+    audience: { "@type": "BusinessAudience", audienceType: "Pharma and manufacturing companies" },
+    url: siteConfig.url,
   };
 }
 
@@ -51,6 +78,35 @@ export function getBreadcrumbStructuredData(crumbs: Crumb[]) {
       name: crumb.name,
       item: `${siteConfig.url}${crumb.path}`,
     })),
+  };
+}
+
+/**
+ * SoftwareApplication for /platform — tells search and AI answer engines what
+ * the product is. No `offers`: pricing is quoted per company.
+ */
+export function getPlatformStructuredData() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": `${siteConfig.url}/platform#software`,
+    name: `${siteConfig.name} AI platform`,
+    applicationCategory: "BusinessApplication",
+    applicationSubCategory: "AI agents and workflow automation",
+    operatingSystem: "Web, WhatsApp, Slack, Microsoft Teams, email",
+    description:
+      "AI employees, agentic workflows and custom apps on one platform: a live knowledge graph over your ERP, CRM and spreadsheets, with every output approved in WhatsApp, Slack or Teams.",
+    url: `${siteConfig.url}/platform`,
+    featureList: [
+      "AI employees for sales reviews, quality tracking, leadership decks and hiring",
+      "Agentic workflows with approval steps",
+      "Internal apps built by describing them in chat",
+      "MCP and 50+ native integrations including SAP, Salesforce, HubSpot and Snowflake",
+      "Runs in Xura cloud, your VPC or on premises",
+      "Audit logs and row-level permissions",
+    ],
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    provider: { "@id": `${siteConfig.url}/#organization` },
   };
 }
 
