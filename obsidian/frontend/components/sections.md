@@ -130,3 +130,5 @@ crossfades to the hovered/focused industry, "All industries →" to the hub.
 > **Mega-menus (2026-11-16):** a hover-image variant was tried and reverted; `MegaMenu` shows two link columns + the bootcamp feature card (`menu.feature`). Item `image` fields are unused. `StickyHeader` is adaptive glass (see changelog).
 
 > **ChecklistSection (2026-11-16):** one list → centred card (max 52rem) with items in two columns; two lists → side by side; three → 3-up.
+
+> **2026-11-16 (audit fixes):** `home/platform-team.tsx` card scrims are `from-55% via-foreground/85` below `md` (was 30% / 70%, so phone copy sat on the busy product shot); `md` keeps 30% / 70%. `home/home-hero.tsx` desktop scrim ellipse 60%×48% → 68%×64% at 50% 55%, opacity 0.6 → 0.75; "See how we deploy" pill gets `bg-foreground/25 backdrop-blur-sm`. `home/industries-tabs.tsx` and `views/industries-index.tsx` show the first use-case title without the "Example:" prefix.

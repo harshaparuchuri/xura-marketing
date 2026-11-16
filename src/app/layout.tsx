@@ -15,6 +15,7 @@ import { AdaptiveGrid } from "@/components/common/grid";
 import { ReducedMotion } from "@/components/common/reduced-motion";
 import { AiHelpAgent } from "@/components/graphics/ai-help-agent";
 import { CookieBanner } from "@/components/common/cookie-banner";
+import { SkipLink } from "@/components/common/skip-link";
 import { ScrollLayout } from "@/layouts/scroll-layout";
 
 import "@/app/globals.css";
@@ -63,6 +64,7 @@ export default function RootLayout({
             __html: JSON.stringify(getSiteStructuredData()),
           }}
         />
+        <SkipLink />
         <ScrollLayout>
           <AdaptiveGrid coef={1} />
           <ReducedMotion />

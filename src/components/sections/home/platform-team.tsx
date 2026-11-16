@@ -37,7 +37,7 @@ export const PlatformTeam = () => (
           <div className="absolute left-7 top-7 w-[46rem] origin-top-left scale-[0.62] md:left-9 md:top-9">
             <HiringAppPreview />
           </div>
-          <span aria-hidden className="absolute inset-0 bg-linear-to-t from-foreground from-30% via-foreground/70 to-transparent" />
+          <span aria-hidden className="absolute inset-0 bg-linear-to-t from-foreground from-55% via-foreground/85 to-transparent md:from-30% md:via-foreground/70" />
           <div className="relative p-7 md:p-9">
             <h3 className="text-2xl font-light tracking-tight md:text-3xl">{HOME_PLATFORM.platform.title}</h3>
             <p className="mt-3 max-w-[44ch] text-sm leading-relaxed text-background/70">{HOME_PLATFORM.platform.body}</p>
@@ -56,7 +56,7 @@ export const PlatformTeam = () => (
               sizes="456px"
             />
           </div>
-          <span aria-hidden className="absolute inset-0 -z-10 bg-linear-to-t from-foreground from-30% via-foreground/70 to-transparent" />
+          <span aria-hidden className="absolute inset-0 -z-10 bg-linear-to-t from-foreground from-55% via-foreground/85 to-transparent md:from-30% md:via-foreground/70" />
           <div className="relative p-7 md:p-9">
             <h3 className="text-2xl font-light tracking-tight md:text-3xl">{HOME_PLATFORM.team.title}</h3>
             <p className="mt-3 max-w-[44ch] text-sm leading-relaxed text-background/70">{HOME_PLATFORM.team.body}</p>
