@@ -12,6 +12,7 @@ This is a human-curated log — not a mirror of `git log`.
 
 ## 2026-11-18 — "What they produce" rail
 - The rail now shows one card per output type (`HOME_OUTPUTS`): Apps (coded `HiringAppPreview`), Dashboards, Decks, Social posts, Research reports, Briefs, Infographics — instead of one card per AI employee.
+- New asset `public/assets/product/out-brief-overview{,-640,-1080}.webp` (page 1 of the owner's Business Operations Overview PDF) replaces the old brief capture on the Briefs card, whose figures overlapped.
 - New asset `public/assets/product/out-social{,-640,-1080}.webp`: a real LinkedIn post from the product (owner-supplied).
 - /platform's Outputs rail now shows the same cards: both use the new shared `sections/shared/outputs-list.tsx` (`OutputsList` + `OutputShot`); `PLATFORM_OUTPUTS.items` removed.
 - Output images fill each card's lower area (`OutputShot`), bleeding off the right and bottom edges.
