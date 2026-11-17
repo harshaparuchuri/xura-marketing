@@ -208,7 +208,13 @@ export const HOME_OUTPUTS: readonly { title: string; byline: string; shot?: Outp
   {
     title: "Briefs",
     byline: "The bottom line on one page",
-    shot: { src: "/assets/product/out-brief.webp", alt: "A Xura situation brief titled Open High-Impact Risks Across Projects, with a bottom-line summary", crop: { x: 0.18, y: 0.1, w: 0.64 } },
+    shot: {
+      src: "/assets/product/out-brief-overview.webp",
+      alt: "A Xura situation brief titled Business Operations Overview, with a bottom-line summary and four key figures",
+      crop: { x: 0.06, y: 0.05, w: 0.9 },
+      width: 1654,
+      height: 2339,
+    },
   },
   {
     title: "Infographics",
