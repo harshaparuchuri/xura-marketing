@@ -1,6 +1,6 @@
 ---
 tags: [meta, changelog]
-updated: 2026-11-15
+updated: 2026-11-18
 ---
 
 # Changelog
@@ -9,6 +9,11 @@ Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
 > Note: entries for 2026-11-16 were appended at the end of this file during that session.
+
+## 2026-11-18 — /ai-transformation vs /deployment split
+- The two pages no longer repeat the same story (ADR below). /ai-transformation = why and what for leaders: new sections “What makes a good first job”, “From one job to the whole business”, “What changes for your people”, “The decisions that stay with you”; the 90-day timeline (`TR_TIMELINE`) is removed and the FAQ links to /deployment for the how.
+- /deployment = the how, in depth: six-phase `WalkthroughSection` (reads / produces / approval), who's involved, ownership over time, what we need from you, after go-live, longer operational FAQ. `DeploySteps` component removed; new data `DEPLOY_PEOPLE`, `DEPLOY_OWNERSHIP`, `DEPLOY_NEEDS`, `DEPLOY_SUPPORT`.
+- llms.txt descriptions updated for both pages. References: Wonderful (/deployment, /ai-transformation) and AuxoAI.
 
 ## 2026-11-16 — Content depth (ADR-0046)
 - New pages: `/use-cases` + 6 use-case pages, 3 `/compare/*` pages (`views/content-pages.tsx`, `data/use-cases.ts`, `data/compare.ts`).
@@ -1620,3 +1625,16 @@ This is a human-curated log — not a mirror of `git log`.
 - Product tour video sections (/platform, /ai-employees): the "In this video" highlights list under the player is removed (owner: not required); `PRODUCT_TOUR.highlights` deleted.
 - Video highlights removal shipped via PR harshaparuchuri/xura-marketing#18, deploy run 43896423384 succeeded; verified live on /platform and /ai-employees.
 - **Bitter font removed.** No live page used the serif (only unused v1 components with `display-serif` / `font-serif`), yet every page preloaded a Bitter woff2 and the build fetched it from Google Fonts — the cause of the CI failure on PR #17. `layout.tsx` now loads Figtree only; `--font-display` falls back to Figtree. One font preload per page (28 KB) instead of two; no build-time network fetch for fonts.
+- Bitter removal shipped via PR harshaparuchuri/xura-marketing#19, deploy run 43898648919 succeeded first time; live home page has 1 font preload.
+- **New /about page (2026-11-18):** who Xura is, how we work (four principles), the team (Harsha Paruchuri, Balavinod Vaitla, Sreedatta Y N V; headshots in `public/assets/team/`, bios from the sales deck notes), “Where we’ve built” (ADP, Darwinbox, IBM, Townhall, CA Technologies, Practo, Microsoft, iGate as text), office address. Footer: About link + office address. New `siteConfig.address` (Hyderabad, Telangana 500019, India) feeds the footer, /about and Organization JSON-LD (now with `postalCode`). Sitemap + llms.txt updated. SEO check: 29 pages, no errors.
+- /about: team headshots removed (owner: no photos of people); cards show name, role and bio only. `public/assets/team/` deleted.
+- /about team section reworked (owner): no individual people (names, roles, bios removed); now a 30+ years line plus a logo grid of companies the team has built at: ADP, IBM, Townhall, CA Technologies, Practo, Microsoft, iGate (Darwinbox dropped). Logos in `public/assets/logos/`.
+- /about logo grid: added Virtusa (formerly Polaris Financial Technology, from Harsha’s LinkedIn), now 8 logos (4 + 4). Company list checked against both founders’ LinkedIn profiles; Darwinbox and PASS GCA excluded. A23 (Head Digital Works) and Tutoryoung logos still needed: their sites could not be reached.
+- /about logo grid: added Head Digital Works (A23), logo from hdworks.in recoloured to the shared grey; now 9 logos in a 5 + 4 grid (`BuiltAtLogo.stacked` shows multi-line marks taller). Tutoryoung still pending (site gone).
+- Top nav: new “Company” link → /about (desktop and phone menu). /about answer block question “Who is Xura?” → “What is Xura?”.
+- /about: workplace photo (Pexels 7580644, same series as the site’s other office photos; 2000/1080/640 WebP, credited in `public/assets/photos/CREDITS.txt`) between “How we work” and the team section, with caption.
+- Copy: every “deployment lead” (21 places: home, /deployment, /bootcamp, /trial, /about, subpages, pricing data, alt text, llms.txt) now says “our team” (owner: say team, not one person). /deployment section label “Our team on your site”, heading “People on your site, not a ticket queue”; FAQ “Xura’s team works with each customer directly, on site.” Internal names (`DEPLOY_LEAD`, `DeployLead`) unchanged.
+- Copy: no more “one new workflow every quarter” or “hand it over / move on to the next job” (owner: must not sound like we leave after launch). Now an ongoing partnership: “We stay with you”, “taking up new requests as they come”, “keep adding jobs as you need them”. Home 5-step strip step 5 = “We stay with you”; /deployment timeline last step “Ongoing · We stay with you”; /ai-transformation 90-day plan “Tune it together” + “Ongoing · We stay with you”; FAQs, pov “Run it together”, /about caption, llms.txt updated.
+- Copy tone pass on the partnership wording (owner: make it professional): “We stay with you” → “Continuous improvement” (home step 5, /deployment and /ai-transformation timelines); “taking up new requests as they come” → “delivering new requirements as they arise / as your business evolves”; “Run it together” → “Long-term partnership”; “Tune it together” → “Refine and adopt”; /about caption “remain your partner long after launch”.
+- Home: new “Our team has built products at” logo strip above the FAQ (same logos as /about, muted, links to /about). Placed late and labelled deliberately so it is not read as customer logos.
+- Home logo strip is now a carousel (`BuiltAtMarquee`: endless spring-driven drift, pauses off screen, still for reduced motion); “Meet the team” link removed. Logo order (shared with /about) set by owner: ADP, IBM, CA Technologies, Virtusa, Microsoft, Practo, iGate, Townhall, Head Digital Works.

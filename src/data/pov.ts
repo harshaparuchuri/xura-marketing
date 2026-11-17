@@ -48,7 +48,7 @@ export const ESSAYS: Record<"transformation" | "bootcamp", Essay> = {
       { title: "Keep a person in the loop", body: "Every output is a draft until someone approves it. Trust is earned workflow by workflow, and you decide which ones can run on their own." },
       { title: "Connect once, reuse everywhere", body: "The ERP, CRM and spreadsheets the first job connects are reused by every job after it, so each one is faster than the last." },
       { title: "Show the working", body: "Every number links to its source and every step is logged. If a reviewer can't check it, it doesn't ship." },
-      { title: "Hand it over", body: "Our team builds it with yours, then your team runs it. We move on to the next job." },
+      { title: "Long-term partnership", body: "Our team builds it with yours, your team runs it, and we continue to support and extend it." },
     ],
   },
   bootcamp: {
@@ -85,7 +85,7 @@ export const RELATED: Record<string, readonly RelatedLink[]> = {
   transformation: [
     { href: "/compare/partner-led-vs-in-house-ai", label: "Partner-led vs in-house AI", body: "The four ways to do it, compared." },
     { href: "/use-cases", label: "Use cases", body: "Good first jobs, by team." },
-    { href: "/bootcamp", label: "2-day bootcamp", body: "Where every engagement starts." },
+    { href: "/deployment", label: "How a deployment works", body: "Each step, who's involved, where it runs." },
   ],
   bootcamp: [
     { href: "/ai-transformation", label: "Our approach", body: "AI transformation, one job at a time." },

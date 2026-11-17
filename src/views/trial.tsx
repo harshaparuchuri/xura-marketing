@@ -23,7 +23,7 @@ const POINTS: string[] = [
   "Answers from your own data, with the sources shown",
   "Works in WhatsApp, Slack, Teams and the web",
   "Nothing is sent or changed until you approve it",
-  "A Xura deployment lead runs both days with your process owner",
+  "Our team runs both days with your process owner",
 ];
 
 const AGENDA: { title: string; body: string }[] = [

@@ -2,34 +2,15 @@ import { HazeField } from "@/components/graphics/haze-field";
 import { PhotoFill } from "@/components/common/photo-fill";
 import { FlowField } from "@/components/graphics/flow-field";
 import { Reveal, SectionHead } from "@/components/sections/home/reveal";
-import { DEPLOY_BOOTCAMP, DEPLOY_HOSTING, DEPLOY_LEAD, DEPLOY_STEPS, DEPLOY_WHY } from "@/data/deployment";
+import { DEPLOY_BOOTCAMP, DEPLOY_HOSTING, DEPLOY_LEAD, DEPLOY_WHY } from "@/data/deployment";
 import { siteConfig } from "@/lib/site";
 
-/** The engagement — a timeline: when · step · what happens. */
-export const DeploySteps = () => (
-  <section aria-labelledby="deploy-steps-heading" className="relative isolate overflow-hidden py-24 md:py-32">
-    <HazeField variant={0} />
-    <div className="shell">
-      <SectionHead id="deploy-steps-heading" label={DEPLOY_STEPS.label} heading={DEPLOY_STEPS.heading} center />
-      <ol className="mx-auto mt-14 max-w-[60rem] border-t border-line">
-        {DEPLOY_STEPS.steps.map((s, i) => (
-          <Reveal key={s.title} tag="li" delay={i * 50} className="grid gap-2 border-b border-line py-7 sm:grid-cols-[9rem_14rem_1fr] sm:gap-8">
-            <span className="font-mono text-xs text-muted sm:pt-1.5">{s.when}</span>
-            <h3 className="text-xl font-light tracking-tight">{s.title}</h3>
-            <p className="text-sm leading-relaxed text-muted">{s.body}</p>
-          </Reveal>
-        ))}
-      </ol>
-    </div>
-  </section>
-);
-
-/** Deployment lead — workshop photo beside four points. */
+/** Our team on site — workshop photo beside four points. */
 export const DeployLead = () => (
   <section aria-labelledby="deploy-lead-heading" className="pb-24 md:pb-32">
     <div className="shell grid items-center gap-10 lg:grid-cols-2 [&>*]:min-w-0">
       <Reveal className="relative isolate aspect-[4/3] overflow-hidden rounded-3xl">
-        <PhotoFill src="/assets/photos/team-workshop.webp" alt="A deployment lead walking a team through a process map" sizes="(min-width: 1024px) 560px, 100vw" />
+        <PhotoFill src="/assets/photos/team-workshop.webp" alt="Our team walking a client team through a process map" sizes="(min-width: 1024px) 560px, 100vw" />
       </Reveal>
       <div>
         <SectionHead id="deploy-lead-heading" label={DEPLOY_LEAD.label} heading={DEPLOY_LEAD.heading} />

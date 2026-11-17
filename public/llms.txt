@@ -21,9 +21,9 @@ A fuller plain-text version of the site is at https://xuralabs.com/llms-full.txt
 
 ## How Xura works with you
 
-- [AI transformation](https://xuralabs.com/ai-transformation): The service: Xura's team finds the work AI should be doing and builds the apps and workflows that do it.
+- [AI transformation](https://xuralabs.com/ai-transformation): The why and what, for leaders: why AI projects stall, what makes a good first job, good first jobs by team, how it grows from one job to the whole business, what changes for your people, and the decisions that stay with leadership.
 - [Bootcamp](https://xuralabs.com/bootcamp): A paid two-day session that maps where work gets stuck and shows AI working on your own data before you commit.
-- [Deployment](https://xuralabs.com/deployment): A deployment lead on site, live in about two weeks, then about one new workflow per quarter.
+- [Deployment](https://xuralabs.com/deployment): The how: each phase from the 2-day bootcamp to live in about two weeks (what it reads, produces and who approves), who is involved on both sides, how control moves to the customer, what Xura needs from you, hosting options, and support after go-live.
 - [Book a bootcamp](https://xuralabs.com/trial): Request form.
 
 ## Industries
@@ -50,6 +50,10 @@ A fuller plain-text version of the site is at https://xuralabs.com/llms-full.txt
 - [AI agents vs RPA](https://xuralabs.com/compare/ai-agents-vs-rpa)
 - [AI employees vs AI chatbots](https://xuralabs.com/compare/ai-employees-vs-chatbots)
 - [Partner-led vs in-house AI](https://xuralabs.com/compare/partner-led-vs-in-house-ai)
+
+## Company
+
+- [About](https://xuralabs.com/about): Who Xura is, how the deployment team works, the founding team, and the Hyderabad office (Telangana 500019, India).
 
 ## Optional
 

@@ -6,4 +6,5 @@ industry-manufacturing https://www.pexels.com/photo/31336007/
 industry-healthcare  https://www.pexels.com/photo/6129681/
 industry-saas        https://www.pexels.com/photo/39342696/
 industry-fintech     https://www.pexels.com/photo/7580643/
+about-workplace      https://www.pexels.com/photo/7580644/   (added 2026-11-18, /about)
 Each saved as WebP at 2000 / 1080 / 640 px wide.

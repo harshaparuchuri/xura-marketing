@@ -1298,3 +1298,18 @@ needed later: a geo-IP consent tool, or Google Consent Mode "advanced"
 
 **Decision:** load fonts only with `next/font/local` from `src/fonts/`. The Bitter serif (`next/font/google`) is removed; Figtree is the only typeface, and `--font-display` falls back to it.
 **Why:** `next/font/google` downloads the font from Google during the build; that request failed in CI and broke a deploy (PR #17's first run). Bitter wasn't rendered on any live page but was preloaded on every one, so removing it also saves a font download per visit.
+
+## ADR — Ongoing partnership, not a quarterly cadence (2026-11-18)
+
+**Decision:** copy never promises a fixed cadence (“one workflow per quarter”) or a hand-over after which Xura moves on. After go-live (about 2 weeks) the promise is ongoing, in a professional register: “Continuous improvement”, “our team continues to support and extend it”, “new requirements delivered as your business evolves” (not casual phrasing like “we stay with you”).
+**Why:** owner — a quarterly cadence read as rationed service and “hand over, move on” read as abandonment after launch; buyers need to hear that support continues.
+
+## ADR — Former-employer logos, never as customer logos (2026-11-18)
+
+**Decision:** logos of companies the founders worked at appear only with an explicit label (“Our team has built products at” / “Where we’ve built”), on /about and in a slim home strip placed just above the FAQ — never directly under the hero and never as “Trusted by”.
+**Why:** a logo row under a hero reads as customers; implying Microsoft or IBM are clients would cost trust when discovered. When real customer logos exist, they take the prominent slot and this strip moves to /about only.
+
+## ADR — /ai-transformation is the why, /deployment is the how (2026-11-18)
+**Context:** Both pages told the same bootcamp → build → live → improve story with near-identical steps and FAQs (owner noticed).
+**Decision:** /ai-transformation speaks to leaders (why projects stall, how to pick and sequence jobs, what changes for people, decisions leadership keeps) and does not repeat the step list; /deployment is the single detailed home of the engagement steps, roles, client inputs, ownership, hosting and post-launch support.
+**Consequences:** New process detail goes on /deployment only; /ai-transformation links to it. Copy uses only facts already on the site.

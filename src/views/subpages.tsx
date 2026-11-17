@@ -28,7 +28,6 @@ import {
   SEC_REVIEW,
   SECURITY,
   TR_FIRST_JOBS,
-  TR_TIMELINE,
   TRANSFORMATION,
   WF_TEMPLATES,
   WF_WALK,
@@ -213,9 +212,12 @@ export const TransformationView = () => {
       <AnswerBlock id="tr-answer" {...ANSWERS.transformation} />
       <EssaySection id="tr-pov" essay={ESSAYS.transformation} variant={1} />
       <CardsSection id="tr-problem" {...p.problem} variant={0} />
-      <WalkthroughSection id="tr-timeline" {...TR_TIMELINE} variant={1} />
+      <GridSection id="tr-pick" {...p.pick} variant={1} />
       <CardsSection id="tr-first" {...TR_FIRST_JOBS} variant={2} />
-      <CompareSection id="tr-compare" {...p.compare} variant={0} />
+      <StepsSection id="tr-grow" {...p.grow} variant={0} />
+      <GridSection id="tr-people" {...p.people} variant={1} />
+      <ChecklistSection id="tr-decide" {...p.decide} variant={2} />
+      <CompareSection id="tr-compare" {...p.compare} variant={1} />
       <FaqSection id="tr-faq" items={p.faq} />
       <RelatedLinks id="tr-related" links={RELATED.transformation} />
       <CtaBand id="tr-cta" {...p.cta} />

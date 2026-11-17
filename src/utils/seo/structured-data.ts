@@ -26,9 +26,10 @@ export function getSiteStructuredData() {
         email: siteConfig.email,
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Hyderabad",
-          addressRegion: "Telangana",
-          addressCountry: "IN",
+          addressLocality: siteConfig.address.locality,
+          addressRegion: siteConfig.address.region,
+          postalCode: siteConfig.address.postalCode,
+          addressCountry: siteConfig.address.countryCode,
         },
         areaServed: ["India", "Southeast Asia"],
         sameAs: Object.values(siteConfig.profiles).filter(Boolean),
