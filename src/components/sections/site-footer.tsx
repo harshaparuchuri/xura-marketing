@@ -34,6 +34,7 @@ const HOW_WE_WORK: FooterLink[] = [
 ];
 
 const COMPANY: FooterLink[] = [
+  { label: "About", href: "/about" },
   { label: "Contact us", href: `mailto:${siteConfig.email}` },
   { label: "Privacy policy", href: "/privacy" },
 ];
@@ -104,6 +105,9 @@ export const SiteFooter = () => (
           AI employees, workflows and apps, custom-built by our team on your
           systems, with you approving every step.
         </p>
+        <address className="mt-4 text-sm not-italic leading-relaxed opacity-60">
+          {siteConfig.address.locality}, {siteConfig.address.region} {siteConfig.address.postalCode}, {siteConfig.address.country}
+        </address>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href={TALK_URL} className="pill pill-inverse justify-center whitespace-nowrap max-sm:w-full">
             Talk to us <span aria-hidden>→</span>

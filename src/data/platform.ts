@@ -97,7 +97,7 @@ export const PLATFORM_APPS = {
 export const PLATFORM_FLOWS = {
   label: "Workflows",
   heading: "Agentic workflows that run your processes",
-  lead: "Triggers, data, AI steps, conditions, approvals and actions, wired together on one canvas. Our team builds workflows around your processes, then hands them over to run on Xura.",
+  lead: "Triggers, data, AI steps, conditions, approvals and actions, wired together on one canvas. Our team builds workflows around your processes, and continues to refine them as your requirements evolve.",
   points: [
     { title: "Monitors that never sleep", body: "A threshold on any metric, or suggested from your goals. Xura checks continuously and alerts the moment something moves." },
     { title: "Signals from inside and out", body: "Internal data joined with market, competitor and customer signals, so you see why a number moved." },

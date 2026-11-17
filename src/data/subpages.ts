@@ -70,7 +70,7 @@ export const AI_EMPLOYEES: Page & {
   faq: [
     { q: "Is an AI employee the same as an AI agent?", a: "Yes. We call them AI employees because each one has a job and a name, and your team works with it like a teammate." },
     { q: "Can an AI employee act without approval?", a: "No. Every output waits for your approval. You decide which jobs earn the right to run on their own." },
-    { q: "Who sets them up?", a: "Our deployment team builds them around your processes during a deployment, then hands them over to your team." },
+    { q: "Who sets them up?", a: "Our deployment team builds them around your processes and continues to refine them as those processes evolve." },
   ],
   cta: { heading: "Meet your first AI employee now.", sub: "Start with a 2-day bootcamp. See it live in 2 weeks." },
 };
@@ -138,7 +138,7 @@ export const WORKFLOWS: Page & {
   faq: [
     { q: "What is an agentic workflow?", a: "A workflow with AI steps that read your data, reason about it and draft the next action, alongside the usual triggers, conditions and actions." },
     { q: "Do workflows run on their own?", a: "Only when you let them. Approval steps wait for a person, and you decide which workflows earn the right to run on their own." },
-    { q: "Who builds the workflows?", a: "Our deployment team builds them around your processes, then hands them over to run on Xura." },
+    { q: "Who builds the workflows?", a: "Our deployment team builds them around your processes and continues to support and improve them after launch." },
     { q: "How are workflows different from apps?", a: "A workflow runs on a trigger or schedule. An app is a place where your team works through records together. Many deployments use both." },
   ],
   cta: { heading: "Build your first workflow now.", sub: "Start with a 2-day bootcamp. See it live in 2 weeks." },
@@ -242,7 +242,10 @@ export const SECURITY: Page & {
 
 export const TRANSFORMATION: Page & {
   problem: { label: string; heading: string; items: readonly Item[] };
-  approach: { label: string; heading: string; steps: readonly Item[] };
+  pick: { label: string; heading: string; lead: string; items: readonly Item[] };
+  grow: { label: string; heading: string; lead: string; steps: readonly Item[] };
+  decide: { label: string; heading: string; lead: string; lists: readonly { title: string; items: readonly string[] }[] };
+  people: { label: string; heading: string; lead: string; items: readonly Item[] };
   compare: { label: string; heading: string; items: readonly Item[] };
 } = {
   path: "/ai-transformation",
@@ -250,10 +253,10 @@ export const TRANSFORMATION: Page & {
   meta: {
     title: "AI Transformation for Pharma and Manufacturing",
     description:
-      "AI transformation, built for your business. Our team finds the work AI should be doing and custom-builds the apps and workflows. Live in 2 weeks.",
+      "Where AI should go in your business, and how it grows from one job to many. AI employees on your own data, with your people approving every output.",
   },
   h1: "AI transformation, one job at a time",
-  sub: "For operations, sales, quality and IT teams in pharma and manufacturing. Our team finds the work AI should be doing, then custom-builds the apps and workflows that do it.",
+  sub: "For leaders in pharma and manufacturing deciding where AI should go first. Start with one job your team rebuilds by hand, then grow from there.",
   problem: {
     label: "Why AI projects stall",
     heading: "The problem isn't the AI",
@@ -263,16 +266,50 @@ export const TRANSFORMATION: Page & {
       { title: "No AI team", body: "There's no one in-house whose job is to make AI work." },
     ],
   },
-  approach: {
-    label: "Our approach",
-    heading: "Prove it, build it, then add the next job",
+  pick: {
+    label: "How we choose",
+    heading: "What makes a good first job",
+    lead: "We score every candidate job against the same tests. The first one should pass all of them.",
+    items: [
+      { title: "It repeats", body: "It is rebuilt by hand every week, month or quarter, so the time saved adds up." },
+      { title: "Someone owns it", body: "A named person is responsible for the output and can approve it." },
+      { title: "The data exists", body: "It runs on systems and spreadsheets you already have, with access we can get quickly." },
+      { title: "It hurts", body: "Everyone agrees it is painful, so people want it to change." },
+      { title: "The value is visible", body: "Leaders can see the difference: hours back, faster decisions, fewer things missed." },
+      { title: "It opens the next one", body: "The systems it connects are ones other jobs need too." },
+    ],
+  },
+  grow: {
+    label: "How it grows",
+    heading: "From one job to the whole business",
+    lead: "Each job reuses the systems and knowledge the last one connected, so every step is faster than the one before.",
     steps: [
-      { title: "Prove it", body: "A two-day bootcamp on your own data." },
-      { title: "Embed", body: "Your deployment lead maps your systems and picks one workflow." },
-      { title: "Build on Xura", body: "Built on the platform, with no side code to maintain." },
-      { title: "Go live", body: "See it live in 2 weeks." },
-      { title: "Expand", body: "We add the next job every quarter, reusing what's already built." },
-      { title: "Hand over", body: "Your team runs it. Every output waits for approval." },
+      { title: "One job", body: "A recurring job that a named person owns, like the monthly sales review, handed to an AI employee and approved by your team." },
+      { title: "One team", body: "The same team adds its next jobs on the same connections: reports, follow-ups, the deck built from approved reviews." },
+      { title: "Across the business", body: "Other teams start on the systems already connected. Operations, quality, sales and leadership work from the same numbers." },
+    ],
+  },
+  decide: {
+    label: "For leadership",
+    heading: "The decisions that stay with you",
+    lead: "AI transformation is a business change, not an IT project. These calls belong to your leaders, and we help you make them.",
+    lists: [
+      { title: "Where to point it", items: ["Which jobs go first, and in what order", "Which teams start, and who sponsors each", "What a good result looks like for each job"] },
+      { title: "Who stays in control", items: ["Who owns each process and approves its outputs", "Which workflows may run on their own, and when", "Who sees what, carried through from your permissions"] },
+      { title: "Where it runs", items: ["Xura cloud, your own cloud account, or your premises", "Which systems it may read, and which it may act on", "How it fits your security review"] },
+    ],
+  },
+  people: {
+    label: "What changes for your people",
+    heading: "Your people stop rebuilding. They start deciding.",
+    lead: "AI employees do the assembling. Your team keeps the judgement and the sign-off.",
+    items: [
+      { title: "Less copy and paste", body: "No more pulling numbers from five systems into a spreadsheet every month." },
+      { title: "Approvals, not drafts", body: "Work arrives ready to check in WhatsApp, Slack or Teams. Your people approve, edit or send it back." },
+      { title: "One version of the numbers", body: "Every answer links to its source, so meetings start from the same figures." },
+      { title: "Changes in plain language", body: "Your team adjusts what an AI employee does by asking in chat, not by filing a ticket." },
+      { title: "You decide what runs alone", body: "Trust is earned workflow by workflow. Nothing runs without a person until you say so." },
+      { title: "No AI team to hire", body: "Our team builds and maintains it with yours. Your people own the process." },
     ],
   },
   compare: {
@@ -285,11 +322,12 @@ export const TRANSFORMATION: Page & {
     ],
   },
   faq: [
-    { q: "Where should we start?", a: "With one job that's rebuilt by hand every cycle. The 2-day bootcamp finds it and shows it working on your data." },
-    { q: "How long until we see results?", a: "You see it live in about 2 weeks after the bootcamp, then we add the next job every quarter." },
-    { q: "Do we need an AI team?", a: "No. Our deployment team does the build. Your team owns the process and approves the outputs." },
+    { q: "Where should we start?", a: "With one job that's rebuilt by hand every cycle and that a named person owns. The 2-day bootcamp finds it and shows it working on your data." },
+    { q: "Which teams benefit first?", a: "Usually operations, quality and sales, where the same reviews and reports are rebuilt every month. Leadership benefits next, because their decks are built from those reviews." },
+    { q: "Do we need an AI team or a data warehouse first?", a: "No. Our team does the build, and Xura reads your existing systems and exports. Your team owns the process and approves the outputs." },
+    { q: "How does the engagement work in practice?", a: "It starts with a 2-day bootcamp and your first job goes live in about 2 weeks. The deployment page sets out each step, who is involved and where Xura runs." },
   ],
-  cta: { heading: "Start your AI transformation now.", sub: "One job, on your own data. Start with a 2-day bootcamp. See it live in 2 weeks." },
+  cta: { heading: "Start your AI transformation now.", sub: "One job, on your own data. Start with a 2-day bootcamp." },
 };
 
 /* ---------------------------------------------------------------- Bootcamp */
@@ -318,7 +356,7 @@ export const BOOTCAMP: Page & {
     steps: [
       { title: "Day 1: find the work", body: "Map where your work gets stuck and pick the process to start with." },
       { title: "Day 2: see it working", body: "See it working on your data, and agree what going live takes." },
-      { title: "After: live in 2 weeks", body: "If you go ahead, your deployment lead builds it and you see it live in about 2 weeks." },
+      { title: "After: live in 2 weeks", body: "If you go ahead, our team builds it and you see it live in about 2 weeks." },
     ],
   },
   get: {
@@ -335,10 +373,10 @@ export const BOOTCAMP: Page & {
   faq: [
     { q: "What does the bootcamp cost?", a: "It depends on your company and the job we start with. Book a bootcamp and we'll quote it before anything is scheduled. If you go ahead, the fee is credited to your deployment." },
     { q: "Is our data safe during the bootcamp?", a: "Yes. Your IT team grants the access, queries run inside your own systems, and no raw data is copied or stored. Nothing is sent or changed without your approval." },
-    { q: "Who comes from Xura?", a: "Your deployment lead, the person who builds your first job and stays with you through go-live." },
+    { q: "Who comes from Xura?", a: "Our deployment team: the people who build your first solution and support you through go-live and beyond." },
     { q: "Is it on site?", a: "Yes. Our team runs both days with yours, at your site." },
     { q: "What do we need to bring?", a: "Access to the systems the process uses, and a person who owns the process and can answer questions." },
-    { q: "What happens after the bootcamp?", a: "If you go ahead, you see it live in about 2 weeks, and we add the next job every quarter." },
+    { q: "What happens after the bootcamp?", a: "If you proceed, your first solution goes live in about 2 weeks. Our team then provides ongoing support and delivers new requirements as your business evolves." },
   ],
   cta: { heading: "Book your 2-day bootcamp now.", sub: "Two days with our team, on your own data. See it live in 2 weeks." },
 };
@@ -501,19 +539,6 @@ export const SEC_REVIEW = {
 } as const;
 
 /* ---------- AI transformation */
-
-export const TR_TIMELINE: { label: string; heading: string; lead: string; steps: readonly WalkStep[] } = {
-  label: "Your first 90 days",
-  heading: "What AI transformation looks like in practice",
-  lead: "One job at a time, each built on what's already there.",
-  steps: [
-    { tag: "Days 1–2", title: "Bootcamp", body: "We map where your work gets stuck, pick the first job, and show it working on your own data." },
-    { tag: "Week 1", title: "Your deployment lead embeds", body: "They map the systems and people involved and agree what to build with you.", makes: "An agreed first job" },
-    { tag: "Week 2", title: "Live", body: "The first app or workflow is live on your systems. Every output waits for approval.", makes: "Your first live AI job" },
-    { tag: "Weeks 3–12", title: "Tune and hand over", body: "We tune it with your team until it runs without us, and your team learns to change it in chat." },
-    { tag: "Every quarter", title: "The next job", body: "We add the next one, reusing the connections and knowledge already built." },
-  ],
-};
 
 export const TR_FIRST_JOBS = {
   label: "Where to start",

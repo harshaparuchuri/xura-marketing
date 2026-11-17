@@ -26,13 +26,13 @@ export const ENGAGEMENT_STEPS: { title: string; price: string; body: string }[] 
   },
   {
     title: "Deployment",
-    price: "Scoped with your deployment lead",
+    price: "Scoped with our team",
     body: "We connect your ERP, CRM and spreadsheets and see it live in about 2 weeks.",
   },
   {
     title: "Platform plan",
     price: "Per seat, per month",
-    body: "Your AI employees run on Xura. We add the next job every quarter.",
+    body: "Your AI employees run on Xura, with our team extending them as your requirements grow.",
   },
 ];
 

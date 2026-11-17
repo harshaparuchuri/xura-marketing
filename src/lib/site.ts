@@ -18,6 +18,14 @@ export const siteConfig = {
   url: publicEnv.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   twitterHandle: "@xuralabs",
   author: "Xura Labs",
+  /** Registered office (footer, /about, Organization JSON-LD). */
+  address: {
+    locality: "Hyderabad",
+    region: "Telangana",
+    postalCode: "500019",
+    country: "India",
+    countryCode: "IN",
+  },
   /** Contact address shown in the footer. */
   email: "admin@xuralabs.com",
   /** "Start free" — the app's auth page, opened on the Sign up tab. */

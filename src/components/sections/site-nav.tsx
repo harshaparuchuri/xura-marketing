@@ -10,8 +10,8 @@ import { siteConfig } from "@/lib/site";
 import { TALK_URL } from "@/components/common/cta-pair";
 
 // Extra top-level links after the menus. Docs moved to the footer only
-// (owner, 2026-11-16); add entries here to bring a plain link back.
-const LINKS: { label: string; href: string; external?: boolean }[] = [];
+// (owner, 2026-11-16). "Company" → /about added 2026-11-18 (owner).
+const LINKS: { label: string; href: string; external?: boolean }[] = [{ label: "Company", href: "/about" }];
 
 type MenuLink = { label: string; href: string };
 const flat = (cols: readonly (readonly MenuLink[])[]) => cols.flat().map(({ label, href }) => ({ label, href }));

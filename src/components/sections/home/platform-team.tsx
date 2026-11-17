@@ -52,7 +52,7 @@ export const PlatformTeam = () => (
           <div className="absolute left-7 top-7 -z-20 aspect-[4/3] w-[28.5rem] overflow-hidden rounded-2xl shadow-product md:left-9 md:top-9">
             <PhotoFill
               src="/assets/photos/team-workshop.webp"
-              alt="A deployment lead walking a team through a process map on a whiteboard"
+              alt="Our team walking a client team through a process map on a whiteboard"
               sizes="456px"
             />
           </div>

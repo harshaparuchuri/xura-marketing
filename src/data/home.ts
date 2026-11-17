@@ -50,9 +50,9 @@ export const HOME_PLATFORM = {
   },
   team: {
     title: "Our deployment team",
-    body: "A deployment lead works with your team on site. We map the processes that need attention, pick the ones an AI agent can improve, and build the workflows and apps around them. Then we move to the next one.",
+    body: "Our team works with yours on site. We map the processes that need attention, pick the ones an AI agent can improve, and build the workflows and apps around them. We then continue to support and extend them as new requirements arise.",
   },
-  steps: ["2-day bootcamp", "Find what needs attention", "Custom-build apps and workflows", "See it live in 2 weeks", "Next job every quarter"],
+  steps: ["2-day bootcamp", "Find what needs attention", "Custom-build apps and workflows", "See it live in 2 weeks", "Continuous improvement"],
   stat: "Vendor- and partner-led AI deployments succeed about twice as often as internal builds. — MIT NANDA, The GenAI Divide (2025)",
 } as const;
 
@@ -70,13 +70,13 @@ export const HOME_PROBLEM = {
 
 export const HOME_DEPLOY = {
   heading: "An AI implementation partner that deploys it for you",
-  lead: "Our team deploys it. You run it. Then we move to the next job. A deployment lead works with your team on site, not through a ticket queue.",
+  lead: "Our team deploys it, your team runs it, and we remain your partner as requirements evolve, on site rather than through a ticket queue.",
   steps: [
     { title: "Prove it", body: "A two-day bootcamp on your own data." },
-    { title: "Embed", body: "Your deployment lead maps your systems and picks one workflow." },
+    { title: "Embed", body: "Our team maps your systems and picks one workflow." },
     { title: "Build on Xura", body: "Built on the platform, with no side code to maintain." },
     { title: "Go live", body: "See it live in 2 weeks." },
-    { title: "Expand", body: "We add the next job every quarter." },
+    { title: "Expand", body: "We deliver new requirements as they arise." },
   ],
 } as const;
 
@@ -106,7 +106,7 @@ export const HOME_EMPLOYEES: {
   channels: string;
 } = {
   heading: "AI employees for sales, operations, quality and leadership",
-  lead: "Start with one job. We build the workflow or app around it, then add the next every quarter. You approve every output.",
+  lead: "Start with one job. We build the workflow or app around it, then extend it as your requirements grow. You approve every output.",
   jobs: [
     {
       job: "Monthly sales review",
@@ -209,7 +209,7 @@ export const HOME_FAQ = [
   },
   {
     q: "What is a forward-deployed AI team?",
-    a: "A vendor team that works with your company directly. It maps your systems, builds AI workflows on your data, then hands them over. Xura assigns a deployment lead to each customer.",
+    a: "A vendor team that works with your company directly. It maps your systems, builds AI workflows on your data, and continues to support them after launch. Xura’s team works with each customer directly, on site.",
   },
   {
     q: "What does Xura custom-build?",
@@ -217,7 +217,7 @@ export const HOME_FAQ = [
   },
   {
     q: "How long does deployment take?",
-    a: "You see it live in about 2 weeks after the bootcamp. Xura then adds about one new workflow per quarter.",
+    a: "Your first solution goes live in about 2 weeks after the bootcamp. Our team then continues to support and extend it as your requirements evolve.",
   },
   {
     q: "What is the two-day bootcamp?",

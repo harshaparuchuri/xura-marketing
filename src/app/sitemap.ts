@@ -37,6 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/use-cases", 0.8),
     ...USE_CASES.map((u) => entry(`/use-cases/${u.slug}`, 0.8)),
     ...COMPARE_PAGES.map((c) => entry(`/compare/${c.slug}`, 0.7)),
+    entry("/about", 0.6),
     entry("/privacy", 0.3, "yearly"),
   ];
 }

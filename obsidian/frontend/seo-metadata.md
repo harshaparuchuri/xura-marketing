@@ -117,3 +117,6 @@ layout's title template is `%s | Xura AI`. Structured-data helpers:
 `getSiteStructuredData` (Organization + WebSite, with `sameAs`),
 `getBreadcrumbStructuredData`, `getProductStructuredData` (unused pricing view), `getPlatformStructuredData` (/platform `SoftwareApplication`, 2026-11-16), `getServiceStructuredData` (home only, ADR-0033; Organization also carries the Hyderabad address and India + Southeast Asia `areaServed`). The full checklist
 and the CI check are in [[seo-checklist]].
+
+> [!note] Office address (2026-11-18)
+> `siteConfig.address` (`locality`, `region`, `postalCode`, `country`, `countryCode`) is the single source for the office address: the Organization JSON-LD `PostalAddress` (now with `postalCode` 500019), the footer `<address>` and the /about office block. Change it there only.
