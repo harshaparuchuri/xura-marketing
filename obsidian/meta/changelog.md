@@ -10,6 +10,13 @@ This is a human-curated log — not a mirror of `git log`.
 
 > Note: entries for 2026-11-16 were appended at the end of this file during that session.
 
+## 2026-11-18 — "What they produce" rail
+- The rail now shows one card per output type (`HOME_OUTPUTS`): Apps (coded `HiringAppPreview`), Dashboards, Decks, Social posts, Research reports, Briefs, Infographics — instead of one card per AI employee.
+- New asset `public/assets/product/out-social{,-640,-1080}.webp`: a real LinkedIn post from the product (owner-supplied).
+- /platform's Outputs rail now shows the same cards: both use the new shared `sections/shared/outputs-list.tsx` (`OutputsList` + `OutputShot`); `PLATFORM_OUTPUTS.items` removed.
+- Output images fill each card's lower area (`OutputShot`), bleeding off the right and bottom edges.
+- New first card "Answers" with the coded `AskXuraPreview` (`graphics/ask-xura-preview.tsx`), figures matching `HiringAppPreview`.
+
 ## 2026-11-18 — /ai-transformation vs /deployment split
 - The two pages no longer repeat the same story (ADR below). /ai-transformation = why and what for leaders: new sections “What makes a good first job”, “From one job to the whole business”, “What changes for your people”, “The decisions that stay with you”; the 90-day timeline (`TR_TIMELINE`) is removed and the FAQ links to /deployment for the how.
 - /deployment = the how, in depth: six-phase `WalkthroughSection` (reads / produces / approval), who's involved, ownership over time, what we need from you, after go-live, longer operational FAQ. `DeploySteps` component removed; new data `DEPLOY_PEOPLE`, `DEPLOY_OWNERSHIP`, `DEPLOY_NEEDS`, `DEPLOY_SUPPORT`.

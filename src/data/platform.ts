@@ -44,41 +44,11 @@ export const PLATFORM_ASK = {
   ],
 } as const;
 
-export const PLATFORM_OUTPUTS: {
-  label: string;
-  heading: string;
-  items: { title: string; body: string; shot: Shot }[];
-} = {
+/** Outputs section heading; the cards are the shared `HOME_OUTPUTS` (one per output type). */
+export const PLATFORM_OUTPUTS = {
   label: "Outputs",
   heading: "Work you can hand to leadership",
-  items: [
-    {
-      title: "Presentation-ready decks",
-      body: "Generated from a prompt, edited slide by slide, exported to .pptx or PDF.",
-      shot: { src: "/assets/product/out-deck.webp", alt: "A Xura-generated slide titled Task Completion Rate by Team", crop: { x: 0.157, y: 0.218, w: 0.64, h: 0.58 } },
-    },
-    {
-      title: "Live dashboards",
-      body: "Charts, metrics and an AI summary that stay current as your data changes.",
-      shot: { src: "/assets/product/dashboard.webp", alt: "A Xura dashboard with headcount KPIs above a headcount-by-department chart", crop: { x: 0.07, y: 0.41, w: 0.6, h: 0.59 } },
-    },
-    {
-      title: "Cited deep research",
-      body: "Multi-source reports grounded in your company, every claim cited. Download as Word.",
-      shot: { src: "/assets/product/out-research.webp", alt: "A Xura deep-research report title page with 87 citations from 30 sources", crop: { x: 0.21, y: 0.09, w: 0.58, h: 0.5 } },
-    },
-    {
-      title: "One-page infographics",
-      body: "A headline number, the chart behind it and the context. Export as PNG or PDF.",
-      shot: { src: "/assets/product/out-infographic.webp", alt: "A Xura infographic headed Q4 Plant Performance Leaders with a headline number and a chart", crop: { x: 0.21, y: 0.17, w: 0.58, h: 0.56 } },
-    },
-    {
-      title: "Executive briefs",
-      body: "The bottom line, the figures and what to do next, on one page.",
-      shot: { src: "/assets/product/out-brief.webp", alt: "A Xura situation brief with a bottom-line summary and key figures", crop: { x: 0.18, y: 0.1, w: 0.64, h: 0.5 } },
-    },
-  ],
-};
+} as const;
 
 /** Xura Apps — built by describing them in chat (product: src/server/custom-apps). */
 export const PLATFORM_APPS = {

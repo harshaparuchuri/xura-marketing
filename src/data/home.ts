@@ -138,7 +138,7 @@ export const HOME_EMPLOYEES: {
       shot: {
         src: "/assets/product/out-deck.webp",
         alt: "A Xura-generated slide titled Task Completion Rate by Team",
-        crop: { x: 0.157, y: 0.218, w: 0.64, h: 0.58 },
+        crop: { x: 0.157, y: 0.218, w: 0.46, h: 0.58 },
       },
     },
     {
@@ -162,18 +162,60 @@ export const HOME_EMPLOYEES: {
   channels: "Works in WhatsApp, Slack, Microsoft Teams and email.",
 };
 
-/** Extra "What they produce" carousel cards that aren't tied to a roster card. */
-export const HOME_OUTPUTS_EXTRA = [
+type OutputShot = {
+  src: string;
+  alt: string;
+  /** Fractions of the capture; the crop's top-left is pinned, its width spans the card. */
+  crop: { x: number; y: number; w: number };
+  /** Source size; product captures default to 2880×1800. */
+  width?: number;
+  height?: number;
+};
+
+/**
+ * "What they produce" rail: one card per output type (owner, 2026-11-18).
+ * Apps and Answers are coded previews (`HiringAppPreview`, `AskXuraPreview`); the rest are real captures.
+ */
+export const HOME_OUTPUTS: readonly { title: string; byline: string; shot?: OutputShot; preview?: "app" | "chat" }[] = [
+  { title: "Answers", byline: "Ask Xura anything about your business", preview: "chat" },
+  { title: "Apps", byline: "Built in chat, like this hiring pipeline", preview: "app" },
+  {
+    title: "Dashboards",
+    byline: "Live numbers from every system",
+    shot: { src: "/assets/product/dashboard.webp", alt: "A Xura dashboard with headcount KPIs above a headcount-by-department chart", crop: { x: 0.07, y: 0.41, w: 0.6 } },
+  },
+  {
+    title: "Decks",
+    byline: "The month's numbers, ready for leadership",
+    shot: { src: "/assets/product/out-deck.webp", alt: "A Xura-generated slide titled Task Completion Rate by Team", crop: { x: 0.157, y: 0.218, w: 0.46 } },
+  },
   {
     title: "Social posts",
-    by: "Ezra",
+    byline: "On-brand posts for LinkedIn",
     shot: {
-      src: "/assets/product/out-infographic.webp",
-      alt: "A Xura social post: an infographic with a headline number and a chart, ready for LinkedIn",
-      crop: { x: 0.21, y: 0.08, w: 0.58, h: 0.75 },
+      src: "/assets/product/out-social.webp",
+      alt: "A Xura LinkedIn post: a factory robot above the headline Vork Labs improves its throughput by 28%",
+      crop: { x: 0, y: 0.36, w: 1 },
+      width: 1080,
+      height: 1350,
     },
   },
-] as const;
+  {
+    title: "Research reports",
+    byline: "Deep research on any topic",
+    shot: { src: "/assets/product/out-research.webp", alt: "A Xura deep research report on plant safety trends in pharmaceutical manufacturing, with an executive summary", crop: { x: 0.22, y: 0.12, w: 0.58 } },
+  },
+  {
+    title: "Briefs",
+    byline: "The bottom line on one page",
+    shot: { src: "/assets/product/out-brief.webp", alt: "A Xura situation brief titled Open High-Impact Risks Across Projects, with a bottom-line summary", crop: { x: 0.18, y: 0.1, w: 0.64 } },
+  },
+  {
+    title: "Infographics",
+    byline: "A visual story from your data",
+    shot: { src: "/assets/product/out-infographic.webp", alt: "A Xura infographic headed Q4 Plant Performance Leaders with a headline number and a chart", crop: { x: 0.21, y: 0.17, w: 0.58 } },
+  },
+];
 
 export const HOME_CHANNELS = {
   heading: "Approve it from WhatsApp, Slack or Teams",
