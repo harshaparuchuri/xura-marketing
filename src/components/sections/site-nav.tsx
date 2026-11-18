@@ -18,7 +18,7 @@ const flat = (cols: readonly (readonly MenuLink[])[]) => cols.flat().map(({ labe
 
 /** Phone menu: every page, grouped like the desktop mega-menus. */
 const MOBILE_GROUPS: { title: string; links: MenuLink[] }[] = [
-  { title: "Platform", links: flat(PLATFORM_MENU.columns) },
+  { title: "Platform", links: [...flat(PLATFORM_MENU.columns), { label: PLATFORM_MENU.feature.title, href: PLATFORM_MENU.feature.href }] },
   { title: "How we work", links: flat(HOW_MENU.columns) },
   {
     title: "Industries",

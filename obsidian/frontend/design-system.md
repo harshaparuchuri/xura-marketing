@@ -147,7 +147,8 @@ The `@layer base/components/utilities` blocks are empty — fill them per projec
 **AI employee colours (2026-10-18).** Each built-in AI employee has a function
 colour, mirroring `DOMAIN_COLOR` in the Xura app. Tier 1
 `--raw-color-violet-500 / orange-600 / amber-500 / teal-600` → Tier 2
-`--employee-chief-of-staff / marketing / recruiting / quality`. They are not
+`--employee-chief-of-staff / marketing / recruiting / quality`.
+`--pulse-yes` (teal-600), `--pulse-maybe` (amber-500), `--pulse-no` (orange-600) are bound in `@theme` as `--color-pulse-*` for the coded Xura Pulse screens (`graphics/pulse-preview.tsx`): keen / unsure / put off. They are not
 bound into `@theme`; they're passed as `var(--employee-*)` to `AiOrb`'s
 `accent` prop (which sets `--orb-accent`) and used inline for the role label.
 

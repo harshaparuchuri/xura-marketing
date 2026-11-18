@@ -27,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/ai-employees", 0.9),
     entry("/workflows", 0.9),
     entry("/apps", 0.9),
+    entry("/pulse", 0.9),
     entry("/integrations", 0.8),
     entry("/security", 0.8),
     entry("/ai-transformation", 0.9),
