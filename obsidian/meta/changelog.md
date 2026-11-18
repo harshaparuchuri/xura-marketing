@@ -10,6 +10,19 @@ This is a human-curated log — not a mirror of `git log`.
 
 > Note: entries for 2026-11-16 were appended at the end of this file during that session.
 
+## 2026-11-19 — Xura Pulse page
+- New `/pulse` page (`views/pulse.tsx`, `data/pulse.ts`): audience testing on simulated people. Use cases from the owner: doctor messaging, sales decks with decision makers, marketing campaigns (A/B videos, LinkedIn, Instagram), distributor pricing; up to 200 personas live in one run (product `MAX_POOL_SIZE`); interview any persona one to one.
+- Video frames were replaced the same day by coded screens (`graphics/pulse-preview.tsx`): live run with a 200-seat crowd, A/B report, one-to-one interview. Frame assets deleted. Copy made domain-agnostic (owner): messages, sales/pitch decks, campaigns/creatives, pricing/offers.
+- Added survey results and A/B setup (owner): use-case cards "Surveys" and "A/B tests", sections `PULSE_AB` and `PULSE_SURVEY` with coded `PulseSetupPreview` / `PulseSurveyPreview`; hero slide redrawn as a real 16:9 deck slide.
+- Platform menu Pulse card redesigned to read as clickable: mini live panel (60 seats, count, tally) and a white "See Xura Pulse →" pill with hover ring.
+- Home: new `PulseBand` (Xura Pulse), placed just above the bootcamp section.
+- Outputs rail reordered (owner): Answers, Apps, Dashboards, Research reports, Audience tests, Pulse reports, Decks, Social posts, Briefs, Infographics, Simulated personas.
+- Outputs rail (home + /platform): added "Pulse reports" and "Simulated personas" cards after "Audience tests" (`preview: "pulse-report" | "persona"`).
+- New "Rooted in context" section (`PULSE_CONTEXT`, `PulseContextRing`): the audience in a circle around the company context graph — reactions grounded in company and persona context.
+- A/B screen now animates through Goal → Audience → Run (`PulseAbDemo`, client leaf, springs); social-post mocks with real creative tiles; hero crowd halved to 100 seats; hero slide gains before/after bars.
+- Platform mega-menu: bootcamp card replaced by a dark Xura Pulse feature card with a coded crowd; How we work keeps the bootcamp card. New tokens `--pulse-yes/maybe/no` (+ `@theme`).
+- Linked from the Platform menu (`PLATFORM_MENU`), the shared outputs rail ("Audience tests"), the sitemap (0.9) and llms.txt. No accuracy figures until the owner supplies them.
+
 ## 2026-11-18 — "What they produce" rail
 - The rail now shows one card per output type (`HOME_OUTPUTS`): Apps (coded `HiringAppPreview`), Dashboards, Decks, Social posts, Research reports, Briefs, Infographics — instead of one card per AI employee.
 - New asset `public/assets/product/out-brief-overview{,-640,-1080}.webp` (page 1 of the owner's Business Operations Overview PDF) replaces the old brief capture on the Briefs card, whose figures overlapped.

@@ -1313,3 +1313,8 @@ needed later: a geo-IP consent tool, or Google Consent Mode "advanced"
 **Context:** Both pages told the same bootcamp → build → live → improve story with near-identical steps and FAQs (owner noticed).
 **Decision:** /ai-transformation speaks to leaders (why projects stall, how to pick and sequence jobs, what changes for people, decisions leadership keeps) and does not repeat the step list; /deployment is the single detailed home of the engagement steps, roles, client inputs, ownership, hosting and post-launch support.
 **Consequences:** New process detail goes on /deployment only; /ai-transformation links to it. Copy uses only facts already on the site.
+
+## ADR — Xura Pulse positioned as pre-launch market testing (2026-11-19)
+**Context:** Pulse (synthetic audience testing) had no presence on the site. AuxoAI Echo sells the same category to leaders as faster market research.
+**Decision:** Own page at `/pulse` under Platform, pitched to leadership, marketing and sales, domain-agnostic (owner, 2026-11-19): messages, sales/pitch decks, campaigns, pricing. Visuals are coded replicas of the product screens, not video frames. Lead with "up to 200 people live", A/B before launch, and one-to-one interviews (quant + qual together). Panels are built with Xura's team, keeping the partner-led story. Only real product frames from the pitch-deck test; no political/film demo content; no accuracy claims without owner-supplied numbers.
+**Consequences:** If the product pool cap changes from 200, update `data/pulse.ts` and llms.txt.

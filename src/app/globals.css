@@ -89,6 +89,11 @@
 
   --brand-ink: var(--raw-color-green-950);
 
+  /* Xura Pulse reactions (coded previews): keen, unsure, put off. */
+  --pulse-yes: var(--raw-color-teal-600);
+  --pulse-maybe: var(--raw-color-amber-500);
+  --pulse-no: var(--raw-color-orange-600);
+
   --employee-chief-of-staff: var(--raw-color-violet-500);
   --employee-marketing: var(--raw-color-orange-600);
   --employee-recruiting: var(--raw-color-amber-500);
@@ -166,6 +171,10 @@
   --color-duo-mid: var(--duo-mid);
   --color-duo-soft: var(--duo-soft);
   --color-duo-wash: var(--duo-wash);
+
+  --color-pulse-yes: var(--pulse-yes);
+  --color-pulse-maybe: var(--pulse-maybe);
+  --color-pulse-no: var(--pulse-no);
 
   --color-band-sand: var(--band-sand);
   --color-band-sand-soft: var(--band-sand-soft);

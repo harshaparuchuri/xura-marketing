@@ -176,14 +176,22 @@ type OutputShot = {
  * "What they produce" rail: one card per output type (owner, 2026-11-18).
  * Apps and Answers are coded previews (`HiringAppPreview`, `AskXuraPreview`); the rest are real captures.
  */
-export const HOME_OUTPUTS: readonly { title: string; byline: string; shot?: OutputShot; preview?: "app" | "chat" }[] = [
+export const HOME_OUTPUTS: readonly { title: string; byline: string; shot?: OutputShot; preview?: "app" | "chat" | "pulse" | "pulse-report" | "persona" }[] = [
   { title: "Answers", byline: "Ask Xura anything about your business", preview: "chat" },
   { title: "Apps", byline: "Built in chat, like this hiring pipeline", preview: "app" },
+
   {
     title: "Dashboards",
     byline: "Live numbers from every system",
     shot: { src: "/assets/product/dashboard.webp", alt: "A Xura dashboard with headcount KPIs above a headcount-by-department chart", crop: { x: 0.07, y: 0.41, w: 0.6 } },
   },
+  {
+    title: "Research reports",
+    byline: "Deep research on any topic",
+    shot: { src: "/assets/product/out-research.webp", alt: "A Xura deep research report on plant safety trends in pharmaceutical manufacturing, with an executive summary", crop: { x: 0.22, y: 0.12, w: 0.58 } },
+  },
+  { title: "Audience tests", byline: "Xura Pulse: up to 200 people react before launch", preview: "pulse" },
+  { title: "Pulse reports", byline: "A/B winners, attention and the questions they'd ask", preview: "pulse-report" },
   {
     title: "Decks",
     byline: "The month's numbers, ready for leadership",
@@ -201,11 +209,6 @@ export const HOME_OUTPUTS: readonly { title: string; byline: string; shot?: Outp
     },
   },
   {
-    title: "Research reports",
-    byline: "Deep research on any topic",
-    shot: { src: "/assets/product/out-research.webp", alt: "A Xura deep research report on plant safety trends in pharmaceutical manufacturing, with an executive summary", crop: { x: 0.22, y: 0.12, w: 0.58 } },
-  },
-  {
     title: "Briefs",
     byline: "The bottom line on one page",
     shot: {
@@ -221,6 +224,7 @@ export const HOME_OUTPUTS: readonly { title: string; byline: string; shot?: Outp
     byline: "A visual story from your data",
     shot: { src: "/assets/product/out-infographic.webp", alt: "A Xura infographic headed Q4 Plant Performance Leaders with a headline number and a chart", crop: { x: 0.21, y: 0.17, w: 0.58 } },
   },
+  { title: "Simulated personas", byline: "Interview any persona, one to one", preview: "persona" },
 ];
 
 export const HOME_CHANNELS = {
@@ -301,4 +305,14 @@ export const HOME_TEAMS = {
     { name: "Marketing", href: "/ai-employees" },
     { name: "IT", href: "/integrations" },
   ],
+} as const;
+
+/** Home "Xura Pulse" band (owner, 2026-11-19): the second product, after the outputs rail. */
+export const HOME_PULSE = {
+  label: "Xura Pulse",
+  tag: "New",
+  heading: "Hear your market before you launch",
+  body: "Run a message, deck, campaign or price past up to 200 simulated people at once. A/B test versions, read the reasons, and interview anyone one to one.",
+  points: ["Up to 200 people per run", "A/B tests before launch", "Rooted in your company's context"],
+  cta: "See Xura Pulse",
 } as const;

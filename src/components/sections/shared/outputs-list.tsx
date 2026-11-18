@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { AskXuraPreview } from "@/components/graphics/ask-xura-preview";
 import { HiringAppPreview } from "@/components/graphics/hiring-app-preview";
+import { PulseInterviewPreview, PulseLivePreview, PulseReportPreview } from "@/components/graphics/pulse-preview";
 import { HOME_OUTPUTS } from "@/data/home";
 
 /**
@@ -51,6 +52,15 @@ export const OutputsList = ({ id }: { id: string }) => (
                 <OutputShot {...j.shot} />
               ) : j.preview === "chat" ? (
                 <AskXuraPreview />
+              ) : j.preview === "pulse-report" ? (
+                <PulseReportPreview className="rounded-none shadow-none" />
+              ) : j.preview === "persona" ? (
+                <PulseInterviewPreview className="rounded-none shadow-none" />
+              ) : j.preview === "pulse" ? (
+                /* Pulse: the coded live run, drawn wide and scaled down to the card. */
+                <div aria-hidden className="w-[200%] origin-top-left scale-50">
+                  <PulseLivePreview className="rounded-none shadow-none" />
+                </div>
               ) : (
                 /* Apps: the coded app replica, drawn at desktop width and scaled down to the card. */
                 <div aria-hidden className="w-[200%] origin-top-left scale-50">

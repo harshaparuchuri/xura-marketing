@@ -113,11 +113,24 @@ export const PLATFORM_MENU = {
       { label: "Security", href: "/security", body: "Approvals, audit logs, your data stays yours", image: { src: "/assets/photos/industry-fintech.webp", alt: "A professional reviewing reports" } },
     ],
   ],
+  /** Right-hand feature: Xura Pulse, drawn as a coded crowd (owner, 2026-11-19). */
   feature: {
-    title: "Start with a 2-day bootcamp",
-    cta: "Book a bootcamp",
-    image: { src: "/assets/photos/bootcamp-room.webp", alt: "A small team discussing printed reports around a meeting table" },
+    kind: "pulse",
+    href: "/pulse",
+    tag: "New",
+    title: "Xura Pulse",
+    body: "Test messages, decks, campaigns and prices on up to 200 simulated people before you launch.",
+    cta: "See Xura Pulse",
   },
+} as const;
+
+/** Bootcamp feature card (How we work menu). */
+export const BOOTCAMP_FEATURE = {
+  kind: "image",
+  href: "/trial",
+  title: "Start with a 2-day bootcamp",
+  cta: "Book a bootcamp",
+  image: { src: "/assets/photos/bootcamp-room.webp", alt: "A small team discussing printed reports around a meeting table" },
 } as const;
 
 /** Nav "How we work" dropdown (ADR-0041): the service side of Xura. */
@@ -132,5 +145,5 @@ export const HOW_MENU = {
       { label: "Use cases", href: "/use-cases", body: "Deviation investigation, sales reviews, plant reviews and more", image: { src: "/assets/product/out-deck.webp", alt: "A leadership deck slide built by Xura" } },
     ],
   ],
-  feature: PLATFORM_MENU.feature,
+  feature: BOOTCAMP_FEATURE,
 } as const;

@@ -23,6 +23,7 @@ A fuller plain-text version of the site is at https://xuralabs.com/llms-full.txt
 
 - [AI transformation](https://xuralabs.com/ai-transformation): The why and what, for leaders: why AI projects stall, what makes a good first job, good first jobs by team, how it grows from one job to the whole business, what changes for your people, and the decisions that stay with leadership.
 - [Bootcamp](https://xuralabs.com/bootcamp): A paid two-day session that maps where work gets stuck and shows AI working on your own data before you commit.
+- [Xura Pulse](https://xuralabs.com/pulse): Audience testing on simulated people. Run a message, sales or pitch deck, campaign (video, LinkedIn, Instagram) or price past up to 200 personas at once; A/B test versions before launch; interview any persona one to one. Works for any audience (customers, decision makers, investors, partners); panels are built with Xura's team.
 - [Deployment](https://xuralabs.com/deployment): The how: each phase from the 2-day bootcamp to live in about two weeks (what it reads, produces and who approves), who is involved on both sides, how control moves to the customer, what Xura needs from you, hosting options, and support after go-live.
 - [Book a bootcamp](https://xuralabs.com/trial): Request form.
 
