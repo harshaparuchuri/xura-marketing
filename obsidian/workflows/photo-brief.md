@@ -64,13 +64,13 @@ documentary", "hyderabad pharma lab". Licence each image for web use.
 
 ## Hero video
 
-`public/assets/video/hero-sequence.mp4` — three Pexels clips (owner-chosen:
-aerial industrial complex 38522698, aerial factory site 34383400, people in
+`public/assets/video/hero-sequence.mp4` — five Pexels clips (owner-chosen:
+people busy working with their computers 3249672 (opener), aerial industrial complex 38522698, aerial factory site 34383400, people in
 a laboratory 8381408, brainstorming at work 6804128), cut 8 s each from
 the masters, scaled to 1920×1080 with Lanczos (the 2732×1440 team clip is
 scaled to 1080 high and centre-cropped), crossfaded 1 s (`xfade`, offsets
-7/14/21), 30 fps, H.264 CRF 20 — 29 s total. Graded
-and grained in the same pass (grain `alls=5`, CRF 23, ~15 MB). **To redo, run
+7/14/21/28), 30 fps, H.264 CRF 23 — 36 s total. Graded
+and grained once over the whole sequence (grain `alls=5`, ~17 MB). Phone cut: centre-crop 9:16, 540×960, CRF 30. **To redo, run
 `scripts/render-hero-video.sh <masters-dir>`** (filters and offsets live
 there). Otherwise: keep CRF ≤ 20 for quality, `-movflags +faststart`, `yuv420p`, no audio;
 regenerate the poster from frame 0. Replace with Indian-site footage of our

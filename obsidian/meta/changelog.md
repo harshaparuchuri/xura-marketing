@@ -10,6 +10,16 @@ This is a human-curated log — not a mirror of `git log`.
 
 > Note: entries for 2026-11-16 were appended at the end of this file during that session.
 
+## 2026-11-21 — Built-at logos moved off home
+- Removed `BuiltAtStrip` and `BuiltAtMarquee` from the home page (and deleted both files): the logo carousel read as a client list (owner). The logos stay on /about only; its label changed from “Where we’ve built” to “Where our teams come from” (`ABOUT_TEAM.builtAt.label`).
+
+## 2026-11-21 — Hero video: people-at-computers opener
+- `scripts/render-hero-video.sh` now renders five clips (36 s): new opener `people.mp4` (Pexels 3249672, 8 s) before factory → lab → industrial zone → team. Grade, vignette and grain apply once over the whole sequence, so the opener matches. Masters are the UHD downloads; `OUT_DIR` overrides the output folder.
+- Deployed: `hero-sequence.mp4` (36 s, ~17 MB), the phone cut (~1.9 MB) and both posters re-rendered; first frame is now the opener. `HOME_HERO_VIDEO.alt` and `photo-brief.md` updated.
+
+## 2026-11-21 — Hero sub made industry-generic
+- Home hero sub (`data/home.ts`): "…quality and IT teams in pharma and manufacturing." → "…quality and IT teams across industries." Meta description, About, FAQ and JSON-LD still name pharma and manufacturing.
+
 ## 2026-11-19 — Xura Pulse page
 - New `/pulse` page (`views/pulse.tsx`, `data/pulse.ts`): audience testing on simulated people. Use cases from the owner: doctor messaging, sales decks with decision makers, marketing campaigns (A/B videos, LinkedIn, Instagram), distributor pricing; up to 200 personas live in one run (product `MAX_POOL_SIZE`); interview any persona one to one.
 - Video frames were replaced the same day by coded screens (`graphics/pulse-preview.tsx`): live run with a 200-seat crowd, A/B report, one-to-one interview. Frame assets deleted. Copy made domain-agnostic (owner): messages, sales/pitch decks, campaigns/creatives, pricing/offers.
