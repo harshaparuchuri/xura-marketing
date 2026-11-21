@@ -1,5 +1,4 @@
 import { Bootcamp } from "@/components/sections/home/bootcamp";
-import { BuiltAtStrip } from "@/components/sections/home/built-at-strip";
 import { EmployeesGrid } from "@/components/sections/home/employees-grid";
 import { Faq } from "@/components/sections/home/faq";
 import { HomeClosing } from "@/components/sections/home/home-closing";
@@ -16,7 +15,7 @@ import { getServiceStructuredData } from "@/utils/seo/structured-data";
  * Home view — Server Component. Seven sections modelled on wonderful.ai's
  * structure (obsidian/workflows/home-repositioning-plan.md, ADR-0035):
  * hero → statement → platform + team → team strip → AI employees grid → industries tabs
- * → Xura Pulse band → bootcamp → built-at logo strip → FAQ + closing → footer. Monochrome; abstract `FlowField`
+ * → Xura Pulse band → bootcamp → FAQ + closing → footer. Monochrome; abstract `FlowField`
  * backdrops stand in for photography until real team photos exist.
  */
 export const HomeView = () => (
@@ -34,7 +33,6 @@ export const HomeView = () => (
       <IndustriesTabs />
       <PulseBand />
       <Bootcamp />
-      <BuiltAtStrip />
       <Faq />
       <HomeClosing />
     </main>

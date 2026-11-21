@@ -62,7 +62,7 @@ export const ABOUT_TEAM: {
   heading: "Built by a team with 30+ years in AI and enterprise software",
   lead: "Our founders built and scaled enterprise products before starting Xura, at companies including these.",
   builtAt: {
-    label: "Where we’ve built",
+    label: "Where our teams come from",
     logos: [
       { name: "ADP", src: "/assets/logos/adp.webp", width: 264, height: 120 },
       { name: "IBM", src: "/assets/logos/ibm.webp", width: 321, height: 120 },
