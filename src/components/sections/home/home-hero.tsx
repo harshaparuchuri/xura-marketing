@@ -8,7 +8,7 @@ import { HOME_BOOTCAMP, HOME_HERO, HOME_HERO_VIDEO } from "@/data/home";
 import { siteConfig } from "@/lib/site";
 
 /**
- * Home hero — full-bleed background video (factory → pharma lab →
+ * Home hero — full-bleed background video (people at computers → factory → pharma lab →
  * industrial zone, crossfaded) under a dark gradient + grain,
  * the nav floating over it in white, and a huge centred light H1. Text
  * slides (y) but never fades, so LCP text is in the HTML.

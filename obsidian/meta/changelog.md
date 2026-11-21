@@ -13,9 +13,9 @@ This is a human-curated log — not a mirror of `git log`.
 ## 2026-11-21 — Built-at logos moved off home
 - Removed `BuiltAtStrip` and `BuiltAtMarquee` from the home page (and deleted both files): the logo carousel read as a client list (owner). The logos stay on /about only; its label changed from “Where we’ve built” to “Where our teams come from” (`ABOUT_TEAM.builtAt.label`).
 
-## 2026-11-21 — Hero video script: people-at-computers opener (not yet deployed)
+## 2026-11-21 — Hero video: people-at-computers opener
 - `scripts/render-hero-video.sh` now renders five clips (36 s): new opener `people.mp4` (Pexels 3249672, 8 s) before factory → lab → industrial zone → team. Grade, vignette and grain apply once over the whole sequence, so the opener matches. Masters are the UHD downloads; `OUT_DIR` overrides the output folder.
-- The live files in `public/assets/video/` and the alt text in `data/home.ts` are **unchanged** until the owner approves the preview render; `photo-brief.md` still describes the live four-clip file.
+- Deployed: `hero-sequence.mp4` (36 s, ~17 MB), the phone cut (~1.9 MB) and both posters re-rendered; first frame is now the opener. `HOME_HERO_VIDEO.alt` and `photo-brief.md` updated.
 
 ## 2026-11-21 — Hero sub made industry-generic
 - Home hero sub (`data/home.ts`): "…quality and IT teams in pharma and manufacturing." → "…quality and IT teams across industries." Meta description, About, FAQ and JSON-LD still name pharma and manufacturing.
