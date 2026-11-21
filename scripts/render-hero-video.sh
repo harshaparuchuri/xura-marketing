@@ -1,15 +1,16 @@
 #!/bin/bash
 # Renders public/assets/video/hero-sequence.mp4 (+ poster) from the Pexels
-# masters: four 8 s clips, 1 s crossfades, cinematic grade + temporal grain.
+# masters: five 8 s clips, 1 s crossfades, cinematic grade + temporal grain.
 # See obsidian/workflows/photo-brief.md → "Hero video".
 #
 # Usage: scripts/render-hero-video.sh <masters-dir>
-#   <masters-dir> must hold factory.mp4 (Pexels 34383400), lab.mp4 (8381408),
-#   solar.mp4 (38522698) and brainstorm.mp4 (6804128) — the 2560/2732×1440
-#   versions. Needs ffmpeg and Python 3 with Pillow (for the WebP poster).
+#   <masters-dir> must hold people.mp4 (Pexels 3249672, the opener), factory.mp4
+#   (34383400), lab.mp4 (8381408), solar.mp4 (38522698) and brainstorm.mp4
+#   (6804128) — the UHD (3840/4096×2160) downloads.
+#   Set OUT_DIR to render somewhere other than public/assets/video. Needs ffmpeg and Python 3 with Pillow (for the WebP poster).
 set -euo pipefail
 M="$1"
-OUT="$(cd "$(dirname "$0")/.." && pwd)/public/assets/video"
+OUT="${OUT_DIR:-$(cd "$(dirname "$0")/.." && pwd)/public/assets/video}"
 
 # Grade: lower saturation, a little contrast, cool shadows / warm highlights,
 # lifted blacks + soft highlight roll-off, light vignette, moving film grain.
@@ -17,14 +18,16 @@ GRADE="eq=contrast=1.10:saturation=0.80:gamma=0.97,colorbalance=rs=-0.04:bs=0.06
 FIT="scale=-2:1080:flags=lanczos,crop=1920:1080,fps=30,setsar=1"
 
 ffmpeg -v error -y \
+  -ss 0 -t 8 -i "$M/people.mp4" \
   -ss 5 -t 8 -i "$M/factory.mp4" \
   -ss 0 -t 8 -i "$M/lab.mp4" \
   -ss 2 -t 8 -i "$M/solar.mp4" \
   -ss 2 -t 8 -i "$M/brainstorm.mp4" \
-  -filter_complex "[0:v]$FIT[a];[1:v]$FIT[b];[2:v]$FIT[c];[3:v]$FIT[d];\
-[a][b]xfade=transition=fade:duration=1:offset=7[ab];\
-[ab][c]xfade=transition=fade:duration=1:offset=14[abc];\
-[abc][d]xfade=transition=fade:duration=1:offset=21,$GRADE,format=yuv420p[v]" \
+  -filter_complex "[0:v]$FIT[p];[1:v]$FIT[a];[2:v]$FIT[b];[3:v]$FIT[c];[4:v]$FIT[d];\
+[p][a]xfade=transition=fade:duration=1:offset=7[pa];\
+[pa][b]xfade=transition=fade:duration=1:offset=14[pab];\
+[pab][c]xfade=transition=fade:duration=1:offset=21[pabc];\
+[pabc][d]xfade=transition=fade:duration=1:offset=28,$GRADE,format=yuv420p[v]" \
   -map "[v]" -an -c:v libx264 -preset slow -crf 23 -profile:v high -pix_fmt yuv420p \
   -movflags +faststart "$OUT/hero-sequence.tmp.mp4"
 mv "$OUT/hero-sequence.tmp.mp4" "$OUT/hero-sequence.mp4"

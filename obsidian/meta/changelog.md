@@ -10,6 +10,10 @@ This is a human-curated log — not a mirror of `git log`.
 
 > Note: entries for 2026-11-16 were appended at the end of this file during that session.
 
+## 2026-11-21 — Hero video script: people-at-computers opener (not yet deployed)
+- `scripts/render-hero-video.sh` now renders five clips (36 s): new opener `people.mp4` (Pexels 3249672, 8 s) before factory → lab → industrial zone → team. Grade, vignette and grain apply once over the whole sequence, so the opener matches. Masters are the UHD downloads; `OUT_DIR` overrides the output folder.
+- The live files in `public/assets/video/` and the alt text in `data/home.ts` are **unchanged** until the owner approves the preview render; `photo-brief.md` still describes the live four-clip file.
+
 ## 2026-11-21 — Hero sub made industry-generic
 - Home hero sub (`data/home.ts`): "…quality and IT teams in pharma and manufacturing." → "…quality and IT teams across industries." Meta description, About, FAQ and JSON-LD still name pharma and manufacturing.
 
