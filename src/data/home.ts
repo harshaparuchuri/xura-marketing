@@ -9,7 +9,7 @@ import type { EmployeeName } from "@/data/industries";
 export const HOME_HERO = {
   h1: "AI transformation, built for your business.",
   /** Leads with who it's for — role and region, never company size (see repositioning plan). */
-  sub: "For operations, sales, quality and IT teams in pharma and manufacturing. Our team finds the work AI should be doing, then custom\u2011builds the apps and workflows that do it. See it live in 2 weeks.",
+  sub: "For operations, sales, quality and IT teams across industries. Our team finds the work AI should be doing, then custom\u2011builds the apps and workflows that do it. See it live in 2 weeks.",
 } as const;
 
 /** Hero background video: factory → pharma lab → industrial zone, one file with crossfades (Pexels, see photo-brief.md). */
